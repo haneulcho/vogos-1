@@ -27,15 +27,30 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
     echo "<li class=\"sct_li {$sct_last}\" style=\"width:{$this->img_width}px\">\n";
 
     if ($this->href) {
-        echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
+        if (!empty($row['it_1'])) { // 확장변수 있을 경 우 hasVideo
+            echo "<div class=\"sct_img hasVideo\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
+        } else {
+            echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
+        }  
     }
 
     if ($this->view_it_img) {
         echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
+
+        if ($this->view_it_basic && $row['it_basic']) {
+            echo "<div class=\"itemDetail\"><div class=\"lineDeco\"></div>".stripslashes($row['it_basic'])."</div>";
+        }
     }
 
     if ($this->href) {
-        echo "</a></div>\n";
+        echo "</a>";
+    }
+
+    if (!empty($row['it_1'])) { //확장변수 있을 경우
+        //echo "<div class=\"btn_video\">View Video</div></div>\n<div class=\"modal_video\"><embed src=\"http://smarturl.it/jwplayer59\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" flashvars=\"skin=http://vogostest.cafe24.com/skin.swf&file=".$row['it_1']."&type=video&autostart=true&repeat=always\"/></div>";
+        echo "<div class=\"btn_video\">View Video</div></div>\n<div class=\"modal_video\"><div id=\"".$row['it_id']."\"><script type=\"text/javascript\">jwplayer('".$row['it_id']."').setup({file:'http://techslides.com/demos/sample-videos/small.mp4',width:960,height:480,modes:[{type:'html5'},{type:'download'},{type:'flash', src:'http://vogostest.cafe24.com/skin.swf'}]});</script></div></div>";
+    } else {
+        echo "</div>\n";
     }
 
     if ($this->view_it_icon) {
@@ -56,10 +71,6 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 
     if ($this->href) {
         echo "</a></div>\n";
-    }
-
-    if ($this->view_it_basic && $row['it_basic']) {
-        echo "<div class=\"sct_basic\">".stripslashes($row['it_basic'])."</div>\n";
     }
 
     if ($this->view_it_cust_price || $this->view_it_price) {

@@ -12,12 +12,12 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
     <h2>상품 정보</h2>
     <?php echo pg_anchor('inf'); ?>
 
-    <?php if ($it['it_basic']) { // 상품 기본설명 ?>
-    <h3>상품 기본설명</h3>
-    <div id="sit_inf_basic">
-         <?php echo $it['it_basic']; ?>
-    </div>
-    <?php } ?>
+    <?php //if ($it['it_basic']) { // 상품 기본설명 ?>
+    <!-- <h3>상품 기본설명</h3>
+    <div id="sit_inf_basic"> -->
+         <?php //echo $it['it_basic']; ?>
+    <!-- </div> -->
+    <?php //} ?>
 
     <?php if ($it['it_explan']) { // 상품 상세설명 ?>
     <h3>상품 상세설명</h3>
@@ -71,23 +71,27 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 </section>
 <!-- } 상품 정보 끝 -->
 
-<!-- 사용후기 시작 { -->
-<section id="sit_use">
-    <h2>사용후기</h2>
-    <?php echo pg_anchor('use'); ?>
+<?php if ($default['de_rel_list_use']) { ?>
+<!-- 관련상품 시작 { -->
+<section id="sit_rel">
+    <h2>관련상품</h2>
+    <?php echo pg_anchor('rel'); ?>
 
-    <div id="itemuse"><?php include_once('./itemuse.php'); ?></div>
+    <div class="sct_wrap sct_rel">
+        <?php
+        $rel_skin_file = $skin_dir.'/'.$default['de_rel_list_skin'];
+        if(!is_file($rel_skin_file))
+            $rel_skin_file = G5_SHOP_SKIN_PATH.'/'.$default['de_rel_list_skin'];
+
+        $sql = " select b.* from {$g5['g5_shop_item_relation_table']} a left join {$g5['g5_shop_item_table']} b on (a.it_id2=b.it_id) where a.it_id = '{$it['it_id']}' and b.it_use='1' ";
+        $list = new item_list($rel_skin_file, $default['de_rel_list_mod'], 0, $default['de_rel_img_width'], $default['de_rel_img_height']);
+        $list->set_query($sql);
+        echo $list->run();
+        ?>
+    </div>
 </section>
-<!-- } 사용후기 끝 -->
-
-<!-- 상품문의 시작 { -->
-<section id="sit_qa">
-    <h2>상품문의</h2>
-    <?php echo pg_anchor('qa'); ?>
-
-    <div id="itemqa"><?php include_once('./itemqa.php'); ?></div>
-</section>
-<!-- } 상품문의 끝 -->
+<!-- } 관련상품 끝 -->
+<?php } ?>
 
 <?php if ($default['de_baesong_content']) { // 배송정보 내용이 있다면 ?>
 <!-- 배송정보 시작 { -->
@@ -112,27 +116,23 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 <!-- } 교환/반품 끝 -->
 <?php } ?>
 
-<?php if ($default['de_rel_list_use']) { ?>
-<!-- 관련상품 시작 { -->
-<section id="sit_rel">
-    <h2>관련상품</h2>
-    <?php echo pg_anchor('rel'); ?>
+<!-- 사용후기 시작 { -->
+<section id="sit_use">
+    <h2>사용후기</h2>
+    <?php echo pg_anchor('use'); ?>
 
-    <div class="sct_wrap">
-        <?php
-        $rel_skin_file = $skin_dir.'/'.$default['de_rel_list_skin'];
-        if(!is_file($rel_skin_file))
-            $rel_skin_file = G5_SHOP_SKIN_PATH.'/'.$default['de_rel_list_skin'];
-
-        $sql = " select b.* from {$g5['g5_shop_item_relation_table']} a left join {$g5['g5_shop_item_table']} b on (a.it_id2=b.it_id) where a.it_id = '{$it['it_id']}' and b.it_use='1' ";
-        $list = new item_list($rel_skin_file, $default['de_rel_list_mod'], 0, $default['de_rel_img_width'], $default['de_rel_img_height']);
-        $list->set_query($sql);
-        echo $list->run();
-        ?>
-    </div>
+    <div id="itemuse"><?php include_once('./itemuse.php'); ?></div>
 </section>
-<!-- } 관련상품 끝 -->
-<?php } ?>
+<!-- } 사용후기 끝 -->
+
+<!-- 상품문의 시작 { -->
+<section id="sit_qa">
+    <h2>상품문의</h2>
+    <?php echo pg_anchor('qa'); ?>
+
+    <div id="itemqa"><?php include_once('./itemqa.php'); ?></div>
+</section>
+<!-- } 상품문의 끝 -->
 
 <script>
 $(window).on("load", function() {
