@@ -1,0 +1,7 @@
+/* 새글 스킨 (latest) */
+.lat {position:relative;margin-bottom:20px;border-bottom:1px solid #f0f0f0}
+.lat ul {margin:0;padding:10px 8px;list-style:none}
+.lat li {padding:4px 0; font:13px 'malgeun gothic'; letter-spacing:-1.5px;}
+.lat li>img {margin-left:2px;}
+.lat_title {display:block;padding:10px 0 8px}
+.lat_more {position:absolute;top:10px;right:0}
