@@ -11,6 +11,18 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 <input type="hidden" name="url">
 
 <div id="sit_ov_wrap">
+    <!-- 다른 상품 보기 시작 { -->
+    <div id="sit_siblings">
+        <?php
+        if ($prev_href || $next_href) {
+            echo $prev_href.$prev_title.$prev_href2;
+            echo $next_href.$next_title.$next_href2;
+        } else {
+            echo '<span class="sound_only">이 분류에 등록된 다른 상품이 없습니다.</span>';
+        }
+        ?>
+    </div>
+    <!-- } 다른 상품 보기 끝 -->
     <!-- 상품이미지 미리보기 시작 { -->
     <div id="sit_pvi">
         <div id="sit_pvi_big">
@@ -25,7 +37,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 
             if($img) {
                 // 썸네일
-                $thumb = get_it_thumbnail($it['it_img'.$i], 60, 60);
+                $thumb = get_it_thumbnail($it['it_img'.$i], 60, 68);
                 $thumbnails[] = $thumb;
                 $big_img_count++;
 
@@ -289,14 +301,14 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 
         <div id="sit_ov_btn">
             <?php if ($is_orderable) { ?>
-            <input type="submit" onclick="document.pressed=this.value;" value="바로구매" id="sit_btn_buy">
-            <input type="submit" onclick="document.pressed=this.value;" value="장바구니" id="sit_btn_cart">
+            <input type="submit" onclick="document.pressed=this.value;" value="ADD TO CART" id="sit_btn_cart">
+            <input type="submit" onclick="document.pressed=this.value;" value="BUY NOW" id="sit_btn_buy">
             <?php } ?>
             <?php if(!$is_orderable && $it['it_soldout'] && $it['it_stock_sms']) { ?>
             <a href="javascript:popup_stocksms('<?php echo $it['it_id']; ?>');" id="sit_btn_buy">재입고알림</a>
             <?php } ?>
-            <a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>');" id="sit_btn_wish">위시리스트</a>
-            <a href="javascript:popup_item_recommend('<?php echo $it['it_id']; ?>');" id="sit_btn_rec">추천하기</a>
+            <a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>');" id="sit_btn_wish">Wish ♥</a>
+            <!-- <a href="javascript:popup_item_recommend('<?php echo $it['it_id']; ?>');" id="sit_btn_rec">추천하기</a>-->
         </div>
 
         <script>
@@ -334,19 +346,6 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
         </script>
     </section>
     <!-- } 상품 요약정보 및 구매 끝 -->
-
-        <!-- 다른 상품 보기 시작 { -->
-        <div id="sit_siblings">
-            <?php
-            if ($prev_href || $next_href) {
-                echo $prev_href.$prev_title.$prev_href2;
-                echo $next_href.$next_title.$next_href2;
-            } else {
-                echo '<span class="sound_only">이 분류에 등록된 다른 상품이 없습니다.</span>';
-            }
-            ?>
-        </div>
-        <!-- } 다른 상품 보기 끝 -->
 </div>
 
 </form>
