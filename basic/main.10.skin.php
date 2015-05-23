@@ -46,8 +46,9 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
         echo "</a>";
     }
     if (!empty($row['it_1'])) { //확장변수 있을 경우
-        //echo "<div class=\"btn_video\">View Video</div></div>\n<div class=\"modal_video\"><embed src=\"http://smarturl.it/jwplayer59\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" flashvars=\"skin=http://vogostest.cafe24.com/skin.swf&file=".$row['it_1']."&type=video&autostart=true&repeat=always\"/></div>";
-        echo "<div class=\"btn_video\">View Video</div></div>\n<div class=\"modal_video\"><div id=\"".$row['it_id']."\"><script type=\"text/javascript\">jwplayer('".$row['it_id']."').setup({file:'http://techslides.com/demos/sample-videos/small.mp4',width:960,height:480,modes:[{type:'html5'},{type:'download'},{type:'flash', src:'http://vogostest.cafe24.com/skin.swf'}]});</script></div></div>";
+        //echo "<div class=\"btn_video\">View Video</div></div>\n<div class=\"modal_video\"><div class=\"modal_info\"><embed src=\"http://smarturl.it/jwplayer59\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" flashvars=\"skin=http://vogostest.cafe24.com/skin.swf&file=".$row['it_1']."&type=video&autostart=true&repeat=always\"/></div></div>";
+        include(G5_SHOP_SKIN_PATH.'/video.form.skin.php');
+        //echo "<div class=\"btn_video\">View Video</div></div>\n<div class=\"modal_video\"><div id=\"".$row['it_id']."\"><script type=\"text/javascript\">jwplayer('".$row['it_id']."').setup({file:'http://techslides.com/demos/sample-videos/small.mp4',width:960,height:480,modes:[{type:'html5'},{type:'download'},{type:'flash', src:'http://vogostest.cafe24.com/skin.swf'}]});</script></div></div>";
     } else {
         echo "</div>\n";
     }

@@ -190,9 +190,10 @@
 .scr_10 .sct_img .lineDeco {width:162px;}
 .sct_img .lineDeco {position:absolute;top:0;width:232px;}
 .sct_img .btn_video {display:none;font:13px tahoma;line-height:1.5em;width:100%;height:30px;padding-top:10px;left:0;bottom:0;color:#fff;position:absolute;z-index:999;text-align:center;background:url('img/play_button.png') no-repeat 14px center #333;cursor:pointer;}
-.sct_img + .modal_video {display:none;top:200px;left:0;right:0;bottom:0;margin:0 auto;position:fixed;width:1000px;height:620px;background:rgba(0,0,0,0.8);color:#fff;text-align:center;padding:15px;z-index:9999;}
+.sct_img + .modal_video {display:none;top:0;left:0;right:0;bottom:0;margin:0 auto;position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.8);color:#fff;text-align:center;padding:15px;z-index:9999;}
+.sct_img + .modal_video .modal_info {position:absolute;top:120px;left:0;right:0;margin:auto;width:800px;height:640px;}
 .sct_img + .modal_video.active {display:block;}
-.sct_img + .modal_video embed {margin-top:80px;width:960px; height:480px;}
+.sct_img + .modal_video embed {float:left;width:480px; height:640px;}
 
 /* 상품 목록 스킨 10 */
 .sct_10 .sct_li {position:relative;float:left;margin:0 30px 15px 0}
@@ -412,6 +413,23 @@
 /* 상품 상세보기 - 개요 */
 #sit_ov_wrap {width:960px;margin:0 auto 20px;zoom:1}
 #sit_ov_wrap:after {display:block;visibility:hidden;clear:both;content:""}
+
+/* 모달창 상세보기 */
+#vsit_ov_wrap {float:right;width:320px;height:640px;}
+#vsit_ov {overflow:hidden;padding:60px 20px 32px;color:#333;background-color:#fff}
+#vsit_ov #sit_title {float:none;width:260px;padding:10px 10px 15px;margin-bottom:2px;}
+#vsit_ov #sit_desc {padding-bottom:15px;border-top:none;border-bottom:2px solid #333;}
+#vsit_ov #sit_star_sns {top:30px;right:19px;}
+#vsit_ov #sit_ov_btn {float:none;width:auto;}
+#vsit_ov #sit_ov_btn a {display:block;width:190px;height:20px;margin:0 auto 3px;padding:10px;color:#fff;font:14px tahoma;letter-spacing:normal;-webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  -ms-transition: background 0.3s ease-in-out;
+  -o-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;}
+.sit_btn_more {background-color:#d4b900;}
+.sit_btn_wish {background-color:#aaa;}
+.sit_btn_more:hover {background-color:#333;}
+.sit_btn_wish:hover {background-color:#ff8c9f;}
 
 /* 상품 상세보기 - 이미지 미리보기 */
 #sit_pvi {float:left;padding:15px;width:390px; border:1px solid #333;}
