@@ -431,6 +431,23 @@
 .sit_btn_more:hover {background-color:#333;}
 .sit_btn_wish:hover {background-color:#ff8c9f;}
 
+/* 위시리스트, 장바구니 ajax css 추가 */
+#cart_msg_layer {position:absolute;top:0;left:25px;padding:5px;width:336px;border:2px solid #343434;border-radius:2px;background:#fff;text-align:left;letter-spacing:0}
+#cart_msg_layer h3 {padding:5px 0 10px;border-bottom:1px solid #343434}
+#cart_msg_close {position:absolute;top:5px;right:5px;margin:0;padding:0;width:22px;height:22px;border:0;background:transparent;overflow:hidden}
+#cart_msg_close span {position:absolute;top:0;left:0;width:100%;height:100%;background:url('img/pop_msg_close.gif')}
+#cart_msg_layer p {color:#e23838;text-align:center;line-height:1.5em}
+#cart_msg_layer div {padding:10px 0;text-align:center}
+#cart_msg_layer div button {margin:0 2px;padding:0;border:0;background:transparent}
+
+#wish_msg_layer {position:absolute;top:0;left:25px;padding:5px;width:336px;border:2px solid #343434;border-radius:2px;background:#fff;text-align:left;letter-spacing:0}
+#wish_msg_layer h3 {padding:5px 0 10px;border-bottom:1px solid #343434}
+#wish_msg_close {position:absolute;top:5px;right:5px;margin:0;padding:0;width:22px;height:22px;border:0;background:transparent;overflow:hidden}
+#wish_msg_close span {position:absolute;top:0;left:0;width:100%;height:100%;background:url('img/pop_msg_close.gif')}
+#wish_msg_layer p {color:#e23838;text-align:center;line-height:1.5em}
+#wish_msg_layer div {padding:10px 0;text-align:center}
+#wish_msg_layer div button {margin:0 2px;padding:0;border:0;background:transparent}
+
 /* 상품 상세보기 - 이미지 미리보기 */
 #sit_pvi {float:left;padding:15px;width:390px; border:1px solid #333;}
 #sit_pvi_big {margin:0 0 10px;text-align:center}

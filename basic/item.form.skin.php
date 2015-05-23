@@ -307,18 +307,60 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
             <?php if(!$is_orderable && $it['it_soldout'] && $it['it_stock_sms']) { ?>
             <a href="javascript:popup_stocksms('<?php echo $it['it_id']; ?>');" id="sit_btn_buy">재입고알림</a>
             <?php } ?>
-            <a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>');" id="sit_btn_wish">Wish ♥</a>
+            <a href="javascript:item_wish('<?php echo $it['it_id']; ?>');" id="sit_btn_wish">Wish ♥</a>
             <!-- <a href="javascript:popup_item_recommend('<?php echo $it['it_id']; ?>');" id="sit_btn_rec">추천하기</a>-->
         </div>
 
         <script>
-        // 상품보관
-        function item_wish(f, it_id)
+        // 상품보관 위시리스트 ajax 처리를 위해 추가된 부분
+        function item_wish(it_id)
         {
-            f.url.value = "<?php echo G5_SHOP_URL; ?>/wishupdate.php?it_id="+it_id;
-            f.action = "<?php echo G5_SHOP_URL; ?>/wishupdate.php";
-            f.submit();
+            if(!it_id) {
+                alert("상품코드가 올바르지 않습니다.");
+                return false;
+            }
+
+            $.post(
+                "<?php echo G5_SHOP_CSS_URL; ?>/item.form.wishupdate.php",
+                { it_id: it_id },
+                function(error) {
+                    if(error != "OK") {
+                        alert(error.replace(/\\n/g, "\n"));
+                        return false;
+                    }
+
+                    var wish_msg_layer = "";
+                    wish_msg_layer += "<div id=\"wish_msg_layer\">";
+                    wish_msg_layer += "<h3>위시리스트 보기</h3>";
+                    wish_msg_layer += "<button type=\"button\" id=\"wish_msg_close\"><span></span>닫기</button>";
+                    wish_msg_layer += "<p>상품이 위시리스트에 담겼습니다.<br><strong>지금 확인하시겠습니까?</strong></p>";
+                    wish_msg_layer += "<div>";
+                    wish_msg_layer += "<button type=\"button\" id=\"wish_msg_yes\"><img src=\"<?php echo G5_SHOP_CSS_URL; ?>/img/pop_msg_yes.gif\" alt=\"예\"></button>";
+                    wish_msg_layer += "<button type=\"button\" id=\"wish_msg_no\"><img src=\"<?php echo G5_SHOP_CSS_URL; ?>/img/pop_msg_no.gif\" alt=\"아니오\"></button>";
+                    wish_msg_layer += "</div>";
+                    wish_msg_layer += "</div>";
+
+                    var pos = $("#sit_btn_wish").position();
+                    var top = pos.top + 40;
+
+                    $("#sit_ov").append(wish_msg_layer);
+                    $("#wish_msg_layer").css("top", top+"px");
+                }
+            );
         }
+        $(function(){
+            // 위시리스트 레이어 닫기
+            $("#wish_msg_close, #wish_msg_no").live("click", function() {
+                $("#wish_msg_layer").fadeOut(400, function() {
+                    $(this).remove();
+                });
+            });
+
+            // 위시리스트 이동
+            $("#wish_msg_yes").live("click", function() {
+                document.location.href = "<?php echo G5_SHOP_URL; ?>/wishlist.php";
+            });
+        });
 
         // 추천메일
         function popup_item_recommend(it_id)
@@ -379,7 +421,7 @@ $(function(){
 // 바로구매, 장바구니 폼 전송
 function fitem_submit(f)
 {
-    if (document.pressed == "장바구니") {
+    if (document.pressed == "ADD TO CART") {
         f.sw_direct.value = 0;
     } else { // 바로구매
         f.sw_direct.value = 1;
@@ -442,6 +484,52 @@ function fitem_submit(f)
         return false;
     }
 
-    return true;
+    // 장바구니 ajax 처리를 위해 추가된 부분
+    if (document.pressed == "ADD TO CART") {
+        $.post(
+            "<?php echo G5_SHOP_CSS_URL; ?>/item.form.cartupdate.php",
+            $(f).serialize(),
+            function(error) {
+                if(error != "OK") {
+                    alert(error.replace(/\\n/g, "\n"));
+                    return false;
+                }
+
+                var cart_msg_layer = "";
+                cart_msg_layer += "<div id=\"cart_msg_layer\">";
+                cart_msg_layer += "<h3>장바구니 보기</h3>";
+                cart_msg_layer += "<button type=\"button\" id=\"cart_msg_close\"><span></span>닫기</button>";
+                cart_msg_layer += "<p>상품이 장바구니에 담겼습니다.<br><strong>지금 확인하시겠습니까?</strong></p>";
+                cart_msg_layer += "<div>";
+                cart_msg_layer += "<button type=\"button\" id=\"cart_msg_yes\"><img src=\"<?php echo G5_SHOP_CSS_URL; ?>/img/pop_msg_yes.gif\" alt=\"예\"></button>";
+                cart_msg_layer += "<button type=\"button\" id=\"cart_msg_no\"><img src=\"<?php echo G5_SHOP_CSS_URL; ?>/img/pop_msg_no.gif\" alt=\"아니오\"></button>";
+                cart_msg_layer += "</div>";
+                cart_msg_layer += "</div>";
+
+                var pos = $("#sit_btn_cart").position();
+                var top = pos.top + 40;
+
+                $("#sit_ov").append(cart_msg_layer);
+                $("#cart_msg_layer").css("top", top+"px");
+            }
+        );
+
+        return false;
+    } else {
+        return true;
+    }
 }
+$(function(){
+    // 장바구니 레이어 닫기
+    $("#cart_msg_close, #cart_msg_no").on("click", function() {
+        $("#cart_msg_layer").fadeOut(400, function() {
+            $(this).remove();
+        });
+    });
+
+    // 장바구니 이동
+    $("#cart_msg_yes").on("click", function() {
+        document.location.href = "<?php echo G5_SHOP_URL; ?>/cart.php";
+    });
+});
 </script>
