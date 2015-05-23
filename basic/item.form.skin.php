@@ -341,7 +341,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
                     wish_msg_layer += "</div>";
 
                     var pos = $("#sit_btn_wish").position();
-                    var top = pos.top + 40;
+                    var top = pos.top + 30;
 
                     $("#sit_ov").append(wish_msg_layer);
                     $("#wish_msg_layer").css("top", top+"px");
@@ -521,14 +521,14 @@ function fitem_submit(f)
 }
 $(function(){
     // 장바구니 레이어 닫기
-    $("#cart_msg_close, #cart_msg_no").on("click", function() {
+    $("#cart_msg_close, #cart_msg_no").live("click", function() {
         $("#cart_msg_layer").fadeOut(400, function() {
             $(this).remove();
         });
     });
 
     // 장바구니 이동
-    $("#cart_msg_yes").on("click", function() {
+    $("#cart_msg_yes").live("click", function() {
         document.location.href = "<?php echo G5_SHOP_URL; ?>/cart.php";
     });
 });
