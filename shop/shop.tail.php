@@ -18,44 +18,7 @@ $admin = get_admin("super");
 
 <!-- 하단 시작 { -->
 </div>
-<script>
-(function($) {
-    var $showHref = $('.sct_img');
 
-    $showHref.each(function() {
-        var $itemDetail = $(this).children('.sct_a').children('.itemDetail');
-        var $btn_video = $(this).children('.btn_video');
-        var $modal = $(this).next('.modal_video');
-
-        $(this).mouseenter(function(e) {
-                $itemDetail.filter(':not(:animated)').fadeIn(300);
-                $btn_video.filter(':not(:animated)').fadeIn(300);
-            })
-            .mouseleave(function() {
-                $itemDetail.filter(':not(:animated)').fadeOut(300);
-                $btn_video.filter(':not(:animated)').fadeOut(300);
-            });
-        $btn_video.on('click', function(e){
-            showModal(true);
-            e.preventDefault();
-        });
-        function showModal(flag) {
-            if(flag) {
-                $modal.filter(':not(:animated)').animate({opacity:'toggle'}, 250);
-                $modal.click(function() {
-                    jwplayer().pause();
-                });
-                $('body').click(function() {
-                    $modal.filter(':not(:animated)').animate({opacity:'hide'}, 250);
-                });
-                $('.modal_header .close').click(function() {
-                    $modal.filter(':not(:animated)').animate({opacity:'hide'}, 250);
-                });
-            }
-        }
-    });
-}(jQuery));
-</script>
 <div id="ft">
     <div class="lineDeco"></div>
     <div>

@@ -3,6 +3,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0);
+include_once(G5_SHOP_SKIN_PATH.'/video.php');
 ?>
 
 <!-- 상품진열 10 시작 { -->
@@ -27,7 +28,7 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
     echo "<li class=\"sct_li {$sct_last}\" style=\"width:{$this->img_width}px\">\n";
 
     if ($this->href) {
-        if (!empty($row['it_1'])) { // 확장변수 있을 경 우 hasVideo
+        if (!empty($row['it_1'])) { // 확장변수 있을 경우 hasVideo
             echo "<div class=\"sct_img hasVideo\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
         } else {
             echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
@@ -47,8 +48,7 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
     }
 
     if (!empty($row['it_1'])) { //확장변수 있을 경우
-        echo "<div class=\"btn_video\">View Video</div></div>\n<div class=\"modal_video\"><embed src=\"http://smarturl.it/jwplayer59\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" flashvars=\"skin=http://vogostest.cafe24.com/skin.swf&file=".$row['it_1']."&type=video&autostart=true&repeat=always\"/></div>";
-        //echo "<div class=\"btn_video\">View Video</div></div>\n<div class=\"modal_video\"><div id=\"".$row['it_id']."\"><script type=\"text/javascript\">jwplayer('".$row['it_id']."').setup({file:'http://techslides.com/demos/sample-videos/small.mp4',width:960,height:480,modes:[{type:'html5'},{type:'download'},{type:'flash', src:'http://vogostest.cafe24.com/skin.swf'}]});</script></div></div>";
+        include(G5_SHOP_SKIN_PATH.'/video.form.skin.php');
     } else {
         echo "</div>\n";
     }
