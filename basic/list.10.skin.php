@@ -3,8 +3,8 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0);
+include_once(G5_SHOP_SKIN_PATH.'/video.php');
 ?>
-
 <!-- 상품진열 10 시작 { -->
 <?php
 for ($i=1; $row=sql_fetch_array($result); $i++) {
@@ -27,15 +27,28 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
     echo "<li class=\"sct_li{$sct_last}\" style=\"width:{$this->img_width}px\">\n";
 
     if ($this->href) {
-        echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
+        if (!empty($row['it_1'])) { // 확장변수 있을 경우 hasVideo
+            echo "<div class=\"sct_img hasVideo\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
+        } else {
+            echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
+        }  
     }
 
     if ($this->view_it_img) {
         echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
+
+        if ($this->view_it_basic && $row['it_basic']) {
+            echo "<div class=\"itemDetail\"><div class=\"lineDeco\"></div>".stripslashes($row['it_basic'])."</div>";
+        }
     }
 
     if ($this->href) {
-        echo "</a></div>\n";
+        echo "</a>";
+    }
+    if (!empty($row['it_1'])) { //확장변수 있을 경우
+        include(G5_SHOP_SKIN_PATH.'/video.form.skin.php');
+    } else {
+        echo "</div>\n";
     }
 
     if ($this->view_it_icon) {
@@ -56,10 +69,6 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 
     if ($this->href) {
         echo "</a></div>\n";
-    }
-
-    if ($this->view_it_basic && $row['it_basic']) {
-        echo "<div class=\"sct_basic\">".stripslashes($row['it_basic'])."</div>\n";
     }
 
     if ($this->view_it_cust_price || $this->view_it_price) {

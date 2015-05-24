@@ -45,7 +45,7 @@ $sns_url  = G5_SHOP_URL.'/item.php?it_id='.$row['it_id'];
             <!-- 상품 요약정보 및 구매 시작 { -->
             <section id="v<?php echo $row[it_id] ?>" class="vsit_ov">
                 <h2 class="sit_title"><?php echo stripslashes($row['it_name']); ?></h2>
-                <p class="sit_desc"><?php echo $row['it_basic']; ?></p>
+                <p class="sit_desc"><?php if ($this->view_it_basic && $row['it_basic']) { echo $row['it_basic']; } ?></p>
 
                 <div class="sit_star_sns">
                     <?php if ($star_score) { ?>

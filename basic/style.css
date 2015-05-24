@@ -1,13 +1,13 @@
 @charset "utf-8";
 /* SIR 지운아빠 */
 /* 150506 css */
-#hd_video {margin:0 auto;width:1200px;padding:85px 0 0; margin-bottom:60px; text-align:center;}
+#hd_video {margin:0 auto;width:1200px;padding:70px 0 0; margin-bottom:30px; text-align:center;}
 #hd_video h2 {font-family:Georgia, Serif, tahoma; font-size:48px; margin-bottom:30px;
     animation: fadein 2s;
     -moz-animation: fadein 2s; /* Firefox */
     -webkit-animation: fadein 2s; /* Safari and Chrome */
     -o-animation: fadein 2s; /* Opera */}
-#hd_video embed {width:960px; height:480px;
+#hd_video embed {width:960px; height:480px; margin-bottom:10px;
     animation: fadein 4s;
     -moz-animation: fadein 4s; /* Firefox */
     -webkit-animation: fadein 4s; /* Safari and Chrome */
@@ -76,7 +76,7 @@
 #tnb ul {zoom:1}
 #tnb ul:after {display:block;visibility:hidden;clear:both;content:""}
 #tnb li {float:left}
-#tnb a {display:inline-block;padding:0 10px;height:28px;color:#333;font-family:tahoma;line-height:2.4em}
+#tnb a {display:inline-block;padding:0 10px;height:28px;color:#555;font-family:tahoma;line-height:2.4em}
 #tnb a:focus, #tnb a:hover {text-decoration:underline;}
 
 /* 오늘 본 상품 */
@@ -159,9 +159,6 @@
 .sct_wrap h2 {float:left;margin:0 20px 0 0;padding:10px 13px 8px 12px;line-height:1em;border-top:2px solid #333;border-bottom:1px solid #333;}
 .sct_wrap h2 a {text-decoration:none;font-family: Georgia, Serif, tahoma;font-size: 13px;}
 .sct_wrap_hdesc {float:left;margin:0;padding:0;color:#777;line-height:1em}
-
-#sct {clear:both}
-
 .sct {clear:both;margin:0;padding:0;list-style:none;zoom:1}
 .sct:after {display:block;visibility:hidden;clear:both;content:""}
 .sct_li {position:relative}
@@ -359,7 +356,7 @@
 /* ##### main(nn).skin.php, list.(nn).skin..php 공통 적용 끝 ##### */
 
 /* 상품 목록 */
-#sct {}
+#sct {overflow:hidden;}
 .sct_admin {margin:0 0 10px;text-align:right}
 
 /* 상품 목록 현재 위치 */

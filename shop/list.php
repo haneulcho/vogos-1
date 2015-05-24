@@ -51,9 +51,14 @@ if ($is_admin)
 var itemlist_ca_id = "<?php echo $ca_id; ?>";
 </script>
 <script src="<?php echo G5_JS_URL; ?>/shop.list.js"></script>
+<!-- 공지사항 시작 { -->
+<section id="sidx_lat">
+    <?php echo latest('shop_basic', 'notice', 6, 30); ?>
+</section>
+<!-- } 공지사항 끝 -->
 
 <!-- 상품 목록 시작 { -->
-<div id="sct">
+<div id="sct" class="sct_wrap">
 
     <?php
     $nav_skin = $skin_dir.'/navigation.skin.php';
@@ -115,8 +120,8 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
         $list->set_view('it_basic', true);
         $list->set_view('it_cust_price', true);
         $list->set_view('it_price', true);
-        $list->set_view('it_icon', true);
-        $list->set_view('sns', true);
+        $list->set_view('it_icon', false);
+        $list->set_view('sns', false);
         echo $list->run();
 
         // where 된 전체 상품수
