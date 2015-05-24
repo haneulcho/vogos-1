@@ -50,24 +50,6 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
         }
         ?>
         </div>
-        <?php
-        // 썸네일
-        $thumb1 = true;
-        $thumb_count = 0;
-        $total_count = count($thumbnails);
-        if($total_count > 0) {
-            echo '<ul id="sit_pvi_thumb">';
-            foreach($thumbnails as $val) {
-                $thumb_count++;
-                $sit_pvi_last ='';
-                if ($thumb_count % 5 == 0) $sit_pvi_last = 'class="li_last"';
-                    echo '<li '.$sit_pvi_last.'>';
-                    echo '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$thumb_count.'" target="_blank" class="popup_item_image img_thumb">'.$val.'<span class="sound_only"> '.$thumb_count.'번째 이미지 새창</span></a>';
-                    echo '</li>';
-            }
-            echo '</ul>';
-        }
-        ?>
     </div>
     <!-- } 상품이미지 미리보기 끝 -->
 
