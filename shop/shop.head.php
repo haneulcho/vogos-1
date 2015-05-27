@@ -15,7 +15,6 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
     return; // 이 코드의 아래는 실행을 하지 않습니다.
 }
 ?>
-<script src="jwp.js"></script>
 <!-- 상단 시작 { -->
 <div id="hd">
     <h1 id="hd_h1"><?php echo $g5['title'] ?></h1>

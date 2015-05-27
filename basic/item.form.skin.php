@@ -9,7 +9,6 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 <input type="hidden" name="it_id[]" value="<?php echo $it_id; ?>">
 <input type="hidden" name="sw_direct">
 <input type="hidden" name="url">
-
 <div id="sit_ov_wrap">
     <!-- 다른 상품 보기 시작 { -->
     <div id="sit_siblings">
@@ -24,33 +23,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
     </div>
     <!-- } 다른 상품 보기 끝 -->
     <!-- 상품이미지 미리보기 시작 { -->
-    <div id="sit_pvi">
-        <div id="sit_pvi_big">
-        <?php
-        $big_img_count = 0;
-        $thumbnails = array();
-        for($i=1; $i<=10; $i++) {
-            if(!$it['it_img'.$i])
-                continue;
-
-            $img = get_it_thumbnail($it['it_img'.$i], $default['de_mimg_width'], $default['de_mimg_height']);
-
-            if($img) {
-                // 썸네일
-                $thumb = get_it_thumbnail($it['it_img'.$i], 60, 68);
-                $thumbnails[] = $thumb;
-                $big_img_count++;
-
-                echo '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$i.'" target="_blank" class="popup_item_image">'.$img.'</a>';
-            }
-        }
-
-        if($big_img_count == 0) {
-            echo '<img src="'.G5_SHOP_URL.'/img/no_image.gif" alt="">';
-        }
-        ?>
-        </div>
-    </div>
+    <?php include_once(G5_SHOP_SKIN_PATH.'/img_mag.php'); ?>
     <!-- } 상품이미지 미리보기 끝 -->
 
     <!-- 상품 요약정보 및 구매 시작 { -->
