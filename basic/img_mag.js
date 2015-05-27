@@ -1,16 +1,15 @@
-Aui.ready( function()
+Aui.ready(function()
 {
-	//var oDemo = Aui( "#demo" );
 	var opt = {
-		
 		smallSrc : sSrc,
-		smallWidth : sWidth,
-		smallHeight : sHeight,
+		smallWidth : Number(sWidth),
+		smallHeight : Number(sHeight),
 		
 		bigSrc : bSrc,
-		bigWidth : bWidth,
-		bigHeight : bHeight
+		bigWidth : Number(bWidth),
+		bigHeight : Number(bHeight)
 	};
+
 	var oWin = Aui( window );
 	var owraper = Aui( "#sit_pvi" )
 	var oSmall = Aui( "#sit_pvi_small" );
@@ -29,8 +28,10 @@ Aui.ready( function()
 
 	var iTop = owraper.top();
 	var iLeft = owraper.left();
-	var iWidth = owraper.width();
-	var iHeight = owraper.height();
+	var iWidth = opt.smallWidth + 32;
+	var iHeight = opt.smallHeight + 32;
+	//var iWidth = owraper.width();
+	//var iHeight = owraper.height();
 	var iSpeed = 200;
 	
 	var setOpa = function( o )
@@ -81,8 +82,8 @@ Aui.ready( function()
 		
 		var w = oMask.width();
 		var h = oMask.height();
-		var x = e.clientX - iLeft + oWin.scrollLeft() - w/2;
-		var y = e.clientY - iTop + oWin.scrollTop() - h/2;
+		var x = e.clientX - iLeft + oWin.scrollLeft() - 68 - w/2;
+		var y = e.clientY - iTop + oWin.scrollTop() - 295 - h/2;
 
 		var l = iWidth - w - 10;
 		var t = iHeight - h - 10;
@@ -198,9 +199,10 @@ Aui.ready( function()
 		{
 			iTop = owraper.top();
 			iLeft = owraper.left();
-			iWidth = owraper.width();
-			iHeight = owraper.height();
-
+			// iWidth = owraper.width();
+			// iHeight = owraper.height();
+			iWidth = opt.smallWidth + 32;
+			iHeight = opt.smallHeight + 32;
 		});
 		oSmall.hover( eventOver, eventOut )
 			  .mousemove( eventMove );
