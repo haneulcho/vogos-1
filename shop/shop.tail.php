@@ -12,13 +12,11 @@ $admin = get_admin("super");
 // 사용자 화면 우측과 하단을 담당하는 페이지입니다.
 // 우측, 하단 화면을 꾸미려면 이 파일을 수정합니다.
 ?>
-
-    </div>
-    <!-- } 콘텐츠 끝 -->
+        </div> <!-- container end -->
+    </div> <!-- wrapper end -->
+</div> <!-- vogos end -->
 
 <!-- 하단 시작 { -->
-</div>
-
 <div id="ft">
     <div class="lineDeco"></div>
     <div>

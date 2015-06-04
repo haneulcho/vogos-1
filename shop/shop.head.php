@@ -16,57 +16,12 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
 }
 ?>
 <!-- 상단 시작 { -->
-<div id="hd">
-    <h1 id="hd_h1"><?php echo $g5['title'] ?></h1>
-
-    <div id="skip_to_container"><a href="#container">본문 바로가기</a></div>
-
-    <?php if(defined('_INDEX_')) { // index에서만 실행
-        include G5_BBS_PATH.'/newwin.inc.php'; // 팝업레이어
-     } ?>
-
-    <aside id="hd_qnb">
-        <h2>쇼핑몰 퀵메뉴</h2>
-        <div>
-            <a href="<?php echo G5_SHOP_URL; ?>/cart.php"><img src="<?php echo G5_SHOP_URL; ?>/img/hd_nb_cart.gif" alt="장바구니"></a>
-            <a href="<?php echo G5_SHOP_URL; ?>/wishlist.php"><img src="<?php echo G5_SHOP_URL; ?>/img/hd_nb_wish.gif" alt="위시리스트"></a>
-            <a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php"><img src="<?php echo G5_SHOP_URL; ?>/img/hd_nb_deli.gif" alt="주문/배송조회"></a>
-        </div>
-    </aside>
-
-    <div id="hd_video">
-        <h2><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><?php echo $config['cf_title']; ?><!--<img src="<?php echo G5_DATA_URL; ?>/common/logo_img" alt="<?php echo $config['cf_title']; ?>">--></a></h2>
-    <?php if(defined('_INDEX_')) { ?>    
-        <embed src="http://smarturl.it/jwplayer59" type="application/x-shockwave-flash" allowfullscreen="true" flashvars="skin=http://cfs.tistory.com/custom/blog/152/1525660/skin/images/skin2.swf&amp;file=http://www.googledrive.com/host/0B1nP4TpJdXCbSnYtbEM3aHhRdms&amp;type=video&amp;autostart=false&amp;repeat=always">
-    <?php } ?>
+<div id="vogos">
+    <div id="hd">
+        <h1 id="topLogo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><?php echo $config['cf_title']; ?></a></h1>
     </div>
-
-    <?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 ?>
-    <div id="hd_wrapper">
-        <div id="hd_sch">
-            <h3>쇼핑몰 검색</h3>
-            <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
-
-            <label for="sch_str" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-            <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
-            <input type="submit" value="검색" id="sch_submit">
-
-            </form>
-            <script>
-            function search_submit(f) {
-                if (f.q.value.length < 2) {
-                    alert("검색어는 두글자 이상 입력하십시오.");
-                    f.q.select();
-                    f.q.focus();
-                    return false;
-                }
-
-                return true;
-            }
-            </script>
-        </div>
-
-        <div id="tnb">
+    <div id="wrapper">
+        <div id="tnb"> <!-- join, sign in etc... sub nav -->
             <h3>회원메뉴</h3>
             <ul>
                 <?php if ($is_member) { ?>
@@ -89,38 +44,66 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
                 <?php } ?>
             </ul>
         </div>
-    </div>
-</div>
-<div class="lineDeco"></div>
 
-<div id="wrapper">
+        <div id="container"> <!-- contents wrapper -->
 
-    <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
+            <div class="side"> <!-- side contents -->
+                <?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 ?>
+                <div id="hd_sch">
+                    <h3>쇼핑몰 검색</h3>
+                    <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
+                        <label for="sch_str" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+                        <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
+                        <input type="submit" value="검색" id="sch_submit">
+                    </form>
+                    <script>
+                    function search_submit(f) {
+                    if (f.q.value.length < 2) {
+                    alert("검색어는 두글자 이상 입력하십시오.");
+                    f.q.select();
+                    f.q.focus();
+                    return false;
+                    }
 
-    <div id="aside">
-        <?php //echo outlogin('shop_basic'); // 아웃로그인 ?>
+                    return true;
+                    }
+                    </script>
+                </div>
 
-        <?php //include_once(G5_SHOP_SKIN_PATH.'/boxcart.skin.php'); // 장바구니 ?>
+                <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
 
-        <?php //include_once(G5_SHOP_SKIN_PATH.'/boxwish.skin.php'); // 위시리스트 ?>
+                <div id="lst">
+                    <?php //echo outlogin('shop_basic'); // 아웃로그인 ?>
 
-        <?php //include_once(G5_SHOP_SKIN_PATH.'/boxevent.skin.php'); // 이벤트 ?>
+                    <?php //include_once(G5_SHOP_SKIN_PATH.'/boxcart.skin.php'); // 장바구니 ?>
 
-        <?php //include_once(G5_SHOP_SKIN_PATH.'/boxcommunity.skin.php'); // 커뮤니티 ?>
+                    <?php //include_once(G5_SHOP_SKIN_PATH.'/boxwish.skin.php'); // 위시리스트 ?>
 
-        <!-- 쇼핑몰 배너 시작 { -->
-        <?php echo display_banner('왼쪽'); ?>
-        <!-- } 쇼핑몰 배너 끝 -->
-    </div>
-<!-- } 상단 끝 -->
+                    <?php //include_once(G5_SHOP_SKIN_PATH.'/boxevent.skin.php'); // 이벤트 ?>
 
-    <!-- 콘텐츠 시작 { -->
-    <div id="container">
-        <?php //if ((!$bo_table || $w == 's' ) && !defined('_INDEX_')) { ?><div id="wrapper_title"><?php //echo $g5['title'] ?></div><?php //} ?>
-        <!-- 글자크기 조정 display:none 되어 있음 시작 { -->
-        <div id="text_size">
-            <button class="no_text_resize" onclick="font_resize('container', 'decrease');">작게</button>
-            <button class="no_text_resize" onclick="font_default('container');">기본</button>
-            <button class="no_text_resize" onclick="font_resize('container', 'increase');">크게</button>
-        </div>
-        <!-- } 글자크기 조정 display:none 되어 있음 끝 -->
+                    <?php //include_once(G5_SHOP_SKIN_PATH.'/boxcommunity.skin.php'); // 커뮤니티 ?>
+
+                    <!-- 쇼핑몰 배너 시작 { -->
+                    <?php echo display_banner('왼쪽'); ?>
+                    <!-- } 쇼핑몰 배너 끝 -->
+                </div>
+
+            </div> <!-- side end -->
+
+            <div class="contents"> <!-- main contents -->
+                <?php if(defined('_INDEX_')) { ?>
+                <div id="hd_video"> <!-- weekly video -->
+                    <embed src="http://smarturl.it/jwplayer59" type="application/x-shockwave-flash" allowfullscreen="true" flashvars="skin=http://cfs.tistory.com/custom/blog/152/1525660/skin/images/skin2.swf&amp;file=http://www.googledrive.com/host/0B1nP4TpJdXCbSnYtbEM3aHhRdms&amp;type=video&amp;autostart=false&amp;repeat=always"></embed>
+                </div> <!-- weekly video end -->
+                <?php } ?>
+            </div> <!-- main contents end -->
+
+            <!-- 콘텐츠 시작 { -->
+            <?php //if ((!$bo_table || $w == 's' ) && !defined('_INDEX_')) { ?><div id="wrapper_title"><?php //echo $g5['title'] ?></div><?php //} ?>
+            <!-- 글자크기 조정 display:none 되어 있음 시작 { -->
+            <div id="text_size">
+                <button class="no_text_resize" onclick="font_resize('container', 'decrease');">작게</button>
+                <button class="no_text_resize" onclick="font_default('container');">기본</button>
+                <button class="no_text_resize" onclick="font_resize('container', 'increase');">크게</button>
+            </div>
+            <!-- } 글자크기 조정 display:none 되어 있음 끝 -->
