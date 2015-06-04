@@ -17,28 +17,29 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
 ?>
 <!-- 상단 시작 { -->
 <div id="vogos">
-    <div id="hd">
+    <div id="header">
         <h1 id="topLogo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><?php echo $config['cf_title']; ?></a></h1>
     </div>
-    <div id="wrapper">
+    <div id="vWrapper">
         <div id="tnb"> <!-- join, sign in etc... sub nav -->
             <h3>회원메뉴</h3>
             <ul>
                 <?php if ($is_member) { ?>
                 <?php if ($is_admin) {  ?>
-                <li><a href="<?php echo G5_ADMIN_URL; ?>/shop_admin/"><b>Admin</b></a></li>
+                <li class="tadmin"><a href="<?php echo G5_ADMIN_URL; ?>/shop_admin/"><b>Admin</b></a></li>
                 <?php }  ?>
-                <li><a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php">Myinfo</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop">Sign Out</a></li>
+                <li class="tmypage"><a href="<?php echo G5_SHOP_URL; ?>/mypage.php">My Page</a></li>
+                <li class="tsignout"><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop">Sign Out</a></li>
                 <?php } else { ?>
-                <li><a href="<?php echo G5_BBS_URL; ?>/register.php">Join</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><b>Sign In</b></a></li>
+                <li class="tjoin"><a href="<?php echo G5_BBS_URL; ?>/register.php">Join</a></li>
+                <li class="tsignin"><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><b>Sign In</b></a></li>
                 <?php } ?>
-                <li><a href="<?php echo G5_SHOP_URL; ?>/mypage.php">My Page</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/qalist.php">Q&A</a></li>
-                <li><a href="<?php echo G5_SHOP_URL; ?>/personalpay.php">Only You</a></li>
-                <li><a href="<?php echo G5_SHOP_URL; ?>/itemuselist.php">Reviews</a></li>
+            </ul>
+            <ul>
+                <li class="tfaq"><a href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a></li>
+                <li class="tqna"><a href="<?php echo G5_BBS_URL; ?>/qalist.php">Q&amp;A</a></li>
+                <li class="tonlyu"><a href="<?php echo G5_SHOP_URL; ?>/personalpay.php">Only You</a></li>
+                <li class="treviews"><a href="<?php echo G5_SHOP_URL; ?>/itemuselist.php">Reviews</a></li>
                 <?php if(!$default['de_root_index_use']) { ?>
                 <!-- <li><a href="<?php echo G5_URL; ?>/">커뮤니티</a></li> -->
                 <?php } ?>
@@ -47,7 +48,7 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
 
         <div id="container"> <!-- contents wrapper -->
 
-            <div class="side"> <!-- side contents -->
+            <div id="side"> <!-- side contents -->
                 <?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 ?>
                 <div id="hd_sch">
                     <h3>쇼핑몰 검색</h3>
@@ -90,13 +91,12 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
 
             </div> <!-- side end -->
 
-            <div class="contents"> <!-- main contents -->
+            <div id="contents"> <!-- main contents -->
                 <?php if(defined('_INDEX_')) { ?>
                 <div id="hd_video"> <!-- weekly video -->
                     <embed src="http://smarturl.it/jwplayer59" type="application/x-shockwave-flash" allowfullscreen="true" flashvars="skin=http://cfs.tistory.com/custom/blog/152/1525660/skin/images/skin2.swf&amp;file=http://www.googledrive.com/host/0B1nP4TpJdXCbSnYtbEM3aHhRdms&amp;type=video&amp;autostart=false&amp;repeat=always"></embed>
                 </div> <!-- weekly video end -->
                 <?php } ?>
-            </div> <!-- main contents end -->
 
             <!-- 콘텐츠 시작 { -->
             <?php //if ((!$bo_table || $w == 's' ) && !defined('_INDEX_')) { ?><div id="wrapper_title"><?php //echo $g5['title'] ?></div><?php //} ?>
