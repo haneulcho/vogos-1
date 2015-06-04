@@ -19,11 +19,23 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
             $gnb_zindex -= 1; // html 구조에서 앞선 gnb_1dli 에 더 높은 z-index 값 부여
             // 2단계 분류 판매 가능한 것만
             $sql2 = " select ca_id, ca_name from {$g5['g5_shop_category_table']} where LENGTH(ca_id) = '4' and SUBSTRING(ca_id,1,2) = '{$row['ca_id']}' and ca_use = '1' order by ca_order, ca_id ";
+            $imgsql = " select it_id from {$g5['g5_shop_item_table']} where ca_id = '{$row['ca_id']}' order by it_time desc";
+            $imgresult = sql_query($imgsql); 
             $result2 = sql_query($sql2);
             $count = mysql_num_rows($result2);
         ?>
+        <?php
+            for ($k=0; $row3=sql_fetch_array($imgresult); $k++) {
+                if($k==0 && !empty($row3['it_id'])) {
+                    //$imgURL = $row3['it_img1'];
+                    $imgURL = get_it_image($row3['it_id'], 250, '', false);
+                    break;
+                }
+            }
+        ?>
         <li class="gnb_1dli <?php echo strtolower($row['ca_name']); ?>" style="z-index:<?php echo $gnb_zindex; ?>">
-            <a href="<?php echo G5_SHOP_URL.'/list.php?ca_id='.$row['ca_id']; ?>" class="gnb_1da<?php if ($count) echo ' gnb_1dam'; ?>"><span><?php echo $row['ca_name']; ?></span><img src="http://vogostest.cafe24.com/data/item/vogos20150602/thumb-1627437437_300x420.jpg"></a>
+            <a href="<?php echo G5_SHOP_URL.'/list.php?ca_id='.$row['ca_id']; ?>" class="gnb_1da<?php if ($count) echo ' gnb_1dam'; ?>"><span><?php echo $row['ca_name']; ?></span><?php echo $imgURL; ?>
+            </a>
             <?php
             for ($j=0; $row2=sql_fetch_array($result2); $j++)
             {
