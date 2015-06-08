@@ -45,6 +45,29 @@ $admin = get_admin("super");
     </div>
 </div>
 
+<?php 
+if(G5_USE_MOBILE && !G5_IS_MOBILE && is_mobile()) { 
+    $seq = 0; 
+    $href = $_SERVER['PHP_SELF']; 
+    if($_SERVER['QUERY_STRING']) { 
+        $sep = '?'; 
+        foreach($_GET as $key=>$val) { 
+            if($key == 'device') 
+                continue; 
+
+            $href .= $sep.$key.'='.strip_tags($val); 
+            $sep = '&amp;'; 
+            $seq++; 
+        } 
+    } 
+    if($seq) 
+        $href .= '&amp;device=mobile'; 
+    else 
+        $href .= '?device=mobile'; 
+?> 
+<a href="<?php echo $href; ?>" id="device_change">모바일 버전으로 보기</a> 
+<?php } // end of 'check mobile' ?> 
+
 <?php
 $sec = get_microtime() - $begin_time;
 $file = $_SERVER['PHP_SELF'];

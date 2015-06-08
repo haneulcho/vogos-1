@@ -26,6 +26,7 @@ $admin = get_admin("super");
         <?php if ($default['de_admin_buga_no']) echo '<span><b>부가통신사업신고번호</b> '.$default['de_admin_buga_no'].'</span>'; ?><br>
         Copyright &copy; 2001-2013 <?php echo $default['de_admin_company_name']; ?>. All Rights Reserved.
     </p>
+    <a href="<?php echo G5_SHOP_URL; ?>/?device=pc" id="ft_to_pc">PC버전</a>
     <a href="#" id="ft_to_top">상단으로</a>
 </div>
 
