@@ -17,14 +17,6 @@ define("_INDEX_", TRUE);
 include_once(G5_SHOP_PATH.'/shop.head.php');
 ?>
 
-<!-- 커뮤니티 최신글 시작 { -->
-<section id="sidx_lat">
-    <?php echo latest('shop_basic', 'notice', 6, 30); ?>
-    <?php //echo latest('shop_basic', 'free', 5, 25); ?>
-    <?php //echo latest('shop_basic', 'qa', 5, 20); ?>
-</section>
-<!-- } 커뮤니티 최신글 끝 -->
-
 <!-- 이벤트 배너 메인이미지 시작 { -->
 <div id="main_event">
 <?php echo display_banner('메인', 'mainbanner.10.skin.php'); ?>
@@ -35,7 +27,7 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
 <!-- 최신상품 시작 { -->
 <section class="sct_wrap">
     <header>
-        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3"># NEW ARRIVALS</a></h2>
+        <h2 class="new_arrivals"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3"># NEW ARRIVALS</a></h2>
         <!-- <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> 최신상품 모음</p> -->
     </header>
     <?php
@@ -58,7 +50,7 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
 <!-- 인기상품 시작 { -->
 <section class="sct_wrap">
     <header>
-        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4"># BEST ITEMS</a></h2>
+        <h2 class="best_item"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4"># BEST ITEMS</a></h2>
         <!-- <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> 인기상품 모음</p> -->
     </header>
     <?php
@@ -81,7 +73,7 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
 <!-- 추천상품 시작 { -->
 <section class="sct_wrap">
     <header>
-        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2"># MD's CHOICE</a></h2>
+        <h2 class="md_choice"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2"># MD's CHOICE</a></h2>
         <!-- <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> 추천상품 모음</p> -->
     </header>
     <?php

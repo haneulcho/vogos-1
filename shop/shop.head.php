@@ -17,6 +17,7 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
 ?>
 <!-- 상단 시작 { -->
 <div id="vogos">
+    <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
     <div id="header">
         <h1 id="topLogo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><?php echo $config['cf_title']; ?></a></h1>
     </div>
@@ -47,7 +48,6 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
         </div>
 
         <div id="container"> <!-- contents wrapper -->
-
             <div id="side"> <!-- side contents -->
                 <?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 ?>
                 <div id="hd_sch">
@@ -55,7 +55,7 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
                     <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
                         <label for="sch_str" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
                         <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
-                        <input type="submit" value="검색" id="sch_submit">
+                        <input type="image" src="http://vogostest.cafe24.com/skin/shop/vogos_pc/img/search.png" value="검색" id="sch_submit">
                     </form>
                     <script>
                     function search_submit(f) {
@@ -70,8 +70,6 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
                     }
                     </script>
                 </div>
-
-                <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
 
                 <div id="lst">
                     <?php //echo outlogin('shop_basic'); // 아웃로그인 ?>
@@ -88,7 +86,13 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
                     <?php echo display_banner('왼쪽'); ?>
                     <!-- } 쇼핑몰 배너 끝 -->
                 </div>
-
+                <!-- 커뮤니티 최신글 시작 { -->
+                <section id="sidx_lat">
+                    <?php echo latest('shop_basic', 'notice', 6, 30); ?>
+                    <?php //echo latest('shop_basic', 'free', 5, 25); ?>
+                    <?php //echo latest('shop_basic', 'qa', 5, 20); ?>
+                </section>
+                <!-- } 커뮤니티 최신글 끝 -->
             </div> <!-- side end -->
 
             <div id="contents"> <!-- main contents -->

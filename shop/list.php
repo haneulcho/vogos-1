@@ -51,11 +51,6 @@ if ($is_admin)
 var itemlist_ca_id = "<?php echo $ca_id; ?>";
 </script>
 <script src="<?php echo G5_JS_URL; ?>/shop.list.js"></script>
-<!-- 공지사항 시작 { -->
-<section id="sidx_lat">
-    <?php echo latest('shop_basic', 'notice', 6, 30); ?>
-</section>
-<!-- } 공지사항 끝 -->
 
 <!-- 상품 목록 시작 { -->
 <div id="sct" class="sct_wrap">

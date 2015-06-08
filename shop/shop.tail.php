@@ -21,7 +21,7 @@ $admin = get_admin("super");
 <div id="ft">
     <div class="lineDeco"></div>
     <div>
-        <a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/" id="ft_logo"><img src="<?php echo G5_DATA_URL; ?>/common/logo_img2" alt="처음으로"></a>
+        <a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/" id="ft_logo"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/logo_footer.png" alt="처음으로"></a>
         <ul>
             <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=company">회사소개</a></li>
             <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=provision">서비스이용약관</a></li>

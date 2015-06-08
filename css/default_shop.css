@@ -42,10 +42,10 @@ a:hover, a:focus, a:active {color:#000;text-decoration:underline}
 
 #logo {float:left;padding:5px 0 0}
 
-#hd_sch {float:left;margin:0;border-bottom:1px solid #c3c6ca}
+#hd_sch {margin:15px 0 38px;}
 #hd_sch h3 {position:absolute;font-size:0;line-height:0;overflow:hidden}
-#hd_sch #sch_str {padding-left:5px;width:110px;height:24px;border:0;background:#f2f5f9;line-height:1.9em !important;line-height:1.6em;}
-#hd_sch #sch_submit {padding:0 5px;height:26px;border:0;background:none;color:#888;cursor:pointer;font-size:11px;}
+#hd_sch #sch_str {float:left; padding-left:5px;width:110px;height:26px;border:0;background:#f2f5f9;line-height:1.9em !important;}
+#hd_sch #sch_submit {padding:2px 5px 2px 3px;height:22px;border:0;background:#f2f5f9;cursor:pointer;}
 
 
 /* 중간 레이아웃 */
@@ -56,7 +56,7 @@ a:hover, a:focus, a:active {color:#000;text-decoration:underline}
 /* aside wrapper */
 #aside {float:left;margin:0 10px 0 0;width:150px}
 
-#container {position:relative;min-height:500px;height:auto !important;background:#fff;padding:0 58px;}
+#container {position:relative;min-height:500px;height:auto !important;background:#fff;padding:0 47px 0 58px;}
 #container:after {display:block;visibility:hidden;clear:both;content:""}
 
 /* 텍스트 크기 조절 */
@@ -64,18 +64,18 @@ a:hover, a:focus, a:active {color:#000;text-decoration:underline}
 #text_size button {padding:0 10px;height:30px;border:1px solid #cfded8;border-bottom:0;background:#000;color:#fff;cursor:pointer}
 
 /* 하단 레이아웃 */
-#ft {clear:both;padding:0 0 40px;min-width:1000px;border-top:1px solid #e9e9e9}
+#ft {clear:both;padding:0 0 40px;min-width:1000px;color:#666;font-size:11px;}
 #ft h1 {position:absolute;font-size:0;line-height:0;overflow:hidden}
-#ft div {position:relative;margin:0 auto;padding:0 0 0 200px;width:1000px}
-#ft_logo {position:absolute;top:20px;left:0}
-#ft ul {margin:0 0 15px;padding:20px 0 0;zoom:1}
+#ft div {position:relative;margin:0 auto;padding:0 0 0 160px;width:1000px}
+#ft_logo {position:absolute;top:25px;left:65px}
+#ft ul {margin:0;padding:25px 0 0;zoom:1}
 #ft ul:after {display:block;visibility:hidden;clear:both;content:""}
 #ft li {float:left;margin:0 20px 0 0}
-#ft a {text-decoration:none}
-#ft p {margin:0;padding:10px 0;line-height:1.8em}
+#ft a {text-decoration:none;color:#666;}
+#ft p {margin:0;padding:10px 0;line-height:1.6em}
 #ft span {display:inline-block;margin:0 15px 0 0}
 #ft b {display:inline-block;margin:0 5px 0 0}
-#ft_totop {position:absolute;top:20px;right:0}
+#ft_totop {position:absolute;top:50px;right:20px;display:block;width:21px;height:14px;text-indent:-99999px;line-height:0;background:url('../skin/shop/vogos_pc/img/sprite.png') no-repeat;background-position:-119px -71px;}
 
 /* 화면낭독기 사용자용 */
 #hd_login_msg {position:absolute;top:0;left:0;width:1px;height:1px;overflow:hidden}
@@ -485,8 +485,9 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none}
 #scash_copy {text-align:center}
 
 /* 공지사항 및 커뮤니티 새글 */
-#sidx_lat {padding:0;float:left;width:200px;}
-#sidx_lat h2 {text-align:center;margin:0;padding:10px 13px 8px 12px;line-height:1em;border-top:2px solid #333;border-bottom:1px solid #333;font-family:Georgia, Serif, tahoma;font-size:13px;}
+#sidx_lat {padding:0;}
+#sidx_lat h2 {margin-left:2px;}
+#sidx_lat h2>a {display:block;width:66px;height:15px;text-indent:-99999px;line-height:0;background:url('../skin/shop/vogos_pc/img/sprite.png') no-repeat;background-position:-6px -70px;}
 
 /* 배너 인덱스 출력 */
 #sbn_idx {}

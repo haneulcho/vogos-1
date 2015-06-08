@@ -133,9 +133,9 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
     <div id="itemqa"><?php include_once('./itemqa.php'); ?></div>
 </section>
 <!-- } 상품문의 끝 -->
-
+<!--
 <script>
 $(window).on("load", function() {
     $("#sit_inf_explan").viewimageresize2();
 });
-</script>
+</script> -->
