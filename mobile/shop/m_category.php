@@ -31,6 +31,19 @@ $result = sql_query($sql);
 
 <div class="mobile-menu">
   <div class="mobile-menu-inner">
+    <ul id="userNav">
+        <?php if ($is_member) { ?>
+        <?php if ($is_admin) {  ?>
+        <li><a href="<?php echo G5_ADMIN_URL ?>/shop_admin/"><i class="ion-android-settings"></i>ADMIN</a></li>
+        <?php }  ?>
+        <!-- <li><a href="<?php //echo G5_BBS_URL ?>/member_confirm.php?url=<?php //echo G5_BBS_URL ?>/register_form.php">정보수정</a></li> -->
+        <li><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop"><i class="ion-android-unlock"></i>SIGN OUT</a></li>
+        <li><a href="<?php echo G5_SHOP_URL; ?>/mypage.php"><i class="ion-android-person"></i>MY PAGE</a></li>
+        <?php } else { ?>
+        <li><a href="<?php echo G5_BBS_URL ?>/register.php" id="snb_join"><i class="ion-android-person-add"></i>JOIN</a></li>
+        <li><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><i class="ion-android-lock"></i>SIGN IN</a></li>
+        <?php } ?>
+    </ul>
 
     <!-- 검색 처리 -->
     <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
@@ -80,8 +93,14 @@ $result = sql_query($sql);
         echo '<p id="sct_win_empty">하위 분류가 없습니다.</p>';
     }
     ?>
-  </div>
-</div>
+    <ul id="otherNav">
+        <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i>CART</a></li>
+        <li><a href="<?php echo G5_BBS_URL ?>/board.php?bo_table=notice"><i class="ion-speakerphone"></i>NOTICE</a></li>
+        <li><a href="<?php echo G5_BBS_URL; ?>/faq.php"><i class="ion-android-happy"></i>FAQ</a></li>
+        <li><a href="<?php echo G5_BBS_URL; ?>/qalist.php"><i class="ion-chatbubbles"></i>QNA</a></li>
+    </ul>
+  </div> <!-- inner end -->
+</div> <!-- mobile-menu end -->
 
 </div>
 
