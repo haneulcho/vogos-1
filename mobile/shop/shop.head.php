@@ -18,7 +18,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
         include G5_MOBILE_PATH.'/newwin.inc.php'; // 팝업레이어
     } ?>
 
-    <div id="logo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><img src="<?php echo G5_DATA_URL; ?>/common/mobile_logo_img" alt="<?php echo $config['cf_title']; ?> 메인"></a></div>
+    <div id="logo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><img src="<?php echo G5_DATA_URL; ?>/common/mobile_logo_img.png" alt="<?php echo $config['cf_title']; ?> 메인"></a></div>
 
     <?php include_once(G5_MSHOP_PATH.'/m_category.php'); // 상품분류 ?>
     
