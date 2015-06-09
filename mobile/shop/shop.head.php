@@ -20,7 +20,8 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 
     <div id="logo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><img src="<?php echo G5_DATA_URL; ?>/common/mobile_logo_img" alt="<?php echo $config['cf_title']; ?> 메인"></a></div>
 
-    <a href="<?php echo G5_SHOP_URL; ?>/category.php" target="_blank" id="hd_ct">분류</a>
+    <?php include_once(G5_MSHOP_PATH.'/m_category.php'); // 상품분류 ?>
+    
     <button type="button" id="hd_sch_open">검색<span class="sound_only"> 열기</span></button>
 
     <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
