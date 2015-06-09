@@ -2,8 +2,7 @@
 /* SIR 지운아빠 */
 
 /* 초기화 */
-html {overflow-y:scroll}
-body {margin:0;padding:0;font-size:0.75em}
+body {width:100%;height:100%;margin:0;padding:0;font-size:0.75em}
 html, h1, h2, h3, h4, h5, h6, form, fieldset, img {margin:0;padding:0;border:0}
 h1, h2, h3, h4, h5, h6 {font-size:1em}
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block}
@@ -34,6 +33,9 @@ a:link, a:visited {color:#000;text-decoration:none}
 #logo {padding:5px 0}
 #logo a {display:inline-block;}
 #logo a>img {width:110px;}
+
+#topCart {position:absolute;top:12px;right:10px;}
+#topCart a {display:block;padding:0 10px;font-size:2em;}
 
 #hd_ct {position:absolute;top:10px;left:10px;padding:10px;border:0;background:#333;color:#fff;font-size:1em;text-decoration:none;letter-spacing:-0.1em;vertical-align:top;-webkit-appearance:none}
 
@@ -75,7 +77,8 @@ a.sanchor_on {background:#626870;color:#fff !important;text-decoration:none}
 /* ########## 쇼핑몰 컨텐츠 ########## */
 /* 분류:새창 */
 #sct_win {display:none;}
-.hamburger.open + #sct_win {display:block;}
+#sct_win .backBlind {position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:99;}
+.hamburger.open + #sct_win {display:block;overflow:hidden;}
 #sct_win h1 {padding:15px 0;text-align:center}
 #sct_win_nav {margin:0 0 20px}
 #sct_win_nav h2 {position:absolute;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden}
@@ -91,14 +94,14 @@ a.sanchor_on {background:#626870;color:#fff !important;text-decoration:none}
 #sct_win .win_btn button {display:inline-block;padding:0 10px;height:2.5em;border:0;background:#666;color:#fff;text-decoration:none;line-height:2.5em}
 
 /* 모바일 햄버거 카테고리 */
-.hamburger {position:fixed;top:0;left:0;float:left;margin:10px;padding:8px 8px 7px;cursor:pointer;z-index:99999;display:block;}
+.hamburger {position:absolute;top:0;left:0;margin:10px;padding:8px 8px 7px;cursor:pointer;z-index:99999;display:block;}
 .hamburger .hamburger-inner {position:relative;height:21px;width:20px;display:block;overflow:hidden;margin:0;padding:0}
 .hamburger .bar {width:20px;height:2px;background:#333;position:absolute;top:0}
 .hamburger .bar.bar2, .hamburger .bar.bar3 {top:7px}
 .hamburger .bar.bar4 {top:14px}
 .hamburger.open .bar1, .hamburger.open .bar4 {display:none}
-.hamburger.open .bar2, .hamburger.open .bar3 {height:2px;background:#fff; }
-.mobile-menu {position:fixed;top:0;left:0;opacity:0;display:block;width:240px;height:100%;background-color:#252525;z-index:2;overflow-y:scroll;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.hamburger.open .bar2, .hamburger.open .bar3 {height:2px;background:#333; }
+.mobile-menu {position:fixed;top:0;left:0;opacity:0;display:block;width:240px;height:100%;background-color:#252525;z-index:2;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
 .mobile-menu .mobile-menu-inner {position:relative;width:240px;padding:50px 0 60px;overflow:hidden;}
 .mobile-menu h1 {padding:15px 0;text-align:center}
 .mobile-menu h2 {position:absolute;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden}

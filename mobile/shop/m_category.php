@@ -26,7 +26,7 @@ $result = sql_query($sql);
 </div>
 
 <div id="sct_win">
-
+<div class="backBlind"></div>
     <h1><?php echo $config['cf_title']; ?> 카테고리</h1>
 
 <div class="mobile-menu">

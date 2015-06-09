@@ -21,27 +21,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
     <div id="logo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><img src="<?php echo G5_DATA_URL; ?>/common/mobile_logo_img.png" alt="<?php echo $config['cf_title']; ?> 메인"></a></div>
 
     <?php include_once(G5_MSHOP_PATH.'/m_category.php'); // 상품분류 ?>
-    
-    <ul id="hd_mb">
-        <?php if ($is_member) { ?>
-        <?php if ($is_admin) {  ?>
-        <li><a href="<?php echo G5_ADMIN_URL ?>/shop_admin/"><b>관리자</b></a></li>
-        <?php }  ?>
-        <li><a href="<?php echo G5_BBS_URL ?>/member_confirm.php?url=<?php echo G5_BBS_URL ?>/register_form.php">정보수정</a></li>
-        <li><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop">로그아웃</a></li>
-        <?php } else { ?>
-        <li><a href="<?php echo G5_BBS_URL ?>/register.php" id="snb_join">회원가입</a></li>
-        <li><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>">로그인</a></li>
-        <?php } ?>
-        <li><a href="<?php echo G5_SHOP_URL; ?>/mypage.php">마이페이지</a></li>
-        <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php">장바구니</a></li>
-        <li><a href="<?php echo G5_SHOP_URL; ?>/personalpay.php">개인결제</a></li>
-        <li><a href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a></li>
-        <li><a href="<?php echo G5_BBS_URL; ?>/qalist.php">1:1문의</a></li>
-        <?php if(!$default['de_root_index_use']) { ?>
-        <li><a href="<?php echo G5_URL; ?>/">커뮤니티</a></li>
-        <?php } ?>
-    </ul>
+    <div id="topCart"><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i></a></div>
 
 </header>
 
