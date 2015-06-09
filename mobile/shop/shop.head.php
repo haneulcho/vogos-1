@@ -22,42 +22,6 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 
     <?php include_once(G5_MSHOP_PATH.'/m_category.php'); // 상품분류 ?>
     
-    <button type="button" id="hd_sch_open">검색<span class="sound_only"> 열기</span></button>
-
-    <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
-    <aside id="hd_sch">
-        <div class="sch_inner">
-            <h2>상품 검색</h2>
-            <label for="sch_str" class="sound_only">상품명<strong class="sound_only"> 필수</strong></label>
-            <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required class="frm_input">
-            <input type="submit" value="검색" class="btn_submit">
-            <button type="button" class="pop_close"><span class="sound_only">검색 </span>닫기</button>
-        </div>
-    </aside>
-    </form>
-    <script>
-        $(function (){
-        var $hd_sch = $("#hd_sch");
-        $("#hd_sch_open").click(function(){
-            $hd_sch.css("display","block");
-        });
-        $("#hd_sch .pop_close").click(function(){
-            $hd_sch.css("display","none");
-        });
-    });
-
-    function search_submit(f) {
-        if (f.q.value.length < 2) {
-            alert("검색어는 두글자 이상 입력하십시오.");
-            f.q.select();
-            f.q.focus();
-            return false;
-        }
-
-        return true;
-    }
-    </script>
-
     <ul id="hd_mb">
         <?php if ($is_member) { ?>
         <?php if ($is_admin) {  ?>

@@ -32,18 +32,16 @@ a:link, a:visited {color:#000;text-decoration:none}
 #hd h1 {position:absolute;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden}
 
 #logo {padding:5px 0}
-#logo a {display:block;}
+#logo a {display:inline-block;}
 #logo a>img {width:110px;}
 
 #hd_ct {position:absolute;top:10px;left:10px;padding:10px;border:0;background:#333;color:#fff;font-size:1em;text-decoration:none;letter-spacing:-0.1em;vertical-align:top;-webkit-appearance:none}
 
-#hd_sch_open {position:absolute;top:10px;right:10px;padding:0 10px;height:2.6em;border:0;background:#333;color:#fff;font-size:1em;letter-spacing:-0.1em;vertical-align:top;-webkit-appearance:none}
-
-#hd_sch {display:none;z-index:10;position:absolute;top:0;left:0;width:100%;height:100%;background:#f2f5f9;text-align:center}
+#hd_sch_{position:absolute;top:10px;right:10px;padding:0 10px;height:2.6em;border:0;background:#333;color:#fff;font-size:1em;letter-spacing:-0.1em;vertical-align:top;-webkit-appearance:none}
 #hd_sch h2 {margin:0 0 10px}
-#hd_sch .sch_inner {padding:22px 0 0}
-#hd_sch .frm_input {height:2.5em;border-color:#999;background:#fff;line-height:2.5em}
-#hd_sch .btn_submit {height:2.7em}
+#hd_sch .sch_inner {position:relative;padding:0 40px;margin-bottom:18px;text-align:left;}
+#hd_sch .frm_input {width:115px;height:28px;padding:0 35px 0 10px;border-color:#999;border-radius:20px;background:#ddd}
+#hd_sch .btn_submit {position:absolute;display:block;width:30px;height:29px;padding:0;top:2px;right:44px;background:none;color:#333;font-size:1.8em;}
 #hd_sch .pop_close {position:absolute;bottom:5px;right:5px;padding:7px;border:0;background:#626870;color:#fff}
 
 #hd_mb {margin:10px 10px 0;text-align:center}
@@ -76,6 +74,8 @@ a.sanchor_on {background:#626870;color:#fff !important;text-decoration:none}
 
 /* ########## 쇼핑몰 컨텐츠 ########## */
 /* 분류:새창 */
+#sct_win {display:none;}
+.hamburger.open + #sct_win {display:block;}
 #sct_win h1 {padding:15px 0;text-align:center}
 #sct_win_nav {margin:0 0 20px}
 #sct_win_nav h2 {position:absolute;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden}
@@ -99,13 +99,14 @@ a.sanchor_on {background:#626870;color:#fff !important;text-decoration:none}
 .hamburger.open .bar1, .hamburger.open .bar4 {display:none}
 .hamburger.open .bar2, .hamburger.open .bar3 {height:2px;background:#fff; }
 .mobile-menu {position:fixed;top:0;left:0;opacity:0;display:block;width:240px;height:100%;background-color:#252525;z-index:2;overflow-y:scroll;-webkit-overflow-scrolling:touch}
-.mobile-menu .mobile-menu-inner {width:200px;padding:60px 20px 60px}
-.mobile-menu ul li {list-style:none;padding:10px 0;}
+.mobile-menu .mobile-menu-inner {width:240px;padding:50px 0 60px}
+.mobile-menu ul li {list-style:none;padding:6px 0;}
+.mobile-menu ul li:first-child {margin-top:12px;}
 .mobile-menu h1 {padding:15px 0;text-align:center}
 .mobile-menu h2 {position:absolute;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden}
 .mobile-menu ul {margin:0 0 25px;padding:0;border-top:1px solid #444;text-align:left;}
-.mobile-menu li {position:relative;border-bottom:1px solid #444;}
-.mobile-menu a {display:block;padding:0.2em 1em;font-size:1.4em;text-decoration:none;color:#fefefe;}
+.mobile-menu li {position:relative;}
+.mobile-menu a {display:block;padding:0.1em 2.5em;font-size:1.3em;text-decoration:none;color:#fefefe;font-family: 'Oswald', sans-serif;}
 
 /* 인덱스 이미지 출력 */
 #sidx {padding:0}

@@ -14,7 +14,8 @@ $sql = " select ca_id, ca_name from {$g5['g5_shop_category_table']}
           order by ca_order, ca_id ";
 $result = sql_query($sql);
 ?>
-
+<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" media="screen" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <div class="hamburger">
   <div class="hamburger-inner">
     <div class="bar bar1 hide"></div>
@@ -31,6 +32,31 @@ $result = sql_query($sql);
 <div class="mobile-menu">
   <div class="mobile-menu-inner">
 
+    <!-- 검색 처리 -->
+    <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
+    <aside id="hd_sch">
+        <div class="sch_inner">
+            <h2>상품 검색</h2>
+            <label for="sch_str" class="sound_only">상품명<strong class="sound_only"> 필수</strong></label>
+            <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required class="frm_input">
+            <button type="submit" class="btn_submit"><i class="ion-android-search"></i></button>
+        </div>
+    </aside>
+    </form>
+
+    <script>
+    function search_submit(f) {
+        if (f.q.value.length < 2) {
+            alert("검색어는 두글자 이상 입력하십시오.");
+            f.q.select();
+            f.q.focus();
+            return false;
+        }
+
+        return true;
+    }
+    </script>
+    <!-- 검색 처리 end -->
 
     <?php
     for($i=0; $row=sql_fetch_array($result); $i++) {
@@ -56,9 +82,6 @@ $result = sql_query($sql);
     ?>
   </div>
 </div>
-
-
-
 
 </div>
 
