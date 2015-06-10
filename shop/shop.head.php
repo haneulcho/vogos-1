@@ -50,6 +50,11 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
         <div id="container"> <!-- contents wrapper -->
             <div id="side"> <!-- side contents -->
                 <?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 ?>
+                <ul id="nbm">
+                    <li class="new_arrivals"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3">NEW<br />ARRIVALS</a></li>
+                    <li class="best_items"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">BEST<br />ITEMS</a></li>
+                    <li class="md_choice"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2">MD'S<br />CHOICE</a></li>
+                </ul>
                 <div id="hd_sch">
                     <h3>쇼핑몰 검색</h3>
                     <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
