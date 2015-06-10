@@ -49,11 +49,16 @@ body {background-color:#f7f7f7;border-top:5px solid #323232;font-size:12px;font-
 #gnb>ul>li.dress>a>span {width:102px;height:36px;background-position:-115px -204px;}
 #gnb>ul>li.bottom>a>span {width:138px;height:36px;background-position:-116px -253px;}
 #gnb>ul>li.accessory>a>span {width:61px;height:26px;background-position:-112px -307px;}
-#gnb>ul>li.outer>a {background:#af87f2;}
+/*#gnb>ul>li.outer>a {background:#af87f2;}
 #gnb>ul>li.top>a {background:#eadc65;}
 #gnb>ul>li.dress>a {background:#5cdbe0;}
 #gnb>ul>li.bottom>a {background:#e96464;}
-#gnb>ul>li.accessory>a {background:#5c84e0;}
+#gnb>ul>li.accessory>a {background:#5c84e0;}*/
+#gnb>ul>li.outer>a {background:#aaa;}
+#gnb>ul>li.top>a {background:#777;}
+#gnb>ul>li.dress>a {background:#bbb;}
+#gnb>ul>li.bottom>a {background:#444;}
+#gnb>ul>li.accessory>a {background:#000;}
 .gnb_1dli {position:relative;width:180px;height:62px;}
 #gnb>ul>li:hover, .gnb_1dli_on {height:180px;}
 .gnb_1da {position:relative;overflow:hidden;display:block;height:62px;}
