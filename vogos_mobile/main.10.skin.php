@@ -4,12 +4,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">', 0);
 ?>
-<script>
-    // 모바일 스크린 width php로 넘겨서 비율대로 자르기
-    var img_width = (screen.width - 30)/2;
-    var img_height = img_width * 1.4;
-    var get_size_url = "<?php echo G5_MSHOP_SKIN_URL; ?>/get_size.php"
-</script>
+
 <script src="<?php echo G5_JS_URL ?>/jquery.fancylist.js"></script>
 <?php if($config['cf_kakao_js_apikey']) { ?>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -34,7 +29,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     echo "<li class=\"sct_li\" style=\"width:{$this->img_width}px\">\n";
 
     if ($this->href) {
-        echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\" id=\"".$row['it_id']."\">\n";
+        echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
+    }
+
+    if ($this->view_it_img) {
+        echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
     }
 
     if ($this->href) {
@@ -93,27 +92,6 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     }
 
     echo "</li>\n";
-?>
-<?php
-    if ($this->view_it_img) {
-    ?>
-<script> // 모바일 스크린 사이즈에 따른 thumbnail src 가져오기
-    $(function() {
-        var img_it_id = "<?php echo $row['it_id'] ?>";
-        $.ajax({
-            url: get_size_url,
-            type: "POST",
-            data: {width: img_width, height: img_height, it_id: img_it_id},
-            success: function(msg) {
-                img_it_id = "#"+img_it_id;
-                mobile_img_src = msg;
-                $('.sct_img').children(img_it_id).html(mobile_img_src);
-            }
-        });
-    });
-</script>
-<?php
-    }
 }
 
 if ($i > 0) echo "</ul>\n";
