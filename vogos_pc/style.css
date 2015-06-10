@@ -57,7 +57,7 @@ body {background-color:#f7f7f7;border-top:5px solid #323232;font-size:12px;font-
 #gnb>ul>li.outer>a {background:#aaa;}
 #gnb>ul>li.top>a {background:#777;}
 #gnb>ul>li.dress>a {background:#bbb;}
-#gnb>ul>li.bottom>a {background:#444;}
+#gnb>ul>li.bottom>a {background:#777;}
 #gnb>ul>li.accessory>a {background:#bbb;}
 .gnb_1dli {position:relative;width:180px;height:62px;}
 #gnb>ul>li:hover, .gnb_1dli_on {height:180px;}
