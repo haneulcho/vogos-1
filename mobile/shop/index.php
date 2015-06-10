@@ -17,7 +17,7 @@ include_once(G5_MSHOP_PATH.'/_head.php');
     <div class="item new_arrivals">
         <header>
             <h2>NEW ARRIVALS</h2>
-            <div class="it_more"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3">more</a></div>
+            <div class="it_more"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3"><i class="ion-ios-arrow-right"></i></a></div>
         </header>
         <?php
         $list = new item_list();
@@ -28,7 +28,7 @@ include_once(G5_MSHOP_PATH.'/_head.php');
         $list->set_view('it_cust_price', true);
         $list->set_view('it_price', true);
         $list->set_view('it_icon', false);
-        $list->set_view('sns', true);
+        $list->set_view('sns', false);
         echo $list->run();
         ?>
     </div>
@@ -38,7 +38,7 @@ include_once(G5_MSHOP_PATH.'/_head.php');
     <div class="item md_choice">
         <header>
             <h2>MD'S CHOICE</h2>
-            <div class="it_more"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2">more</a></div>
+            <div class="it_more"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2"><i class="ion-ios-arrow-right"></i></a></div>
         </header>
         <?php
         $list = new item_list();
@@ -49,7 +49,7 @@ include_once(G5_MSHOP_PATH.'/_head.php');
         $list->set_view('it_cust_price', true);
         $list->set_view('it_price', true);
         $list->set_view('it_icon', false);
-        $list->set_view('sns', true);
+        $list->set_view('sns', false);
         echo $list->run();
         ?>
     </div>
@@ -59,7 +59,7 @@ include_once(G5_MSHOP_PATH.'/_head.php');
     <div class="item best_item">
         <header>
             <h2>BEST ITEMS</h2>
-            <div class="it_more"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">more</a></div>
+            <div class="it_more"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4"><i class="ion-ios-arrow-right"></i></a></div>
         </header>
         <?php
         $list = new item_list();
@@ -70,7 +70,7 @@ include_once(G5_MSHOP_PATH.'/_head.php');
         $list->set_view('it_cust_price', true);
         $list->set_view('it_price', true);
         $list->set_view('it_icon', false);
-        $list->set_view('sns', true);
+        $list->set_view('sns', false);
         echo $list->run();
         ?>
     </div>
