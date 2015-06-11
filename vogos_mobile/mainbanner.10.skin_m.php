@@ -52,6 +52,7 @@ $(function() {
     var owl = $('.owl-carousel');
     owl.owlCarousel({
         items: 1,
+        autoHeight: true,
         loop: true,
         margin: 0,
         autoplay: true,

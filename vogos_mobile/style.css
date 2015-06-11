@@ -1,6 +1,4 @@
 @charset "utf-8";
-/* SIR 지운아빠 */
-
 /* ##### maint.(nn).skin.php, list.(nn).skin.php 공통 적용 시작 ##### */
 /* 공통 */
 .sct_wrap {margin:0 0 30px;zoom:1}
@@ -44,6 +42,13 @@
 #sbn_idx ul li.sbn_first{display:block}
 
 /* 인덱스 슬라이더 owl carousel */
+.owl-height {
+  -webkit-transition: height 500ms ease-in-out;
+  -moz-transition: height 500ms ease-in-out;
+  -ms-transition: height 500ms ease-in-out;
+  -o-transition: height 500ms ease-in-out;
+  transition: height 500ms ease-in-out;
+}
 .owl-carousel {
   display: none;
   width: 100%;
@@ -147,21 +152,36 @@
 .item.best_item header>h2 {background-color:#1f1f1f;}
 .item header>.it_more {position:absolute;right:0;top:7px;display:inline-block;}
 .item header>.it_more a {display:block;width:30px;text-align:center;font-size:1.4em;}
-.item>ul {text-align:center;}
+.item>ul {text-align:center;padding:10px;background-color:#f0f0f0;}
 .item>ul>li {float:none;display:inline-block;padding:5px;background-color:#fff;}
 
-.sct_10 .sct_txt, .sct_10 .sct_basic, .sct_10 .sct_cost {text-align:left;}
-.sct_10 .sct_txt {font-size:1.2em;font-weight:bold;letter-spacing:-1px;}
-.sct_10 .sct_li {position:relative;float:none;padding:0 20px 10px;}
+.sct_10 .sct_txt, .sct_10 .sct_basic, .sct_10 .sct_cost {text-align:left;color:#777;}
+.sct_10 .sct_txt {overflow:hidden;height:20px;font-size:1.2em;font-weight:bold;letter-spacing:-1px;}
+.sct_10 .sct_li {position:relative;float:none;margin-bottom:10px;padding:0;}
 .sct_10 .sct_last {margin:0 0 15px !important}
 .sct_10 .sct_clear {clear:both}
-.sct_10 .sct_a {display:inline-block;position:relative;margin:0 0 5px;text-decoration:none}
+.sct_10 .sct_a {display:block;position:relative;margin:0 0 2px;text-decoration:none}
 .sct_10 .sct_id {display:block;margin:0 0 5px}
+.sct_10 .sct_des {padding:8px 10px 0px;}
+.sct_10 .sct_img img {width:100%;}
 .sct_10 .sct_basic {overflow:hidden;height:30px;margin:0 0 5px;letter-spacing:-1px;}
 .sct_10 .sct_cost {display:block;margin:0 0 10px;color:#999;font-weight:bold;}
-.sct_10 .sct_cost strike {display:block;margin:0 0 5px;color:#999;font-weight:normal}
+.sct_10 .sct_cost strike {display:inline-block;margin:0 10px 0 0;color:#999;font-weight:normal}
 .sct_10 .sct_icon {margin:0 0 10px}
 .sct_10 .sct_sns {margin:15px 0 0}
+
+/* 상품 리스트 반응형 처리 */
+.lic1024, .lic768, .lic640 {width:30%;}
+.lic480, .lic360, .lic340 {width:48%;}
+.lic480:nth-child(2n-1), .lic360:nth-child(2n-1), .lic340:nth-child(2n-1) {margin-right:2%;}
+
+.lic1024 {}
+.lic768 {}
+.lic640 {}
+
+.lic480 {}
+.lic360 {}
+.lic340 {}
 
 /* 관련상품 목록 스킨 10 */
 .scr_10 .sct_li {position:relative;float:left;padding:0 25px 15px 0}

@@ -26,7 +26,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         }
     }
 
-    echo "<li class=\"sct_li\" style=\"width:{$this->img_width}px\">\n";
+    echo "<li class=\"sct_li\">\n";
 
     if ($this->href) {
         echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
@@ -49,7 +49,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     }
 
     if ($this->href) {
-        echo "<div class=\"sct_txt\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
+        echo "<div class=\"sct_des\"><div class=\"sct_txt\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
     }
 
     if ($this->view_it_name) {
@@ -76,7 +76,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
             echo display_price(get_price($row), $row['it_tel_inq'])."\n";
         }
 
-        echo "</div>\n";
+        echo "</div></div>\n"; // div.des 끝
 
     }
 
@@ -101,7 +101,16 @@ if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\
 <!-- } 상품진열 10 끝 -->
 
 <script>
-$(function() {
-    $("ul.sct_wrap").fancyList("li.sct_li", "sct_clear");
-});
+(function($) {
+    var li = $('.sct_10 .sct_li');
+    var win_width = $(window).width();
+    if(win_width>1023) { var lic = 1024 }
+        else if(win_width>767) { var lic = 768 }
+        else if(win_width>639) { var lic = 640 }
+        else if(win_width>479) { var lic = 480 }
+        else if(win_width>359) { var lic = 360 }
+        else { var lic = 340 }
+    var lic = 'lic'+lic;
+    li.addClass(lic);
+}(jQuery));
 </script>
