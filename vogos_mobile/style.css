@@ -147,6 +147,7 @@
 .item {margin-bottom:10px;}
 .item header {position:relative;margin:0 0 10px;background:url(http://subtlepatterns.com/patterns/diagonales_decalees.png) #fdfdfd;}
 .item header>h2 {display:inline-block;padding:6px 12px;color:#fff;font-family:'Oswald', sans-serif;font-size:1.2em;font-weight:normal;}
+.item header>h2 a {color:#fff;}
 .item.new_arrivals header>h2 {background-color:#38cadb;}
 .item.md_choice header>h2 {background-color:#ed4584;}
 .item.best_item header>h2 {background-color:#1f1f1f;}
