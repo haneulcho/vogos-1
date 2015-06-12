@@ -33,6 +33,14 @@ if($is_orderable) {
 ?>
 <script>
 // list.20.skin(include video_m.php) Scripts
+/*$('.sct_video').click(function() {
+    if ($(this).hasClass('active')) {
+        $('video').each(function() {
+            $(this).get(0).pause();
+        });
+        $('.sct_video').removeClass('active');
+    }   
+});*/
 function view_video(vid){
     // Set Video Attribute
     var vid = '#'+vid;
@@ -58,8 +66,8 @@ function view_video(vid){
 
 <div class="sct_video">
     <div id="video<?php echo $row[it_id] ?>">
-        <video width="220" height="300" controls="controls">
-            <source src="http://creativeinteractivemedia.com/player/videos/Big_Buck_Bunny_Trailer.mp4" type="video/mp4">
+        <video width="215" height="301" controls="controls">
+            <source src="<?php echo $row[it_1] ?>" type="video/mp4">
         </video>
     </div> <!-- video END -->
 
