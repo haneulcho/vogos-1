@@ -103,7 +103,7 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
             <div id="contents"> <!-- main contents -->
                 <?php if(defined('_INDEX_')) { ?>
                 <div id="hd_video"> <!-- weekly video -->
-                    <embed src="http://smarturl.it/jwplayer59" type="application/x-shockwave-flash" allowfullscreen="true" flashvars="skin=http://cfs.tistory.com/custom/blog/152/1525660/skin/images/skin2.swf&amp;file=http://www.googledrive.com/host/0B1nP4TpJdXCbSnYtbEM3aHhRdms&amp;type=video&amp;autostart=false&amp;repeat=always"></embed>
+                    <iframe src="https://player.vimeo.com/video/130174373?autoplay=1&byline=0" width="100%" height="528" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                 </div> <!-- weekly video end -->
                 <?php } ?>
 
