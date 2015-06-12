@@ -126,10 +126,10 @@ $listall = '<a href="'.$_SERVER['PHP_SELF'].'" class="ov_listall">전체목록</
     <tr>
         <th scope="col"><?php echo subject_sort_link("it_id", $qstr, 1); ?>상품코드</a></th>
         <th scope="col"><?php echo subject_sort_link("it_name"); ?>상품명</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type1", $qstr, 1); ?>히트<br>상품</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type2", $qstr, 1); ?>추천<br>상품</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type3", $qstr, 1); ?>신규<br>상품</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type4", $qstr, 1); ?>인기<br>상품</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type1", $qstr, 1); ?>VOGOS<br>CLIP</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type2", $qstr, 1); ?>MD'S<br>CHOICE</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type3", $qstr, 1); ?>NEW<br>ARRIVALS</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type4", $qstr, 1); ?>BEST<br>ITEMS</a></th>
         <th scope="col"><?php echo subject_sort_link("it_type5", $qstr, 1); ?>할인<br>상품</a></th>
         <th scope="col">관리</th>
     </tr>

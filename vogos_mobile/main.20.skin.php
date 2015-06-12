@@ -15,24 +15,28 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">',
 </script>
 <?php } ?>
 
-<!-- 상품진열 10 시작 { -->
+<!-- 상품진열 20 시작 { -->
 <?php
 for ($i=0; $row=sql_fetch_array($result); $i++) {
     if ($i == 0) {
         if ($this->css) {
-            echo "<ul class=\"sct_wrap {$this->css}\">\n";
+            echo "<ul id=\"sct_wrap\" class=\"{$this->css}\">\n";
         } else {
-            echo "<ul class=\"sct_wrap sct sct_10\">\n";
+            echo "<ul id=\"sct_wrap\" class=\"sct sct_20\">\n";
         }
     }
 
-    echo "<li class=\"sct_li\">\n";
-
-    if ($this->href) {
+    if (!empty($row['it_1'])) { // 확장변수 있을 경우 li.sct_li hasVideo
+        echo "<li class=\"sct_li hasVideo\">\n";
+        echo "<div class=\"sct_img\">";
+        echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
+        echo "<a class=\"sct_video_btn\" onclick=\"javascript:view_video('video".$row[it_id]."')\">\n<span>상품 비디오 보기</span>";
+    } else if ($this->href) {
+        echo "<li class=\"sct_li\">\n";
         echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
     }
 
-    if ($this->view_it_img) {
+    if ($this->view_it_img && empty($row['it_1'])) {
         echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
     }
 
@@ -77,7 +81,6 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         }
 
         echo "</div></div>\n"; // div.des 끝
-
     }
 
     if ($this->view_sns) {
@@ -91,6 +94,14 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         echo "</div>\n";
     }
 
+    if ($this->href) {
+        echo "</a>\n";
+    }
+
+    if (!empty($row['it_1'])) { // 확장변수 있을 경우 video.form.skin.php 추가
+        include(G5_MSHOP_SKIN_PATH.'/video.form.skin.php');
+    }
+
     echo "</li>\n";
 }
 
@@ -98,11 +109,11 @@ if ($i > 0) echo "</ul>\n";
 
 if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
 ?>
-<!-- } 상품진열 10 끝 -->
+<!-- } 상품진열 20 끝 -->
 
 <script>
 (function($) {
-    var li = $('.sct_10 .sct_li');
+    var li = $('.sct_20 .sct_li');
     var win_width = $(window).width();
     if(win_width>1023) { var lic = 1024 }
         else if(win_width>767) { var lic = 768 }
@@ -110,7 +121,7 @@ if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\
         else if(win_width>479) { var lic = 480 }
         else if(win_width>359) { var lic = 360 }
         else { var lic = 340 }
-    var lic = 'lic'+lic;
+    var lic = 'lic2'+lic;
     li.addClass(lic);
 }(jQuery));
 </script>

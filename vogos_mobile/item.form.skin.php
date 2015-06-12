@@ -25,7 +25,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
     // 이미지(중) 썸네일
     $thumb_img = '';
     $thumb_img_w = 280; // 넓이
-    $thumb_img_h = 280; // 높이
+    $thumb_img_h = 390; // 높이
     for ($i=1; $i<=10; $i++)
     {
         if(!$it['it_img'.$i])

@@ -1,18 +1,18 @@
 <?php
-$ca = $_GET['ca'];
+$cate = $_GET['ca'];
 
-if($ca) {
-    $ca_len = strlen($ca) + 2;
-    $sql_where = " where ca_id like '$ca%' and length(ca_id) = $ca_len ";
+if($cate) {
+    $ca_len = strlen($cate) + 2;
+    $sql_where = " where ca_id like '$cate%' and length(ca_id) = $ca_len ";
 } else {
     $sql_where = " where length(ca_id) = '2' ";
 }
 
-$sql = " select ca_id, ca_name from {$g5['g5_shop_category_table']}
+$sqlcate = " select ca_id, ca_name from {$g5['g5_shop_category_table']}
           $sql_where
             and ca_use = '1'
           order by ca_order, ca_id ";
-$result = sql_query($sql);
+$result = sql_query($sqlcate);
 ?>
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" media="screen" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
