@@ -26,13 +26,17 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         }
     }
 
-    echo "<li class=\"sct_li\">\n";
-
-    if ($this->href) {
+    if (!empty($row['it_1'])) { // 확장변수 있을 경우 li.sct_li hasVideo
+        echo "<li class=\"sct_li hasVideo\">\n";
+        echo "<div class=\"sct_img\">";
+        echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
+        echo "<a class=\"sct_video_btn\" onclick=\"javascript:view_video('video".$row[it_id]."')\">\n<span>상품 비디오 보기</span>";
+    } else if ($this->href) {
+        echo "<li class=\"sct_li\">\n";
         echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
     }
 
-    if ($this->view_it_img) {
+    if ($this->view_it_img && empty($row['it_1'])) {
         echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
     }
 
@@ -77,7 +81,6 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         }
 
         echo "</div></div>\n"; // div.des 끝
-
     }
 
     if ($this->view_sns) {
@@ -93,6 +96,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
     if ($this->href) {
         echo "</a>\n";
+    }
+
+    if (!empty($row['it_1'])) { // 확장변수 있을 경우 video.form.skin.php 추가
+        include(G5_MSHOP_SKIN_PATH.'/video.form.skin.php');
     }
 
     echo "</li>\n";
