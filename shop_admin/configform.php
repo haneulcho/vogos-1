@@ -302,7 +302,7 @@ if(!isset($default['de_include_index'])) {
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row">히트상품출력</th>
+            <th scope="row">VOGOS CLIP 출력</th>
             <td>
                 <label for="de_type1_list_use">출력</label>
                 <input type="checkbox" name="de_type1_list_use" value="1" id="de_type1_list_use" <?php echo $default['de_type1_list_use']?"checked":""; ?>>
@@ -321,7 +321,7 @@ if(!isset($default['de_include_index'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">추천상품출력</th>
+            <th scope="row">MD'S CHOICE 출력</th>
             <td>
                 <label for="de_type2_list_use">출력</label>
                 <input type="checkbox" name="de_type2_list_use" value="1" id="de_type2_list_use" <?php echo $default['de_type2_list_use']?"checked":""; ?>>
@@ -340,7 +340,7 @@ if(!isset($default['de_include_index'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">최신상품출력</th>
+            <th scope="row">NEW ARRIVALS 출력</th>
             <td>
                 <label for="de_type3_list_use">출력</label>
                 <input type="checkbox" name="de_type3_list_use" value="1" id="de_type3_list_use" <?php echo $default['de_type3_list_use']?"checked":""; ?>>
@@ -359,7 +359,7 @@ if(!isset($default['de_include_index'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">인기상품출력</th>
+            <th scope="row">BEST ITEMS 출력</th>
             <td>
                 <label for="de_type4_list_use">출력</label>
                 <input type="checkbox" name="de_type4_list_use" value="1" id="de_type4_list_use" <?php echo $default['de_type4_list_use']?"checked":""; ?>>
@@ -422,7 +422,7 @@ if(!isset($default['de_include_index'])) {
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row">히트상품출력</th>
+            <th scope="row">VOGOS CLIP 출력</th>
             <td>
                 <label for="de_mobile_type1_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type1_list_use" value="1" id="de_mobile_type1_list_use" <?php echo $default['de_mobile_type1_list_use']?"checked":""; ?>>
@@ -439,7 +439,7 @@ if(!isset($default['de_include_index'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">추천상품출력</th>
+            <th scope="row">MD'S CHOICE 출력</th>
             <td>
                 <label for="de_mobile_type2_list_use">출력</label> <input type="checkbox" name="de_mobile_type2_list_use" value="1" id="de_mobile_type2_list_use" <?php echo $default['de_mobile_type2_list_use']?"checked":""; ?>>
                 <label for="de_mobile_type2_list_skin">스킨 </label>
@@ -455,7 +455,7 @@ if(!isset($default['de_include_index'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">최신상품출력</th>
+            <th scope="row">NEW ARRIVALS 출력</th>
             <td>
                 <label for="de_mobile_type3_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type3_list_use" value="1" id="de_mobile_type3_list_use" <?php echo $default['de_mobile_type3_list_use']?"checked":""; ?>>
@@ -472,7 +472,7 @@ if(!isset($default['de_include_index'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">인기상품출력</th>
+            <th scope="row">BEST ITEMS 출력</th>
             <td>
                 <label for="de_mobile_type4_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type4_list_use" value="1" id="de_mobile_type4_list_use" <?php echo $default['de_mobile_type4_list_use']?"checked":""; ?>>

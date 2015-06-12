@@ -2,7 +2,10 @@
 include_once('./_common.php');
 
 $type = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\s]/", "", $_REQUEST['type']);
-if ($type == 1)      $g5['title'] = '히트상품';
+if ($type == 1) {
+    $g5['title'] = 'VOGOS CLIP';
+    $nbm_class = 'vogos_clip';
+}
 else if ($type == 2) {
     $g5['title'] = 'MD\'S CHOICE';
     $nbm_class = 'md_choice';
@@ -24,7 +27,7 @@ include_once(G5_MSHOP_PATH.'/_head.php');
 // 한페이지에 출력하는 이미지수 = $list_mod * $list_row
 // 모바일에서는 계산된 이미지수가 중요함
 $list_mod   = 1;    // 한줄에 이미지 몇개씩 출력? 단, 모바일환경에서는 사용되지 않음.
-$list_row   = 10;    // 한 페이지에 몇라인씩 출력?
+$list_row   = 12;    // 한 페이지에 몇라인씩 출력?
 
 $img_width  = 300;  // 출력이미지 폭
 $img_height = 420;  // 출력이미지 높이
@@ -38,8 +41,13 @@ if ($sort != '')
 else
     $order_by = 'it_order, it_id desc';
 
-if (!$skin)
-    $skin = 'list.10.skin.php';
+if (!$skin) {
+    if ($type == 1) {
+        $skin = 'list.20.skin.php';
+    } else {
+        $skin = 'list.10.skin.php';
+    }
+}
 
 define('G5_SHOP_CSS_URL', G5_MSHOP_SKIN_URL);
 
@@ -48,7 +56,7 @@ $list_file = G5_MSHOP_SKIN_PATH.'/'.$skin;
 
 // header title 출력
 echo '<div id="sidx">';
-if($type ==2 || $type ==3 || $type ==4){
+if($type ==1 || $type ==2 || $type ==3 || $type ==4){
     $nbm = '<div class="item '.$nbm_class.'"><header><h2><a href="'.G5_MSHOP_URL.'/listtype.php?type='.$type.'">'.$g5['title'].'</a></h2></header>';
     echo $nbm;
 }
