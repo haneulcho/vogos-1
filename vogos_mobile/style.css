@@ -190,10 +190,22 @@
   -o-transition: all 600ms ease-in-out;
   transition: all 600ms ease-in-out;
 }
-.sct_20 .sct_video.open {opacity:1;height:420px;padding:10px;background-color:#dfdfdf;}
+.sct_20 .sct_video.active {opacity:1;height:360px;padding:20px 10px 10px;background-color:#dfdfdf;}
 .sct_20 .sct_video video {max-width:100%;background-color:#333;}
 .sct_20 .sct_video_btn {position:absolute;top:0;left:0;width:100%;height:100%;z-index:3;background:url(img/play-button-overlay.png) no-repeat center center rgba(0,0,0,0.2);cursor:pointer;}
 .sct_20 .sct_video_btn span {position:absolute;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden}
+
+.vsit_ov .sit_ov_btn {float:none;width:auto;text-align:right;letter-spacing:-3px;}
+.vsit_ov .sit_ov_btn a {display:block;width:200px;height:20px;margin:5px auto 3px;padding:10px;color:#fff;font:14px tahoma;letter-spacing:normal;border:0;vertical-align:middle;text-align:center;text-decoration:none;cursor:pointer;-webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  -ms-transition: background 0.3s ease-in-out;
+  -o-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;}
+.sit_btn_more {background-color:#d4b900;}
+.sit_btn_wish {background-color:#aaa;}
+.sit_btn_more:hover {background-color:#333;}
+.sit_btn_wish:hover {background-color:#ff8c9f;}
+
 .sct_20 .sct_basic {overflow:hidden;height:50px;margin:6px 0 12px;letter-spacing:-1px;font-size:1.1em;line-height:1.3em;}
 .sct_20 .sct_cost {display:block;margin:0 0 10px;color:#999;font-weight:bold;font-size:1.2em;}
 .sct_20 .sct_cost strike {display:inline-block;margin:0 10px 0 0;color:#999;font-weight:normal}

@@ -1,3 +1,36 @@
+<?php
+$it_id = trim($row['it_id']);
+// 상품품절체크
+if(G5_SOLDOUT_CHECK)
+    $is_soldout = is_soldout($row['it_id']);
+
+// 주문가능체크
+$is_orderable = true;
+if(!$row['it_use'] || $row['it_tel_inq'] || $is_soldout)
+    $is_orderable = false;
+
+if($is_orderable) {
+    // 선택 옵션
+    $option_item = get_item_options($row['it_id'], $row['it_option_subject']);
+
+    // 추가 옵션
+    $supply_item = get_item_supply($row['it_id'], $row['it_supply_subject']);
+
+    // 상품 선택옵션 수
+    $option_count = 0;
+    if($row['it_option_subject']) {
+        $temp = explode(',', $row['it_option_subject']);
+        $option_count = count($temp);
+    }
+
+    // 상품 추가옵션 수
+    $supply_count = 0;
+    if($row['it_supply_subject']) {
+        $temp = explode(',', $row['it_supply_subject']);
+        $supply_count = count($temp);
+    }
+}
+?>
 <script>
 // list.20.skin(include video_m.php) Scripts
 function view_video(vid){
@@ -9,14 +42,23 @@ function view_video(vid){
     $('body').animate({
         scrollTop: scrolled-100
     });
-    vwrap.addClass('open');
-    videos.get(0).play();
+    if (vwrap.hasClass('active')) {
+        videos.get(0).pause();
+        vwrap.removeClass('active');
+    } else {
+        $('video').each(function() {
+            $(this).get(0).pause();
+        });
+        $('.sct_video').removeClass('active');
+        vwrap.addClass('active');
+        videos.get(0).play();
+    }
 }
 </script>
 
 <div class="sct_video">
     <div id="video<?php echo $row[it_id] ?>">
-        <video width="300" height="420" controls="controls">
+        <video width="220" height="300" controls="controls">
             <source src="http://creativeinteractivemedia.com/player/videos/Big_Buck_Bunny_Trailer.mp4" type="video/mp4">
         </video>
     </div> <!-- video END -->
