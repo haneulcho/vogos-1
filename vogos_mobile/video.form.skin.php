@@ -66,7 +66,7 @@ function view_video(vid){
 
 <div class="sct_video">
     <div id="video<?php echo $row[it_id] ?>">
-        <video width="215" height="301" controls="controls">
+        <video width="215" height="301" controls="controls" preload="none">
             <source src="<?php echo $row[it_1] ?>" type="video/mp4">
         </video>
     </div> <!-- video END -->
