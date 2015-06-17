@@ -10,7 +10,7 @@ $(function(){
 	};
 
 	var oWin = $(window);
-	var owraper = $("#sit_pvi");
+	var owraper = $("#sit_pvi_img");
 	var oSmall = $("#sit_pvi_small");
 	var oBig = $("#sit_pvi_big");
 	var obg = $("#bg");
@@ -28,8 +28,8 @@ $(function(){
 	var owrapperOffset = owraper.offset();
 	var iTop = owrapperOffset.top;
 	var iLeft = owrapperOffset.left;
-	var iWidth = opt.smallWidth + 32;
-	var iHeight = opt.smallHeight + 32;
+	var iWidth = opt.smallWidth;
+	var iHeight = opt.smallHeight;
 	//var iWidth = owraper.width();
 	//var iHeight = owraper.height();
 	var iSpeed = 200;
@@ -91,8 +91,8 @@ $(function(){
 		var x = e.clientX - iLeft + oWin.scrollLeft() - w/2;
 		var y = e.clientY - iTop + oWin.scrollTop() - h/2;
 
-		var l = iWidth - w - 4;
-		var t = iHeight - h - 4;
+		var l = iWidth - w - 2;
+		var t = iHeight - h - 2;
 
 		if( x < 0 )
 		{
@@ -205,8 +205,8 @@ $(function(){
 			iLeft = owraper.left();
 			// iWidth = owraper.width();
 			// iHeight = owraper.height();
-			iWidth = opt.smallWidth + 32;
-			iHeight = opt.smallHeight + 32;
+			iWidth = opt.smallWidth;
+			iHeight = opt.smallHeight;
 		});
 		oSmall.hover( eventOver, eventOut )
 			  .mousemove( eventMove );
@@ -214,3 +214,65 @@ $(function(){
 		oSmall.hover( eventOver, eventOut )
 			  .mousemove( eventMove );
 });
+
+function showModal(flag) {
+  if(flag) {
+  	var $btn_video = $('#sit_pvi_video_btn');
+  	var $modal_info = $('.modal_info');
+  	var $modal_wrap = $modal_info.children('#sit_pvi_video');
+  	var $videos = $('#sit_pvi_video > video');
+
+  	sizeModal($videos);
+
+    $modal_layer = "<div class=\"modal_video\"></div>";
+    $modal_close = "<div class=\"modal_close\" style=\"margin-top:"+ $modal_close_position +"\"></div>";
+
+    $btn_video.after($modal_layer);
+    $modal_wrap.append($modal_close);
+
+    $modal_info.filter(':not(:animated)').animate({opacity:'show'}, 250);
+    $videos.get(0).play();
+
+    $('.modal_info, .modal_close').live("click", function() {
+			$modal_info.filter(':not(:animated)').animate({opacity:'hide'}, 250);
+			$videos.get(0).pause();
+      $('.modal_video, .modal_close').fadeOut(250, function() {
+        $(this).remove();
+      });
+    }); // live.click END
+  } // if END
+} // flag END
+
+function sizeModal(videos) {
+	// 비디오 width, height 기본값
+	var vW = 300;
+	var vH = 420;
+	var	$winWidth = $(window).width();
+	var $winHeight = $(window).height();
+
+	// 비디오 비율 설정
+	var opt = {
+		ratioW : 0.6,
+		ratioH : 1.4
+	};
+
+	var $divide = $winWidth * opt.ratioH;
+
+	if ($divide > $winHeight) {
+		vH = $winHeight * opt.ratioW;
+		vW = vH / opt.ratioH;
+	} else {
+		vW = $winWidth * opt.ratioW;
+		vH = vW * opt.ratioH;
+	}
+	videos.attr({
+		width : vW,
+		height : vH
+	})
+
+	$modal_close_position = Math.round(($winHeight - vH) / 2 - 80);
+	$modal_close_position += 'px';
+	console.log($modal_close_position);
+	return $modal_close_position;
+
+}

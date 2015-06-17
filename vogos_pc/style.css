@@ -252,18 +252,25 @@ body {background-color:#f7f7f7;border-top:5px solid #323232;font-size:12px;font-
 .sctrl button.sctrl_prev span {background-position:-120px 0}
 .sctrl button.sctrl_prev span.sctrl_on {background-position:-120px -30px}
 .sctrl button.sctrl_next span {background-position:-150px 0}
-.sctrl button.sctrl_next span.sctrl_on {background-position:-150px -30px}
+.sctrl bu#sit_pvi .modal_closetton.sctrl_next span.sctrl_on {background-position:-150px -30px}
 
 .sct_10 .itemDetail {display:none;cursor:pointer;position:absolute;top:0;padding:162px 30px 0;line-height:1.5em;width:232px;height:250px;background:rgba(255,255,255,0.8);color:#000;text-align:center;z-index:998;font-size:14px;border:4px double #000;}
 .scr_10 .itemDetail {display:none;cursor:pointer;position:absolute;top:0;padding:110px 20px 0;line-height:1.5em;width:162px;height:177px;background:rgba(255,255,255,0.8);color:#000;text-align:center;z-index:998;font-size:13px;border:4px double #000;}
 .scr_10 .sct_img .lineDeco {width:162px;}
 .sct_img .lineDeco {position:absolute;top:0;width:232px;}
 .sct_img .btn_video {display:none;font:13px tahoma;line-height:1.5em;width:100%;height:30px;padding-top:10px;left:0;bottom:0;color:#fff;position:absolute;z-index:999;text-align:center;background:url('img/play_button.png') no-repeat 14px center #333;cursor:pointer;}
-.modal_video {top:0;left:0;right:0;bottom:0;margin:0 auto;position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.7);color:#fff;text-align:center;padding:15px;z-index:1000;}
-.modal_info {z-index:1001;}
-.modal_close {float:right;width:320px;height:auto;}
+.modal_video {top:0;left:0;right:0;bottom:0;margin:0 auto;position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.7);color:#fff;text-align:center;z-index:1000;}
+.modal_info {z-index:1001;display:none;position:fixed;top:120px;left:0;right:0;margin:auto;}
+#sit_pvi .modal_info {top:0;height:100%;}
+#sit_pvi .modal_close {position:absolute;left:0;right:0;width:65px;height:65px;margin-left:auto;margin-right:auto;margin-top:50px;background:url(img/x_btn.jpg) no-repeat;opacity:.4;filter:alpha(opacity:40);-webkit-transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -ms-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;cursor:pointer;}
+#sit_pvi .modal_close:hover {opacity:1;filter:alpha(opacity:100)}
 .sct_img .modal_info embed {float:left;width:480px; height:640px;}
-.sct_img .modal_info {display:none;position:fixed;top:120px;left:0;right:0;margin:auto;width:800px;height:640px;}
+.sct_img .modal_info {width:800px;height:640px;}
+.sct_img .modal_close {float:right;width:320px;height:auto;}
 
 /* 상품 목록 스킨 10 */
 .sct_10 .sct_li {position:relative;float:left;margin:0 20px 15px 0;}
@@ -522,7 +529,12 @@ body {background-color:#f7f7f7;border-top:5px solid #323232;font-size:12px;font-
 .vsit_ov #wish_msg_layer div {padding-bottom:3px;}
 
 /* 상품 상세보기 - 이미지 미리보기 */
-#sit_pvi {float:left;position:relative;padding:15px;width:390px;height:auto;border:1px solid #333;}
+#sit_pvi {float:left;padding:15px;border:1px solid #333;}
+#sit_pvi_video {position:relative;height:100%;}
+#sit_pvi_video video {position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;min-width:300px;min-height:420px;}
+#sit_pvi_video_btn {width:165px;margin:6px auto 0;}
+#sit_pvi_video_btn a {display:block;width:165px;height:39px;cursor:pointer;}
+#sit_pvi_img {position:relative;width:390px;height:auto;}
 #sit_pvi_big {position:absolute;overflow:hidden;top:35px;left:370px;z-index:1;width:350px;height:350px;margin:0;text-align:center;border:5px solid #fff;}
 #sit_pvi_big a {display:none}
 #sit_pvi_big a.visible {display:block}
