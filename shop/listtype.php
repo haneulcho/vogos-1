@@ -77,7 +77,7 @@ if (file_exists($list_file)) {
     $list->set_view('it_img', true);
     $list->set_view('it_id', false);
     $list->set_view('it_name', true);
-    $list->set_view('it_cust_price', false);
+    $list->set_view('it_cust_price', true);
     $list->set_view('it_price', true);
     $list->set_view('it_icon', false); // 추천, 신상, 베스트 아이콘 안 보이게
     $list->set_view('sns', false); // sns 아이콘 안 보이게

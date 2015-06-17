@@ -92,7 +92,7 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
         $sub_skin = $skin_dir.'/list.sub.skin.php';
         if(!is_file($sub_skin))
             $sub_skin = G5_SHOP_SKIN_PATH.'/list.sub.skin.php';
-        include $sub_skin;
+        // include $sub_skin;
         echo '</div>';
 
         // 총몇개 = 한줄에 몇개 * 몇줄

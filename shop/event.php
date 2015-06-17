@@ -11,7 +11,7 @@ $sql = " select * from {$g5['g5_shop_event_table']}
             and ev_use = 1 ";
 $ev = sql_fetch($sql);
 if (!$ev['ev_id'])
-    alert('등록된 이벤트가 없습니다.');
+    alert('VOGOS에 등록된 이벤트가 없습니다.');
 
 $g5['title'] = $ev['ev_subject'];
 include_once('./_head.php');
@@ -52,7 +52,7 @@ if (file_exists($list_file))
     include G5_SHOP_SKIN_PATH.'/list.sort.skin.php';
 
     // 상품 보기 타입 변경 버튼
-    include G5_SHOP_SKIN_PATH.'/list.sub.skin.php';
+    //include G5_SHOP_SKIN_PATH.'/list.sub.skin.php';
 
     // 총몇개 = 한줄에 몇개 * 몇줄
     $items = $ev['ev_list_mod'] * $ev['ev_list_row'];
@@ -69,10 +69,10 @@ if (file_exists($list_file))
     $list->set_view('it_img', true);
     $list->set_view('it_id', false);
     $list->set_view('it_name', true);
-    $list->set_view('it_cust_price', false);
+    $list->set_view('it_cust_price', true);
     $list->set_view('it_price', true);
-    $list->set_view('it_icon', true);
-    $list->set_view('sns', true);
+    $list->set_view('it_icon', false); // 추천, 신상, 베스트 아이콘 안 보이게
+    $list->set_view('sns', false); // sns 아이콘 안 보이게
     echo $list->run();
 
     // where 된 전체 상품수

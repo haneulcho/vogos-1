@@ -18,8 +18,15 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
 <!-- 상단 시작 { -->
 <div id="vogos">
     <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
+    <div id="topNav">
+        <ul>
+            <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_fb_s.png" alt="VOGOS 페이스북"></a></li>
+            <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_ks_s.png" alt="VOGOS 카카오스토리"></a></li>
+        </ul>
+    </div>
     <div id="header">
         <h1 id="topLogo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><?php echo $config['cf_title']; ?></a></h1>
+        <div id="topBanner"><a href=""><img src=""></a></div>
     </div>
     <div id="vWrapper">
         <div id="tnb"> <!-- join, sign in etc... sub nav -->

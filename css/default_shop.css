@@ -56,7 +56,7 @@ a:hover, a:focus, a:active {color:#000;text-decoration:underline}
 /* aside wrapper */
 #aside {float:left;margin:0 10px 0 0;width:150px}
 
-#container {position:relative;min-height:500px;height:auto !important;background:#fff;padding:0 47px 0 58px;}
+#container {position:relative;min-height:680px;height:auto !important;background:#fff;padding:0 47px 0 58px;}
 #container:after {display:block;visibility:hidden;clear:both;content:""}
 
 /* 텍스트 크기 조절 */
