@@ -38,7 +38,6 @@ bSrc = "<?php echo G5_DATA_URL.'/item/'.$it['it_img1']; ?>";
 bWidth = "<?php echo $size[0]; ?>";
 bHeight = "<?php echo $size[1]; ?>";
 </script>
-<script src="<?php echo G5_SHOP_SKIN_URL; ?>/Aui-core-1.42-min.js"></script>
 <script src="<?php echo G5_SHOP_SKIN_URL; ?>/img_mag.js"></script>
 		<div id="sit_pvi">
 			<div id="sit_pvi_small">

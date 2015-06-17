@@ -1,5 +1,4 @@
-Aui.ready(function()
-{
+$(function(){
 	var opt = {
 		smallSrc : sSrc,
 		smallWidth : Number(sWidth),
@@ -10,12 +9,12 @@ Aui.ready(function()
 		bigHeight : Number(bHeight)
 	};
 
-	var oWin = Aui( window );
-	var owraper = Aui( "#sit_pvi" )
-	var oSmall = Aui( "#sit_pvi_small" );
-	var oBig = Aui( "#sit_pvi_big" );
-	var obg = Aui( "#bg" );
-	var oMask = Aui( "#mask" );
+	var oWin = $(window);
+	var owraper = $("#sit_pvi");
+	var oSmall = $("#sit_pvi_small");
+	var oBig = $("#sit_pvi_big");
+	var obg = $("#bg");
+	var oMask = $("#mask");
 	
 	var oBigImg = null;
 	var oBigImgWidth = opt.bigWidth;
@@ -24,10 +23,11 @@ Aui.ready(function()
 	var iBwidth = oBig.width();
 	var iBheight = oBig.height();
 	
-	oBig.setStyle( "display", "none" );
+	oBig.css("display", "none");
 
-	var iTop = owraper.top();
-	var iLeft = owraper.left();
+	var owrapperOffset = owraper.offset();
+	var iTop = owrapperOffset.top;
+	var iLeft = owrapperOffset.left;
 	var iWidth = opt.smallWidth + 32;
 	var iHeight = opt.smallHeight + 32;
 	//var iWidth = owraper.width();
@@ -36,26 +36,32 @@ Aui.ready(function()
 	
 	var setOpa = function( o )
 	{
-		o.style.cssText = "opacity:0;filter:alpha(opacity:0);"
+		o.css({
+			opacity : 0,
+			filter : 'alpha(opacity=0)'
+		});
 		return o;
 	};
 
 	var imgs = function( opt )
 	{
-		if( Aui.typeOf( opt ) !== "object" ) return false;
+		if( jQuery.type( opt ) !== "object" ) return false;
 
-		var oBig = new Image();
-
-		oBig.src = opt.bigSrc;
-		oBig.width = opt.bigWidth;
-		oBig.height = opt.bigHeight;
+		var oBig = $(new Image());
+		oBig.attr({
+			'src' : opt.bigSrc,
+			'width' : opt.bigWidth,
+			'height' : opt.bigHeight
+		});
 		
-		var oSmall = new Image();
-		oSmall.src = opt.smallSrc;
-		oSmall.width = opt.smallWidth;
-		oSmall.height = opt.smallHeight;
+		var oSmall = $(new Image());
+		oSmall.attr({
+			'src' : opt.smallSrc,
+			'width' : opt.smallWidth,
+			'height' : opt.smallHeight
+		});
 		
-		oBigImg = Aui( oBig );
+		oBigImg = oBig;
 		
 		return {
 			bigImg : setOpa( oBig ),
@@ -67,13 +73,13 @@ Aui.ready(function()
 	{
 		o.append( img );
 		
-		Aui( img ).fx(
-		{
-			opacity : 1
-		}, iSpeed*2, null , function()
-		{
-			this.style.cssText = "";
-		});
+		$(img).animate({opacity: 1},
+			iSpeed*2, null, function() {
+				$(this).css = ({
+					opacity : '',
+					filter : ''
+				});
+			});
 	};
 	
 	var eventMove = function( e )
@@ -82,11 +88,11 @@ Aui.ready(function()
 		
 		var w = oMask.width();
 		var h = oMask.height();
-		var x = e.clientX - iLeft + oWin.scrollLeft() - 68 - w/2;
-		var y = e.clientY - iTop + oWin.scrollTop() - 295 - h/2;
+		var x = e.clientX - iLeft + oWin.scrollLeft() - w/2;
+		var y = e.clientY - iTop + oWin.scrollTop() - h/2;
 
-		var l = iWidth - w - 10;
-		var t = iHeight - h - 10;
+		var l = iWidth - w - 4;
+		var t = iHeight - h - 4;
 
 		if( x < 0 )
 		{
@@ -106,7 +112,7 @@ Aui.ready(function()
 			y = t;
 		};
 
-		oMask.setStyle(
+		oMask.css(
 		{
 			left : x < 0 ? 0 : x > l ? l : x,
 			top : y < 0 ? 0 : y > t ? t : y
@@ -115,7 +121,7 @@ Aui.ready(function()
 		var bigX = x / ( iWidth - w );
 		var bigY = y / ( iHeight - h );
 		
-		oBigImg.setStyle(
+		oBigImg.css(
 		{
 			left : bigX * ( iBwidth - oBigImgWidth ),
 			top : bigY * ( iBheight - oBigImgHeight )
@@ -128,13 +134,13 @@ Aui.ready(function()
 	{
 		oMask.show();
 		obg.stop()
-			.fx(
+			.animate(
 			{
 				opacity : .1
 			}, iSpeed );
 		oBig.show()
 			.stop()
-			.fx(
+			.animate(
 			{
 				opacity : 1	
 			}, iSpeed/2 );
@@ -146,28 +152,27 @@ Aui.ready(function()
 	{
 		oMask.hide();
 		obg.stop()
-			.fx(
+			.animate(
 			{
 				opacity : 0
 			}, iSpeed/2);
 			
 		oBig.stop()
-			.fx(
+			.animate(
 			{
 				opacity : 0
 			}, iSpeed, null, function()
 			{
-				Aui( this ).hide();
+				$(this).hide();
 			});
 		
 		return false;
 	};
 	
-	var _init = function( object, oB, oS, callback )
-	{
+	var _init = function( object, oB, oS, callback ){
 		var num = 0;
 		
-		oBig.setStyle( "opacity",0 );
+		oBig.css("opacity", 0);
 		
 		append( oB, object.bigImg );
 		append( oS, object.smallImg );
@@ -195,8 +200,7 @@ Aui.ready(function()
 	
 	_init( imgs( opt ), oBig, oSmall, function()
 	{
-		oWin.resize( function()
-		{
+		oWin.resize(function(){
 			iTop = owraper.top();
 			iLeft = owraper.left();
 			// iWidth = owraper.width();
@@ -207,4 +211,6 @@ Aui.ready(function()
 		oSmall.hover( eventOver, eventOut )
 			  .mousemove( eventMove );
 	});
+		oSmall.hover( eventOver, eventOut )
+			  .mousemove( eventMove );
 });
