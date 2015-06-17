@@ -6,12 +6,22 @@ body {background-color:#f7f7f7;border-top:5px solid #323232;font-size:12px;font-
 #header {height:92px;margin-bottom:15px;}
 #topLogo {float:left;width:186px;height:92px;background:url('img/logo.png') no-repeat;font-size:0;line-height:0;text-indent:-9999px;}
 #topLogo a {display:block; width:100%; height:100%;}
-#topBanner {float:right;width:300px;height:90px;background-color:#333;}
 /* 최상단 sns 버튼 */
-#topNav {position:absolute;top:50px;right:47px;}
-#topNav ul {overflow:hidden;margin:0;padding:0;}
-#topNav ul>li {float:left;height:20px;padding:0 0 0 5px;}
-#topNav ul>li>a {display:block;width:20px;height:20px;}
+#topInfo {position:absolute;top:35px;right:47px;}
+#topNav {float:right;overflow:hidden;margin:0 0 10px 0;padding:0;}
+#topNav li {float:left;height:20px;padding:0 0 0 5px;}
+#topNav li>a {display:block;width:20px;height:20px;}
+
+/* aside:이벤트, 기획전 배너 링크 */
+#topBanner {clear:both;float:right;height:120px;}
+#topBanner h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+#topBanner ul {margin:0;padding:0;border:0;list-style:none}
+#topBanner ul>li {float:left;margin-left:5px;}
+#topBanner .sev_img {display:block;height:120px;}
+#topBanner .sev_text {display:block;padding:7px 10px 6px;border-bottom:1px solid #faedf2;text-decoration:none}
+#topBanner .sev_text:focus, #topBanner .sev_text:hover {background:#fffafc}
+#topBanner strong {}
+#sev_empty {padding:15px 0;text-align:center}
 
 #vWrapper {overflow:hidden;width:100%;}
 #container, #side, #contents {overflow:hidden;}
@@ -159,16 +169,6 @@ body {background-color:#f7f7f7;border-top:5px solid #323232;font-size:12px;font-
 #stv_nb {margin:0;padding:0;border-top:1px solid #e9e9e9;background:#f2f5f9;list-style:none}
 #stv_nb li {text-align:center}
 #stv_nb a {display:block}
-
-/* aside:이벤트 링크 */
-#sev {margin:0 0 5px;padding:0 0 10px;border:1px solid #ecc9d6;background:#fff8fb}
-#sev h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
-#sev ul {margin:0;padding:0;border:0;background:#fff;list-style:none}
-#sev .sev_img {display:block;border-bottom:1px solid #faedf2}
-#sev .sev_text {display:block;padding:7px 10px 6px;border-bottom:1px solid #faedf2;text-decoration:none}
-#sev .sev_text:focus, #sev .sev_text:hover {background:#fffafc}
-#sev strong {}
-#sev_empty {padding:15px 0;text-align:center}
 
 /* aside:커뮤니티 링크 */
 #scomm {margin:0 0 5px;padding:0 0 10px;border:1px solid #d5d5d5;background:#f2f5f9}
