@@ -49,6 +49,7 @@ $(function() {
         var $btn_video = $(this).children('.btn_video');
         var $modal_info = $(this).children('.modal_info');
         var $modal_wrap = $(this).children('.modal_info').children('.vsit_ov_wrap');
+        var $videos = $modal_info.children('video');
         $(this).mouseenter(function(e) {
                 $('.itemDetail').fadeOut(100);
                 $('.btn_video').fadeOut(100);
@@ -70,8 +71,11 @@ $(function() {
                 $btn_video.after($modal_layer);
                 $modal_wrap.append($modal_close);
                 $modal_info.filter(':not(:animated)').animate({opacity:'show'}, 250);
+                $videos.get(0).play();
+                
                 $('.modal_video, .modal_close').live("click", function() {
                     $modal_info.filter(':not(:animated)').animate({opacity:'hide'}, 250);
+                    $videos.get(0).pause();
                     $('.modal_video, .modal_close').fadeOut(250, function() {
                         $('#wish_msg_layer').remove();
                         $(this).remove();
