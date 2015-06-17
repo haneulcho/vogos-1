@@ -40,7 +40,7 @@ $sns_url  = G5_SHOP_URL.'/item.php?it_id='.$row['it_id'];
     <div class="modal_info">
         <?php
             // 확장변수 있을 경우 비디오 삽입
-            echo "<video controls=\"controls\"><source src=\"".$row['it_1']."\" type=\"video/mp4\"></video>";
+            echo "<video controls=\"controls\" preload=\"none\"><source src=\"".$row['it_1']."\" type=\"video/mp4\"></video>";
         ?>
         <div class="vsit_ov_wrap">
             <!-- 상품 요약정보 및 구매 시작 { -->
