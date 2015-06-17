@@ -10,7 +10,9 @@ body {background-color:#f7f7f7;border-top:5px solid #323232;font-size:12px;font-
 #topInfo {position:absolute;top:35px;right:47px;}
 #topNav {float:right;overflow:hidden;margin:0 0 10px 0;padding:0;}
 #topNav li {float:left;height:20px;padding:0 0 0 5px;}
-#topNav li>a {display:block;width:20px;height:20px;}
+#topNav li>a {display:block;width:20px;height:20px;opacity:0.8;filter:alpha(opacity:80);}
+#topNav li>a:hover {opacity:1;filter:alpha(opacity:100);}
+#topNav li>a>img {-webkit-border-radius:4px;-moz-border-radius:4px;-o-border-radius:4px;border-radius:4px;}
 
 /* aside:이벤트, 기획전 배너 링크 */
 #topBanner {clear:both;float:right;height:120px;}

@@ -20,6 +20,7 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
     <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
     <aside id="topInfo">
         <ul id="topNav">
+            <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_insta_s.png" alt="VOGOS 인스타그램"></a></li>
             <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_fb_s.png" alt="VOGOS 페이스북"></a></li>
             <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_ks_s.png" alt="VOGOS 카카오스토리"></a></li>
         </ul>
