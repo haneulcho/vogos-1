@@ -50,12 +50,14 @@ $(function() {
         var $modal_info = $(this).children('.modal_info');
         var $modal_wrap = $(this).children('.modal_info').children('.vsit_ov_wrap');
         $(this).mouseenter(function(e) {
-                $itemDetail.filter(':not(:animated)').fadeIn(300);
-                $btn_video.filter(':not(:animated)').fadeIn(300);
+                $('.itemDetail').fadeOut(100);
+                $('.btn_video').fadeOut(100);
+                $itemDetail.fadeIn(300);
+                $btn_video.fadeIn(300);
             })
             .mouseleave(function() {
-                $itemDetail.filter(':not(:animated)').fadeOut(300);
-                $btn_video.filter(':not(:animated)').fadeOut(300);
+                $itemDetail.fadeOut(300);
+                $btn_video.fadeOut(300);
             });
         $btn_video.on('click', function(e){
             showModal(true);
