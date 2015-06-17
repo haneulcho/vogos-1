@@ -53,11 +53,11 @@ $(function() {
                 $('.itemDetail').fadeOut(100);
                 $('.btn_video').fadeOut(100);
                 $itemDetail.fadeIn(300);
-                $btn_video.fadeIn(300);
+                $btn_video.slideDown(250);
             })
             .mouseleave(function() {
                 $itemDetail.fadeOut(300);
-                $btn_video.fadeOut(300);
+                $btn_video.slideUp(250);
             });
         $btn_video.on('click', function(e){
             showModal(true);
@@ -66,7 +66,7 @@ $(function() {
         function showModal(flag) {
             if(flag) {
                 $modal_layer = "<div class=\"modal_video\"></div>";
-                $modal_close = "<div class=\"modal_close\" style=\"height:300px\"></div>";
+                $modal_close = "<div class=\"modal_close\" style=\"height:200px\"></div>";
                 $btn_video.after($modal_layer);
                 $modal_wrap.append($modal_close);
                 $modal_info.filter(':not(:animated)').animate({opacity:'show'}, 250);

@@ -39,7 +39,8 @@ $sns_url  = G5_SHOP_URL.'/item.php?it_id='.$row['it_id'];
 <div class="btn_video">View Video</div>
     <div class="modal_info">
         <?php
-            echo '<embed src="http://smarturl.it/jwplayer59" type="application/x-shockwave-flash" allowfullscreen="true" flashvars="skin=http://vogostest.cafe24.com/skin.swf&file="'.$row['it_1'].'"&type=video&autostart=true&repeat=always"/>';
+            // 확장변수 있을 경우 비디오 삽입
+            echo "<video controls=\"controls\"><source src=\"".$row['it_1']."\" type=\"video/mp4\"></video>";
         ?>
         <div class="vsit_ov_wrap">
             <!-- 상품 요약정보 및 구매 시작 { -->
@@ -71,6 +72,6 @@ $sns_url  = G5_SHOP_URL.'/item.php?it_id='.$row['it_id'];
                 </div>
             </section>
             <!-- } 상품 요약정보 및 구매 끝 -->
-        </div>
-    </div>
+        </div> <!-- vsit_ov_wrap END -->
+    </div> <!-- modal_info END -->
 </div><!-- .sct_img END -->
