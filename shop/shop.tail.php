@@ -76,7 +76,7 @@ if ($config['cf_analytics']) {
     echo $config['cf_analytics'];
 }
 ?>
-
+<script src="<?php echo G5_SHOP_SKIN_URL; ?>/js/common.js"></script>
 <script src="<?php echo G5_JS_URL; ?>/sns.js"></script>
 <!-- } 하단 끝 -->
 
