@@ -55,7 +55,18 @@ body {background-color:#f7f7f7;border-top:5px solid #323232;font-size:12px;font-
 #tnb li.treviews a{width:53px;background-position:-196px -35px;}
 #tnb li.treviews a:hover{background-position:-196px -48px;}
 
-#side {float:left;width:180px;margin-right:25px;}
+#side {position:fixed;top:224px;float:left;width:180px;margin-right:25px;-webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease}
+#side.scrolled {top:30px;}
+#side.scrolled #sidx_lat {opacity:0;filter:alpha(opacity:0);-webkit-transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -ms-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease}
+#side #side_lat {opacity:1;filter:alpha(opacity:100);}
 /* aside:gnb */
 #gnb {position:relative;margin-bottom:10px; animation: fadein 2s;
   -moz-animation: fadein 2s; /* Firefox */
@@ -101,7 +112,7 @@ body {background-color:#f7f7f7;border-top:5px solid #323232;font-size:12px;font-
 
 
 
-#contents {float:left;width:940px;}
+#contents {float:right;width:940px;}
 #hd_video {margin:0 auto;padding:0;margin-bottom:15px; text-align:center;}
 #hd_video h2 {font-family:Georgia, Serif, tahoma; font-size:48px; margin-bottom:30px;
     animation: fadein 2s;
