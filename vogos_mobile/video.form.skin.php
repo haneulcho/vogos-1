@@ -46,14 +46,16 @@ function view_video(vid){
     var vid = '#'+vid;
     var vwrap = $(vid).parent('.sct_video');
     var videos = $(vid).children('video');
-    var scrolled = vwrap.offset().top;
-    $('body').animate({
-        scrollTop: scrolled-100
-    });
+    var vli = vwrap.parent('.sct_li');
     if (vwrap.hasClass('active')) {
         videos.get(0).pause();
         vwrap.removeClass('active');
     } else {
+        var scrolled = vli.offset().top - 220;
+        console.log(scrolled);
+        $('html, body').animate({
+            scrollTop: scrolled
+        });
         $('video').each(function() {
             $(this).get(0).pause();
         });

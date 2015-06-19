@@ -27,8 +27,9 @@ $admin = get_admin("super");
         Copyright &copy; 2001-2013 <?php echo $default['de_admin_company_name']; ?>. All Rights Reserved.
     </p>
     <a href="<?php echo G5_SHOP_URL; ?>/?device=pc" id="ft_to_pc">PC버전</a>
-    <a href="#" id="ft_to_top">상단으로</a>
+    <a href="#" id="ft_totop">상단으로</a>
 </div>
+</div> <!-- main END -->
 
 <?php
 $sec = get_microtime() - $begin_time;
@@ -40,7 +41,7 @@ if ($config['cf_analytics']) {
 ?>
 
 <script src="<?php echo G5_JS_URL; ?>/sns.js"></script>
-
+<script src="<?php echo G5_MSHOP_SKIN_URL; ?>/js/common.js"></script>
 <?php
 include_once(G5_PATH.'/tail.sub.php');
 ?>
