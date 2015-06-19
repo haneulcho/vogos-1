@@ -16,20 +16,10 @@ $result = sql_query($sqlcate);
 ?>
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" media="screen" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<div class="hamburger">
-  <div class="hamburger-inner">
-    <div class="bar bar1 hide"></div>
-    <div class="bar bar2 cross"></div>
-    <div class="bar bar3 cross hidden"></div>
-    <div class="bar bar4 hide"></div>
-  </div>
+<div id="hamburger">
+    <i class="ion-navicon"></i>
 </div>
-
-<div id="sct_win">
-<div class="backBlind"></div>
-    <h1><?php echo $config['cf_title']; ?> 카테고리</h1>
-
-<div class="mobile-menu">
+<div id="sct_win" class="mobile-menu">
   <div class="mobile-menu-inner">
     <ul id="userNav">
         <?php if ($is_member) { ?>
@@ -100,10 +90,4 @@ $result = sql_query($sqlcate);
         <li><a href="<?php echo G5_BBS_URL; ?>/qalist.php"><i class="ion-chatbubbles"></i>QNA</a></li>
     </ul>
   </div> <!-- inner end -->
-</div> <!-- mobile-menu end -->
-
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.15.0/TweenMax.min.js"></script>
-<script src="<?php echo G5_MSHOP_SKIN_URL; ?>/js/jv-jquery-mobile-menu-min.js"></script>
-<script src="<?php echo G5_MSHOP_SKIN_URL; ?>/js/script.js"></script>

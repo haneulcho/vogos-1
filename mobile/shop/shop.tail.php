@@ -29,6 +29,7 @@ $admin = get_admin("super");
     <a href="<?php echo G5_SHOP_URL; ?>/?device=pc" id="ft_to_pc">PC버전</a>
     <a href="#" id="ft_totop">상단으로</a>
 </div>
+</div> <!-- main END -->
 
 <?php
 $sec = get_microtime() - $begin_time;
