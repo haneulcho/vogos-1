@@ -53,10 +53,10 @@ if (file_exists($list_file))
     $list->set_view('it_img', true);
     $list->set_view('it_id', false);
     $list->set_view('it_name', true);
-    $list->set_view('it_cust_price', false);
+    $list->set_view('it_cust_price', true);
     $list->set_view('it_price', true);
-    $list->set_view('it_icon', true);
-    $list->set_view('sns', true);
+    $list->set_view('it_icon', false);
+    $list->set_view('sns', false);
     echo $list->run();
 
     // where 된 전체 상품수

@@ -9,9 +9,8 @@ include_once(G5_MSHOP_PATH.'/_head.php');
 <script src="<?php echo G5_JS_URL; ?>/shop.mobile.main.js"></script>
 <!-- 인덱스 슬라이더 owl carousel -->
 <script src="<?php echo G5_MSHOP_SKIN_URL; ?>/js/owl.carousel.min.js"></script>
-<div id="main_event">
-    <?php echo display_banner('메인', 'mainbanner.10.skin_m.php'); ?>
-</div>
+<?php include_once(G5_MSHOP_SKIN_PATH.'/main.event.skin.php'); // 이벤트 ?>
+<?php echo display_banner('메인', 'mainbanner.10.skin_m.php'); ?>
 <div id="sidx">
     <?php if($default['de_mobile_type1_list_use']) { ?>
     <div class="item vogos_clip">
