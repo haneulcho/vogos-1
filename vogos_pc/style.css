@@ -540,7 +540,7 @@ body {background-color:#f7f7f7;border-top:5px solid #323232;font-size:12px;font-
 .vsit_ov #wish_msg_layer div {padding-bottom:3px;}
 
 /* 상품 상세보기 - 이미지 미리보기 */
-#sit_pvi {float:left;padding:15px;border:1px solid #333;}
+#sit_pvi {float:left;padding:5px 0 0 30px;/*border:1px solid #333;*/}
 #sit_pvi_video {position:relative;height:100%;}
 #sit_pvi_video video {position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;min-width:300px;min-height:420px;}
 #sit_pvi_video_btn {width:165px;margin:6px auto 0;}

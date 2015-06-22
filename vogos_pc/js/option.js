@@ -61,10 +61,10 @@ $(function() {
                 $btn_video.slideUp(250);
             });
         $btn_video.on('click', function(e){
-            showModal(true);
+            showModals(true);
             e.preventDefault();
         });
-        function showModal(flag) {
+        function showModals(flag) {
             if(flag) {
                 $modal_layer = "<div class=\"modal_video\"></div>";
                 $modal_close = "<div class=\"modal_close\" style=\"height:200px\"></div>";

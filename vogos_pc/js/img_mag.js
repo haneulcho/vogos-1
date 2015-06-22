@@ -218,7 +218,7 @@ $(function(){
 function showModal(flag) {
   if(flag) {
   	var $btn_video = $('#sit_pvi_video_btn');
-  	var $modal_info = $('.modal_info');
+  	var $modal_info = $('#sit_pvi_video_btn + .modal_info');
   	var $modal_wrap = $modal_info.children('#sit_pvi_video');
   	var $videos = $('#sit_pvi_video > video');
 
