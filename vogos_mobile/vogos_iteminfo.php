@@ -29,11 +29,29 @@ $g5['title'] = $it['it_name'].' &gt; '.$it['ca_name'];
 $sql = " select count(*) as cnt from `{$g5['g5_shop_item_use_table']}` where it_id = '{$it_id}' and is_confirm = '1' ";
 $row = sql_fetch($sql);
 $item_use_count = $row['cnt'];
+if($item_use_count > 0) {
+	if($item_use_count < 10) {
+		$item_use_count = '+ 0'.$item_use_count;
+	} else {
+		$item_use_count = '+ '.$item_use_count;
+	}
+} else {
+	$item_use_count = null;
+}
 
 // 상품문의의 개수를 얻음
 $sql = " select count(*) as cnt from `{$g5['g5_shop_item_qa_table']}` where it_id = '{$it_id}' ";
 $row = sql_fetch($sql);
 $item_qa_count = $row['cnt'];
+if($item_qa_count > 0) {
+	if($item_qa_count < 10) {
+		$item_qa_count = '+ 0'.$item_qa_count;
+	} else {
+		$item_qa_count = '+ '.$item_qa_count;
+	}
+} else {
+	$item_qa_count = null;
+}
 
 if ($default['de_mobile_rel_list_use']) {
 	// 관련상품의 개수를 얻음
@@ -49,8 +67,8 @@ if ($default['de_mobile_rel_list_use']) {
 <div id="info_content">
 <ul id="tab_container">
 	<li class="tab_detail active"><i class="ion-ios-paper-outline"></i>Detail</li>
-	<li class="tab_review"><i class="ion-ios-chatboxes-outline"></i>Review</li>
-	<li class="tab_qna"><i class="ion-ios-help-outline"></i>Q&amp;A</li>
+	<li class="tab_review"><i class="ion-ios-chatboxes-outline"></i>Review<span class="tab_count"><?php echo $item_use_count; ?></span></li>
+	<li class="tab_qna"><i class="ion-ios-help-outline"></i>Q&amp;A<span class="tab_count"><?php echo $item_qa_count; ?></span></li>
 </ul>
 
 <div id="tab_detail" class="active">
@@ -62,6 +80,7 @@ if ($default['de_mobile_rel_list_use']) {
 <div id="tab_qna">
 	<?php include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.itemqa.skin.php'); // QNA ?>
 </div>
+<?php include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.relation.skin.php'); // 관련상품 ?>
 
 <script type="text/javascript">
 $(function(){
@@ -115,7 +134,6 @@ switch($info) {
 		include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.change.skin.php');
 		break;
 	case 'rel':
-		include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.relation.skin.php');
 		break;
 	default:
 		break;

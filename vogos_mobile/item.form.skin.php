@@ -314,9 +314,6 @@ $href = G5_SHOP_URL.'/iteminfo.php?it_id='.$it_id;
 ?>
 <div id="sit_more">
 	<ul class="sanchor">
-		<li><a href="<?php echo $href; ?>" target="_blank">상품정보</a></li>
-		<li><a href="<?php echo $href; ?>&amp;info=use" target="_blank">사용후기 <span class="item_use_count"><?php echo $item_use_count; ?></span></a></li>
-		<li><a href="<?php echo $href; ?>&amp;info=qa" target="_blank">상품문의 <span class="item_qa_count"><?php echo $item_qa_count; ?></span></a></li>
 		<?php if ($default['de_baesong_content']) { ?><li><a href="<?php echo $href; ?>&amp;info=dvr" target="_blank">배송정보</a></li><?php } ?>
 		<?php if ($default['de_change_content']) { ?><li><a href="<?php echo $href; ?>&amp;info=ex" target="_blank">교환정보</a></li><?php } ?>
 		<?php if($default['de_mobile_rel_list_use']) {?>
