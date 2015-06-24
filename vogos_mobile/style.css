@@ -404,15 +404,14 @@
 #tab_container li.active {color:#333;background-color:#fff;border-bottom:none;}
 #tab_container li.tab_detail {width:34%;}
 #tab_container li .tab_count {display:inline-block;margin-left:5px;font-size:0.75em;}
-
 #tab_detail, #tab_review, #tab_qna {display:none;}
 #tab_review, #tab_qna {margin:20px 28px;}
 #tab_detail.active, #tab_review.active, #tab_qna.active {display:block;}
-#tab_detail {}
-#tab_review {}
-#tab_qna {}
 
-
+/* 상품 상세보기 - 배송, 교환알림 */
+#tab_delivery {height:130px;overflow-x:hidden;overflow-y:scroll;margin:20px 28px;padding:15px 18px;border:1px solid #e9e9e9;}
+#scroll_title {font-weight:bold;font-size:1em;padding-bottom:5px;margin-bottom:8px;border-bottom:1px solid #777;color:#333;}
+.scroll_desc {font-size:0.9em;color:#666;}
 
 /* 상품 상세보기 - 사용후기 */
 #sit_use {margin:0 0 10px;padding:10px 10px 20px;border-bottom:1px solid #e9e9e9}

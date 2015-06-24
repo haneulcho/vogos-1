@@ -81,6 +81,12 @@ if ($default['de_mobile_rel_list_use']) {
 	<?php include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.itemqa.skin.php'); // QNA ?>
 </div>
 <?php include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.relation.skin.php'); // 관련상품 ?>
+<div id="tab_delivery">
+<?php
+	include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.delivery.skin.php'); // 배송
+	include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.change.skin.php'); // 교환
+?>
+</div>
 
 <script type="text/javascript">
 $(function(){
@@ -120,23 +126,4 @@ $(function(){
 	};
 }); // wrraped function END
 </script>
-
-
-
-
-
-<?php
-switch($info) {
-	case 'dvr':
-		include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.delivery.skin.php');
-		break;
-	case 'ex':
-		include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.change.skin.php');
-		break;
-	case 'rel':
-		break;
-	default:
-		break;
-}
-?>
 </div> <!-- info_content END -->

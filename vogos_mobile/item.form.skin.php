@@ -309,19 +309,6 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 </div>
 <!-- Detail Info END -->
 
-<?php
-$href = G5_SHOP_URL.'/iteminfo.php?it_id='.$it_id;
-?>
-<div id="sit_more">
-	<ul class="sanchor">
-		<?php if ($default['de_baesong_content']) { ?><li><a href="<?php echo $href; ?>&amp;info=dvr" target="_blank">배송정보</a></li><?php } ?>
-		<?php if ($default['de_change_content']) { ?><li><a href="<?php echo $href; ?>&amp;info=ex" target="_blank">교환정보</a></li><?php } ?>
-		<?php if($default['de_mobile_rel_list_use']) {?>
-		<li><a href="<?php echo $href; ?>&amp;info=rel" target="_blank">관련상품 <span class="item_relation_count"><?php echo $item_relation_count; ?></span></a></li>
-		<?php } ?>
-	</ul>
-</div>
-
 </form>
 
 <script>
