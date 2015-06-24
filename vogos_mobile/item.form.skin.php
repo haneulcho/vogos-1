@@ -26,32 +26,54 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 	// 이미지(중) 썸네일
 	$thumb_img = '';
 	$thumb_img_w = 280; // 넓이
-	$thumb_img_h = 390; // 높이
-	for ($i=1; $i<=10; $i++)
-	{
-		if(!$it['it_img'.$i])
-			continue;
+	$thumb_img_h = 392; // 높이
+	for ($i=1; $i<=10; $i++) {
 
 		$thumb = get_it_thumbnail($it['it_img'.$i], $thumb_img_w, $thumb_img_h);
 
-		if(!$thumb)
-			continue;
-
-		$thumb_img .= '<li>';
-		$thumb_img .= '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$i.'" class="popup_item_image slide_img" target="_blank">'.$thumb.'</a>';
-		$thumb_img .= '</li>'.PHP_EOL;
-	}
-	if ($thumb_img)
-	{
-		echo '<div id="sit_pvi">'.PHP_EOL;
-		echo '<button type="button" id="sit_pvi_prev" class="sit_pvi_btn" style="height:'.$thumb_img_h.'px">이전</button>'.PHP_EOL;
-		echo '<button type="button" id="sit_pvi_next" class="sit_pvi_btn" style="height:'.$thumb_img_h.'px">다음</button>'.PHP_EOL;
-		echo '<ul id="sit_pvi_slide" style="width:'.$thumb_img_w.'px;height:'.$thumb_img_h.'px">'.PHP_EOL;
-		echo $thumb_img;
-		echo '</ul>'.PHP_EOL;
-		echo '</div>';
-	}
+		if($i == 1 && $thumb) {
+			echo "<div id=\"sit_pvi\">";
+			if (!empty($it['it_1'])) { // 확장변수 있을 경우 hasVideo
+					echo "<div class=\"sct_img\">".$thumb."<a class=\"sct_video_btn\" onclick=\"javascript:view_video('video".$it[it_id]."')\"><span>상품 비디오 보기</span></a>\n";
+					echo "<div class=\"sct_video\" id=\"video".$it[it_id]."\"><video width=\"".$thumb_img_w."\" height=\"".$thumb_img_h."\" controls=\"controls\" preload=\"none\"><source src=\"".$it[it_1]."\" type=\"video/mp4\"></video></div>";
+			} else {
+					echo "<div class=\"sct_img\">".$thumb."\n";
+			}
+			echo "</div>"; // sit_pvi END
+		}
+	} // for END
 	?>
+
+	<script>
+	$(function() {
+		play_video('<?php echo "video".$it[it_id] ?>');
+
+		function play_video(vid){
+			var vid = '#'+vid;
+			var vwrap = $(vid);
+			var videos = $(vid).children('video');
+			var vbtn = $('.sct_video_btn');
+			var timer = null;
+
+			if(timer) { clearTimeout(timer); }
+			timer = setTimeout(function() {
+				videos.get(0).play();
+			}, 1000)
+
+			videos.on('ended', function() {
+				videos.hide();
+				vbtn.fadeIn(200);
+			});
+
+			vbtn.click(function() {
+				$(this).fadeOut(200, function() {
+					videos.show();
+					videos.get(0).play();				
+				});
+			});
+		};
+	});
+	</script>
 
 	<section id="sit_ov">
 		<h2>상품간략정보 및 구매기능</h2>
@@ -155,9 +177,9 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 			else if($it['it_sc_method'] == 2) {
 				$ct_send_cost_label = '<label for="ct_send_cost">배송비결제</label>';
 				$sc_method = '<select name="ct_send_cost" id="ct_send_cost">
-								  <option value="0">주문시 결제</option>
-								  <option value="1">수령후 지불</option>
-							  </select>';
+									<option value="0">주문시 결제</option>
+									<option value="1">수령후 지불</option>
+								</select>';
 			}
 			else
 				$sc_method = '주문시 결제';
