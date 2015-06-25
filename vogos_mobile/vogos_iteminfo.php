@@ -82,6 +82,7 @@ if ($default['de_mobile_rel_list_use']) {
 </div>
 <?php include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.relation.skin.php'); // 관련상품 ?>
 <div id="tab_delivery">
+	<div class="touch_guide"><i class="ion-arrow-down-c"></i><span>▼　Touch　▼</span></div>
 <?php
 	include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.delivery.skin.php'); // 배송
 	include_once(G5_MSHOP_SKIN_PATH.'/iteminfo.change.skin.php'); // 교환
@@ -124,6 +125,15 @@ $(function(){
 			break;
 		}
 	};
+	var $delivery = $('body').find('#tab_delivery');
+	var $touchGuide = $delivery.find('.touch_guide');
+	$delivery.scroll(function() {
+		if($delivery.scrollTop() < 1) {
+			$touchGuide.fadeIn(300);			
+		} else {
+			$touchGuide.fadeOut(300);		
+		}
+	});
 }); // wrraped function END
 </script>
 </div> <!-- info_content END -->
