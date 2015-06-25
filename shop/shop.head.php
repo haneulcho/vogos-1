@@ -18,6 +18,14 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
 <!-- 상단 시작 { -->
 <div id="vogos">
     <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
+    <aside id="topInfo">
+        <ul id="topNav">
+            <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_insta_s.png" alt="VOGOS 인스타그램"></a></li>
+            <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_fb_s.png" alt="VOGOS 페이스북"></a></li>
+            <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_ks_s.png" alt="VOGOS 카카오스토리"></a></li>
+        </ul>
+        <?php include_once(G5_SHOP_SKIN_PATH.'/boxevent.skin.php'); // 이벤트, 기획전 배너 연동 ?>
+    </aside>
     <div id="header">
         <h1 id="topLogo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><?php echo $config['cf_title']; ?></a></h1>
     </div>
@@ -50,6 +58,11 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
         <div id="container"> <!-- contents wrapper -->
             <div id="side"> <!-- side contents -->
                 <?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 ?>
+                <ul id="nbm">
+                    <li class="new_arrivals"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3">NEW<br />ARRIVALS</a></li>
+                    <li class="best_items"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">BEST<br />ITEMS</a></li>
+                    <li class="md_choice"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2">MD'S<br />CHOICE</a></li>
+                </ul>
                 <div id="hd_sch">
                     <h3>쇼핑몰 검색</h3>
                     <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
@@ -98,7 +111,7 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
             <div id="contents"> <!-- main contents -->
                 <?php if(defined('_INDEX_')) { ?>
                 <div id="hd_video"> <!-- weekly video -->
-                    <embed src="http://smarturl.it/jwplayer59" type="application/x-shockwave-flash" allowfullscreen="true" flashvars="skin=http://cfs.tistory.com/custom/blog/152/1525660/skin/images/skin2.swf&amp;file=http://www.googledrive.com/host/0B1nP4TpJdXCbSnYtbEM3aHhRdms&amp;type=video&amp;autostart=false&amp;repeat=always"></embed>
+                    <iframe src="https://player.vimeo.com/video/130174373?autoplay=1&byline=0" width="100%" height="528" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                 </div> <!-- weekly video end -->
                 <?php } ?>
 

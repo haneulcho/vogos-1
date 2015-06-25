@@ -49,27 +49,33 @@ $(function() {
         var $btn_video = $(this).children('.btn_video');
         var $modal_info = $(this).children('.modal_info');
         var $modal_wrap = $(this).children('.modal_info').children('.vsit_ov_wrap');
+        var $videos = $modal_info.children('video');
         $(this).mouseenter(function(e) {
-                $itemDetail.filter(':not(:animated)').fadeIn(300);
-                $btn_video.filter(':not(:animated)').fadeIn(300);
+                $('.itemDetail').fadeOut(100);
+                $('.btn_video').fadeOut(100);
+                $itemDetail.fadeIn(300);
+                $btn_video.slideDown(250);
             })
             .mouseleave(function() {
-                $itemDetail.filter(':not(:animated)').fadeOut(300);
-                $btn_video.filter(':not(:animated)').fadeOut(300);
+                $itemDetail.fadeOut(300);
+                $btn_video.slideUp(250);
             });
         $btn_video.on('click', function(e){
-            showModal(true);
+            showModals(true);
             e.preventDefault();
         });
-        function showModal(flag) {
+        function showModals(flag) {
             if(flag) {
                 $modal_layer = "<div class=\"modal_video\"></div>";
-                $modal_close = "<div class=\"modal_close\" style=\"height:300px\"></div>";
+                $modal_close = "<div class=\"modal_close\" style=\"height:200px\"></div>";
                 $btn_video.after($modal_layer);
                 $modal_wrap.append($modal_close);
                 $modal_info.filter(':not(:animated)').animate({opacity:'show'}, 250);
+                $videos.get(0).play();
+                
                 $('.modal_video, .modal_close').live("click", function() {
                     $modal_info.filter(':not(:animated)').animate({opacity:'hide'}, 250);
+                    $videos.get(0).pause();
                     $('.modal_video, .modal_close').fadeOut(250, function() {
                         $('#wish_msg_layer').remove();
                         $(this).remove();

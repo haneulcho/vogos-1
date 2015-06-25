@@ -38,15 +38,30 @@ bSrc = "<?php echo G5_DATA_URL.'/item/'.$it['it_img1']; ?>";
 bWidth = "<?php echo $size[0]; ?>";
 bHeight = "<?php echo $size[1]; ?>";
 </script>
-<script src="<?php echo G5_SHOP_SKIN_URL; ?>/Aui-core-1.42-min.js"></script>
-<script src="<?php echo G5_SHOP_SKIN_URL; ?>/img_mag.js"></script>
+<script src="<?php echo G5_SHOP_SKIN_URL; ?>/js/img_mag.js"></script>
 		<div id="sit_pvi">
-			<div id="sit_pvi_small">
-				<span id="mask">
-					<div></div>
-				</span>
-				<samp id="bg"></samp>
-			</div>
-			<div id="sit_pvi_big">
-			</div>
-		</div>
+            <div id="sit_pvi_img">
+    			<div id="sit_pvi_small">
+    				<span id="mask">
+    					<div></div>
+    				</span>
+    				<samp id="bg"></samp>
+    			</div>
+    			<div id="sit_pvi_big">
+    			</div>
+            </div>
+<?php
+    if (!empty($it['it_1'])) { // 확장변수 있을 경우 비디오 삽입
+    echo "<div id=\"sit_pvi_video_btn\">
+        <a onclick=\"javascript:showModal(true)\"><img src=\"".G5_SHOP_SKIN_URL."/img/play_button_info.png\"></a></div>"; // view video 버튼
+    echo "<div class=\"modal_info\"><div id=\"sit_pvi_video\"><video controls=\"controls\">
+        <source src=\"".$it['it_1']."\" type=\"video/mp4\"></video></div></div>"; // video modal창
+    }
+?>
+<?php
+    if (!empty($it['it_1'])) {
+?>
+<?php
+    }
+?>
+        </div> <!-- sit_pvi END -->

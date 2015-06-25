@@ -23,11 +23,6 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
     <h3>상품 상세설명</h3>
     <div id="sit_inf_explan">
         <?php echo conv_content($it['it_explan'], 1); ?>
-        <?php
-            if ($it['it_1'] == 1) {
-                echo '<embed width="500" height="360" src="http://smarturl.it/jwplayer59" type="application/x-shockwave-flash" allowfullscreen="true" flashvars="skin=http://cfs.tistory.com/custom/blog/152/1525660/skin/images/skin2.swf&file=http://www.googledrive.com/host/0B1nP4TpJdXCbSnYtbEM3aHhRdms&type=video&autostart=true&repeat=always"/>';
-            }
-        ?>
     </div>
     <?php } ?>
 
