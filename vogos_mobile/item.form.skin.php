@@ -312,24 +312,35 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 	</section>
 </div>
 
-<!-- 
-<aside id="sit_siblings">
-	<h2>다른 상품 보기</h2>
-	<?php
-	//if ($prev_href || $next_href) {
-	//	echo $prev_href.$prev_title.$prev_href2;
-	//	echo $next_href.$next_title.$next_href2;
-	//} else {
-	//	echo '<span class="sound_only">이 분류에 등록된 다른 상품이 없습니다.</span>';
-	// }
-	?>
-</aside> -->
-
 <!-- Detail Info, Tab Navigation 가져오기 -->
 <div id="item_info">
 <?php include_once(G5_MSHOP_SKIN_PATH.'/vogos_iteminfo.php'); ?>
 </div>
 <!-- Detail Info END -->
+
+<aside id="sit_siblings">
+	<h2>다른 상품 보기</h2>
+	<ul id="remoconNav">
+		<?php
+		if ($prev_href) {
+			echo "<li class=\"pn prev\">".$prev_href.$prev_title.$prev_href2."</li>";
+		}
+		/* else {
+			echo '<span class="sound_only">이 분류에 등록된 다른 상품이 없습니다.</span>';
+		 } */
+		?>
+		<li class="wish"><a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>');">WISH</a></li>
+		<?php if ($is_orderable) { ?>
+		<li class="cart"><input type="submit" onclick="document.pressed='ADD TO CART';" value="CART"></li>
+		<li class="buy"><input type="submit" onclick="document.pressed=this.value;" value="BUY NOW"></li>
+		<?php } ?>
+		<?php
+		if ($next_href) {
+			echo "<li class=\"pn next\">".$next_href.$next_title.$next_href2."</li>";
+		}
+		?>
+	</div>
+</aside>
 
 </form>
 
@@ -337,6 +348,15 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 $(window).bind("pageshow", function(event) {
 	if (event.originalEvent.persisted) {
 		document.location.reload();
+	}
+});
+
+// 스크롤시 상단에 remoconNav 생성
+$(window).scroll(function () {
+	if ($(window).scrollTop() > 300) {
+		$('#sit_siblings').css('top', $(this).scrollTop() + "px").fadeIn(300);
+	} else {
+		$('#sit_siblings').hide();
 	}
 });
 
