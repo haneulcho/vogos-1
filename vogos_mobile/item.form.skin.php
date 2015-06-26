@@ -295,19 +295,27 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 			<?php } ?>
 			<!-- <a href="javascript:popup_item_recommend('<?php echo $it['it_id']; ?>');" id="sit_btn_rec">추천하기</a> -->
 		</div>
-		<div id="sit_star_sns" style="display:none;">
+		<div id="sit_star_sns">
 			<?php
-			$sns_title = get_text($it['it_name']).' | '.get_text($config['cf_title']);
-			$sns_url  = G5_SHOP_URL.'/item.php?it_id='.$it['it_id'];
-
-			if ($score = get_star_image($it['it_id'])) { ?>
-			<!-- 고객선호도 <span>별<?php //echo $score?>개</span>
-			<img src="<?php //echo G5_SHOP_URL; ?>/img/s_star<?php //echo $score?>.png" alt="" class="sit_star"> -->
-			<?php } ?>
-			<?php echo get_sns_share_link('facebook', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns_fb.png'); ?>
-			<?php echo get_sns_share_link('twitter', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns_twt.png'); ?>
-			<?php echo get_sns_share_link('googleplus', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns_goo.png'); ?>
-			<?php echo get_sns_share_link('kakaotalk', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns_kakao.png'); ?>
+				$sns_title = get_text($it['it_name']);
+				$sns_url  = G5_SHOP_URL.'/item.php?it_id='.$it['it_id'];
+				$thumb = get_it_thumbnail($it['it_img1'], 150, 180);
+				if($thumb) {
+					$regex = '@src="([^"]+)"@';
+					preg_match_all($regex, $thumb, $match);
+					$thumb_url = $match[1][0];
+				} // sns 공유에 사용할 이미지 주소 정규식으로 가져오기
+				if ($score = get_star_image($it['it_id'])) {
+			?>
+				<!-- 고객선호도 <span>별<?php //echo $score?>개</span>
+				<img src="<?php //echo G5_SHOP_URL; ?>/img/s_star<?php //echo $score?>.png" alt="" class="sit_star"> -->
+			<?php	} ?>
+			<?php	echo get_sns_share_link('facebook', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns/fb.png', $thumb_url); ?>
+			<?php echo get_sns_share_link('twitter', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns/tw.png', $thumb_url); ?>
+			<?php echo get_sns_share_link('kakaotalk', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns/kt.png', $thumb_url); ?>
+			<?php echo get_sns_share_link('kakaostory', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns/ks.png', $thumb_url); ?>
+			<?php echo get_sns_share_link('naverline', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns/ln.png', $thumb_url); ?>
+			<?php echo get_sns_share_link('naverband', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns/bd.png', $thumb_url); ?>
 		</div>
 	</section>
 </div>

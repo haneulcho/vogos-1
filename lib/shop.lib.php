@@ -1427,7 +1427,7 @@ function item_icon($it)
 
 
 // sns 공유하기
-function get_sns_share_link($sns, $url, $title, $img)
+function get_sns_share_link($sns, $url, $title, $img, $thumb_url)
 {
     global $config;
 
@@ -1446,7 +1446,17 @@ function get_sns_share_link($sns, $url, $title, $img)
             break;
         case 'kakaotalk':
             if($config['cf_kakao_js_apikey'])
-                $str = '<a href="javascript:kakaolink_send(\''.str_replace('+', ' ', urlencode($title)).'\', \''.urlencode($url).'\');" class="share-kakaotalk"><img src="'.$img.'" alt="카카오톡 링크보내기"></a>';
+                $str = '<a href="javascript:shareToApp(\'kakaotalk\', \''.str_replace('+', ' ', urlencode($title)).'\', \''.urlencode($url).'\', \''.urlencode($thumb_url).'\');" class="share-kakaotalk"><img src="'.$img.'" alt="카카오톡 링크보내기"></a>';
+            break;
+        case 'kakaostory':
+            if($config['cf_kakao_js_apikey'])
+                $str = '<a href="javascript:shareToApp(\'kakaostory\', \''.str_replace('+', ' ', strip_tags($title)).'\', \''.urlencode($url).'\', \''.urlencode($thumb_url).'\');" class="share-kakaostory"><img src="'.$img.'" alt="카카오스토리에 공유"></a>';
+            break;
+        case 'naverline':
+            $str = '<a href="javascript:shareToApp(\'naverline\', \''.str_replace('+', ' ', strip_tags($title)).'\', \''.urlencode($url).'\', \''.urlencode($thumb_url).'\');" class="share-naverline"><img src="'.$img.'" alt="라인에 공유"></a>';
+            break;
+        case 'naverband':
+            $str = '<a href="javascript:shareToApp(\'naverband\', \''.str_replace('+', ' ', strip_tags($title)).'\', \''.urlencode($url).'\', \''.urlencode($thumb_url).'\');" class="share-naverband"><img src="'.$img.'" alt="밴드에 공유"></a>';
             break;
     }
 

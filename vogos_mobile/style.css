@@ -327,7 +327,7 @@
 #sit_pvi_nw li img {width:60px;height:60px}
 
 /* 상품 상세보기 - 간략정보 및 구매기능 */
-#sit_ov {position:relative;padding:13px 28px 25px;height:auto !important;height:355px;min-height:355px;/*background:#f2f5f9*/}
+#sit_ov {position:relative;padding:13px 28px 0;height:auto !important;height:355px;min-height:355px;/*background:#f2f5f9*/}
 #sit_ov h2 {position:absolute;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden}
 #sit_ov h3 {margin:0 0 10px}
 
@@ -337,10 +337,12 @@
 .sit_icon {display:block;margin:5px 0 0}
 .sit_icon img {margin:0 1px 0 0}
 
-#sit_star_sns {position:absolute;top:15px;right:15px;color:#b8afa2;font-size:0.95em;letter-spacing:-0.1em}
+/* sns 공유 버튼 */
+#sit_star_sns {clear:both;margin-top:15px;padding:10px;text-align:center;border:1px solid #e9e9e9;background-color:#f9f9f9;}
 #sit_star_sns span {display:inline-block;margin:0 5px 0 0;color:#666;letter-spacing:0}
 #sit_star_sns .sit_star {position:relative;top:-2px;margin:0 5px 0 0}
-#sit_star_sns a {display:inline-block;vertical-align:middle}
+#sit_star_sns a {display:inline-block;vertical-align:middle;margin:0 1px;}
+#sit_star_sns a>img {width:35px;height:35px;}
 #sit_star_sns button {margin:0;padding:0;border:0}
 
 .sit_ov_tbl {margin-bottom:14px;width:100%;border:0;border-collapse:collapse;color:#666;font-size:1.1em;}
