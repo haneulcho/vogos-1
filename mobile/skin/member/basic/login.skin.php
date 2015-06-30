@@ -6,7 +6,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 ?>
 
 <div id="mb_login" class="mbskin">
-		<h1><?php $g5['title'] = 'VOGOS SIGN IN / UP'; echo $g5['title'] ?></h1>
+		<h1><?php $g5['title'] = 'VOGOS SIGN IN'; echo $g5['title'] ?></h1>
 
 		<form name="flogin" action="<?php echo $login_action_url ?>" onsubmit="return flogin_submit(this);" method="post">
 		<input type="hidden" name="url" value='<?php echo $login_url ?>'>

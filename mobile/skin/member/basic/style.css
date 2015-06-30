@@ -72,15 +72,6 @@
 
 /* ### 기본 스타일 커스터마이징 끝 ### */
 
-/* 회원가입 약관 */
-#fregister section {padding:15px;border-bottom:1px solid #eee;background:#fafafa}
-#fregister h2 {margin:0 0 15px;text-align:center}
-#fregister textarea {display:block;margin-bottom:10px;padding:5px;width:99%;height:150px;border:1px solid #cfded8;background:#f7f7f7}
-.fregister_agree {padding:10px 0 0;text-align:right}
-.fregister_agree label {display:inline-block;margin-right:5px}
-#fregister p {color:#e8180c;text-align:center}
-#fregister .btn_confirm {margin:15px 0}
-
 /* 회원가입 입력 */
 #fregisterform #reg_mb_email, #fregisterform .frm_address {width:100%}
 
@@ -109,9 +100,31 @@
 #find_info #captcha {margin:0 20px;padding:0 0 10px}
 #find_info #captcha input {margin-left:5px}
 
+/* 회원가입, 로그인 공통 */
+#mb_join, #mb_login {max-width:360px;margin:20px auto;padding:0 30px;}
+#mb_join h1, #mb_login h1 {margin:0 0 10px;padding:0 10px 0 0 ;font-size:1.2em;font-family:'Oswald', sans-serif;color:#666;}
+
+/* 회원가입 */
+#mb_join h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+#fregister section {margin-bottom:8px;border:1px solid #ccc;background:#fff;-webkit-border-radius:border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius:5px;}
+#fregister h2 {margin:0 0 15px;text-align:center}
+#fregister textarea {display:block;margin:0;padding:8px 12px;width:100%;height:80px;
+background-color:#f6f6f6 !important;border-top:1px solid #ccc;border-left:none;border-right:none;border-bottom:none;
+-webkit-border-radius:border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius:5px;
+outline:0;
+	-webkit-box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);
+-moz-box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);
+box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);
+	-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+.fregister_agree {display:block;height:26px;padding:12px 20px 0 12px;font-size:1.1em;}
+.fregister_agree input[type="checkbox"]:checked + label {font-weight:bold;color:#e8180c;}
+.fregister_agree label {display:inline-block;margin-right:5px;-webkit-transition:all ease .3s;-moz-transition:all ease .3s;-o-transition:all ease .3s;transition:all ease .3s;}
+#fregister .btn_confirm {margin:15px 0}
+#fregister .btn_confirm p {margin-bottom:10px;color:#e8180c;text-align:center;}
+#fregister .btn_confirm .btn_submit {display:inline-block;font-size:1.3em;width:120px;margin-bottom:5px;padding:10px 0;text-align:center;background-color:#474747;border:1px solid #323232;font-weight:bold;-webkit-border-radius:border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius:5px;-webkit-transition:all ease .3s;-moz-transition:all ease .3s;-o-transition:all ease .3s;transition:all ease .3s;}
+#fregister .btn_confirm .btn_submit:hover {background-color:#d4b900;border-color:#cab001;}
+
 /* 로그인 */
-#mb_login {max-width:360px;margin:20px auto;padding:0 30px;}
-#mb_login h1 {margin:0 0 10px;padding:0 10px 0 0 ;font-size:1.2em;font-family:'Oswald', sans-serif;color:#666;}
 #mb_login h2 {margin:0}
 #mb_login p {padding:10px 0;line-height:1.5em}
 #mb_login #login_frm {position:relative;padding:0;font-size:1em}
