@@ -4,7 +4,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0);
 ?>
-
+<script src="<?php echo G5_MSHOP_SKIN_URL; ?>/js/jquery.vimeo.api.js" type="text/javascript"></script>
 <script src="<?php echo G5_JS_URL; ?>/jquery.nicescroll.min.js"></script>
 <?php if($config['cf_kakao_js_apikey']) { ?>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -35,7 +35,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 			echo "<div id=\"sit_pvi\">";
 			if (!empty($it['it_1'])) { // 확장변수 있을 경우 hasVideo
 					echo "<div class=\"sct_img\">".$thumb."<a class=\"sct_video_btn\" onclick=\"javascript:view_video('video".$it[it_id]."')\"><span>상품 비디오 보기</span></a>\n";
-					echo "<div class=\"sct_video\" id=\"video".$it[it_id]."\"><video width=\"".$thumb_img_w."\" height=\"".$thumb_img_h."\" controls=\"controls\" preload=\"none\"><source src=\"".$it[it_1]."\" type=\"video/mp4\"></video></div>";
+					echo "<div class=\"sct_video\" id=\"video".$it[it_id]."\">					<iframe src=\"//player.vimeo.com/video/131838973?loop=0&color=ff0179&title=0&byline=0&portrait=0\" width=\"280\" height=\"392\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>";
 			} else {
 					echo "<div class=\"sct_img\">".$thumb."\n";
 			}
@@ -51,16 +51,17 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 		function play_video(vid){
 			var vid = '#'+vid;
 			var vwrap = $(vid);
-			var videos = $(vid).children('video');
+			var videos = $(vid).children('iframe');
 			var vbtn = $('.sct_video_btn');
 			var timer = null;
 
 			if(timer) { clearTimeout(timer); }
 			timer = setTimeout(function() {
-				videos.get(0).play();
+				videos.vimeo("play");
 			}, 1000)
 
-			videos.on('ended', function() {
+			videos.vimeo("finish", function() {
+				console.log('ended'); // bug
 				videos.hide();
 				vbtn.fadeIn(200);
 			});
@@ -68,7 +69,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 			vbtn.click(function() {
 				$(this).fadeOut(200, function() {
 					videos.show();
-					videos.get(0).play();				
+					videos.vimeo("play");				
 				});
 			});
 		};
