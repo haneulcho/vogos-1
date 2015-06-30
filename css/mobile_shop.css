@@ -60,13 +60,16 @@ a:link, a:visited {color:#000;text-decoration:none}
 .ctt_img {text-align:center}
 
 /* 하단 레이아웃 */ 
-#ft {position:relative;margin:0 0 -10px 0;padding:20px 15px 40px;border-top:1px solid #e9e9e9;font-size:0.833em;text-align:center;letter-spacing:-0.1em} 
+#ft {position:relative;margin:0;padding:15px 5px 15px;border-top:1px solid #e9e9e9;font-size:0.833em;text-align:center;letter-spacing:-0.1em;background-color:#333;}
 #ft>h2 {position:absolute;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden}
-#ft>p {padding:8px 15px 10px;text-align:left;color:#888;}
+#ft>p {padding:0 15px;text-align:left;color:#888;}
 #ft .ftLogo {display:block;width:70px;}
 #ft .ftLogo img {width:100%;}
-#ft_to_pc {position:absolute;bottom:10px;left:10px;padding:10px;border:0;background:#999;color:#fff;font-size:1em;text-decoration:none;letter-spacing:-0.1em;vertical-align:top;-webkit-appearance:none} 
-#ft_totop {position:absolute;bottom:10px;right:10px;padding:10px;border:0;background:#333;color:#fff;font-size:1em;text-decoration:none;letter-spacing:-0.1em;vertical-align:top;-webkit-appearance:none} 
+#ft>ul {margin:0 0 10px 0;padding:0;text-align:center;}
+#ft>ul li {display:inline-block;margin-left:5px;list-style-type:none;}
+#ft>ul li:first-child {margin-left:0;}
+#ft_to_pc, #ft_totop {display:block;padding:3px 12px 3px;border:0;background:#666;color:#fff;font-size:1.2em;text-decoration:none;-webkit-appearance:none;-webkit-border-radius:3px;-moz-border-radius:3px;-o-border-radius:3px;border-radius:3px;font-family: 'Oswald', sans-serif;letter-spacing:1px;}
+#ft_to_pc i, #ft_totop i {font-size:1.4em;margin-right:5px;vertical-align:-2px;}
 
 /* 목록 바로가기 */
 .sanchor {margin:0 0 5px;padding:0}
