@@ -6,30 +6,30 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 ?>
 
 <!-- 회원가입약관 동의 시작 { -->
-<div class="mbskin">
+<div id="mb_join" class="mbskin">
+    <h1>VOGOS JOIN</h1>
     <form  name="fregister" id="fregister" action="<?php echo $register_action_url ?>" onsubmit="return fregister_submit(this);" method="POST" autocomplete="off">
 
-    <p>회원가입약관 및 개인정보처리방침안내의 내용에 동의하셔야 회원가입 하실 수 있습니다.</p>
-
     <section id="fregister_term">
-        <h2>회원가입약관</h2>
-        <textarea readonly><?php echo get_text($config['cf_stipulation']) ?></textarea>
+        <h2>이용약관</h2>
         <fieldset class="fregister_agree">
-            <label for="agree11">회원가입약관의 내용에 동의합니다.</label>
             <input type="checkbox" name="agree" value="1" id="agree11">
+            <label for="agree11">이용약관 동의(필수)</label>
         </fieldset>
+        <textarea readonly><?php echo get_text($config['cf_stipulation']) ?></textarea>
     </section>
 
     <section id="fregister_private">
-        <h2>개인정보처리방침안내</h2>
-        <textarea readonly><?php echo get_text($config['cf_privacy']) ?></textarea>
+        <h2>개인정보취급방침</h2>
         <fieldset class="fregister_agree">
-            <label for="agree21">개인정보처리방침안내의 내용에 동의합니다.</label>
             <input type="checkbox" name="agree2" value="1" id="agree21">
+            <label for="agree21">개인정보취급방침 동의(필수)</label>
         </fieldset>
+        <textarea readonly><?php echo get_text($config['cf_privacy']) ?></textarea>
     </section>
 
     <div class="btn_confirm">
+        <p>약관에 동의하셔야 가입하실 수 있습니다.</p>
         <input type="submit" class="btn_submit" value="회원가입">
     </div>
 

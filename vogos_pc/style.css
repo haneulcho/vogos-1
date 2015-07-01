@@ -115,7 +115,7 @@ body {background-color:#f7f7f7;border-top:5px solid #323232;font-size:12px;font-
 
 
 
-#contents {float:right;width:940px;}
+#contents {float:right;width:940px;min-height:650px;}
 #hd_video {margin:0 auto;padding:0;margin-bottom:15px; text-align:center;}
 #hd_video h2 {font-family:Georgia, Serif, tahoma; font-size:48px; margin-bottom:30px;
     animation: fadein 2s;

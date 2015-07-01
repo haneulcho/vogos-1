@@ -82,10 +82,8 @@
 /* ### 기본 스타일 커스터마이징 끝 ### */
 
 /* 회원가입 약관 */
-#fregister section {margin:0 0 20px;padding:20px 0}
 #fregister h2 {margin:0 0 20px;text-align:center}
 #fregister textarea {display:block;margin-bottom:10px;padding:5px;width:98%;height:150px;border:1px solid #e9e9e9;background:#f7f7f7}
-#fregister .fregister_agree {padding:10px 0 0;text-align:right}
 #fregister .fregister_agree label {display:inline-block;margin-right:5px}
 #fregister p {color:#e8180c;text-align:center}
 #fregister .btn_confirm {margin-bottom:20px}
@@ -117,7 +115,7 @@
 #find_info #captcha {margin:0 20px}
 
 /* 회원가입, 로그인 공통 */
-#mb_join {max-width:360px;margin:20px auto;padding:0 30px;}
+#mb_join {width:700px;margin:20px auto;padding:0 30px;}
 #mb_join h1, #mb_login h1 {margin:0 0 10px;padding:0 10px 0 0 ;font-size:1.2em;font-family:'Oswald', sans-serif;color:#666;}
 
 /* 회원가입 */
@@ -133,7 +131,7 @@ box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);}
 #mb_join .tbl_wrap .btn_frmline {height:35px;margin-left:5px;padding:10px 15px;font-size:1.1em;line-height:1em;background-color:#474747;border:1px solid #323232;-webkit-border-radius:border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius:5px;
 outline:0;}
 #fregister h2 {margin:0 0 15px;text-align:center}
-#fregister textarea {display:block;margin:0;padding:8px 12px;width:100%;height:80px;
+#fregister textarea {display:block;margin:0;padding:8px 12px;width:100%;height:160px;
 background-color:#f6f6f6 !important;border-top:1px solid #ccc;border-left:none;border-right:none;border-bottom:none;
 -webkit-border-radius:border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius:5px;
 outline:0;
