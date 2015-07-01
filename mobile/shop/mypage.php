@@ -28,12 +28,20 @@ for($k=0; $cp=sql_fetch_array($res); $k++) {
         <h2>회원정보 개요</h2>
 
         <dl>
+            <dt>이름</dt>
+            <dd><?php echo $member['mb_name'] ?></dd>
             <dt>보유포인트</dt>
             <dd><a href="<?php echo G5_BBS_URL; ?>/point.php" target="_blank" class="win_point"><?php echo number_format($member['mb_point']); ?>점</a></dd>
             <dt>보유쿠폰</dt>
             <dd><a href="<?php echo G5_SHOP_URL; ?>/coupon.php" target="_blank" class="win_coupon"><?php echo number_format($cp_count); ?></a></dd>
-            <dt>연락처</dt>
-            <dd><?php echo ($member['mb_tel'] ? $member['mb_tel'] : '미등록'); ?></dd>
+            <?php if($member['mb_tel']) { ?>
+                <dt>연락처</dt>
+                <dd><?php echo ($member['mb_tel'] ? $member['mb_tel'] : '미등록'); ?></dd>
+            <?php } ?>
+            <?php if($member['mb_hp']) { ?>
+                <dt>연락처(휴대폰)</dt>
+                <dd><?php echo ($member['mb_hp'] ? $member['mb_hp'] : '미등록'); ?></dd>
+            <?php } ?>
             <dt>E-Mail</dt>
             <dd><?php echo ($member['mb_email'] ? $member['mb_email'] : '미등록'); ?></dd>
             <dt>최종접속일시</dt>
