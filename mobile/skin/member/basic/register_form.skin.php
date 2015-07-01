@@ -26,7 +26,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
     <div class="tbl_frm01 tbl_wrap">
         <table>
-        <caption>사이트 이용정보 입력</caption>
+        <caption>기본정보 입력</caption>
         <tr>
             <th scope="row"><label for="reg_mb_id">아이디<strong class="sound_only">필수</strong></label></th>
             <td>
@@ -78,20 +78,6 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
                 <?php } ?>
             </td>
         </tr>
-        <?php if ($req_nick) { ?>
-        <tr>
-            <th scope="row"><label for="reg_mb_nick">닉네임<strong class="sound_only">필수</strong></label></th>
-            <td>
-                <span class="frm_info">
-                    공백없이 한글,영문,숫자만 입력 가능 (한글2자, 영문4자 이상)<br>
-                    닉네임을 바꾸시면 앞으로 <?php echo (int)$config['cf_nick_modify'] ?>일 이내에는 변경 할 수 없습니다.
-                </span>
-                <input type="hidden" name="mb_nick_default" value="<?php echo isset($member['mb_nick'])?$member['mb_nick']:''; ?>">
-                <input type="text" name="mb_nick" value="<?php echo isset($member['mb_nick'])?$member['mb_nick']:''; ?>" id="reg_mb_nick" required class="frm_input required nospace" maxlength="20">
-                <span id="msg_mb_nick"></span>
-            </td>
-        </tr>
-        <?php } ?>
 
         <tr>
             <th scope="row"><label for="reg_mb_email">E-mail<strong class="sound_only">필수</strong></label></th>
@@ -162,7 +148,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
     <div class="tbl_frm01 tbl_wrap">
         <table>
-        <caption>기타 개인설정</caption>
+        <caption>VOGOS 정보수신 설정</caption>
         <?php if ($config['cf_use_signature']) { ?>
         <tr>
             <th scope="row"><label for="reg_mb_signature">서명<?php if ($config['cf_req_signature']){ ?><strong class="sound_only">필수</strong><?php } ?></label></th>
@@ -236,10 +222,10 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         </tr>
         <?php } ?>
 
-        <tr>
+        <!-- <tr>
             <th scope="row">자동등록방지</th>
             <td><?php echo captcha_html(); ?></td>
-        </tr>
+        </tr> -->
         </table>
     </div>
 
@@ -368,16 +354,6 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
             return false;
         }
         <?php } ?>
-
-        // 닉네임 검사
-        if ((f.w.value == "") || (f.w.value == "u" && f.mb_nick.defaultValue != f.mb_nick.value)) {
-            var msg = reg_mb_nick_check();
-            if (msg) {
-                alert(msg);
-                f.reg_mb_nick.select();
-                return false;
-            }
-        }
 
         // E-mail 검사
         if ((f.w.value == "") || (f.w.value == "u" && f.mb_email.defaultValue != f.mb_email.value)) {
