@@ -28,6 +28,18 @@ for($k=0; $cp=sql_fetch_array($res); $k++) {
         <h2>회원정보 개요</h2>
 
         <dl>
+            <dt>POINT</dt>
+            <dd><a href="<?php echo G5_BBS_URL; ?>/point.php" target="_blank" class="win_point"><?php echo number_format($member['mb_point']); ?></a></dd>
+
+            <dt>CART</dt>
+            <dd><a href="<?php echo G5_MSHOP_URL; ?>/cart.php"><?=get_cart_count(get_session('ss_cart_id'));?></a></dd>
+
+            <dt>COUPON</dt>
+            <dd><a href="<?php echo G5_SHOP_URL; ?>/coupon.php" target="_blank" class="win_coupon"><?php echo number_format($cp_count); ?></a></dd>
+        </dl>
+
+
+        <dl>
             <dt>이름</dt>
             <dd><?php echo $member['mb_name'] ?></dd>
             <dt>보유포인트</dt>
