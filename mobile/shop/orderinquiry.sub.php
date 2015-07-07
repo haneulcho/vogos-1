@@ -73,22 +73,18 @@ if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
 
 		<li>
 			<div class="inquiry_img">
-			<?=$thumb ?>
+				<a href="<?php echo G5_SHOP_URL; ?>/orderinquiryview.php?od_id=<?php echo $row['od_id']; ?>&amp;uid=<?php echo $uid; ?>" class="link"><?=$thumb ?></a>
 			</div>
-			<div class="inquiry_idtime">
-				<a href="<?php echo G5_SHOP_URL; ?>/orderinquiryview.php?od_id=<?php echo $row['od_id']; ?>&amp;uid=<?php echo $uid; ?>" class="idtime_link"><?php echo $row['od_id']; ?></a>
-				<span class="idtime_time"><?php echo substr($row['od_time'],2,8); ?></span>
-			</div>
-			<div class="inquiry_name">
-				<?php echo $ct_name; ?>
-			</div>
-			<div class="inquiry_price">
-				<?php echo display_price($row['od_receipt_price']); ?>
-			</div>
-			<div class="inquiry_inv">
-				<span class="inv_status"><?php echo $od_status; ?></span>
-				<span class="inv_inv"><?php echo $od_invoice; ?></span>
-			</div>
+			<div class="inquiry_des">
+				<a class="inquiry_id" href="<?php echo G5_SHOP_URL; ?>/orderinquiryview.php?od_id=<?php echo $row['od_id']; ?>&amp;uid=<?php echo $uid; ?>">주문번호<span><?php echo $row['od_id']; ?></span></a>
+				<p class="inquiry_name"><a href="<?php echo G5_SHOP_URL; ?>/orderinquiryview.php?od_id=<?php echo $row['od_id']; ?>&amp;uid=<?php echo $uid; ?>"><?php echo $ct_name; ?><span class="status rd"><?php echo $od_status; ?></span></a></p>
+				<div class="inquiry_btns">
+					<?php if($od_invoice) {
+						echo '<a href="https://www.doortodoor.co.kr/parcel/doortodoor.do?fsp_action=PARC_ACT_002&fsp_cmd=retrieveInvNoACT&invc_no='.$od_invoice.'" class="rd" target="_blank">배송추적</a>';
+					} ?>
+					<a href="" class="rd">리뷰쓰기</a>
+				</div>
+			</div> <!-- inquiry_des END -->
 		</li>
 
 		<?php
