@@ -239,8 +239,11 @@ a.sanchor_on {background:#626870;color:#fff !important;text-decoration:none}
 
 #smb_my_lod, #smb_my_od {margin:0 0 15px;}
 #smb_my_od h2 {font-size:1.2em;}
+#smb_my_od h2 span {display:inline-block;float:right;height:18px;text-align:center;vertical-align:top;font-size:0.85em;color:#888;}
+#smb_my_od h2 i {height:18px;margin:0 0 0 5px;padding:0 8px;border:1px solid #888;font-size:1.3em;}
 #smb_my_od .td_stat {width:100px}
 #smb_my_od .btn_y {display:block;width:150px;margin:5px auto 0;padding:13px 0;font-weight:bold;font-size:1.3em;color:#fff;}
+
 
 /* 진행중인 주문 */
 #smb_my_lod h2 span {margin-left:3px;font-size:0.85em;}

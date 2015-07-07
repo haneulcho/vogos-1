@@ -20,13 +20,21 @@ if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
 		for ($i=0; $row=sql_fetch_array($result); $i++)
 		{
 			// 주문상품
-			$sql = " select it_name, ct_option
+			$sql = " select it_name, it_id, ct_option
 									from {$g5['g5_shop_cart_table']}
 									where od_id = '{$row['od_id']}'
 									order by io_type, ct_id
 									limit 1 ";
 			$ct = sql_fetch($sql);
 			$ct_name = get_text($ct['it_name']).' '.get_text($ct['ct_option']);
+
+			// 이미지 긁어오기
+			$sql = " select it_img1 from {$g5['g5_shop_item_table']} where it_id = '{$ct['it_id']}' ";
+			$img = sql_fetch($sql);
+			// 이미지(중) 썸네일
+			$thumb_img_w = 60; // 넓이
+			$thumb_img_h = 85; // 높이
+			$thumb = get_it_thumbnail($img['it_img1'], $thumb_img_w, $thumb_img_h);
 
 			$sql = " select count(*) as cnt
 									from {$g5['g5_shop_cart_table']}
@@ -64,6 +72,9 @@ if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
 		?>
 
 		<li>
+			<div class="inquiry_img">
+			<?=$thumb ?>
+			</div>
 			<div class="inquiry_idtime">
 				<a href="<?php echo G5_SHOP_URL; ?>/orderinquiryview.php?od_id=<?php echo $row['od_id']; ?>&amp;uid=<?php echo $uid; ?>" class="idtime_link"><?php echo $row['od_id']; ?></a>
 				<span class="idtime_time"><?php echo substr($row['od_time'],2,8); ?></span>

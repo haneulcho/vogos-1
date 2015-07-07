@@ -66,7 +66,7 @@ for($k=0; $cp=sql_fetch_array($res); $k++) {
 	</section>
 
 	<section id="smb_my_od" class="rd_bg">
-		<h2 class="rd_hd"><a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php">최근 주문내역</a></h2>
+		<h2 class="rd_hd"><a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php">최근 주문내역<span>전체보기<i class="ion-android-arrow-dropright rd"></i></span></a></h2>
 		<?php
 		// 최근 주문내역
 		define("_ORDERINQUIRY_", true);
