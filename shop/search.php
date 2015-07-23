@@ -40,6 +40,9 @@ if (isset($_GET['qorder']))  {
     $qorder = '';
 }
 
+if(!($qname || $qexplan || $qid))
+    $search_all = true;
+
 // 검색범위 checkbox 처리
 $qname_check = false;
 $qexplan_check = false;
@@ -198,10 +201,10 @@ if ($is_admin) {
             $list->set_view('it_id', false);
             $list->set_view('it_name', true);
             $list->set_view('it_basic', true);
-            $list->set_view('it_cust_price', true);
+            $list->set_view('it_cust_price', true); // 원 가격 보이게
             $list->set_view('it_price', true);
-            $list->set_view('it_icon', false);
-            $list->set_view('sns', false);
+            $list->set_view('it_icon', false); // 추천, 신상, 베스트 아이콘 안 보이게
+            $list->set_view('sns', false); // sns 아이콘 안 보이게
             echo $list->run();
         }
         else
@@ -219,7 +222,7 @@ if ($is_admin) {
         if($qfrom && $qto) $query_string .= '&amp;qfrom='.$qfrom.'&amp;qto='.$qto;
         $query_string .= '&amp;qcaid='.$qcaid.'&amp;q='.urlencode($q);
         $query_string .='&amp;qsort='.$qsort.'&amp;qorder='.$qorder;
-        echo get_paging($config['cf_write_pages'], $page, $total_page, $_SERVER['PHP_SELF'].'?'.$query_string.'&amp;page=');
+        echo get_paging($config['cf_write_pages'], $page, $total_page, $_SERVER['SCRIPT_NAME'].'?'.$query_string.'&amp;page=');
         ?>
     </div>
     <!-- } 검색결과 끝 -->

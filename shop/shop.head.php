@@ -1,6 +1,12 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
+// 상단 파일 지정 : 이 코드는 가능한 삭제하지 마십시오.
+if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include_head'])) {
+    include_once(G5_SHOP_PATH.'/'.$default['de_include_head']);
+    return; // 이 코드의 아래는 실행을 하지 않습니다.
+}
+
 include_once(G5_PATH.'/head.sub.php');
 include_once(G5_LIB_PATH.'/outlogin.lib.php');
 include_once(G5_LIB_PATH.'/poll.lib.php');
@@ -8,13 +14,8 @@ include_once(G5_LIB_PATH.'/visit.lib.php');
 include_once(G5_LIB_PATH.'/connect.lib.php');
 include_once(G5_LIB_PATH.'/popular.lib.php');
 include_once(G5_LIB_PATH.'/latest.lib.php');
-
-// 상단 파일 지정 : 이 코드는 가능한 삭제하지 마십시오.
-if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include_head'])) {
-    include_once(G5_SHOP_PATH.'/'.$default['de_include_head']);
-    return; // 이 코드의 아래는 실행을 하지 않습니다.
-}
 ?>
+
 <!-- 상단 시작 { -->
 <div id="vogos">
     <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
@@ -49,9 +50,24 @@ if ($default['de_include_head'] && is_file(G5_SHOP_PATH.'/'.$default['de_include
                 <li class="tqna"><a href="<?php echo G5_BBS_URL; ?>/qalist.php">Q&amp;A</a></li>
                 <li class="tonlyu"><a href="<?php echo G5_SHOP_URL; ?>/personalpay.php">Only You</a></li>
                 <li class="treviews"><a href="<?php echo G5_SHOP_URL; ?>/itemuselist.php">Reviews</a></li>
-                <?php if(!$default['de_root_index_use']) { ?>
-                <!-- <li><a href="<?php echo G5_URL; ?>/">커뮤니티</a></li> -->
-                <?php } ?>
+                <?php
+                if(!$default['de_root_index_use']) {
+                    $com_href = G5_URL;
+                    $com_name = '커뮤니티';
+
+                    if($default['de_shop_layout_use']) {
+                        if(!preg_match('#'.G5_SHOP_DIR.'/#', $_SERVER['SCRIPT_NAME'])) {
+                            $com_href = G5_SHOP_URL;
+                            $com_name = '쇼핑몰';
+                        }
+                    }
+                ?>
+                <!-- <li><a href="<?php //echo $com_href; ?>/"><?php //echo $com_name; ?></a></li> -->
+                <?php
+                    unset($com_href);
+                    unset($com_name);
+                }
+                ?>
             </ul>
         </div>
 

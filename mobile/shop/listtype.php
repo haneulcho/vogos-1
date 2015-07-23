@@ -20,7 +20,7 @@ else if ($type == 4) {
 }
 else if ($type == 5) $g5['title'] = '할인상품';
 else
-    alert('상품유형이 아닙니다 .');
+    alert('상품유형이 아닙니다.');
 
 include_once(G5_MSHOP_PATH.'/_head.php');
 
@@ -43,6 +43,7 @@ else
 
 if (!$skin) {
     if ($type == 1) {
+        // 보고스 동영상 (VOGOS CLIP) 코너는 list.20.skin.php를 사용함
         $skin = 'list.20.skin.php';
     } else {
         $skin = 'list.10.skin.php';
@@ -95,7 +96,7 @@ echo '</div></div>';
 
 <?php
 $qstr .= '&amp;type='.$type.'&amp;sort='.$sort;
-echo get_paging($config['cf_mobile_pages'], $page, $total_page, "{$_SERVER['PHP_SELF']}?$qstr&amp;page=");
+echo get_paging($config['cf_mobile_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page=");
 ?>
 
 <?php

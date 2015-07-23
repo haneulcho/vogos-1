@@ -9,14 +9,17 @@ if (G5_IS_MOBILE) {
 $type = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\s]/", "", $_REQUEST['type']);
 if ($type == 1)      $g5['title'] = '히트상품';
 else if ($type == 2) {
+    // 추천상품 > MD'S CHOICE
     $g5['title'] = 'MD\'S CHOICE';
     $nbm_class = 'md_choice';
 }
 else if ($type == 3) {
+    // 최신상품 > NEW ARRIVALS
     $g5['title'] = 'NEW ARRIVALS';
     $nbm_class = 'new_arrivals';
 }
 else if ($type == 4) { 
+    // 인기상품 > BEST ITEMS
     $g5['title'] = 'BEST ITEMS';
     $nbm_class = 'best_item';
 }
@@ -77,7 +80,7 @@ if (file_exists($list_file)) {
     $list->set_view('it_img', true);
     $list->set_view('it_id', false);
     $list->set_view('it_name', true);
-    $list->set_view('it_cust_price', true);
+    $list->set_view('it_cust_price', true); // 할인 가격 보이게
     $list->set_view('it_price', true);
     $list->set_view('it_icon', false); // 추천, 신상, 베스트 아이콘 안 보이게
     $list->set_view('sns', false); // sns 아이콘 안 보이게
@@ -92,12 +95,13 @@ else
 {
     echo '<div align="center">'.$skin.' 파일을 찾을 수 없습니다.<br>관리자에게 알려주시면 감사하겠습니다.</div>';
 }
+// header title 닫기
 echo '</section>';
 ?>
 
 <?php
 $qstr .= '&amp;type='.$type.'&amp;sort='.$sort;
-echo get_paging($config['cf_write_pages'], $page, $total_page, "{$_SERVER['PHP_SELF']}?$qstr&amp;page=");
+echo get_paging($config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page=");
 ?>
 
 <?php

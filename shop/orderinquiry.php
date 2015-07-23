@@ -8,7 +8,7 @@ if (G5_IS_MOBILE) {
 
 define("_ORDERINQUIRY_", true);
 
-$od_pwd = sql_password($od_pwd);
+$od_pwd = get_encrypt_string($od_pwd);
 
 // 회원인 경우
 if ($is_member)
@@ -70,7 +70,7 @@ include_once('./_head.php');
     include "./orderinquiry.sub.php";
     ?>
 
-    <?php echo get_paging($config['cf_write_pages'], $page, $total_page, "{$_SERVER['PHP_SELF']}?$qstr&amp;page="); ?>
+    <?php echo get_paging($config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
 </div>
 <!-- } 주문 내역 끝 -->
 

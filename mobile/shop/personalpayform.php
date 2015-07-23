@@ -54,7 +54,7 @@ $goods = $pp['pp_name'].'님 개인결제';
     <section id="sod_frm_orderer">
         <h2>개인결제정보</h2>
 
-        <div class="tbl_frm01 tbl_wrap">
+        <div class="odf_tbl">
             <table>
             <tbody>
             <?php if(trim($pp['pp_content'])) { ?>
@@ -95,37 +95,39 @@ $goods = $pp['pp_name'].'님 개인결제';
         if ($default['de_vbank_use'] || $default['de_iche_use'] || $default['de_card_use'] || $default['de_hp_use']) {
         echo '<fieldset id="sod_frm_paysel">';
         echo '<legend>결제방법 선택</legend>';
+       echo '<ul>';
         }
 
         // 가상계좌 사용
         if ($default['de_vbank_use']) {
             $multi_settle++;
-            echo '<input type="radio" id="pp_settle_vbank" name="pp_settle_case" value="가상계좌" '.$checked.'> <label for="pp_settle_vbank">'.$escrow_title.'가상계좌</label>'.PHP_EOL;
+            echo '<li><input type="radio" id="pp_settle_vbank" name="pp_settle_case" value="가상계좌" '.$checked.'> <label for="pp_settle_vbank">'.$escrow_title.'가상계좌</label></li>'.PHP_EOL;
             $checked = '';
         }
 
         // 계좌이체 사용
         if ($default['de_iche_use']) {
             $multi_settle++;
-            echo '<input type="radio" id="pp_settle_iche" name="pp_settle_case" value="계좌이체" '.$checked.'> <label for="pp_settle_iche">'.$escrow_title.'계좌이체</label>'.PHP_EOL;
+            echo '<li><input type="radio" id="pp_settle_iche" name="pp_settle_case" value="계좌이체" '.$checked.'> <label for="pp_settle_iche">'.$escrow_title.'계좌이체</label></li>'.PHP_EOL;
             $checked = '';
         }
 
         // 휴대폰 사용
         if ($default['de_hp_use']) {
             $multi_settle++;
-            echo '<input type="radio" id="pp_settle_hp" name="pp_settle_case" value="휴대폰" '.$checked.'> <label for="pp_settle_hp">휴대폰</label>'.PHP_EOL;
+            echo '<li><input type="radio" id="pp_settle_hp" name="pp_settle_case" value="휴대폰" '.$checked.'> <label for="pp_settle_hp">휴대폰</label></li>'.PHP_EOL;
             $checked = '';
         }
 
         // 신용카드 사용
         if ($default['de_card_use']) {
             $multi_settle++;
-            echo '<input type="radio" id="pp_settle_card" name="pp_settle_case" value="신용카드" '.$checked.'> <label for="pp_settle_card">신용카드</label>'.PHP_EOL;
+            echo '<li><input type="radio" id="pp_settle_card" name="pp_settle_case" value="신용카드" '.$checked.'> <label for="pp_settle_card">신용카드</label></li>'.PHP_EOL;
             $checked = '';
         }
 
         if ($default['de_vbank_use'] || $default['de_iche_use'] || $default['de_card_use'] || $default['de_hp_use']) {
+        echo '</ul>';
         echo '</fieldset>';
 
         }
@@ -207,10 +209,61 @@ function pay_approval()
     <?php if($default['de_tax_flag_use']) { ?>
     f.LGD_TAXFREEAMOUNT.value = pf.comm_free_mny.value;
     <?php } ?>
+    <?php } else if($default['de_pg_service'] == 'inicis') { ?>
+    var paymethod = "";
+    var width = 330;
+    var height = 480;
+    var xpos = (screen.width - width) / 2;
+    var ypos = (screen.width - height) / 2;
+    var position = "top=" + ypos + ",left=" + xpos;
+    var features = position + ", width=320, height=440";
+    switch(settle_method) {
+        case "계좌이체":
+            paymethod = "bank";
+            break;
+        case "가상계좌":
+            paymethod = "vbank";
+            break;
+        case "휴대폰":
+            paymethod = "mobile";
+            break;
+        case "신용카드":
+            paymethod = "wcard";
+            break;
+    }
+    f.P_AMT.value = f.good_mny.value;
+    f.P_UNAME.value = pf.pp_name.value;
+    f.P_MOBILE.value = pf.pp_hp.value;
+    f.P_EMAIL.value = pf.pp_email.value;
+    <?php if($default['de_tax_flag_use']) { ?>
+    f.P_TAX.value = pf.comm_vat_mny.value;
+    f.P_TAXFREE = pf.comm_free_mny.value;
+    <?php } ?>
+    f.P_RETURN_URL.value = "<?php echo $return_url.$pp_id; ?>";
+    f.action = "https://mobile.inicis.com/smart/" + paymethod + "/";
     <?php } ?>
 
-    var new_win = window.open("about:blank", "tar_opener", "scrollbars=yes,resizable=yes");
-    f.target = "tar_opener";
+    //var new_win = window.open("about:blank", "tar_opener", "scrollbars=yes,resizable=yes");
+    //f.target = "tar_opener";
+
+    // 주문 정보 임시저장
+    var order_data = $(pf).serialize();
+    var save_result = "";
+    $.ajax({
+        type: "POST",
+        data: order_data,
+        url: g5_url+"/shop/ajax.orderdatasave.php",
+        cache: false,
+        async: false,
+        success: function(data) {
+            save_result = data;
+        }
+    });
+
+    if(save_result) {
+        alert(save_result);
+        return false;
+    }
 
     f.submit();
 }

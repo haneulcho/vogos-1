@@ -417,6 +417,7 @@ function get_it_image($it_id, $width, $height=0, $anchor=false, $img_id='', $img
 
     if($filename) {
         //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
+        // 보고스에서는 기본값을 is_crop = true로
         $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
     }
 
@@ -463,6 +464,7 @@ function get_it_thumbnail($img, $width, $height=0, $id='')
         $height = round(($width * $img_height) / $img_width);
     }
 
+    // 기본값 is_crop = true로
     $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
 
     if($thumb) {
@@ -897,8 +899,8 @@ function title_sort($col, $type=0)
             }
         }
     }
-    #return "$_SERVER[PHP_SELF]?$q1&amp;$q2&amp;page=$page";
-    return "{$_SERVER['PHP_SELF']}?$q1&amp;$q2&amp;page=$page";
+    #return "$_SERVER[SCRIPT_NAME]?$q1&amp;$q2&amp;page=$page";
+    return "{$_SERVER['SCRIPT_NAME']}?$q1&amp;$q2&amp;page=$page";
 }
 
 
@@ -1117,10 +1119,17 @@ function display_banner($position, $skin='')
     if (!$skin) $skin = 'boxbanner.skin.php';
 
     $skin_path = G5_SHOP_SKIN_PATH.'/'.$skin;
+    if(G5_IS_MOBILE)
+        $skin_path = G5_MSHOP_SKIN_PATH.'/'.$skin;
 
     if(file_exists($skin_path)) {
+        // 접속기기
+        $sql_device = " and ( bn_device = 'both' or bn_device = 'pc' ) ";
+        if(G5_IS_MOBILE)
+            $sql_device = " and ( bn_device = 'both' or bn_device = 'mobile' ) ";
+            
         // 배너 출력
-        $sql = " select * from {$g5['g5_shop_banner_table']} where '".G5_TIME_YMDHIS."' between bn_begin_time and bn_end_time and bn_position = '$position' order by bn_order, bn_id desc ";
+        $sql = " select * from {$g5['g5_shop_banner_table']} where '".G5_TIME_YMDHIS."' between bn_begin_time and bn_end_time $sql_device and bn_position = '$position' order by bn_order, bn_id desc ";
         $result = sql_query($sql);
 
         include $skin_path;
@@ -1427,6 +1436,8 @@ function item_icon($it)
 
 
 // sns 공유하기
+// sns로 썸네일 url 넘기기 위해 $thumb_url 변수 추가
+// 연동 js => kakaolink.js
 function get_sns_share_link($sns, $url, $title, $img, $thumb_url)
 {
     global $config;
@@ -2181,6 +2192,28 @@ function cart_item_clean()
                 where ct_status = '쇼핑'
                   and UNIX_TIMESTAMP(ct_time) < '$statustime' ";
     sql_query($sql);
+}
+
+
+// 모바일 PG 주문 필드 생성
+function make_order_field($data, $exclude)
+{
+    $field = '';
+
+    foreach($data as $key=>$value) {
+        if(in_array($key, $exclude))
+            continue;
+
+        if(is_array($value)) {
+            foreach($value as $k=>$v) {
+                $field .= '<input type="hidden" name="'.$key.'['.$k.']" value="'.$v.'">'.PHP_EOL;
+            }
+        } else {
+            $field .= '<input type="hidden" name="'.$key.'" value="'.$value.'">'.PHP_EOL;
+        }
+    }
+
+    return $field;
 }
 
 //==============================================================================

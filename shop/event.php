@@ -52,7 +52,7 @@ if (file_exists($list_file))
     include G5_SHOP_SKIN_PATH.'/list.sort.skin.php';
 
     // 상품 보기 타입 변경 버튼
-    //include G5_SHOP_SKIN_PATH.'/list.sub.skin.php';
+    // include G5_SHOP_SKIN_PATH.'/list.sub.skin.php';
 
     // 총몇개 = 한줄에 몇개 * 몇줄
     $items = $ev['ev_list_mod'] * $ev['ev_list_row'];
@@ -88,7 +88,7 @@ else
 
 <?php
 $qstr .= 'skin='.$skin.'&amp;ev_id='.$ev_id.'&amp;sort='.$sort.'&amp;sortodr='.$sortodr;
-echo get_paging($config['cf_write_pages'], $page, $total_page, "{$_SERVER['PHP_SELF']}?$qstr&amp;page=");
+echo get_paging($config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page=");
 ?>
 
 <?php

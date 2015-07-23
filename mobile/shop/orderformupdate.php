@@ -2,13 +2,22 @@
 include_once('./_common.php');
 include_once(G5_LIB_PATH.'/mailer.lib.php');
 
+//print_r2($_POST); exit;
+
+$page_return_url = G5_SHOP_URL.'/orderform.php';
+if(get_session('ss_direct'))
+    $page_return_url .= '?sw_direct=1';
+
 // 결제등록 완료 체크
 if($od_settle_case != '무통장') {
     if($default['de_pg_service'] == 'kcp' && ($_POST['tran_cd'] == '' || $_POST['enc_info'] == '' || $_POST['enc_data'] == ''))
-        alert('결제등록 요청 후 주문해 주십시오.');
+        alert('결제등록 요청 후 주문해 주십시오.', $page_return_url);
 
     if($default['de_pg_service'] == 'lg' && !$_POST['LGD_PAYKEY'])
-        alert('결제등록 요청 후 주문해 주십시오.');
+        alert('결제등록 요청 후 주문해 주십시오.', $page_return_url);
+
+    if($default['de_pg_service'] == 'inicis' && !$_POST['P_HASH'])
+        alert('결제등록 요청 후 주문해 주십시오.', $page_return_url);
 }
 
 // 장바구니가 비어있는가?
@@ -51,7 +60,7 @@ if($i == 0)
 if ($error != "")
 {
     $error .= "다른 고객님께서 {$od_name}님 보다 먼저 주문하신 경우입니다. 불편을 끼쳐 죄송합니다.";
-    alert($error);
+    alert($error, $page_return_url);
 }
 
 $i_price     = (int)$_POST['od_price'];
@@ -263,7 +272,7 @@ if (($i_temp_point > (int)$temp_point || $i_temp_point < 0) && $config['cf_use_p
 if ($od_temp_point)
 {
     if ($member['mb_point'] < $od_temp_point)
-        alert('회원님의 포인트가 부족하여 포인트로 결제 할 수 없습니다.');
+        alert('회원님의 포인트가 부족하여 포인트로 결제 할 수 없습니다.', $page_return_url);
 }
 
 $i_price = $i_price + $i_send_cost + $i_send_cost2 - $i_temp_point - $i_send_coupon;
@@ -285,6 +294,9 @@ else if ($od_settle_case == "계좌이체")
     switch($default['de_pg_service']) {
         case 'lg':
             include G5_SHOP_PATH.'/lg/xpay_result.php';
+            break;
+        case 'inicis':
+            include G5_MSHOP_PATH.'/inicis/pay_result.php';
             break;
         default:
             include G5_MSHOP_PATH.'/kcp/pp_ax_hub.php';
@@ -310,6 +322,9 @@ else if ($od_settle_case == "가상계좌")
         case 'lg':
             include G5_SHOP_PATH.'/lg/xpay_result.php';
             break;
+        case 'inicis':
+            include G5_MSHOP_PATH.'/inicis/pay_result.php';
+            break;
         default:
             include G5_MSHOP_PATH.'/kcp/pp_ax_hub.php';
             $bankname   = iconv("cp949", "utf-8", $bankname);
@@ -319,6 +334,7 @@ else if ($od_settle_case == "가상계좌")
 
     $od_receipt_point   = $i_temp_point;
     $od_tno             = $tno;
+    $od_app_no          = $app_no;
     $od_receipt_price   = 0;
     $od_bank_account    = $bankname.' '.$account;
     $od_deposit_name    = $depositor;
@@ -330,6 +346,9 @@ else if ($od_settle_case == "휴대폰")
     switch($default['de_pg_service']) {
         case 'lg':
             include G5_SHOP_PATH.'/lg/xpay_result.php';
+            break;
+        case 'inicis':
+            include G5_MSHOP_PATH.'/inicis/pay_result.php';
             break;
         default:
             include G5_MSHOP_PATH.'/kcp/pp_ax_hub.php';
@@ -351,6 +370,9 @@ else if ($od_settle_case == "신용카드")
     switch($default['de_pg_service']) {
         case 'lg':
             include G5_SHOP_PATH.'/lg/xpay_result.php';
+            break;
+        case 'inicis':
+            include G5_MSHOP_PATH.'/inicis/pay_result.php';
             break;
         default:
             include G5_MSHOP_PATH.'/kcp/pp_ax_hub.php';
@@ -382,6 +404,9 @@ if($tno) {
             case 'lg':
                 include G5_SHOP_PATH.'/lg/xpay_cancel.php';
                 break;
+            case 'inicis':
+                include G5_SHOP_PATH.'/inicis/inipay_cancel.php';
+                break;
             default:
                 include G5_SHOP_PATH.'/kcp/pp_ax_hub_cancel.php';
                 break;
@@ -394,7 +419,7 @@ if($tno) {
 if ($is_member)
     $od_pwd = $member['mb_password'];
 else
-    $od_pwd = sql_password($_POST['od_pwd']);
+    $od_pwd = get_encrypt_string($_POST['od_pwd']);
 
 // 주문번호를 얻는다.
 $od_id = get_session('ss_order_id');
@@ -498,6 +523,9 @@ if(!$result) {
             case 'lg':
                 include G5_SHOP_PATH.'/lg/xpay_cancel.php';
                 break;
+            case 'inicis':
+                include G5_SHOP_PATH.'/inicis/inipay_cancel.php';
+                break;
             default:
                 include G5_SHOP_PATH.'/kcp/pp_ax_hub_cancel.php';
                 break;
@@ -533,6 +561,9 @@ if(!$result) {
         switch($default['de_pg_service']) {
             case 'lg':
                 include G5_SHOP_PATH.'/lg/xpay_cancel.php';
+                break;
+            case 'inicis':
+                include G5_SHOP_PATH.'/inicis/inipay_cancel.php';
                 break;
             default:
                 include G5_SHOP_PATH.'/kcp/pp_ax_hub_cancel.php';
@@ -686,6 +717,10 @@ if($config['cf_sms_use'] && ($default['de_sms_use2'] || $default['de_sms_use3'])
 // orderview 에서 사용하기 위해 session에 넣고
 $uid = md5($od_id.G5_TIME_YMDHIS.$REMOTE_ADDR);
 set_session('ss_orderview_uid', $uid);
+
+// 주문 정보 임시 데이터 삭제
+$sql = " delete from {$g5['g5_shop_order_data_table']} where od_id = '$od_id' and dt_pg = '$od_pg' ";
+sql_query($sql);
 
 // 주문번호제거
 set_session('ss_order_id', '');

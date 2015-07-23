@@ -11,6 +11,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     <script src="<?php echo G5_JS_URL ?>/certify.js"></script>
     <?php } ?>
     <h1>VOGOS JOIN</h1>
+
     <form name="fregisterform" id="fregisterform" action="<?php echo $register_action_url ?>" onsubmit="return fregisterform_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off">
     <input type="hidden" name="w" value="<?php echo $w ?>">
     <input type="hidden" name="url" value="<?php echo $urlencode ?>">
@@ -134,8 +135,8 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
                 <input type="text" name="mb_zip2" value="<?php echo $member['mb_zip2'] ?>" id="reg_mb_zip2" <?php echo $config['cf_req_addr']?"required":""; ?> class="frm_input <?php echo $config['cf_req_addr']?"required":""; ?>" size="3" maxlength="3">
                 <label for="reg_mb_addr1" class="sound_only">주소<?php echo $config['cf_req_addr']?'<strong class="sound_only"> 필수</strong>':''; ?></label>
                 <button type="button" class="btn_frmline" onclick="win_zip('fregisterform', 'mb_zip1', 'mb_zip2', 'mb_addr1', 'mb_addr2', 'mb_addr3', 'mb_addr_jibeon');">주소 검색</button>
-                <?php if ($config['cf_req_addr']) { ?><strong class="sound_only">필수</strong><?php } ?>
                 <input type="text" name="mb_addr1" value="<?php echo $member['mb_addr1'] ?>" id="reg_mb_addr1" <?php echo $config['cf_req_addr']?"required":""; ?> class="frm_input frm_address <?php echo $config['cf_req_addr']?"required":""; ?>" placeholder="주소검색을 눌러주세요." size="50"><br>
+
                 <label for="reg_mb_addr2" class="sound_only">상세주소</label>
                 <input type="text" name="mb_addr2" value="<?php echo $member['mb_addr2'] ?>" id="reg_mb_addr2" class="frm_input frm_address" placeholder="상세주소" size="50">
                 <br>
@@ -226,14 +227,14 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
         <!-- <tr>
             <th scope="row">자동등록방지</th>
-            <td><?php echo captcha_html(); ?></td>
+            <td><?php //echo captcha_html(); ?></td>
         </tr> -->
         </table>
     </div>
 
     <div class="btn_confirm">
-        <!-- <a href="<?php //echo G5_URL; ?>/" class="btn_cancel">취소</a> -->
         <input type="submit" value="<?php echo $w==''?'가입하기':'정보수정'; ?>" id="btn_submit" class="btn_submit" accesskey="s">
+        <!-- <a href="<?php //echo G5_URL; ?>/" class="btn_cancel">취소</a> -->
     </div>
     </form>
 
@@ -356,6 +357,16 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
             return false;
         }
         <?php } ?>
+
+        // 닉네임 검사
+        /* if ((f.w.value == "") || (f.w.value == "u" && f.mb_nick.defaultValue != f.mb_nick.value)) {
+            var msg = reg_mb_nick_check();
+            if (msg) {
+                alert(msg);
+                f.reg_mb_nick.select();
+                return false;
+            }
+        } */
 
         // E-mail 검사
         if ((f.w.value == "") || (f.w.value == "u" && f.mb_email.defaultValue != f.mb_email.value)) {

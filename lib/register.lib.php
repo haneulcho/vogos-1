@@ -49,7 +49,7 @@ function reserve_mb_id($reg_mb_id)
         return "";
 }
 
-// 닉네임 체크 하지 않음
+// 보고스에서는 닉네임 체크 하지 않음
 function empty_mb_nick($reg_mb_nick)
 {
     // if (!trim($reg_mb_nick))
@@ -58,6 +58,7 @@ function empty_mb_nick($reg_mb_nick)
         return "";
 }
 
+// 보고스에서는 닉네임 유효성 체크 하지 않음
 function valid_mb_nick($reg_mb_nick)
 {
     // if (!check_string($reg_mb_nick, G5_HANGUL + G5_ALPHABETIC + G5_NUMERIC))

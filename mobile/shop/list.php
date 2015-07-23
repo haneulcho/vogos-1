@@ -16,7 +16,7 @@ if(!$is_admin) {
         alert($msg, G5_SHOP_URL);
 }
 
-$g5['title'] = $ca['ca_name'].' 상품리스트';
+$g5['title'] = $ca['ca_name'];
 
 include_once(G5_MSHOP_PATH.'/_head.php');
 
@@ -39,16 +39,37 @@ if($ca['ca_mobile_skin_dir']) {
 define('G5_SHOP_CSS_URL', str_replace(G5_PATH, G5_URL, $skin_dir));
 ?>
 
+<script>
+var g5_shop_url = "<?php echo G5_SHOP_URL; ?>";
+</script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="<?php echo G5_JS_URL; ?>/shop.mobile.list.js"></script>
+<!-- 인덱스 슬라이더 owl carousel -->
+<script src="<?php echo G5_MSHOP_SKIN_URL; ?>/js/owl.carousel.min.js"></script>
+<?php include_once(G5_MSHOP_SKIN_PATH.'/main.event.skin.php'); // 이벤트 ?>
+
 <div id="sct">
 
     <?php
-    $nav_skin = $skin_dir.'/navigation.skin.php';
-    if(!is_file($nav_skin))
-        $nav_skin = G5_MSHOP_SKIN_PATH.'/navigation.skin.php';
-    include $nav_skin;
+    // 네비게이션 빵메뉴
+    // $nav_skin = $skin_dir.'/navigation.skin.php';
+    // if(!is_file($nav_skin))
+    //     $nav_skin = G5_MSHOP_SKIN_PATH.'/navigation.skin.php';
+    // include $nav_skin;
 
     // 상단 HTML
     echo '<div id="sct_hhtml">'.conv_content($ca['ca_mobile_head_html'], 1).'</div>';
+
+    $cate_skin = $skin_dir.'/listcategory.skin.php';
+    if(!is_file($cate_skin))
+        $cate_skin = G5_MSHOP_SKIN_PATH.'/listcategory.skin.php';
+    include $cate_skin;
+
+    // 분류 Best Item
+    $best_skin = $skin_dir.'/bestitem.skin.php';
+    if(!is_file($best_skin))
+        $best_skin = G5_MSHOP_SKIN_PATH.'/bestitem.skin.php';
+    include $best_skin;
 
     // 상품 출력순서가 있다면
     if ($sort != "")
@@ -68,13 +89,13 @@ define('G5_SHOP_CSS_URL', str_replace(G5_PATH, G5_URL, $skin_dir));
         include $sort_skin;
 
         // 총몇개
-        $items = $ca['ca_mobile_list_mod'];
+        $items = $ca['ca_mobile_list_mod'] * $ca['ca_mobile_list_row'];
         // 페이지가 없으면 첫 페이지 (1 페이지)
         if ($page < 1) $page = 1;
         // 시작 레코드 구함
         $from_record = ($page - 1) * $items;
 
-        $list = new item_list($skin_file, $ca['ca_mobile_list_mod'], 1, $ca['ca_mobile_img_width'], $ca['ca_mobile_img_height']);
+        $list = new item_list($skin_file, $ca['ca_mobile_list_mod'], $ca['ca_mobile_list_row'], $ca['ca_mobile_img_width'], $ca['ca_mobile_img_height']);
         $list->set_category($ca['ca_id'], 1);
         $list->set_category($ca['ca_id'], 2);
         $list->set_category($ca['ca_id'], 3);
@@ -85,16 +106,11 @@ define('G5_SHOP_CSS_URL', str_replace(G5_PATH, G5_URL, $skin_dir));
         $list->set_view('it_img', true);
         $list->set_view('it_id', false);
         $list->set_view('it_name', true);
-        $list->set_view('it_cust_price', true);
         $list->set_view('it_price', true);
-        $list->set_view('it_icon', false);
-        $list->set_view('sns', false);
         echo $list->run();
 
         // where 된 전체 상품수
         $total_count = $list->total_count;
-        // 전체 페이지 계산
-        $total_page  = ceil($total_count / $items);
     }
     else
     {
@@ -103,15 +119,23 @@ define('G5_SHOP_CSS_URL', str_replace(G5_PATH, G5_URL, $skin_dir));
     ?>
 
     <?php
-    $qstr1 .= 'ca_id='.$ca_id;
-    $qstr1 .='&amp;sort='.$sort.'&amp;sortodr='.$sortodr;
-    echo get_paging($config['cf_mobile_pages'], $page, $total_page, $_SERVER['PHP_SELF'].'?'.$qstr1.'&amp;page=');
+    if($i > 0 && $total_count > $items) {
+        $qstr1 .= 'ca_id='.$ca_id;
+        $qstr1 .='&sort='.$sort.'&sortodr='.$sortodr;
+        $ajax_url = G5_SHOP_URL.'/ajax.list.php?'.$qstr1;
     ?>
+    <div class="li_more">
+        <p id="item_load_msg"><img src="<?php echo G5_SHOP_CSS_URL; ?>/img/loading.gif" alt="로딩이미지" ><br>잠시만 기다려주세요.</p>
+        <div class="li_more_btn">
+            <button type="button" id="btn_more_item" data-url="<?php echo $ajax_url; ?>" data-page="<?php echo $page; ?>">MORE ITEM +</button>
+        </div>
+    </div>
+    <?php } ?>
 
     <?php
     // 하단 HTML
     echo '<div id="sct_thtml">'.conv_content($ca['ca_mobile_tail_html'], 1).'</div>';
-?>
+    ?>
 </div>
 
 <?php

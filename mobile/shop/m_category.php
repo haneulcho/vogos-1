@@ -63,8 +63,9 @@ $result = sql_query($sqlcate);
 
     <?php
     for($i=0; $row=sql_fetch_array($result); $i++) {
-        if($i == 0)
+        if($i == 0) {
             echo '<nav><h2>카테고리 목록</h2><ul>';
+        }
 
         $ca_href = G5_SHOP_URL.'/category.php?ca='.$row['ca_id'];
         $list_href = G5_SHOP_URL.'/list.php?ca_id='.$row['ca_id'];
@@ -76,8 +77,10 @@ $result = sql_query($sqlcate);
     <?php
     }
 
-    if($i > 0)
+    if($i > 0) {
+        echo '<li><a href="'.G5_MSHOP_URL.'/list_all.php">All Items</a></li>';
         echo '</ul></nav>';
+    }
 
     if($i ==0) {
         echo '<p id="sct_win_empty">하위 분류가 없습니다.</p>';
