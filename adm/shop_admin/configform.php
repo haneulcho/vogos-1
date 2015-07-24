@@ -334,6 +334,19 @@ if(!isset($default['de_mobile_search_list_row'])) {
         </colgroup>
         <tbody>
         <tr>
+            <th scope="row" class="vth">인덱스 대표 동영상 (가로) 출력</th>
+            <td class="vtd">
+                <label for="de_index_video_use">출력</label>
+                <input type="checkbox" name="de_index_video_use" value="1" id="de_index_video_use" <?php echo $default['de_index_video_use']?"checked":""; ?>>
+                <label for="de_index_video_src">비메오 영상 넘버(ex 130174373)</label>
+                <input type="text" name="de_index_video_src" value="<?php echo $default['de_index_video_src']; ?>" id="de_index_video_src" class="frm_input" size="12">
+                <label for="de_index_video_width">동영상 폭</label>
+                <input type="text" name="de_index_video_width" value="<?php echo $default['de_index_video_width']; ?>" id="de_index_video_width" class="frm_input" size="5">
+                <label for="de_index_video_height">동영상 높이</label>
+                <input type="text" name="de_index_video_height" value="<?php echo $default['de_index_video_height']; ?>" id="de_index_video_height" class="frm_input" size="5">
+            </td>
+        </tr>
+        <tr>
             <th scope="row">VOGOS CLIP 출력</th>
             <td>
                 <label for="de_type1_list_use">출력</label>
