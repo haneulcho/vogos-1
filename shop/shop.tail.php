@@ -12,20 +12,19 @@ $admin = get_admin("super");
 // 사용자 화면 우측과 하단을 담당하는 페이지입니다.
 // 우측, 하단 화면을 꾸미려면 이 파일을 수정합니다.
 ?>
-            </div> <!-- main contents end -->
-            <div id="ftMenu">
-                <img src="<?php echo G5_SHOP_SKIN_URL ?>/img/footer_info.png" usemap="vogos_ft_imageMap" alt="VOGOS Navigation" />
-                <map name="vogos_ft_imageMap">
-                <area alt="Notice, Event" href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=notice" shape="rect" coords="852,35,956,60" style="outline:none;" target="_self" />
-                <area alt="My page" href="<?php echo G5_SHOP_URL; ?>/mypage.php" shape="rect" coords="851,60,916,85" style="outline:none;" target="_self" />
-                <area alt="QnA" title="" href="<?php echo G5_BBS_URL; ?>/qalist.php" shape="rect" coords="916,61,959,85" style="outline:none;" target="_self" />
-                <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/itemuselist.php" shape="rect" coords="955,62,1017,86" style="outline:none;" target="_self" />
-                <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3" shape="rect" coords="852,86,940,110" style="outline:none;" target="_self" />
-                <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4" shape="rect" coords="943,86,1018,109" style="outline:none;" target="_self" />
-                <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2" shape="rect" coords="1019,85,1105,110" style="outline:none;" target="_self" />
-                </map>
-            </div>
-        </div> <!-- container end -->
+        </div> <!-- main contents end -->
+        <div id="ftMenu">
+            <img src="<?php echo G5_SHOP_SKIN_URL ?>/img/footer_info.png" usemap="vogos_ft_imageMap" alt="VOGOS Navigation" />
+            <map name="vogos_ft_imageMap">
+            <area alt="Notice, Event" href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=notice" shape="rect" coords="852,35,956,60" style="outline:none;" target="_self" />
+            <area alt="My page" href="<?php echo G5_SHOP_URL; ?>/mypage.php" shape="rect" coords="851,60,916,85" style="outline:none;" target="_self" />
+            <area alt="QnA" title="" href="<?php echo G5_BBS_URL; ?>/qalist.php" shape="rect" coords="916,61,959,85" style="outline:none;" target="_self" />
+            <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/itemuselist.php" shape="rect" coords="955,62,1017,86" style="outline:none;" target="_self" />
+            <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3" shape="rect" coords="852,86,940,110" style="outline:none;" target="_self" />
+            <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4" shape="rect" coords="943,86,1018,109" style="outline:none;" target="_self" />
+            <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2" shape="rect" coords="1019,85,1105,110" style="outline:none;" target="_self" />
+            </map>
+        </div>
     </div> <!-- wrapper end -->
 </div> <!-- vogos end -->
 
