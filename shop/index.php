@@ -17,12 +17,33 @@ define("_INDEX_", TRUE);
 include_once(G5_SHOP_PATH.'/shop.head.php');
 ?>
 
+<?php if($default['de_type1_list_use']) { ?>
+<!-- VOGOS COLLECTION 시작 { -->
+<section class="sct_wrap">
+    <header>
+        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=1">VOGOS<br>COLLECTION</a></h2>
+    </header>
+    <?php
+    $list = new item_list();
+    $list->set_type(1);
+    $list->set_view('it_id', false);
+    $list->set_view('it_name', false);
+    $list->set_view('it_basic', false);
+    $list->set_view('it_cust_price', false);
+    $list->set_view('it_price', false);
+    $list->set_view('it_icon', false);
+    $list->set_view('sns', false);
+    echo $list->run();
+    ?>
+</section>
+<!-- } VOGOS COLLECTION 끝 -->
+<?php } ?>
+
 <?php if($default['de_type3_list_use']) { ?>
 <!-- 최신상품 시작 { -->
 <section class="sct_wrap">
     <header>
-        <h2 class="new_arrivals"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3"># NEW ARRIVALS</a></h2>
-        <!-- <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> 최신상품 모음</p> -->
+        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3">NEW<br>ARRIVALS</a></h2>
     </header>
     <?php
     $list = new item_list();

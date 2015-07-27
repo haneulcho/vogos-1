@@ -15,18 +15,21 @@ include_once(G5_LIB_PATH.'/connect.lib.php');
 include_once(G5_LIB_PATH.'/popular.lib.php');
 include_once(G5_LIB_PATH.'/latest.lib.php');
 ?>
-
+<?php if(defined('_INDEX_')) { ?>
+<!-- 인덱스 슬라이더 owl carousel -->
+<script src="<?php echo G5_SHOP_SKIN_URL; ?>/js/owl.carousel.min.js"></script>
+<?php } ?>
 <!-- 상단 시작 { -->
 <div id="vogos">
-    <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
-    <aside id="topInfo">
-        <ul id="topNav">
-            <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_insta_s.png" alt="VOGOS 인스타그램"></a></li>
-            <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_fb_s.png" alt="VOGOS 페이스북"></a></li>
-            <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_ks_s.png" alt="VOGOS 카카오스토리"></a></li>
-        </ul>
-    </aside>
-    <div id="header">
+    <div id="header" class="w940">
+        <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
+        <aside id="topInfo">
+            <ul id="topNav">
+                <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_insta_s.png" alt="VOGOS 인스타그램"></a></li>
+                <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_fb_s.png" alt="VOGOS 페이스북"></a></li>
+                <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_ks_s.png" alt="VOGOS 카카오스토리"></a></li>
+            </ul>
+        </aside>
         <?php include_once(G5_SHOP_SKIN_PATH.'/boxevent.skin.php'); // 이벤트, 기획전 배너 연동 ?>
         <h1 id="topLogo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><?php echo $config['cf_title']; ?></a></h1>
         <!-- 검색창 -->
@@ -56,7 +59,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
             <ul>
                 <?php if ($is_member) { ?>
                 <?php if ($is_admin) {  ?>
-                <li class="tadmin"><a href="<?php echo G5_ADMIN_URL; ?>/shop_admin/"><b>Admin</b></a></li>
+                <li class="tadmin"><a href="<?php echo G5_ADMIN_URL; ?>/shop_admin/">Admin</a></li>
                 <?php }  ?>
                 <li class="tmypage"><a href="<?php echo G5_SHOP_URL; ?>/mypage.php">My Page</a></li>
                 <li class="tsignout"><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop">Sign Out</a></li>
@@ -96,68 +99,69 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 
     <div id="vWrapper"> <!-- contents wrapper -->
     <?php if(defined('_INDEX_')) { ?>
-        <div id="index_top">
-            <div id="slider"> <!-- slider contents -->
-                <?php if($default['de_type4_list_use']) { ?>
-                <!-- 인기상품 시작 { -->
-                <section class="sct_wrap">
-                    <header>
-                        <h2 class="best_item"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4"># BEST ITEMS</a></h2>
-                        <!-- <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> 인기상품 모음</p> -->
-                    </header>
-                    <?php
-                    $list = new item_list();
-                    $list->set_type(4);
-                    $list->set_view('it_id', false);
-                    $list->set_view('it_name', true);
-                    $list->set_view('it_basic', true);
-                    $list->set_view('it_cust_price', true);
-                    $list->set_view('it_price', true);
-                    $list->set_view('it_icon', false);
-                    $list->set_view('sns', false);
-                    echo $list->run();
+        <div id="mWrapper">
+            <div id="index_top" class="w940">
+                <div id="slider"> <!-- slider contents -->
+                    <?php if($default['de_type4_list_use']) { ?>
+                    <!-- 인기상품 시작 { -->
+                    <section>
+                        <header>
+                            <h2 class="best_item"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">BEST ITEMS</a></h2>
+                            <!-- <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> 인기상품 모음</p> -->
+                        </header>
+                        <?php
+                        $list = new item_list();
+                        $list->set_type(4);
+                        $list->set_view('it_id', false);
+                        $list->set_view('it_name', true);
+                        $list->set_view('it_basic', true);
+                        $list->set_view('it_cust_price', true);
+                        $list->set_view('it_price', true);
+                        $list->set_view('it_icon', false);
+                        $list->set_view('sns', false);
+                        echo $list->run();
+                        ?>
+                    </section>
+                    <!-- } 인기상품 끝 -->
+                    <?php } ?>
+
+                    <?php if($default['de_type2_list_use']) { ?>
+                    <!-- 추천상품 시작 { -->
+                    <section>
+                        <header>
+                            <h2 class="md_choice"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2">MD's CHOICE</a></h2>
+                            <!-- <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> 추천상품 모음</p> -->
+                        </header>
+                        <?php
+                        $list = new item_list();
+                        $list->set_type(2);
+                        $list->set_view('it_id', false);
+                        $list->set_view('it_name', true);
+                        $list->set_view('it_basic', true);
+                        $list->set_view('it_cust_price', true);
+                        $list->set_view('it_price', true);
+                        $list->set_view('it_icon', false);
+                        $list->set_view('sns', false);
+                        echo $list->run();
+                        ?>
+                    </section>
+                    <!-- } 추천상품 끝 -->
+                    <?php } ?>
+                </div> <!-- slider end -->
+
+                <!-- 보고스 대표 동영상 시작 { -->
+                <div id="main_video">
+                    <?php if($default['de_index_video_use']) { ?>
+                    <?php echo '<iframe src="https://player.vimeo.com/video/'.$default['de_index_video_src'].'?autoplay=1&byline=0" width="'.$default['de_index_video_width'].'" height="'.$default['de_index_video_height'].'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
                     ?>
-                </section>
-                <!-- } 인기상품 끝 -->
-                <?php } ?>
-
-                <?php if($default['de_type2_list_use']) { ?>
-                <!-- 추천상품 시작 { -->
-                <section class="sct_wrap">
-                    <header>
-                        <h2 class="md_choice"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2"># MD's CHOICE</a></h2>
-                        <!-- <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> 추천상품 모음</p> -->
-                    </header>
-                    <?php
-                    $list = new item_list();
-                    $list->set_type(2);
-                    $list->set_view('it_id', false);
-                    $list->set_view('it_name', true);
-                    $list->set_view('it_basic', true);
-                    $list->set_view('it_cust_price', true);
-                    $list->set_view('it_price', true);
-                    $list->set_view('it_icon', false);
-                    $list->set_view('sns', false);
-                    echo $list->run();
-                    ?>
-                </section>
-                <!-- } 추천상품 끝 -->
-                <?php } ?>
-
-            </div> <!-- slider end -->
-
-            <!-- 보고스 대표 동영상 시작 { -->
-            <div id="main_video">
-                <?php if($default['de_index_video_use']) { ?>
-                <?php echo '<iframe src="https://player.vimeo.com/video/'.$default['de_index_video_src'].'?autoplay=1&byline=0" width="'.$default['de_index_video_width'].'" height="'.$default['de_index_video_height'].'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-                ?>
-                <?php } ?>
-            </div> <!-- } 보고스 대표 동영상 끝 -->
-        </div> <!-- index_top 끝 -->
+                    <?php } ?>
+                </div> <!-- } 보고스 대표 동영상 끝 -->
+            </div> <!-- index_top 끝 -->
+        </div> <!-- mWrapper 끝 -->
     <?php } ?>
 
         <!-- main contents -->
-        <div id="contents">
+        <div id="contents" class="w940">
         <?php //if ((!$bo_table || $w == 's' ) && !defined('_INDEX_')) { ?><div id="wrapper_title"><?php //echo $g5['title'] ?></div><?php //} ?>
         <!-- 글자크기 조정 display:none 되어 있음 시작 { -->
         <div id="text_size">
