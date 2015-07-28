@@ -71,11 +71,11 @@ $(function() {
                 $btn_video.after($modal_layer);
                 $modal_wrap.append($modal_close);
                 $modal_info.filter(':not(:animated)').animate({opacity:'show'}, 250);
-                $videos.get(0).play();
+                // $videos.get(0).play();
                 
                 $('.modal_video, .modal_close').live("click", function() {
                     $modal_info.filter(':not(:animated)').animate({opacity:'hide'}, 250);
-                    $videos.get(0).pause();
+                    // $videos.get(0).pause();
                     $('.modal_video, .modal_close').fadeOut(250, function() {
                         $('#wish_msg_layer').remove();
                         $(this).remove();
