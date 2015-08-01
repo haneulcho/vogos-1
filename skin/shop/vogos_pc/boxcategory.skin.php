@@ -8,7 +8,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
 <!-- 쇼핑몰 카테고리 시작 { -->
 <nav id="gnb">
     <h2>쇼핑몰 카테고리</h2>
-    <ul id="gnb_1dul">
+    <ul id="gnb_1dul" class="w940">
         <?php
         // 1단계 분류 판매 가능한 것만
         $hsql = " select ca_id, ca_name from {$g5['g5_shop_category_table']} where length(ca_id) = '2' and ca_use = '1' order by ca_order, ca_id ";
@@ -26,7 +26,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
         ?>
 
         <li class="gnb_1dli <?php echo strtolower($row['ca_name']); ?>" style="z-index:<?php echo $gnb_zindex; ?>">
-            <a href="<?php echo G5_SHOP_URL.'/list.php?ca_id='.$row['ca_id']; ?>" class="gnb_1da<?php if ($count) echo ' gnb_1dam'; ?>"><span><?php echo $row['ca_name']; ?></span></a>
+            <a href="<?php echo G5_SHOP_URL.'/list.php?ca_id='.$row['ca_id']; ?>" class="gnb_1da<?php if ($count) echo ' gnb_1dam'; ?>"><span><?php echo strtoupper($row['ca_name']); ?></span></a>
             <?php
             for ($j=0; $row2=sql_fetch_array($result2); $j++)
             {
