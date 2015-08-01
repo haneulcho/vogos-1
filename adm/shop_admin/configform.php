@@ -322,6 +322,12 @@ if(!isset($default['de_mobile_search_list_row'])) {
         <p>
             상품관리에서 선택한 상품의 타입대로 쇼핑몰 초기화면에 출력합니다. (상품 타입 히트/추천/최신/인기/할인)<br>
             각 타입별로 선택된 상품이 없으면 쇼핑몰 초기화면에 출력하지 않습니다.
+            <br><br>
+            <span style="color:#ff0000;font-weight:bold;">
+            main.10.skin - 일반 상품리스트 (클릭하면 동영상 모달)<br>
+            main.20.skin - VOGOS COLLECTION 슬라이더<br>
+            main.30.skin - BEST ITEMS, MD'S CHOICE 슬라이더
+            </span>
         </p>
     </div>
 
