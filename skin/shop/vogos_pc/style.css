@@ -58,7 +58,8 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 #hd_sch #sch_submit {padding:2px 5px 2px 3px;height:22px;border:0;background:#f2f5f9;cursor:pointer;}
 
 /* footer design navigation */
-#ftMenu {clear:both;padding:30px 0;border-top:1px solid #eee;}
+#ftMenu {clear:both;padding:30px 0;border-top:1px solid #eee;background-color:#f9f9f9;}
+#ftMenu>img {display:block;width:1108px;margin:0 auto;}
 
 /* aside:이벤트, 기획전 배너 링크 */
 #topBanner {clear:both;float:left;width:34%;height:70px;margin-top:53px;}
@@ -331,37 +332,72 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 .sctrl button.sctrl_next span {background-position:-150px 0}
 .sctrl bu#sit_pvi .modal_closetton.sctrl_next span.sctrl_on {background-position:-150px -30px}
 
-.sct_10 .itemDetail {display:none;cursor:pointer;position:absolute;top:0;padding:162px 30px 0;line-height:1.5em;width:232px;height:250px;background:rgba(255,255,255,0.8);color:#000;text-align:center;z-index:998;font-size:14px;border:4px double #000;}
 .scr_10 .itemDetail {display:none;cursor:pointer;position:absolute;top:0;padding:110px 20px 0;line-height:1.5em;width:162px;height:177px;background:rgba(255,255,255,0.8);color:#000;text-align:center;z-index:998;font-size:13px;border:4px double #000;}
 .scr_10 .sct_img .lineDeco {width:162px;}
-.sct_img .lineDeco {position:absolute;top:0;width:232px;}
-.sct_img .btn_video {display:none;width:100%;height:39px;left:0;bottom:0;color:#fff;position:absolute;z-index:999;background:url('img/play_button_info.png') no-repeat 14px center;cursor:pointer;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden;}
-.modal_video {top:0;left:0;right:0;bottom:0;margin:0 auto;position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.7);color:#fff;text-align:center;z-index:1000;}
-.modal_info {z-index:1001;display:none;position:fixed;top:0;left:0;right:0;margin:auto;}
-#sit_pvi .modal_info {top:0;height:100%;}
-#sit_pvi .modal_close {position:absolute;left:0;right:0;width:65px;height:65px;margin-left:auto;margin-right:auto;margin-top:50px;background:url(img/x_btn.jpg) no-repeat;opacity:.4;filter:alpha(opacity:40);-webkit-transition: opacity 0.3s ease;
+.sct_img .btn_video {top:0;left:0;right:0;width:100%;height:325px;margin:0;color:#fff;position:absolute;z-index:999;background:rgba(0,0,0, .3);cursor:pointer;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden;
+-webkit-transition: background 0.3s ease;
+  -moz-transition: background 0.3s ease;
+  -ms-transition: background 0.3s ease;
+  -o-transition: background 0.3s ease;
+  transition: background 0.3s ease;}
+.sct_img .btn_video:hover {background:none;}
+
+/* modal_info(main.10.skin.php) CSS 150731 */
+.modal_back {top:0;left:0;right:0;bottom:0;margin:0 auto;position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.7);color:#fff;text-align:center;z-index:1000;}
+.modal_wrap {z-index:1001;position:fixed;top:0;left:0;right:0;height:100%;margin:auto;}
+.modal_video {position:relative;height:100%;}
+.modal_video iframe {display:block;float:left;}
+.modal_inform {position:absolute;top:85px;left:0;right:0;margin:0 auto;}
+.modal_close {position:absolute;left:0;right:0;width:65px;height:65px;margin-left:auto;margin-right:auto;margin-top:10px;background:url(img/x_btn.jpg) no-repeat;opacity:.4;filter:alpha(opacity:40);-webkit-transition: opacity 0.3s ease;
   -moz-transition: opacity 0.3s ease;
   -ms-transition: opacity 0.3s ease;
   -o-transition: opacity 0.3s ease;
-  transition: opacity 0.3s ease;cursor:pointer;}
-#sit_pvi .modal_close:hover {opacity:1;filter:alpha(opacity:100)}
-.sct_img .modal_info video {float:left;width:300px;height:420px;}
-.sct_img .modal_info {bottom:0;margin:auto;width:620px;height:640px;}
-.sct_img .modal_close {float:right;width:320px;height:auto;}
+  transition: opacity 0.3s ease;
+  border:1px solid #555;
+  cursor:pointer;}
+.modal_close:hover {opacity:1;filter:alpha(opacity:100)}
+
+/* 모달창 상세보기 */
+.vsit_ov_wrap {float:right;width:320px;height:640px;}
+.vsit_ov {overflow:hidden;padding:33px 0 0;color:#333;letter-spacing:-0.5px;background-color:#fff;}
+.vsit_ov .sit_title {float:none;padding:0 26px 10px;font-size:16px;font-family:'Nanum Gothic Bold';line-height:1.2em;}
+.vsit_ov .sit_desc {padding:0 26px 15px;color:#888;line-height:1.4em;font-size:13px;}
+.vsit_ov .sit_tot_price {text-align:right;padding:0 27px 30px;font-size:16px;font-family:'Nanum Gothic Bold';}
+.vsit_ov .sit_ov_btn {overflow:hidden;float:none;width:auto;text-align:right;letter-spacing:-3px;}
+.vsit_ov .sit_ov_btn a {float:left;display:block;height:20px;padding:10px 0;color:#fff;font:14px tahoma;letter-spacing:normal;border:0;vertical-align:middle;text-align:center;text-decoration:none;cursor:pointer;-webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  -ms-transition: background 0.3s ease-in-out;
+  -o-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;}
+.sit_btn_more {width:40%;background-color:#38cadb;}
+.sit_btn_wish {width:60%;background-color:#ff8c9f;}
+.sit_btn_more:hover {background-color:#333;}
+.sit_btn_wish:hover {background-color:#333;}
 
 /* 상품 목록 스킨 10 */
-.sct_10 .sct_li {position:relative;float:left;margin:0 20px 15px 0;}
+.sct_10 .itemDetail {cursor:pointer;position:absolute;bottom:0;width:100%;height:60px;background:rgba(255,255,255,0.8);z-index:998;}
+.sct_10 .itemDetail>a {display:block;width:100%;height:47px;padding-top:13px;}
+.sct_10 .sct_li {position:relative;float:left;margin:0 57px 15px 0;}
 .sct_10 .sct_last {margin:0 0 15px !important}
 .sct_10 .sct_clear {clear:both}
-.sct_10 .sct_a {display:inline-block;position:relative;text-decoration:none;font:bold 15px 'malgun gothic'; letter-spacing:-1.5px;text-align:left;}
-.sct_10 .sct_a:focus, .sct_10 .sct_a:hover {text-decoration:underline;}
-.sct_10 .sct_img {position:relative;margin:0 0 10px}
-.sct_10 .sct_txt {margin:0 0 5px}
+.sct_10 .sct_a {text-decoration:none;font-family:'Nanum Gothic Bold';letter-spacing:-1px;color:#555;}
+.sct_10 .sct_a:focus, .sct_10 .sct_a:hover {text-decoration:none;}
+.sct_10 .sct_img {position:relative;margin:0;}
+.sct_10 .sct_img {
+  -webkit-transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -ms-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+}
+.sct_10 .sct_img.hasVideo:hover {opacity:.7;filter:alpha(opacity:70);}
+.sct_10 .sct_img>a {display:block;width:100%;height:100%;}
+.sct_10 .sct_txt {margin:0 12px 5px;font-size:15px;font-family:'Nanum Gothic Bold';}
 .sct_10 .sct_icon {margin:0 0 10px}
 .sct_10 .sct_id {display:block;margin:0 0 5px}
 .sct_10 .sct_basic {margin:0 0 10px}
-.sct_10 .sct_cost {display:block;margin:0 0 10px;font-weight:bold; color:#999;text-align:left;}
-.sct_10 .sct_cost strike {display:block;margin:0 0 5px;color:#999;font-weight:normal}
+.sct_10 .sct_cost {display:block;margin:0 13px 10px;font-size:13px;font-weight:bold;color:#888;text-align:left;}
+.sct_10 .sct_cost strike {margin:0 5px 5px 0;color:#aaa;font-size:12px;}
 .sct_10 .sct_sns {}
 
 /* 상품 목록 스킨 20 */
@@ -499,7 +535,7 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 .scr_10 .sct_last {margin:0 0 15px !important}
 .scr_10 .sct_clear {clear:both}
 .scr_10 .sct_a {display:inline-block;position:relative;text-decoration:none;font:bold 15px 'malgun gothic'; letter-spacing:-1.5px;}
-.scr_10 .sct_a:focus, .sct_10 .sct_a:hover {text-decoration:underline;}
+.scr_10 .sct_a:focus {text-decoration:underline;}
 .scr_10 .sct_img {position:relative;margin:0 0 10px}
 .scr_10 .sct_txt {margin:0 0 5px;text-align:left;}
 .scr_10 .sct_icon {margin:0 0 10px}
@@ -568,25 +604,6 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 #sit_ov_wrap {width:940px;margin:0 auto 20px;}
 #sit_ov_wrap:after {display:block;visibility:hidden;clear:both;content:""}
 
-/* 모달창 상세보기 */
-.vsit_ov_wrap {float:right;width:320px;height:640px;}
-.vsit_ov {overflow:hidden;padding:60px 20px 32px;color:#333;background-color:#fff}
-.vsit_ov .sit_title {float:none;width:260px;margin:0 0 8px;padding:10px 10px 15px;font-size:1.5em;font-family:'malgun gothic';letter-spacing:-1.8px;line-height:1.2em;border-top:2px solid #333;border-bottom:1px solid #333;}
-.vsit_ov .sit_desc {margin:0 0 5px;padding:12px 10px 20px;color:#888;line-height:1.4;border-top:none;border-bottom:2px solid #333;}
-.vsit_ov .sit_star_sns {position:absolute;top:30px;right:19px;color:#b8afa2;font-size:0.95em;letter-spacing:-0.1em;}
-.vsit_ov .sit_star_sns a {display:inline-block;vertical-align:middle;}
-.vsit_ov .sit_tot_price {margin:20px 15px;font-size:1.5em;font-weight:bold;font-family:'malgun gothic';}
-.vsit_ov .sit_ov_btn {float:none;width:auto;text-align:right;letter-spacing:-3px;}
-.vsit_ov .sit_ov_btn a {display:block;width:190px;height:20px;margin:0 auto 3px;padding:10px;color:#fff;font:14px tahoma;letter-spacing:normal;border:0;vertical-align:middle;text-align:center;text-decoration:none;cursor:pointer;-webkit-transition: background 0.3s ease-in-out;
-  -moz-transition: background 0.3s ease-in-out;
-  -ms-transition: background 0.3s ease-in-out;
-  -o-transition: background 0.3s ease-in-out;
-  transition: background 0.3s ease-in-out;}
-.sit_btn_more {background-color:#d4b900;}
-.sit_btn_wish {background-color:#aaa;}
-.sit_btn_more:hover {background-color:#333;}
-.sit_btn_wish:hover {background-color:#ff8c9f;}
-
 /* 위시리스트, 장바구니 ajax css 추가 */
 #cart_msg_layer {position:absolute;top:0;left:25px;padding:5px;width:336px;border:2px solid #343434;background:#fff;text-align:left;letter-spacing:0}
 #cart_msg_layer h3 {padding:5px 0 10px;border-bottom:1px solid #343434}
@@ -600,9 +617,10 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 #wish_msg_close {position:absolute;top:5px;right:5px;margin:0;padding:0;width:22px;height:22px;border:0;background:transparent;overflow:hidden}
 #wish_msg_close span {position:absolute;top:0;left:0;width:100%;height:100%;background:url('img/pop_msg_close.gif')}
 #wish_msg_layer p {color:#e23838;text-align:center;line-height:1.5em}
+#wish_msg_layer p strong {font-family:'Nanum Gothic exBold';}
 #wish_msg_layer div {padding:10px 0;text-align:center}
 #wish_msg_layer div button {margin:0 2px;padding:0;border:0;background:transparent}
-.vsit_ov #wish_msg_layer {position:static;width:260px;padding:15px 10px 0;border:none;}
+.vsit_ov #wish_msg_layer {position:static;width:100%;padding:18px 0;border:none;}
 .vsit_ov #wish_msg_layer div {padding-bottom:3px;}
 
 /* 상품 상세보기 - 이미지 미리보기 */
