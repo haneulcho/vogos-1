@@ -36,10 +36,6 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
         </p>
         <?php } ?>
         <div id="sit_star_sns">
-            <?php if ($star_score) { ?>
-            고객평점 <span>별<?php echo $star_score?>개</span>
-            <img src="<?php echo G5_SHOP_URL; ?>/img/s_star<?php echo $star_score?>.png" alt="" class="sit_star">
-            <?php } ?>
             <?php echo $sns_share_links; ?>
         </div>
         <table class="sit_ov_tbl">
