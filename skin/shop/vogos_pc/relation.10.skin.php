@@ -86,6 +86,6 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 
 if ($i > 1) echo "</ul>\n";
 
-if($i == 1) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
+if($i == 1) echo "<p class=\"sct_noitem\">아쉽게도 관계된 상품이 없네요.</p>\n";
 ?>
 <!-- } 상품진열 10 끝 -->
