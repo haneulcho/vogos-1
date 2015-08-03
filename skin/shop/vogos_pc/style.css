@@ -337,8 +337,6 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 .sctrl button.sctrl_next span {background-position:-150px 0}
 .sctrl bu#sit_pvi .modal_closetton.sctrl_next span.sctrl_on {background-position:-150px -30px}
 
-.scr_10 .itemDetail {display:none;cursor:pointer;position:absolute;top:0;padding:110px 20px 0;line-height:1.5em;width:162px;height:177px;background:rgba(255,255,255,0.8);color:#000;text-align:center;z-index:998;font-size:13px;border:4px double #000;}
-.scr_10 .sct_img .lineDeco {width:162px;}
 .sct_img .btn_video {top:0;left:0;right:0;width:100%;height:325px;margin:0;color:#fff;position:absolute;z-index:999;background:rgba(0,0,0, .3);cursor:pointer;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden;
 -webkit-transition: background 0.3s ease;
   -moz-transition: background 0.3s ease;
@@ -395,7 +393,7 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
   -o-transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
 }
-.sct_10 .sct_img.hasVideo:hover {opacity:.7;filter:alpha(opacity:70);}
+.sct_10 .sct_img:hover {opacity:.7;filter:alpha(opacity:70);}
 .sct_10 .sct_img>a {display:block;width:100%;height:100%;}
 .sct_10 .sct_txt {margin:0 12px 5px;font-size:15px;font-family:'Nanum Gothic Bold';}
 .sct_10 .sct_icon {margin:0 0 10px}
@@ -536,19 +534,36 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 .smt_50 .sct_sns {}
 
 /* 관련상품 목록 스킨 10 */
-.scr_10 .sct_li {position:relative;float:left;margin:0 25px 15px 0}
+.scr_10 .itemDetail {cursor:pointer;position:absolute;bottom:0;width:100%;height:60px;background:rgba(255,255,255,0.8);z-index:998;}
+.scr_10 .itemDetail>a {display:block;width:100%;height:47px;padding-top:13px;}
+.scr_10 .sct_li {position:relative;float:left;margin:0 57px 15px 0;}
 .scr_10 .sct_last {margin:0 0 15px !important}
 .scr_10 .sct_clear {clear:both}
-.scr_10 .sct_a {display:inline-block;position:relative;text-decoration:none;font:bold 15px 'malgun gothic'; letter-spacing:-1.5px;}
-.scr_10 .sct_a:focus {text-decoration:underline;}
-.scr_10 .sct_img {position:relative;margin:0 0 10px}
-.scr_10 .sct_txt {margin:0 0 5px;text-align:left;}
+.scr_10 .sct_a {text-decoration:none;font-family:'Nanum Gothic Bold';letter-spacing:-1px;color:#555;}
+.scr_10 .sct_a:focus, .scr_10 .sct_a:hover {text-decoration:none;}
+.scr_10 .sct_img {position:relative;margin:0;}
+.scr_10 .sct_img {
+  -webkit-transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -ms-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+}
+.scr_10 .sct_img:hover {opacity:.7;filter:alpha(opacity:70);}
+.scr_10 .sct_img>a {display:block;width:100%;height:100%;}
+.scr_10 .sct_txt {overflow:hidden;height:16px;margin:0 12px 5px;font-size:15px;font-family:'Nanum Gothic Bold';}
 .scr_10 .sct_icon {margin:0 0 10px}
 .scr_10 .sct_id {display:block;margin:0 0 5px}
 .scr_10 .sct_basic {margin:0 0 10px}
-.scr_10 .sct_cost {display:block;margin:0 0 10px;font-weight:bold; color:#999;text-align:left;}
-.scr_10 .sct_cost strike {display:block;margin:0 0 5px;color:#999;font-weight:normal}
+.scr_10 .sct_cost {display:block;margin:0 13px 10px;font-size:13px;font-weight:bold;color:#888;text-align:left;}
+.scr_10 .sct_cost strike {margin:0 5px 5px 0;color:#aaa;font-size:12px;}
 .scr_10 .sct_sns {}
+
+
+
+
+
+
 
 /* ##### main(nn).skin.php, list.(nn).skin..php 공통 적용 끝 ##### */
 

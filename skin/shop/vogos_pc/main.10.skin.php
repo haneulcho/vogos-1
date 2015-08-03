@@ -27,18 +27,13 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
     echo "<li class=\"sct_li {$sct_last}\" style=\"width:{$this->img_width}px\">\n";
 
     if ($this->href) {
-        if (!empty($row['it_1'])) { // 확장변수 있을 경우 hasVideo
-            echo "<div class=\"sct_img hasVideo\"><a href=\"{$this->href}{$row['it_id']}\" id=\"".$row['it_id']."\" class=\"sct_video_btn\" onclick=\"javascript:view_video('".$row[it_id]."'); return false;\">\n";
-        } else {
+        /*if (!empty($row['it_1'])) { // 확장변수 있을 경우 hasVideo
+            echo "<div class=\"sct_img hasVideo\"><a href=\"{$this->href}{$row['it_id']}\" id=\"".$row['it_id']."\" class=\"sct_video_btn\" onclick=\"javascript:view_video('".$row[it_id]."', 'list'); return false;\">\n";
+        } else { }*/
             echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
-        }  
     }
     if ($this->view_it_img) {
         echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."</a></div>\n"; // sct_img END
-
-        // if ($this->view_it_basic && $row['it_basic']) {
-        //    echo "<div class=\"itemDetail\"><div class=\"lineDeco\"></div>".stripslashes($row['it_basic'])."</div>";
-        // }
 
         echo "<div class=\"itemDetail\">\n";
         echo "<a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
