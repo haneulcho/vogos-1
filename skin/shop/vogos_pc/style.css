@@ -551,7 +551,7 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 }
 .scr_10 .sct_img:hover {opacity:.7;filter:alpha(opacity:70);}
 .scr_10 .sct_img>a {display:block;width:100%;height:100%;}
-.scr_10 .sct_txt {overflow:hidden;height:16px;margin:0 12px 5px;font-size:15px;font-family:'Nanum Gothic Bold';}
+.scr_10 .sct_txt {overflow:hidden;height:16px;margin:0 12px 5px;font-size:15px;font-family:'Nanum Gothic Bold';text-align:left;}
 .scr_10 .sct_icon {margin:0 0 10px}
 .scr_10 .sct_id {display:block;margin:0 0 5px}
 .scr_10 .sct_basic {margin:0 0 10px}
@@ -734,7 +734,7 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 #tab_detail.active, #tab_review.active, #tab_qna.active, #tab_delivery.active {display:block;}
 
 /* 상품 상세보기 - 상품정보 */
-#sit_inf {margin:0 0 10px;padding:15px 10px 20px;border-bottom:1px solid #e9e9e9}
+#sit_inf {margin:0 0 10px;padding:15px 0 20px;border-bottom:1px solid #e9e9e9}
 /* #sit_inf h2 {margin:0 0 10px} */
 #sit_inf h2, #sit_inf h3 {position:absolute;font-size:0;line-height:0;content:""}
 
