@@ -14,6 +14,10 @@ include_once(G5_LIB_PATH.'/visit.lib.php');
 include_once(G5_LIB_PATH.'/connect.lib.php');
 include_once(G5_LIB_PATH.'/popular.lib.php');
 include_once(G5_LIB_PATH.'/latest.lib.php');
+
+if ($member['mb_level'] < 4 ) { 
+  alert("VOGOS 관리자만 접근하실 수 있습니다. 로그인 하십시오.", G5_BBS_URL.'/login_guest.php?url=' . urlencode(G5_SHOP_URL));
+}
 ?>
 <?php if(defined('_INDEX_')) { ?>
 <!-- 인덱스 슬라이더 owl carousel -->
