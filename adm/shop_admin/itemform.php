@@ -1287,7 +1287,15 @@ $(function(){
         <tbody>
         <?php for($i=1; $i<=10; $i++) { ?>
         <tr>
-            <th scope="row"><label for="it_img<?php echo $i; ?>">이미지 <?php echo $i; ?></label></th>
+            <th scope="row"><label for="it_img<?php echo $i; ?>">
+            <?php
+            if($i == 1) {
+                $vogos_img_title = '인덱스, 상품상세 대표 이미지';
+            } else if($i == 10) {
+                $vogos_img_title = 'VOGOS COLLECTION' ;
+            }
+            if(($i == 1 || $i == 10) && $vogos_img_title) { echo '<span style="display:block;color:#ff0000;font-weight:bold">'.$vogos_img_title.'</span>'; }
+            ?>이미지 <?php echo $i; ?></label></th>
             <td>
                 <input type="file" name="it_img<?php echo $i; ?>" id="it_img<?php echo $i; ?>">
                 <?php
