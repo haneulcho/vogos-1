@@ -15,10 +15,10 @@ for($i=1; $i<=10; $i++) {
     $thumb_img_h = 392; // 높이
     $img = get_it_thumbnail($it['it_img'.$i], $thumb_img_w, $thumb_img_h);
     if($img) {
-        $thumb = get_it_thumbnail($it['it_img'.$i], 60, 84);
+        $thumb = get_it_thumbnail($it['it_img'.$i], 120, 168);
         $thumbnails[] = $thumb;
 
-        echo '<div class="item">'.$img.'</div>';
+        echo '<div class="vitem">'.$img.'</div>';
     }
 } // for END
 ?>
@@ -31,11 +31,11 @@ $total_count = count($thumbnails);
 if($total_count > 0) {
     echo '<div class="dotsCont">';
     if (!empty($it['it_1'])) { // 확장변수 있을 경우 비디오 삽입
-        echo '<div id="thumbVideo"><img src="'.G5_SHOP_SKIN_URL.'/img/play_button_small.png" width="60" height="84"></div>';
+        echo '<div id="thumbVideo"><img src="'.G5_MSHOP_SKIN_URL.'/img/play_button_small.png" width="60" height="84"></div>';
     }
     foreach($thumbnails as $val) {
         $thumb_count++;
-        echo '<div>'.$val.'</div>';
+        echo '<div class="thumbimg">'.$val.'</div>';
     }
 }
     echo '</div>';
