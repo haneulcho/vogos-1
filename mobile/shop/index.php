@@ -5,7 +5,6 @@ define("_INDEX_", TRUE);
 
 include_once(G5_MSHOP_PATH.'/_head.php');
 ?>
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="<?php echo G5_JS_URL; ?>/shop.mobile.main.js"></script>
 <!-- 인덱스 슬라이더 owl carousel -->
 <script src="<?php echo G5_MSHOP_SKIN_URL; ?>/js/owl.carousel.min.js"></script>

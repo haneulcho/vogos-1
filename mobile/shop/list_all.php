@@ -20,7 +20,6 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 var g5_shop_url = "<?php echo G5_SHOP_URL; ?>";
 </script>
 <script src="<?php echo G5_JS_URL; ?>/shop.mobile.list.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!-- 인덱스 슬라이더 owl carousel -->
 <script src="<?php echo G5_MSHOP_SKIN_URL; ?>/js/owl.carousel.min.js"></script>
 <?php include_once(G5_MSHOP_SKIN_PATH.'/main.event.skin.php'); // 이벤트 ?>
