@@ -74,8 +74,8 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 #sev_empty {padding:15px 0;text-align:center}
 
 /* index_top 슬라이더 */
-#mWrapper {margin-bottom:35px;padding:16px 0;background-color:#fafafa;border-bottom:1px solid #eee;}
-#contents {min-height:650px;}
+#mWrapper {margin-bottom:10px;padding:16px 0;background-color:#fafafa;border-bottom:1px solid #eee;}
+#contents {margin-top:25px;min-height:650px;}
 #container, #contents {overflow:hidden;}
 #index_top {overflow:hidden;}
 #main_video {float:right;width:740px;height:420px;}
