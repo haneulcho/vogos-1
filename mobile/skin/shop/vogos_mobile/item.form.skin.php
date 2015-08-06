@@ -22,59 +22,10 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 
 <div id="sit_ov_wrap">
 	<strong id="sit_title"><?php echo stripslashes($it['it_name']); ?></strong>
-	<?php
-	// 이미지(중) 썸네일
-	$thumb_img = '';
-	$thumb_img_w = 280; // 넓이
-	$thumb_img_h = 392; // 높이
-	for ($i=1; $i<=10; $i++) {
 
-		$thumb = get_it_thumbnail($it['it_img'.$i], $thumb_img_w, $thumb_img_h);
-
-		if($i == 1 && $thumb) {
-			echo "<div id=\"sit_pvi\">";
-			if (!empty($it['it_1'])) { // 확장변수 있을 경우 hasVideo
-					echo "<div class=\"sct_img\">".$thumb."<a class=\"sct_video_btn\" onclick=\"javascript:view_video('video".$it[it_id]."')\"><span>상품 비디오 보기</span></a>\n";
-					echo "<div class=\"sct_video\" id=\"video".$it[it_id]."\">					<iframe src=\"//player.vimeo.com/video/131838973?loop=0&color=ff0179&title=0&byline=0&portrait=0\" width=\"280\" height=\"392\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>";
-			} else {
-					echo "<div class=\"sct_img\">".$thumb."\n";
-			}
-			echo "</div>"; // sit_pvi END
-		}
-	} // for END
-	?>
-
-	<script>
-	$(function() {
-		play_video('<?php echo "video".$it[it_id] ?>');
-
-		function play_video(vid){
-			var vid = '#'+vid;
-			var vwrap = $(vid);
-			var videos = $(vid).children('iframe');
-			var vbtn = $('.sct_video_btn');
-			var timer = null;
-
-			if(timer) { clearTimeout(timer); }
-			timer = setTimeout(function() {
-				videos.vimeo("play");
-			}, 1000)
-
-			videos.vimeo("finish", function() {
-				console.log('ended');
-				videos.hide();
-				vbtn.fadeIn(200);
-			});
-
-			vbtn.click(function() {
-				$(this).fadeOut(200, function() {
-					videos.show();
-					videos.vimeo("play");				
-				});
-			});
-		};
-	});
-	</script>
+	<!-- 상품이미지 미리보기 시작 { -->
+	<?php include_once(G5_MSHOP_SKIN_PATH.'/img_mag.php'); ?>
+	<!-- } 상품이미지 미리보기 끝 -->
 
 	<section id="sit_ov">
 		<h2>상품간략정보 및 구매기능</h2>
