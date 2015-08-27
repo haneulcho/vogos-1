@@ -22,6 +22,11 @@ pre {overflow-x:scroll;font-size:1.1em}
 a {color:#000;text-decoration:none}
 a:focus, a:hover, a:active {text-decoration:underline}
 
+/* 보고스 강조점 */
+.vth, .vtd {color:#ff0000;}
+.vth {}
+.vtd {}
+
 /* 헤딩 */
 h1 {margin:0 0 10px;padding:0 20px 10px;min-width:960px;border-bottom:1px solid #e9e9e9;color:#333;font-size:1.5em;font-family:dotum;letter-spacing:-0.1em}
 h2 {margin:0 0 10px;padding:0 20px;font-size:1.2em}

@@ -36,10 +36,6 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
         </p>
         <?php } ?>
         <div id="sit_star_sns">
-            <?php if ($star_score) { ?>
-            고객평점 <span>별<?php echo $star_score?>개</span>
-            <img src="<?php echo G5_SHOP_URL; ?>/img/s_star<?php echo $star_score?>.png" alt="" class="sit_star">
-            <?php } ?>
             <?php echo $sns_share_links; ?>
         </div>
         <table class="sit_ov_tbl">
@@ -262,8 +258,8 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
             <?php if(!$is_orderable && $it['it_soldout'] && $it['it_stock_sms']) { ?>
             <a href="javascript:popup_stocksms('<?php echo $it['it_id']; ?>');" id="sit_btn_buy">재입고알림</a>
             <?php } ?>
-            <a href="javascript:item_wish('<?php echo $it['it_id']; ?>');" id="sit_btn_wish">Wish ♥</a>
-            <!-- <a href="javascript:popup_item_recommend('<?php echo $it['it_id']; ?>');" id="sit_btn_rec">추천하기</a>-->
+            <!-- <a href="javascript:item_wish('<?php //echo $it['it_id']; ?>');" id="sit_btn_wish">Wish ♥</a> -->
+            <!-- <a href="javascript:popup_item_recommend('<?php //echo $it['it_id']; ?>');" id="sit_btn_rec">추천하기</a>-->
         </div>
 
         <script>

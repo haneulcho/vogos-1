@@ -7,7 +7,11 @@ if (G5_IS_MOBILE) {
 }
 
 $type = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\s]/", "", $_REQUEST['type']);
-if ($type == 1)      $g5['title'] = '히트상품';
+if ($type == 1) {
+    // 보고스컬렉션상품 > VOGOS COLLECTION
+    $g5['title'] = 'VOGOS COLLECTION';
+    $nbm_class = 'vogos_collection';
+}
 else if ($type == 2) {
     // 추천상품 > MD'S CHOICE
     $g5['title'] = 'MD\'S CHOICE';
@@ -31,10 +35,10 @@ include_once('./_head.php');
 
 // 한페이지에 출력하는 이미지수 = $list_mod * $list_row
 $list_mod   = 3;    // 한줄에 이미지 몇개씩 출력?
-$list_row   = 8;    // 한 페이지에 몇라인씩 출력?
+$list_row   = 10;    // 한 페이지에 몇라인씩 출력?
 
-$img_width  = 300;  // 출력이미지 폭
-$img_height = 420;  // 출력이미지 높이
+$img_width  = 275;  // 출력이미지 폭
+$img_height = 385;  // 출력이미지 높이
 ?>
 
 <?php
@@ -55,7 +59,7 @@ $list_file = G5_SHOP_SKIN_PATH.'/'.$skin;
 
 // header title 출력
 echo '<section class="sct_wrap">';
-if($type ==2 || $type ==3 || $type ==4) {
+if($type !=5) {
 $nbm = '<header><h2 class="'.$nbm_class.'"><a href="'.G5_SHOP_URL.'/listtype.php?type='.$type.'">'.$g5['title'].'</a></h2></header>';
 echo $nbm;
 }
