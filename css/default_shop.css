@@ -1,10 +1,11 @@
 @charset "utf-8";
 /* SIR 지운아빠 */
+
 /* 초기화 */
 html {overflow-y:scroll}
-body {margin:0;padding:0;font-size:inherit;font-family:dotum}
+body {margin:0;padding:0;font-size:0.75em;font-family:dotum}
 html, h1, h2, h3, h4, h5, h6, form, fieldset, img {margin:0;padding:0;border:0}
-h1, h2, h3, h4, h5, h6 {font-size:1em;font-family:'Apple SD Gothic Neo','Nanum Gothic', 'Malgun Gothic',dotum, sans-serif;font-weight:normal;}
+h1, h2, h3, h4, h5, h6 {font-size:1em;font-family:dotum}
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block}
 #hd ul, nav ul, #ft ul {margin:0;padding:0;list-style:none}
 legend {position:absolute;margin:0;padding:0;font-size:0;line-height:0;text-indent:-9999em;overflow:hidden}
@@ -37,20 +38,33 @@ a:hover, a:focus, a:active {color:#000;text-decoration:underline}
 #hd_qnb div {text-align:center;letter-spacing:-4px}
 #hd_qnb a {letter-spacing:0}
 
-#hd_wrapper {position:absolute;left:0;right:0;top:-16px;margin:0 auto;padding:20px 0;width:1200px;zoom:1}
+#hd_wrapper {position:relative;margin:0 auto;padding:26px 0;width:1000px;zoom:1}
 #hd_wrapper:after {display:block;visibility:hidden;clear:both;content:""}
 
 #logo {float:left;padding:5px 0 0}
 
+#hd_sch {float:left;margin:0 0 0 20px;border:1px solid #c3c6ca}
+#hd_sch h3 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+#hd_sch #sch_str {padding-left:5px;width:110px;height:24px;border:0;background:#fff;line-height:1.9em !important;line-height:1.6em}
+#hd_sch #sch_submit {padding:0 5px;height:26px;border:0;background:#e2e6eb;color:#333;cursor:pointer}
+
+#tnb {float:right}
+#tnb h3 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+#tnb ul {zoom:1}
+#tnb ul:after {display:block;visibility:hidden;clear:both;content:""}
+#tnb li {float:left}
+#tnb a {display:inline-block;padding:0 10px;height:28px;color:#333;letter-spacing:-0.1em;line-height:2.4em}
+#tnb a:focus, #tnb a:hover {text-decoration:none}
+
 /* 중간 레이아웃 */
-#wrapper {z-index:5;margin:30px auto;width:1200px;zoom:1}
+#wrapper {z-index:5;margin:30px auto;width:1000px;zoom:1}
 #wrapper:after {display:block;visibility:hidden;clear:both;content:""}
-#wrapper_title {margin-bottom:0px;font-size:1.2em;font-weight:bold}
+#wrapper_title {margin-bottom:20px;font-size:1.2em;font-weight:bold}
 
 /* aside wrapper */
 #aside {float:left;margin:0 10px 0 0;width:150px}
 
-#container {position:relative;min-height:680px;height:auto !important;background:#fff;padding:0 47px 0 58px;}
+#container {position:relative;float:left;width:740px;min-height:500px;height:auto !important;height:500px;background:#fff;zoom:1}
 #container:after {display:block;visibility:hidden;clear:both;content:""}
 
 /* 텍스트 크기 조절 */
@@ -58,18 +72,18 @@ a:hover, a:focus, a:active {color:#000;text-decoration:underline}
 #text_size button {padding:0 10px;height:30px;border:1px solid #cfded8;border-bottom:0;background:#000;color:#fff;cursor:pointer}
 
 /* 하단 레이아웃 */
-#ft {clear:both;padding:0 0 40px;min-width:1000px;color:#666;font-size:11px;}
+#ft {clear:both;padding:0 0 40px;min-width:1000px;border-top:1px solid #e9e9e9}
 #ft h1 {position:absolute;font-size:0;line-height:0;overflow:hidden}
-#ft div {position:relative;margin:0 auto;padding:0 0 0 160px;width:1000px}
-#ft_logo {position:absolute;top:25px;left:65px}
-#ft ul {margin:0;padding:25px 0 0;zoom:1}
+#ft div {position:relative;margin:0 auto;padding:0 0 0 200px;width:750px}
+#ft_logo {position:absolute;top:20px;left:0}
+#ft ul {margin:0 0 15px;padding:20px 0 0;zoom:1}
 #ft ul:after {display:block;visibility:hidden;clear:both;content:""}
 #ft li {float:left;margin:0 20px 0 0}
-#ft a {text-decoration:none;color:#666;}
-#ft p {margin:0;padding:10px 0;line-height:1.6em}
+#ft a {text-decoration:none}
+#ft p {margin:0;padding:10px 0;line-height:1.8em}
 #ft span {display:inline-block;margin:0 15px 0 0}
 #ft b {display:inline-block;margin:0 5px 0 0}
-#ft_totop {position:absolute;top:50px;right:20px;display:block;width:21px;height:14px;text-indent:-99999px;line-height:0;background:url('../skin/shop/vogos_pc/img/sprite.png') no-repeat;background-position:-119px -71px;}
+#ft_totop {position:absolute;top:20px;right:0}
 
 /* 화면낭독기 사용자용 */
 #hd_login_msg {position:absolute;top:0;left:0;width:1px;height:1px;overflow:hidden}
@@ -106,18 +120,12 @@ a:hover, a:focus, a:active {color:#000;text-decoration:underline}
 #mobile_cng {display:block;margin:0.3em;padding:0.5em 0;border:1px solid #eee;border-radius:2em;background:#fff;color:#000;font-size:2em;text-decoration:none;text-align:center}
 
 /* 목록 바로가기 */
-.sanchor {margin:0 0 25px;padding:0;zoom:1;border-top:1px solid #888;border-bottom:1px solid #333;background-image: -webkit-repeating-linear-gradient(135deg, rgba(0,0,0,.3), rgba(0,0,0,.3) 1px, transparent 2px, transparent 2px, rgba(0,0,0,.3) 3px);
-  background-image: -moz-repeating-linear-gradient(135deg, rgba(0,0,0,.3), rgba(0,0,0,.3) 1px, transparent 2px, transparent 2px, rgba(0,0,0,.3) 3px);
-  background-image: -o-repeating-linear-gradient(135deg, rgba(0,0,0,.3), rgba(0,0,0,.3) 1px, transparent 2px, transparent 2px, rgba(0,0,0,.3) 3px);
-  background-image: repeating-linear-gradient(135deg, rgba(0,0,0,.3), rgba(0,0,0,.3) 1px, transparent 2px, transparent 2px, rgba(0,0,0,.3) 3px);
-  -webkit-background-size: 4px 4px;
-  -moz-background-size: 4px 4px;
-  background-size: 4px 4px;}
+.sanchor {margin:0 0 10px;padding:0;zoom:1}
 .sanchor:after {display:block;visibility:hidden;clear:both;content:""}
-.sanchor li {float:left;margin-left:0;list-style:none}
-.sanchor a {display:inline-block;background:#fff;padding:0 18px;height:30px;text-decoration:none;line-height:2.6em}
-.sanchor a:focus, .sanchor a:hover {background:#666;color:#fff;text-decoration:none}
-.sanchor a.sanchor_on {background:#333;color:#fff !important;text-decoration:none}
+.sanchor li {float:left;margin-left:-1px;list-style:none}
+.sanchor a {display:inline-block;border:1px solid #e9e9e9;background:#f2f5f9;padding:0 7px;height:30px;text-decoration:none;line-height:2.6em}
+.sanchor a:focus, .sanchor a:hover {background:#626870;color:#fff;text-decoration:none}
+.sanchor a.sanchor_on {background:#626870;color:#fff !important;text-decoration:none}
 
 /* 콘텐츠별 스타일 */
 .cnt_cmt {display:inline-block;margin:0 0 0 3px;font-weight:bold}
@@ -138,9 +146,9 @@ fieldset .btn_submit {padding:0 7px;height:24px;line-height:1em}
 a.btn_cancel {display:inline-block;padding:7px;border:1px solid #ccc;background:#fafafa;color:#000;text-decoration:none;vertical-align:middle}
 button.btn_cancel {display:inline-block;padding:7px;border:1px solid #ccc;background:#fafafa;color:#000;vertical-align:top;text-decoration:none}
 
-a.btn_frmline, button.btn_frmline {display:inline-block;padding:0 6px;height:24px;border:0;background:#333;color:#fff;letter-spacing:-0.1em;text-decoration:none;vertical-align:middle} /* 우편번호검색버튼 등 */
+a.btn_frmline, button.btn_frmline {display:inline-block;padding:0 5px;height:24px;border:0;background:#333;color:#fff;letter-spacing:-0.1em;text-decoration:none;vertical-align:middle} /* 우편번호검색버튼 등 */
 a.btn_frmline {line-height:24px}
-button.btn_frmline {font-size:11px;}
+button.btn_frmline {font-size:1em}
 
 /* 게시판용 버튼 */
 a.btn_b01 {display:inline-block;padding:7px;border:1px solid #d9ded9;background:#f2f5f9;color:#000;text-decoration:none;vertical-align:middle}
@@ -323,8 +331,8 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none}
 .sod_opt li {padding:3px;border-bottom:1px solid #e9e9e9}
 .sod_option_btn .mod_options {margin:0;padding:3px 0;width:100%;border:0;background:#ff882a;color:#fff;cursor:pointer}
 
-#sit_opt_added {margin:0;padding:0;border-top:1px solid #e9e9e9;border-bottom:0;background:#fcfcfc;list-style:none}
-#sit_opt_added li {padding:15px 20px;border-bottom:1px solid #e9e9e9}
+#sit_opt_added {margin:0;padding:0;border:1px solid #e9e9e9;border-bottom:0;background:#fff;list-style:none}
+#sit_opt_added li {padding:10px 20px;border-bottom:1px solid #e9e9e9}
 #sit_opt_added li div {margin:5px 0 0;text-align:right}
 #sit_opt_added button {margin:0 0 0 1px}
 
@@ -361,9 +369,6 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none}
 
 #sod_frm_orderer {margin:20px 0 40px}
 #sod_frm_orderer #od_addr_jibeon, #sod_frm_taker #od_b_addr_jibeon {display:inline-block;margin:5px 0 0}
-
-/* #sod_frm_addr div {position:relative} FF 포지션
-#sod_frm_addr div div {position:absolute;top:-20px;left:170px} */
 
 #sod_frm_same {margin:0 0 10px}
 
@@ -479,9 +484,8 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none}
 #scash_copy {text-align:center}
 
 /* 공지사항 및 커뮤니티 새글 */
-#sidx_lat {padding:0;}
-#sidx_lat h2 {margin-left:2px;}
-#sidx_lat h2>a {display:block;width:66px;height:15px;text-indent:-99999px;line-height:0;background:url('../skin/shop/vogos_pc/img/sprite.png') no-repeat;background-position:-6px -70px;}
+#sidx_lat {padding:15px 0 0;border-top:1px solid #ddd}
+#sidx_lat h2 {text-align:center}
 
 /* 배너 인덱스 출력 */
 #sbn_idx {}

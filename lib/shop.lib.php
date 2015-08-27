@@ -417,75 +417,12 @@ function get_it_image($it_id, $width, $height=0, $anchor=false, $img_id='', $img
 
     if($filename) {
         //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
-        // 보고스에서는 기본값을 is_crop = true로
-        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, false, 'center', true, $um_value='80/0.5/3');
     }
 
     if($thumb) {
         $file_url = str_replace(G5_PATH, G5_URL, $filepath.'/'.$thumb);
-        //$img = '<img src="'.$file_url.'" width="'.$width.'" height="'.$height.'" alt="'.$img_alt.'"';
-        $img = '<img src="'.$file_url.'" alt="'.$img_alt.'"';
-    } else {
-        $img = '<img src="'.G5_SHOP_URL.'/img/no_image.gif" width="'.$width.'"';
-        if($height)
-            $img .= ' height="'.$height.'"';
-        $img .= ' alt="'.$img_alt.'"';
-    }
-
-    if($img_id)
-        $img .= ' id="'.$img_id.'"';
-    $img .= '>';
-
-    if($anchor)
-        $img = '<a href="'.G5_SHOP_URL.'/item.php?it_id='.$it_id.'">'.$img.'</a>';
-
-    return $img;
-}
-
-// VOGOS COLLECTION 상품 이미지를 얻는다
-function get_it_image2($it_id, $width, $height=0, $anchor=false, $img_id='', $img_alt='')
-{
-    global $g5;
-
-    if(!$it_id || !$width)
-        return '';
-
-    $sql = " select it_id, it_img10 from {$g5['g5_shop_item_table']} where it_id = '$it_id' ";
-    $row = sql_fetch($sql);
-
-    if(!$row['it_id'])
-        return '';
-
-    for($i=1;$i<=10; $i++) {
-        $file = G5_DATA_PATH.'/item/'.$row['it_img'.$i];
-        if(is_file($file) && $row['it_img'.$i]) {
-            $size = @getimagesize($file);
-            if($size[2] < 1 || $size[2] > 3)
-                continue;
-
-            $filename = basename($file);
-            $filepath = dirname($file);
-            $img_width = $size[0];
-            $img_height = $size[1];
-
-            break;
-        }
-    }
-
-    if($img_width && !$height) {
-        $height = round(($width * $img_height) / $img_width);
-    }
-
-    if($filename) {
-        //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
-        // 보고스에서는 기본값을 is_crop = true로
-        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
-    }
-
-    if($thumb) {
-        $file_url = str_replace(G5_PATH, G5_URL, $filepath.'/'.$thumb);
-        //$img = '<img src="'.$file_url.'" width="'.$width.'" height="'.$height.'" alt="'.$img_alt.'"';
-        $img = '<img src="'.$file_url.'" alt="'.$img_alt.'"';
+        $img = '<img src="'.$file_url.'" width="'.$width.'" height="'.$height.'" alt="'.$img_alt.'"';
     } else {
         $img = '<img src="'.G5_SHOP_URL.'/img/no_image.gif" width="'.$width.'"';
         if($height)
@@ -525,8 +462,7 @@ function get_it_thumbnail($img, $width, $height=0, $id='')
         $height = round(($width * $img_height) / $img_width);
     }
 
-    // 기본값 is_crop = true로
-    $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+    $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, false, 'center', true, $um_value='80/0.5/3');
 
     if($thumb) {
         $file_url = str_replace(G5_PATH, G5_URL, $filepath.'/'.$thumb);
@@ -1188,7 +1124,7 @@ function display_banner($position, $skin='')
         $sql_device = " and ( bn_device = 'both' or bn_device = 'pc' ) ";
         if(G5_IS_MOBILE)
             $sql_device = " and ( bn_device = 'both' or bn_device = 'mobile' ) ";
-            
+
         // 배너 출력
         $sql = " select * from {$g5['g5_shop_banner_table']} where '".G5_TIME_YMDHIS."' between bn_begin_time and bn_end_time $sql_device and bn_position = '$position' order by bn_order, bn_id desc ";
         $result = sql_query($sql);
@@ -1497,9 +1433,7 @@ function item_icon($it)
 
 
 // sns 공유하기
-// sns로 썸네일 url 넘기기 위해 $thumb_url 변수 추가
-// 연동 js => kakaolink.js
-function get_sns_share_link($sns, $url, $title, $img, $thumb_url)
+function get_sns_share_link($sns, $url, $title, $img)
 {
     global $config;
 
@@ -1518,17 +1452,7 @@ function get_sns_share_link($sns, $url, $title, $img, $thumb_url)
             break;
         case 'kakaotalk':
             if($config['cf_kakao_js_apikey'])
-                $str = '<a href="javascript:shareToApp(\'kakaotalk\', \''.str_replace('+', ' ', urlencode($title)).'\', \''.urlencode($url).'\', \''.urlencode($thumb_url).'\');" class="share-kakaotalk"><img src="'.$img.'" alt="카카오톡 링크보내기"></a>';
-            break;
-        case 'kakaostory':
-            if($config['cf_kakao_js_apikey'])
-                $str = '<a href="javascript:shareToApp(\'kakaostory\', \''.str_replace('+', ' ', strip_tags($title)).'\', \''.urlencode($url).'\', \''.urlencode($thumb_url).'\');" class="share-kakaostory"><img src="'.$img.'" alt="카카오스토리에 공유"></a>';
-            break;
-        case 'naverline':
-            $str = '<a href="javascript:shareToApp(\'naverline\', \''.str_replace('+', ' ', strip_tags($title)).'\', \''.urlencode($url).'\', \''.urlencode($thumb_url).'\');" class="share-naverline"><img src="'.$img.'" alt="라인에 공유"></a>';
-            break;
-        case 'naverband':
-            $str = '<a href="javascript:shareToApp(\'naverband\', \''.str_replace('+', ' ', strip_tags($title)).'\', \''.urlencode($url).'\', \''.urlencode($thumb_url).'\');" class="share-naverband"><img src="'.$img.'" alt="밴드에 공유"></a>';
+                $str = '<a href="javascript:kakaolink_send(\''.str_replace('+', ' ', urlencode($title)).'\', \''.urlencode($url).'\');" class="share-kakaotalk"><img src="'.$img.'" alt="카카오톡 링크보내기"></a>';
             break;
     }
 

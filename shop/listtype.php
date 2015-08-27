@@ -7,26 +7,10 @@ if (G5_IS_MOBILE) {
 }
 
 $type = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\s]/", "", $_REQUEST['type']);
-if ($type == 1) {
-    // 보고스컬렉션상품 > VOGOS COLLECTION
-    $g5['title'] = 'VOGOS COLLECTION';
-    $nbm_class = 'vogos_collection';
-}
-else if ($type == 2) {
-    // 추천상품 > MD'S CHOICE
-    $g5['title'] = 'MD\'S CHOICE';
-    $nbm_class = 'md_choice';
-}
-else if ($type == 3) {
-    // 최신상품 > NEW ARRIVALS
-    $g5['title'] = 'NEW ARRIVALS';
-    $nbm_class = 'new_arrivals';
-}
-else if ($type == 4) { 
-    // 인기상품 > BEST ITEMS
-    $g5['title'] = 'BEST ITEMS';
-    $nbm_class = 'best_item';
-}
+if ($type == 1)      $g5['title'] = '히트상품';
+else if ($type == 2) $g5['title'] = '추천상품';
+else if ($type == 3) $g5['title'] = '최신상품';
+else if ($type == 4) $g5['title'] = '인기상품';
 else if ($type == 5) $g5['title'] = '할인상품';
 else
     alert('상품유형이 아닙니다.');
@@ -35,10 +19,10 @@ include_once('./_head.php');
 
 // 한페이지에 출력하는 이미지수 = $list_mod * $list_row
 $list_mod   = 3;    // 한줄에 이미지 몇개씩 출력?
-$list_row   = 10;    // 한 페이지에 몇라인씩 출력?
+$list_row   = 5;    // 한 페이지에 몇라인씩 출력?
 
-$img_width  = 275;  // 출력이미지 폭
-$img_height = 385;  // 출력이미지 높이
+$img_width  = 230;  // 출력이미지 폭
+$img_height = 230;  // 출력이미지 높이
 ?>
 
 <?php
@@ -56,14 +40,6 @@ define('G5_SHOP_CSS_URL', G5_SHOP_SKIN_URL);
 
 // 리스트 유형별로 출력
 $list_file = G5_SHOP_SKIN_PATH.'/'.$skin;
-
-// header title 출력
-echo '<section class="sct_wrap">';
-if($type !=5) {
-$nbm = '<header><h2 class="'.$nbm_class.'"><a href="'.G5_SHOP_URL.'/listtype.php?type='.$type.'">'.$g5['title'].'</a></h2></header>';
-echo $nbm;
-}
-
 if (file_exists($list_file)) {
     // 총몇개 = 한줄에 몇개 * 몇줄
     $items = $list_mod * $list_row;
@@ -84,10 +60,10 @@ if (file_exists($list_file)) {
     $list->set_view('it_img', true);
     $list->set_view('it_id', false);
     $list->set_view('it_name', true);
-    $list->set_view('it_cust_price', true); // 할인 가격 보이게
+    $list->set_view('it_cust_price', false);
     $list->set_view('it_price', true);
-    $list->set_view('it_icon', false); // 추천, 신상, 베스트 아이콘 안 보이게
-    $list->set_view('sns', false); // sns 아이콘 안 보이게
+    $list->set_view('it_icon', true);
+    $list->set_view('sns', true);
     echo $list->run();
 
     // where 된 전체 상품수
@@ -99,8 +75,6 @@ else
 {
     echo '<div align="center">'.$skin.' 파일을 찾을 수 없습니다.<br>관리자에게 알려주시면 감사하겠습니다.</div>';
 }
-// header title 닫기
-echo '</section>';
 ?>
 
 <?php

@@ -28,8 +28,7 @@ for($k=0; $cp=sql_fetch_array($res); $k++) {
 ?>
 
 <!-- 마이페이지 시작 { -->
-<div id="smb_my mb_join">
-    <h1>MY PAGE</h1>
+<div id="smb_my">
 
     <!-- 회원정보 개요 시작 { -->
     <section id="smb_my_ov">

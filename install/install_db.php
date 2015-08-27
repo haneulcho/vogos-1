@@ -216,10 +216,6 @@ if($g5_shop_install) {
     $mimg_width = 320;
     $mimg_height = 320;
 
-    // 영상 사이즈
-    $vimg_width = 300;
-    $vimg_height = 420;
-
     // default 설정 (쇼핑몰 설정)
     $sql = " insert into `{$g5_shop_prefix}default`
                 set de_admin_company_name = '회사명',
@@ -236,10 +232,6 @@ if($g5_shop_install) {
                     de_root_index_use = '0',
                     de_shop_skin = 'basic',
                     de_shop_mobile_skin = 'basic',
-                    de_index_video_use = '1',
-                    de_index_video_src = '000000000',
-                    de_index_video_width = '$vimg_width',
-                    de_index_video_height = '$vimg_height',
                     de_type1_list_use = '1',
                     de_type1_list_skin = 'main.10.skin.php',
                     de_type1_list_mod = '3',
