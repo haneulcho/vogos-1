@@ -43,10 +43,19 @@ define('G5_SHOP_CSS_URL', str_replace(G5_PATH, G5_URL, $skin_dir));
 var g5_shop_url = "<?php echo G5_SHOP_URL; ?>";
 </script>
 <script src="<?php echo G5_JS_URL; ?>/shop.mobile.list.js"></script>
+<!-- 인덱스 슬라이더 owl carousel -->
+<script src="<?php echo G5_MSHOP_SKIN_URL; ?>/js/owl.carousel.min.js"></script>
+<?php include_once(G5_MSHOP_SKIN_PATH.'/main.event.skin.php'); // 이벤트 ?>
 
 <div id="sct">
 
     <?php
+    // 네비게이션 빵메뉴
+    // $nav_skin = $skin_dir.'/navigation.skin.php';
+    // if(!is_file($nav_skin))
+    //     $nav_skin = G5_MSHOP_SKIN_PATH.'/navigation.skin.php';
+    // include $nav_skin;
+
     // 상단 HTML
     echo '<div id="sct_hhtml">'.conv_content($ca['ca_mobile_head_html'], 1).'</div>';
 
@@ -56,27 +65,10 @@ var g5_shop_url = "<?php echo G5_SHOP_URL; ?>";
     include $cate_skin;
 
     // 분류 Best Item
-    $list_mod = 3;
-    $list_row = 3;
-    $limit = $list_mod * $list_row;
-    $best_skin = G5_MSHOP_SKIN_PATH.'/list.best.10.skin.php';
-
-    $sql = " select *
-                from {$g5['g5_shop_item_table']}
-                where ( ca_id like '$ca_id%' or ca_id2 like '$ca_id%' or ca_id3 like '$ca_id%' )
-                  and it_use = '1'
-                  and it_type4 = '1'
-                order by it_order, it_id desc
-                limit 0, $limit ";
-
-    $list = new item_list($best_skin, $list_mod, $list_row, $ca['ca_mobile_img_width'], $ca['ca_mobile_img_height']);
-    $list->set_query($sql);
-    $list->set_mobile(true);
-    $list->set_view('it_img', true);
-    $list->set_view('it_id', false);
-    $list->set_view('it_name', true);
-    $list->set_view('it_price', true);
-    echo $list->run();
+    $best_skin = $skin_dir.'/bestitem.skin.php';
+    if(!is_file($best_skin))
+        $best_skin = G5_MSHOP_SKIN_PATH.'/bestitem.skin.php';
+    include $best_skin;
 
     // 상품 출력순서가 있다면
     if ($sort != "")

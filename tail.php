@@ -39,7 +39,7 @@ if (G5_IS_MOBILE) {
 
 <?php
 if(G5_DEVICE_BUTTON_DISPLAY && !G5_IS_MOBILE) { ?>
-<a href="<?php echo get_device_change_url(); ?>" id="device_change">모바일 버전으로 보기</a>
+<a href="<?php echo get_device_change_url(); ?>" id="device_change">모바일 버전</a>
 <?php
 }
 

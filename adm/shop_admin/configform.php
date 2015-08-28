@@ -322,6 +322,12 @@ if(!isset($default['de_mobile_search_list_row'])) {
         <p>
             상품관리에서 선택한 상품의 타입대로 쇼핑몰 초기화면에 출력합니다. (상품 타입 히트/추천/최신/인기/할인)<br>
             각 타입별로 선택된 상품이 없으면 쇼핑몰 초기화면에 출력하지 않습니다.
+        <br><br>
+            <span style="color:#ff0000;font-weight:bold;">
+            main.10.skin - 일반 상품리스트<br>
+            main.20.skin - VOGOS BESTSELLER 슬라이더<br>
+            main.30.skin - MODEL's CHOICE 슬라이더
+            </span>            
         </p>
     </div>
 
@@ -334,13 +340,26 @@ if(!isset($default['de_mobile_search_list_row'])) {
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row">히트상품출력</th>
+            <th scope="row" class="vth">인덱스 대표 동영상 (가로) 출력</th>
+            <td class="vtd">
+                <label for="de_index_video_use">출력</label>
+                <input type="checkbox" name="de_index_video_use" value="1" id="de_index_video_use" <?php echo $default['de_index_video_use']?"checked":""; ?>>
+                <label for="de_index_video_src">비메오 영상 넘버(ex 130174373)</label>
+                <input type="text" name="de_index_video_src" value="<?php echo $default['de_index_video_src']; ?>" id="de_index_video_src" class="frm_input" size="12">
+                <label for="de_index_video_width">동영상 폭</label>
+                <input type="text" name="de_index_video_width" value="<?php echo $default['de_index_video_width']; ?>" id="de_index_video_width" class="frm_input" size="5">
+                <label for="de_index_video_height">동영상 높이</label>
+                <input type="text" name="de_index_video_height" value="<?php echo $default['de_index_video_height']; ?>" id="de_index_video_height" class="frm_input" size="5">
+            </td>
+        </tr>
+        <tr>
+           <th scope="row">VOGOS CLIP 출력</th>
             <td>
                 <label for="de_type1_list_use">출력</label>
                 <input type="checkbox" name="de_type1_list_use" value="1" id="de_type1_list_use" <?php echo $default['de_type1_list_use']?"checked":""; ?>>
                 <label for="de_type1_list_skin">스킨</label>
                 <select name="de_type1_list_skin" id="de_type1_list_skin">
-                    <?php echo get_list_skin_options("^main.[0-9]+\.skin\.php", G5_SHOP_SKIN_PATH, $default['de_type1_list_skin']); ?>
+                 <?php echo get_list_skin_options("^main.[0-9]+\.skin\.php", G5_SHOP_SKIN_PATH, $default['de_type1_list_skin']); ?>
                 </select>
                 <label for="de_type1_list_mod">1줄당 이미지 수</label>
                 <input type="text" name="de_type1_list_mod" value="<?php echo $default['de_type1_list_mod']; ?>" id="de_type1_list_mod" class="frm_input" size="3">
@@ -353,7 +372,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">추천상품출력</th>
+            <th scope="row">MODEL's CHOICE 출력</th>
             <td>
                 <label for="de_type2_list_use">출력</label>
                 <input type="checkbox" name="de_type2_list_use" value="1" id="de_type2_list_use" <?php echo $default['de_type2_list_use']?"checked":""; ?>>
@@ -372,7 +391,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">최신상품출력</th>
+            <th scope="row">NEW ARRIVALS 출력</th>
             <td>
                 <label for="de_type3_list_use">출력</label>
                 <input type="checkbox" name="de_type3_list_use" value="1" id="de_type3_list_use" <?php echo $default['de_type3_list_use']?"checked":""; ?>>
@@ -391,7 +410,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">인기상품출력</th>
+            <th scope="row">VOGOS BESTSELLER 출력</th>
             <td>
                 <label for="de_type4_list_use">출력</label>
                 <input type="checkbox" name="de_type4_list_use" value="1" id="de_type4_list_use" <?php echo $default['de_type4_list_use']?"checked":""; ?>>
@@ -454,7 +473,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row">히트상품출력</th>
+            <th scope="row">VOGOS CLIP 출력</th>
             <td>
                 <label for="de_mobile_type1_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type1_list_use" value="1" id="de_mobile_type1_list_use" <?php echo $default['de_mobile_type1_list_use']?"checked":""; ?>>
@@ -473,7 +492,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">추천상품출력</th>
+            <th scope="row">MODEL's CHOICE 출력</th>
             <td>
                 <label for="de_mobile_type2_list_use">출력</label> <input type="checkbox" name="de_mobile_type2_list_use" value="1" id="de_mobile_type2_list_use" <?php echo $default['de_mobile_type2_list_use']?"checked":""; ?>>
                 <label for="de_mobile_type2_list_skin">스킨 </label>
@@ -491,7 +510,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">최신상품출력</th>
+            <th scope="row">NEW ARRIVALS 출력</th>
             <td>
                 <label for="de_mobile_type3_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type3_list_use" value="1" id="de_mobile_type3_list_use" <?php echo $default['de_mobile_type3_list_use']?"checked":""; ?>>
@@ -510,7 +529,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">인기상품출력</th>
+            <th scope="row">VOGOS BESTSELLER 출력</th>
             <td>
                 <label for="de_mobile_type4_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type4_list_use" value="1" id="de_mobile_type4_list_use" <?php echo $default['de_mobile_type4_list_use']?"checked":""; ?>>

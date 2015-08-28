@@ -53,7 +53,7 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
 <script src="<?php echo G5_JS_URL; ?>/shop.list.js"></script>
 
 <!-- 상품 목록 시작 { -->
-<div id="sct">
+<div id="sct" class="sct_wrap">
 
     <?php
     $nav_skin = $skin_dir.'/navigation.skin.php';
@@ -92,7 +92,7 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
         $sub_skin = $skin_dir.'/list.sub.skin.php';
         if(!is_file($sub_skin))
             $sub_skin = G5_SHOP_SKIN_PATH.'/list.sub.skin.php';
-        include $sub_skin;
+        // include $sub_skin;
         echo '</div>';
 
         // 총몇개 = 한줄에 몇개 * 몇줄
@@ -115,8 +115,8 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
         $list->set_view('it_basic', true);
         $list->set_view('it_cust_price', true);
         $list->set_view('it_price', true);
-        $list->set_view('it_icon', true);
-        $list->set_view('sns', true);
+        $list->set_view('it_icon', false);
+        $list->set_view('sns', false);
         echo $list->run();
 
         // where 된 전체 상품수

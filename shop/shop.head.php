@@ -14,71 +14,69 @@ include_once(G5_LIB_PATH.'/visit.lib.php');
 include_once(G5_LIB_PATH.'/connect.lib.php');
 include_once(G5_LIB_PATH.'/popular.lib.php');
 include_once(G5_LIB_PATH.'/latest.lib.php');
+
+if ($member['mb_level'] < 4 ) { 
+  alert("VOGOS 관리자만 접근하실 수 있습니다. 로그인 하십시오.", G5_BBS_URL.'/login_guest.php?url=' . urlencode(G5_SHOP_URL));
+}
 ?>
-
+<?php if(defined('_INDEX_')) { ?>
+<!-- 인덱스 슬라이더 owl carousel -->
+<script src="<?php echo G5_SHOP_SKIN_URL; ?>/js/owl.carousel.min.js"></script>
+<?php } ?>
 <!-- 상단 시작 { -->
-<div id="hd">
-    <h1 id="hd_h1"><?php echo $g5['title'] ?></h1>
-
-    <div id="skip_to_container"><a href="#container">본문 바로가기</a></div>
-
-    <?php if(defined('_INDEX_')) { // index에서만 실행
-        include G5_BBS_PATH.'/newwin.inc.php'; // 팝업레이어
-     } ?>
-
-    <aside id="hd_qnb">
-        <h2>쇼핑몰 퀵메뉴</h2>
-        <div>
-            <a href="<?php echo G5_SHOP_URL; ?>/cart.php"><img src="<?php echo G5_SHOP_URL; ?>/img/hd_nb_cart.gif" alt="장바구니"></a>
-            <a href="<?php echo G5_SHOP_URL; ?>/wishlist.php"><img src="<?php echo G5_SHOP_URL; ?>/img/hd_nb_wish.gif" alt="위시리스트"></a>
-            <a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php"><img src="<?php echo G5_SHOP_URL; ?>/img/hd_nb_deli.gif" alt="주문/배송조회"></a>
-        </div>
-    </aside>
-
-    <div id="hd_wrapper">
-        <div id="logo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><img src="<?php echo G5_DATA_URL; ?>/common/logo_img" alt="<?php echo $config['cf_title']; ?>"></a></div>
-
+<div id="vogos">
+    <div id="header" class="w940">
+        <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
+        <aside id="topInfo">
+            <ul id="topNav">
+                <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_insta_s.png" alt="VOGOS 인스타그램"></a></li>
+                <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_fb_s.png" alt="VOGOS 페이스북"></a></li>
+                <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_ks_s.png" alt="VOGOS 카카오스토리"></a></li>
+            </ul>
+        </aside>
+        <?php include_once(G5_SHOP_SKIN_PATH.'/boxevent.skin.php'); // 이벤트, 기획전 배너 연동 ?>
+        <h1 id="topLogo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><?php echo $config['cf_title']; ?></a></h1>
+        <!-- 검색창 -->
         <div id="hd_sch">
             <h3>쇼핑몰 검색</h3>
             <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
-
-            <label for="sch_str" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-            <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
-            <input type="submit" value="검색" id="sch_submit">
-
+                <label for="sch_str" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+                <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
+                <input type="image" src="http://vogostest.cafe24.com/skin/shop/vogos_pc/img/search.png" value="검색" id="sch_submit">
             </form>
             <script>
             function search_submit(f) {
-                if (f.q.value.length < 2) {
-                    alert("검색어는 두글자 이상 입력하십시오.");
-                    f.q.select();
-                    f.q.focus();
-                    return false;
-                }
+            if (f.q.value.length < 2) {
+            alert("검색어는 두글자 이상 입력하십시오.");
+            f.q.select();
+            f.q.focus();
+            return false;
+            }
 
-                return true;
+            return true;
             }
             </script>
         </div>
-
+        <!-- join, sign in etc... sub nav -->
         <div id="tnb">
             <h3>회원메뉴</h3>
             <ul>
                 <?php if ($is_member) { ?>
                 <?php if ($is_admin) {  ?>
-                <li><a href="<?php echo G5_ADMIN_URL; ?>/shop_admin/"><b>관리자</b></a></li>
+                <li class="tadmin"><a href="<?php echo G5_ADMIN_URL; ?>/shop_admin/">Admin</a></li>
                 <?php }  ?>
-                <li><a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php">정보수정</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop">로그아웃</a></li>
+                <li class="tmypage"><a href="<?php echo G5_SHOP_URL; ?>/mypage.php">My Page</a></li>
+                <li class="tsignout"><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop">Sign Out</a></li>
                 <?php } else { ?>
-                <li><a href="<?php echo G5_BBS_URL; ?>/register.php">회원가입</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><b>로그인</b></a></li>
+                <li class="tjoin"><a href="<?php echo G5_BBS_URL; ?>/register.php">Join</a></li>
+                <li class="tsignin"><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><b>Sign In</b></a></li>
                 <?php } ?>
-                <li><a href="<?php echo G5_SHOP_URL; ?>/mypage.php">마이페이지</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/qalist.php">1:1문의</a></li>
-                <li><a href="<?php echo G5_SHOP_URL; ?>/personalpay.php">개인결제</a></li>
-                <li><a href="<?php echo G5_SHOP_URL; ?>/itemuselist.php">사용후기</a></li>
+            </ul>
+            <ul>
+                <li class="tfaq"><a href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a></li>
+                <li class="tqna"><a href="<?php echo G5_BBS_URL; ?>/qalist.php">Q&amp;A</a></li>
+                <li class="tonlyu"><a href="<?php echo G5_SHOP_URL; ?>/personalpay.php">Only You</a></li>
+                <li class="treviews"><a href="<?php echo G5_SHOP_URL; ?>/itemuselist.php">Reviews</a></li>
                 <?php
                 if(!$default['de_root_index_use']) {
                     $com_href = G5_URL;
@@ -91,7 +89,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
                         }
                     }
                 ?>
-                <li><a href="<?php echo $com_href; ?>/"><?php echo $com_name; ?></a></li>
+                <li><a href="<?php //echo $com_href; ?>/"><?php //echo $com_name; ?></a></li>
                 <?php
                     unset($com_href);
                     unset($com_name);
@@ -99,36 +97,76 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
                 ?>
             </ul>
         </div>
-    </div>
+    </div> <!-- id="header" -->
+    <!-- global navigation -->
+    <?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 ?>
 
-</div>
+    <div id="vWrapper"> <!-- contents wrapper -->
+    <?php if(defined('_INDEX_')) { ?>
+        <div id="mWrapper">
+            <div id="index_top" class="w940">
+                <div id="slider"> <!-- slider contents -->
+                    <?php if($default['de_type4_list_use']) { ?>
+                    <!-- 인기상품 시작 { -->
+                    <section>
+                        <header>
+                            <h2 class="best_item"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">BEST ITEMS</a></h2>
+                            <!-- <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> 인기상품 모음</p> -->
+                        </header>
+                        <?php
+                        $list = new item_list();
+                        $list->set_type(4);
+                        $list->set_view('it_id', false);
+                        $list->set_view('it_name', true);
+                        $list->set_view('it_basic', true);
+                        $list->set_view('it_cust_price', true);
+                        $list->set_view('it_price', true);
+                        $list->set_view('it_icon', false);
+                        $list->set_view('sns', false);
+                        echo $list->run();
+                        ?>
+                    </section>
+                    <!-- } 인기상품 끝 -->
+                    <?php } ?>
 
-<div id="wrapper">
+                    <?php if($default['de_type2_list_use']) { ?>
+                    <!-- 추천상품 시작 { -->
+                    <section>
+                        <header>
+                            <h2 class="md_choice"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2">MD's CHOICE</a></h2>
+                            <!-- <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> 추천상품 모음</p> -->
+                        </header>
+                        <?php
+                        $list = new item_list();
+                        $list->set_type(2);
+                        $list->set_view('it_id', false);
+                        $list->set_view('it_name', true);
+                        $list->set_view('it_basic', true);
+                        $list->set_view('it_cust_price', true);
+                        $list->set_view('it_price', true);
+                        $list->set_view('it_icon', false);
+                        $list->set_view('sns', false);
+                        echo $list->run();
+                        ?>
+                    </section>
+                    <!-- } 추천상품 끝 -->
+                    <?php } ?>
+                </div> <!-- slider end -->
 
-    <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
+                <!-- 보고스 대표 동영상 시작 { -->
+                <div id="main_video">
+                    <?php if($default['de_index_video_use']) { ?>
+                    <?php echo '<iframe src="https://player.vimeo.com/video/'.$default['de_index_video_src'].'?autoplay=1&byline=0" width="'.$default['de_index_video_width'].'" height="'.$default['de_index_video_height'].'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                    ?>
+                    <?php } ?>
+                </div> <!-- } 보고스 대표 동영상 끝 -->
+            </div> <!-- index_top 끝 -->
+        </div> <!-- mWrapper 끝 -->
+    <?php } ?>
 
-    <div id="aside">
-        <?php echo outlogin('shop_basic'); // 아웃로그인 ?>
-
-        <?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 ?>
-
-        <?php include_once(G5_SHOP_SKIN_PATH.'/boxcart.skin.php'); // 장바구니 ?>
-
-        <?php include_once(G5_SHOP_SKIN_PATH.'/boxwish.skin.php'); // 위시리스트 ?>
-
-        <?php include_once(G5_SHOP_SKIN_PATH.'/boxevent.skin.php'); // 이벤트 ?>
-
-        <?php include_once(G5_SHOP_SKIN_PATH.'/boxcommunity.skin.php'); // 커뮤니티 ?>
-
-        <!-- 쇼핑몰 배너 시작 { -->
-        <?php echo display_banner('왼쪽'); ?>
-        <!-- } 쇼핑몰 배너 끝 -->
-    </div>
-<!-- } 상단 끝 -->
-
-    <!-- 콘텐츠 시작 { -->
-    <div id="container">
-        <?php if ((!$bo_table || $w == 's' ) && !defined('_INDEX_')) { ?><div id="wrapper_title"><?php echo $g5['title'] ?></div><?php } ?>
+        <!-- main contents -->
+        <div id="contents" class="w940">
+        <?php //if ((!$bo_table || $w == 's' ) && !defined('_INDEX_')) { ?><div id="wrapper_title"><?php //echo $g5['title'] ?></div><?php //} ?>
         <!-- 글자크기 조정 display:none 되어 있음 시작 { -->
         <div id="text_size">
             <button class="no_text_resize" onclick="font_resize('container', 'decrease');">작게</button>
