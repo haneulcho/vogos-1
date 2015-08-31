@@ -36,6 +36,7 @@
 }
 body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Nanum Gothic', 'Malgun Gothic',dotum, sans-serif;line-height:1.25em;}
 .w940 {width:940px;margin:0 auto;}
+.w1200 {width:1200px;margin:0 auto;}
 #vogos {margin:0 auto; background-color:#fff;}
 #vogos ul, #vogos li {list-style-type:none;}
 #header {position:relative;height:125px;margin-bottom:15px;}
@@ -234,7 +235,7 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 #nbm>li.md_choice>a {background-color:#1f1f1f;}
 #nbm>li:hover>a {background-color:#d4b900;}
 
-#main_event {width:940px;}
+#main_event {width:1200px;}
 .lineDeco {width:720px; margin:0 auto;height:12px; background-image: -webkit-repeating-linear-gradient(135deg, rgba(0,0,0,.3), rgba(0,0,0,.3) 1px, transparent 2px, transparent 2px, rgba(0,0,0,.3) 3px);
   background-image: -moz-repeating-linear-gradient(135deg, rgba(0,0,0,.3), rgba(0,0,0,.3) 1px, transparent 2px, transparent 2px, rgba(0,0,0,.3) 3px);
   background-image: -o-repeating-linear-gradient(135deg, rgba(0,0,0,.3), rgba(0,0,0,.3) 1px, transparent 2px, transparent 2px, rgba(0,0,0,.3) 3px);
@@ -306,7 +307,7 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 
 /* ##### main(nn).skin.php, list.(nn).skin.php 공통 적용 시작 ##### */
 /* 공통 */
-.sct_wrap {position:relative;width:940px;margin:0 auto 35px;zoom:1;}
+.sct_wrap {position:relative;width:1200px;margin:0 auto 35px;zoom:1;}
 .sct_wrap .sctrl {position:absolute;top:0;right:0} /* 애니메이션 효과 사용 시 재생 정지 버튼 등 */
 .sct_wrap:after {display:block;visibility:hidden;clear:both;content:""}
 .sct_wrap header {margin:0 0 15px;zoom:1;}
@@ -616,7 +617,7 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 .sit_empty {padding:20px 0;text-align:center}
 
 /* 상품 상세보기 - 개요 */
-#sit_ov_wrap {width:940px;margin:0 auto 20px;}
+#sit_ov_wrap {width:1200px;margin:0 auto 20px;}
 #sit_ov_wrap:after {display:block;visibility:hidden;clear:both;content:""}
 
 /* 위시리스트, 장바구니 ajax css 추가 */

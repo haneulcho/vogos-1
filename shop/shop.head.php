@@ -25,7 +25,7 @@ if ($member['mb_level'] < 4 ) {
 <?php } ?>
 <!-- 상단 시작 { -->
 <div id="vogos">
-    <div id="header" class="w940">
+    <div id="header" class="w1200">
         <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
         <aside id="topInfo">
             <ul id="topNav">
@@ -104,7 +104,7 @@ if ($member['mb_level'] < 4 ) {
     <div id="vWrapper"> <!-- contents wrapper -->
     <?php if(defined('_INDEX_')) { ?>
         <div id="mWrapper">
-            <div id="index_top" class="w940">
+            <div id="index_top" class="w1200">
                 <div id="slider"> <!-- slider contents -->
                     <?php if($default['de_type4_list_use']) { ?>
                     <!-- 인기상품 시작 { -->
@@ -165,7 +165,7 @@ if ($member['mb_level'] < 4 ) {
     <?php } ?>
 
         <!-- main contents -->
-        <div id="contents" class="w940">
+        <div id="contents" class="w1200">
         <?php //if ((!$bo_table || $w == 's' ) && !defined('_INDEX_')) { ?><div id="wrapper_title"><?php //echo $g5['title'] ?></div><?php //} ?>
         <!-- 글자크기 조정 display:none 되어 있음 시작 { -->
         <div id="text_size">
