@@ -644,7 +644,7 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 #sit_pvi_video video {position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;min-width:300px;min-height:420px;}
 #sit_pvi_video_btn {width:165px;margin:6px auto 0;}
 #sit_pvi_video_btn a {display:block;width:165px;height:39px;cursor:pointer;}
-#sit_pvi_img {position:relative;width:350px;height:auto;}
+#sit_pvi_img {position:relative;width:400px;height:auto;}
 .dotsCont div {float:left;margin-right:10px;cursor:pointer;}
 
 #sit_pvi_thumb {margin:0;padding:0;list-style:none;zoom:1}
