@@ -57,7 +57,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
             var itemShow = <?php echo $tv_div['img_length']; ?>; // 한번에 보여줄 아이템 수량
             if (itemQty > itemShow)
             {
-                $('#stv_btn').append('<button type="button" id="up">이전</button><button type="button" id="down">다음</button>');
+                $('#stv_btn').append('<button type="button" id="up">◀</button><button type="button" id="down">▶</button>');
             }
             var Flag = 1; // 페이지
             var EOFlag = parseInt(<?php echo $i-1; ?>/itemShow); // 전체 리스트를 3(한 번에 보여줄 값)으로 나눠 페이지 최댓값을 구하고
@@ -101,7 +101,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
 
         <ul id="stv_nb">
             <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><img src="<?php echo G5_SHOP_URL; ?>/img/hd_nb_cart.gif" alt="장바구니"></a></li>
-            <li><a href="<?php echo G5_SHOP_URL; ?>/wishlist.php"><img src="<?php echo G5_SHOP_URL; ?>/img/hd_nb_wish.gif" alt="위시리스트"></a></li>
+            <!-- <li><a href="<?php // echo G5_SHOP_URL; ?>/wishlist.php"><img src="<?php // echo G5_SHOP_URL; ?>/img/hd_nb_wish.gif" alt="위시리스트"></a></li> -->
             <li><a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php"><img src="<?php echo G5_SHOP_URL; ?>/img/hd_nb_deli.gif" alt="주문/배송조회"></a></li>
         </ul>
     </div>
