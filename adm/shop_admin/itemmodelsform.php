@@ -83,7 +83,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
     <tr>
         <th>모델스초이스번호</th>
         <td>
-            <span class="frm_ev_id"><?php echo $mds_id; ?></span>
+            <span class="frm_mds_id"><?php echo $mds_id; ?></span>
             <a href="<?php echo G5_SHOP_URL; ?>/models.php?mds_id=<?php echo $mds['mds_id']; ?>" class="btn_frmline">게시글 바로가기</a>
         </td>
     </tr>
