@@ -37,6 +37,7 @@ $sql_common = " set mds_skin             = '$mds_skin',
                     mds_subject          = '$mds_subject',
                     mds_html        = '$mds_html',
                     mds_use              = '$mds_use'
+                    mds_hit              = '0'
                     ";
 
 if ($w == "")

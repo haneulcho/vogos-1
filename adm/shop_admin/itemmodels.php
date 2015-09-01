@@ -35,6 +35,7 @@ $result = sql_query($sql);
         <th scope="col">모델스초이스번호</th>
         <th scope="col">제목</th>
         <th scope="col">연결상품</th>
+        <th scope="col">조회수</th>
         <th scope="col">사용</th>
         <th scope="col">관리</th>
     </tr>
@@ -57,6 +58,7 @@ $result = sql_query($sql);
         <td class="td_num"><?php echo $row['mds_id']; ?></td>
         <td><?php echo $subject; ?></td>
         <td class="td_num"><?php echo $href; ?><?php echo $mds['cnt']; ?><?php echo $href_close; ?></td>
+        <td class="td_num"><?php echo $row['mds_hit']; ?></td>
         <td class="td_boolean"><?php echo $row['mds_use'] ? '<span class="txt_true">예</span>' : '<span class="txt_false">아니오</span>'; ?></td>
         <td class="td_mng">
             <a href="./itemmodelsform.php?w=u&amp;mds_id=<?php echo $row['mds_id']; ?>">수정</a>
