@@ -2,7 +2,7 @@
 include_once('./_common.php');
 
 $g5['title'] = '로그인';
-include_once('./_head.sub.php');
+include_once('./_head.php');
 
 $url = $_GET['url'];
 
@@ -27,5 +27,5 @@ if (!file_exists($login_file))
 
 include_once($member_skin_path.'/login.skin.php');
 
-include_once('./_tail.sub.php');
+include_once('./_tail.php');
 ?>
