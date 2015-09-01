@@ -403,6 +403,11 @@ CREATE TABLE IF NOT EXISTS `g5_shop_models` (
   `mds_html` text NOT NULL,
   `mds_use` tinyint(4) NOT NULL DEFAULT '0',
   `mds_hit` int(11) NOT NULL DEFAULT '0',
+  `mds_video_src` int(12) NOT NULL DEFAULT '0',
+  `mds_video_width` int(11) NOT NULL DEFAULT '0',
+  `mds_video_height` int(11) NOT NULL DEFAULT '0',
+  `mds_mobile_video_width` int(11) NOT NULL DEFAULT '0',
+  `mds_mobile_video_height` int(11) NOT NULL DEFAULT '0',  
   PRIMARY KEY (`mds_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
