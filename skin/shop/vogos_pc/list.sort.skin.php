@@ -33,7 +33,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
         <li><a href="<?php echo $sct_sort_href; ?>it_sum_qty&amp;sortodr=desc" class="btn01">판매많은순</a></li>
         <li><a href="<?php echo $sct_sort_href; ?>it_price&amp;sortodr=asc" class="btn01">낮은가격순</a></li>
         <li><a href="<?php echo $sct_sort_href; ?>it_price&amp;sortodr=desc" class="btn01">높은가격순</a></li>
-        <li><a href="<?php echo $sct_sort_href; ?>it_use_avg&amp;sortodr=desc" class="btn01">평점높은순</a></li>
+        <!-- <li><a href="<?php //echo $sct_sort_href; ?>it_use_avg&amp;sortodr=desc" class="btn01">평점높은순</a></li> -->
         <li><a href="<?php echo $sct_sort_href; ?>it_use_cnt&amp;sortodr=desc" class="btn01">후기많은순</a></li>
         <li><a href="<?php echo $sct_sort_href; ?>it_update_time&amp;sortodr=desc" class="btn01">최근등록순</a></li>
     </ul>
