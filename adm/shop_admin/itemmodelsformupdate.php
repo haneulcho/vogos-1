@@ -14,14 +14,14 @@ else
 @chmod(G5_DATA_PATH."/models", G5_DIR_PERMISSION);
 
 if ($mds_bimg_del)  @unlink(G5_DATA_PATH."/models/{$mds_id}_b"); // 영상대표이미지
-if ($mds_simg1_del)  @unlink(G5_DATA_PATH."/models/{$mds_id1}_s"); // 영상서브캡쳐이미지
-if ($mds_simg2_del)  @unlink(G5_DATA_PATH."/models/{$mds_id2}_s");
-if ($mds_simg3_del)  @unlink(G5_DATA_PATH."/models/{$mds_id3}_s");
-if ($mds_simg4_del)  @unlink(G5_DATA_PATH."/models/{$mds_id4}_s");
-if ($mds_simg5_del)  @unlink(G5_DATA_PATH."/models/{$mds_id5}_s");
-if ($mds_simg6_del)  @unlink(G5_DATA_PATH."/models/{$mds_id6}_s");
-if ($mds_simg7_del)  @unlink(G5_DATA_PATH."/models/{$mds_id7}_s");
-if ($mds_simg8_del)  @unlink(G5_DATA_PATH."/models/{$mds_id8}_s");
+if ($mds_simg1_del)  @unlink(G5_DATA_PATH."/models/{$mds_id}_s1"); // 영상서브캡쳐이미지
+if ($mds_simg2_del)  @unlink(G5_DATA_PATH."/models/{$mds_id}_s2");
+if ($mds_simg3_del)  @unlink(G5_DATA_PATH."/models/{$mds_id}_s3");
+if ($mds_simg4_del)  @unlink(G5_DATA_PATH."/models/{$mds_id}_s4");
+if ($mds_simg5_del)  @unlink(G5_DATA_PATH."/models/{$mds_id}_s5");
+if ($mds_simg6_del)  @unlink(G5_DATA_PATH."/models/{$mds_id}_s6");
+if ($mds_simg7_del)  @unlink(G5_DATA_PATH."/models/{$mds_id}_s7");
+if ($mds_simg8_del)  @unlink(G5_DATA_PATH."/models/{$mds_id}_s8");
 
 $sql_common = " set mds_skin             = '$mds_skin',
                     mds_mobile_skin      = '$mds_mobile_skin',
@@ -58,14 +58,14 @@ else if ($w == "u")
 else if ($w == "d")
 {
     @unlink(G5_DATA_PATH."/models/{$mds_id}_b"); // 영상대표이미지
-    @unlink(G5_DATA_PATH."/models/{$mds_id1}_s");
-    @unlink(G5_DATA_PATH."/models/{$mds_id2}_s");
-    @unlink(G5_DATA_PATH."/models/{$mds_id3}_s");
-    @unlink(G5_DATA_PATH."/models/{$mds_id4}_s");
-    @unlink(G5_DATA_PATH."/models/{$mds_id5}_s");
-    @unlink(G5_DATA_PATH."/models/{$mds_id6}_s");
-    @unlink(G5_DATA_PATH."/models/{$mds_id7}_s");
-    @unlink(G5_DATA_PATH."/models/{$mds_id8}_s");
+    @unlink(G5_DATA_PATH."/models/{$mds_id}_s1");
+    @unlink(G5_DATA_PATH."/models/{$mds_id}_s2");
+    @unlink(G5_DATA_PATH."/models/{$mds_id}_s3");
+    @unlink(G5_DATA_PATH."/models/{$mds_id}_s4");
+    @unlink(G5_DATA_PATH."/models/{$mds_id}_s5");
+    @unlink(G5_DATA_PATH."/models/{$mds_id}_s6");
+    @unlink(G5_DATA_PATH."/models/{$mds_id}_s7");
+    @unlink(G5_DATA_PATH."/models/{$mds_id}_s8");
 
     // 모델스초이스 상품삭제
     $sql = " delete from {$g5['g5_shop_models_item_table']} where mds_id = '$mds_id' ";
@@ -79,14 +79,14 @@ if ($w == "" || $w == "u")
 {
     // 모델스초이스 대표이미지 및 영상서브캡쳐이미지 업로드
     if ($_FILES['mds_bimg']['name']) upload_file($_FILES['mds_bimg']['tmp_name'], $mds_id."_b", G5_DATA_PATH."/models");
-    if ($_FILES['mds_simg1']['name']) upload_file($_FILES['mds_simg1']['tmp_name'], $mds_id."_s", G5_DATA_PATH."/models");
-    if ($_FILES['mds_simg2']['name']) upload_file($_FILES['mds_simg2']['tmp_name'], $mds_id."_s", G5_DATA_PATH."/models");
-    if ($_FILES['mds_simg3']['name']) upload_file($_FILES['mds_simg3']['tmp_name'], $mds_id."_s", G5_DATA_PATH."/models");
-    if ($_FILES['mds_simg4']['name']) upload_file($_FILES['mds_simg4']['tmp_name'], $mds_id."_s", G5_DATA_PATH."/models");
-    if ($_FILES['mds_simg5']['name']) upload_file($_FILES['mds_simg5']['tmp_name'], $mds_id."_s", G5_DATA_PATH."/models");
-    if ($_FILES['mds_simg6']['name']) upload_file($_FILES['mds_simg6']['tmp_name'], $mds_id."_s", G5_DATA_PATH."/models");
-    if ($_FILES['mds_simg7']['name']) upload_file($_FILES['mds_simg7']['tmp_name'], $mds_id."_s", G5_DATA_PATH."/models");
-    if ($_FILES['mds_simg8']['name']) upload_file($_FILES['mds_simg8']['tmp_name'], $mds_id."_s", G5_DATA_PATH."/models");
+    if ($_FILES['mds_simg1']['name']) upload_file($_FILES['mds_simg1']['tmp_name'], $mds_id."_s1", G5_DATA_PATH."/models");
+    if ($_FILES['mds_simg2']['name']) upload_file($_FILES['mds_simg2']['tmp_name'], $mds_id."_s2", G5_DATA_PATH."/models");
+    if ($_FILES['mds_simg3']['name']) upload_file($_FILES['mds_simg3']['tmp_name'], $mds_id."_s3", G5_DATA_PATH."/models");
+    if ($_FILES['mds_simg4']['name']) upload_file($_FILES['mds_simg4']['tmp_name'], $mds_id."_s4", G5_DATA_PATH."/models");
+    if ($_FILES['mds_simg5']['name']) upload_file($_FILES['mds_simg5']['tmp_name'], $mds_id."_s5", G5_DATA_PATH."/models");
+    if ($_FILES['mds_simg6']['name']) upload_file($_FILES['mds_simg6']['tmp_name'], $mds_id."_s6", G5_DATA_PATH."/models");
+    if ($_FILES['mds_simg7']['name']) upload_file($_FILES['mds_simg7']['tmp_name'], $mds_id."_s7", G5_DATA_PATH."/models");
+    if ($_FILES['mds_simg8']['name']) upload_file($_FILES['mds_simg8']['tmp_name'], $mds_id."_s8", G5_DATA_PATH."/models");
 
     // 등록된 모델스초이스 상품 먼저 삭제
     $sql = " delete from {$g5['g5_shop_models_item_table']} where mds_id = '$mds_id' ";

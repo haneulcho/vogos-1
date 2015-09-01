@@ -262,7 +262,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
             <input type="file" name="mds_simg<?php echo $i; ?>" id="mds_simg<?php echo $i; ?>">
             <?php
             $simg_str = "";
-            $simg = G5_DATA_PATH.'/models/'.$mds['mds_id'.$i].'_s';
+            $simg = G5_DATA_PATH.'/models/'.$mds['mds_id'].'_s'.$i;
 
             if (file_exists($simg)) {
                 $size = @getimagesize($simg);
@@ -271,7 +271,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
                 else
                     $width = $size[0];
                 echo '<input type="checkbox" name="mds_simg'.$i.'_del" value="1" id="mds_simg'.$i.'_del"> <label for="mds_simg'.$i.'_del">삭제</label>';
-                $simg_str = '<img src="'.G5_DATA_URL.'/models/'.$mds['mds_id'.$i].'_s" width="'.$width.'" alt="">';
+                $simg_str = '<img src="'.G5_DATA_URL.'/models/'.$mds['mds_id'].'_s'.$i.'" width="'.$width.'" alt="">';
             }
             if ($simg_str) {
                 echo '<div class="banner_or_img">';
