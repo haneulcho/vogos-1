@@ -53,6 +53,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
                 <li class="tfaq"><a href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a></li>
                 <li class="tqna"><a href="<?php echo G5_BBS_URL; ?>/qalist.php">Q&amp;A</a></li>
                 <li class="treviews"><a href="<?php echo G5_SHOP_URL; ?>/itemuselist.php">Reviews</a></li>
+                <li class="tnotices"><a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=notice">Notice &amp; Event</a></li>
                 <?php
                 if(!$default['de_root_index_use']) {
                     $com_href = G5_URL;
