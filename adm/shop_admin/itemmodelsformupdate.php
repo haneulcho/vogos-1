@@ -36,7 +36,12 @@ $sql_common = " set mds_skin             = '$mds_skin',
                     mds_mobile_list_mod  = '$mds_mobile_list_mod',
                     mds_subject          = '$mds_subject',
                     mds_html        = '$mds_html',
-                    mds_use              = '$mds_use'
+                    mds_video_src            = '$mds_video_src',
+                    mds_video_width            = '$mds_video_width',
+                    mds_video_height            = '$mds_video_height',
+                    mds_mobile_video_width            = '$mds_mobile_video_width',
+                    mds_mobile_video_height            = '$mds_mobile_video_height',
+                    mds_use              = '$mds_use',
                     mds_hit              = '0'
                     ";
 

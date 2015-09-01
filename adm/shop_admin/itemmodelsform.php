@@ -290,6 +290,32 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
             <?php echo editor_html('mds_html', get_text($mds['mds_html'], 0)); ?>
         </td>
     </tr>
+
+    <tr>
+        <th scope="row">VOGOS 모델스초이스 비메오 영상 넘버(ex 130174373)</th>
+        <td>
+            <input type="text" name="mds_video_src" value="<?php echo $mds['mds_video_src']; ?>" id="mds_video_src" class="frm_input" size="12">
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">모델스초이스 영상 PC 폭, 높이</th>
+        <td>
+            <label for="mds_video_width">동영상 폭(=가로)</label>
+            <input type="text" name="mds_video_width" value="<?php echo $mds['mds_video_width']; ?>" id="mds_video_width" class="frm_input" size="5">
+            <label for="mds_video_height">동영상 높이(=세로)</label>
+            <input type="text" name="mds_video_height" value="<?php echo $mds['mds_video_height']; ?>" id="mds_video_height" class="frm_input" size="5">
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">모델스초이스 영상 MOBILE 폭, 높이</th>
+        <td>
+            <label for="mds_mobile_video_width">모바일 동영상 폭(=가로)</label>
+            <input type="text" name="mds_mobile_video_width" value="<?php echo $mds['mds_mobile_video_width']; ?>" id="mds_mobile_video_width" class="frm_input" size="5">
+            <label for="mds_mobile_video_height">모바일 동영상 높이(=세로)</label>
+            <input type="text" name="mds_mobile_video_height" value="<?php echo $mds['mds_mobile_video_height']; ?>" id="mds_mobile_video_height" class="frm_input" size="5">
+        </td>
+    </tr>
+
     </tbody>
     </table>
 </div>
