@@ -228,26 +228,26 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
         </td>
     </tr>
     <tr>
-        <th scope="row"><label for="mds_mimg">영상대표이미지</label></th>
+        <th scope="row"><label for="mds_bimg">영상대표이미지</label></th>
         <td>
             <?php echo help("모델스초이스 리스트 좌측에 업로드 한 이미지를 출력합니다."); ?>
-            <input type="file" name="mds_mimg" id="mds_mimg">
+            <input type="file" name="mds_bimg" id="mds_bimg">
             <?php
-            $mimg_str = "";
-            $mimg = G5_DATA_PATH.'/models/'.$mds['mds_id'].'_m';
-            if (file_exists($mimg)) {
-                $size = @getimagesize($mimg);
+            $bimg_str = "";
+            $bimg = G5_DATA_PATH.'/models/'.$mds['mds_id'].'_b';
+            if (file_exists($bimg)) {
+                $size = @getimagesize($bimg);
                 if($size[0] && $size[0] > 750)
                     $width = 750;
                 else
                     $width = $size[0];
 
-                echo '<input type="checkbox" name="mds_mimg_del" value="1" id="mds_mimg_del"> <label for="mds_mimg_del">삭제</label>';
-                $mimg_str = '<img src="'.G5_DATA_URL.'/models/'.$mds['mds_id'].'_m" width="'.$width.'" alt="">';
+                echo '<input type="checkbox" name="mds_bimg_del" value="1" id="mds_bimg_del"> <label for="mds_bimg_del">삭제</label>';
+                $bimg_str = '<img src="'.G5_DATA_URL.'/models/'.$mds['mds_id'].'_b" width="'.$width.'" alt="">';
             }
-            if ($mimg_str) {
+            if ($bimg_str) {
                 echo '<div class="banner_or_img">';
-                echo $mimg_str;
+                echo $bimg_str;
                 echo '</div>';
             }
             ?>
