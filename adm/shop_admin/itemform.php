@@ -353,6 +353,36 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
         <table>
         <caption>기본정보 입력</caption>
         <colgroup>
+            <col class="grid_3">
+            <col>
+            <col class="grid_3">
+            <col>
+            <col class="grid_3">
+            <col>
+        </colgroup>
+        <tbody>
+        <tr>
+            <th scope="row"><label for="it_place_ddm">사입처</label></th>
+            <td>
+                <?php echo help("동대문 사입처 입력"); ?>
+                <input type="text" name="it_place_ddm" value="<?php echo get_text(cut_str($it['it_place_ddm'], 250, "")); ?>" id="it_place_ddm" required class="frm_input required" size="30">
+            </td>
+            <th scope="row"><label for="it_name_ddm">사입상품명</label></th>
+            <td>
+                <?php echo help("동대문 사입 상품명 입력"); ?>
+                <input type="text" name="it_name_ddm" value="<?php echo get_text(cut_str($it['it_name_ddm'], 250, "")); ?>" id="it_name_ddm" required class="frm_input required" size="40">
+            </td>
+            <th scope="row"><label for="it_price_ddm">사입단가</label></th>
+            <td>
+                <?php echo help("사이트 판매가가 아닌 사입 단가를 입력하세요."); ?>
+                <input type="text" name="it_price_ddm" value="<?php echo get_text(cut_str($it['it_price_ddm'], 250, "")); ?>" id="it_price_ddm" required class="frm_input required" size="30"> 원
+            </td>
+        </tr>
+        </tbody>
+        </table>
+        <table>
+        <caption>기본정보 입력</caption>
+        <colgroup>
             <col class="grid_4">
             <col>
             <col class="grid_3">
