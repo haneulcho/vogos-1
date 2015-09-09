@@ -312,8 +312,8 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 .sct_wrap:after {display:block;visibility:hidden;clear:both;content:""}
 .sct_wrap header {margin:0 0 15px;zoom:1;}
 .sct_wrap header:after {display:block;visibility:hidden;clear:both;content:""}
-.sct_wrap h2 {width:140px;padding:6px 0 0 10px;border-left:3px solid #38cadb;}
-.sct_wrap h2 a {display:block;color:#666;font-size:16px;line-height:1em;font-family:'Nanum Gothic exBold';letter-spacing:-0.5px;}
+.sct_wrap h2 {width:140px;padding:6px 0 0 10px;border-left:37px solid #38cadb;}
+.sct_wrap h2 a {display:block;color:#888;font-size:16px;line-height:1em;font-family:'Nanum Gothic exBold';letter-spacing:-0.5px;}
 .sct_wrap_hdesc {float:left;margin:0;padding:0;color:#777;line-height:1em}
 .sct {clear:both;margin:0;padding:0;list-style:none;zoom:1}
 .sct:after {display:block;visibility:hidden;clear:both;content:""}
