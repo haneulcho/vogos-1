@@ -35,7 +35,6 @@ $models_skin = $skin_dir."/{$mds['mds_skin']}";
 
 if (file_exists($models_skin))
 {
-    echo 'test';
     // 총몇개 = 한줄에 몇개 * 몇줄
     $items = 1 * 8;
     // 페이지가 없으면 첫 페이지 (1 페이지)
