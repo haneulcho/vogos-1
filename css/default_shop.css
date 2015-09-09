@@ -125,7 +125,7 @@ a:hover, a:focus, a:active {color:#000;text-decoration:underline}
 a.btn01 {display:inline-block;padding:5px 12px;border:1px solid #f0f0f0;background:#fafafa;font-size:11px;color:#555;text-decoration:none;vertical-align:middle}
 a.btn01:focus, a.btn01:hover, #ssch_sort a.active {text-decoration:none;background-color:#eee;}
 button.btn01 {display:inline-block;margin:0;padding:7px;border:1px solid #ccc;background:#fafafa;color:#000;text-decoration:none}
-a.btn02 {display:inline-block;padding:7px;border:1px solid #3b3c3f;background:#4b545e;color:#fff;text-decoration:none;vertical-align:middle}
+a.btn02 {display:inline-block;padding:7px 10px;background:#666;color:#fff;text-decoration:none;vertical-align:middle}
 a.btn02:focus, .btn02:hover {text-decoration:none}
 button.btn02 {display:inline-block;margin:0;padding:7px;border:1px solid #3b3c3f;background:#4b545e;color:#fff;text-decoration:none}
 
