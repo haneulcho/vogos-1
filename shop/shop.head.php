@@ -26,9 +26,9 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
         <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
         <aside id="topInfo">
             <ul id="topNav">
-                <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_insta_s.png" alt="VOGOS 인스타그램"></a></li>
-                <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_fb_s.png" alt="VOGOS 페이스북"></a></li>
-                <li><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_ks_s.png" alt="VOGOS 카카오스토리"></a></li>
+                <li><a href="http://instagram.com/vogos_style"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_insta_s.png" alt="VOGOS 인스타그램" target="_blank"></a></li>
+                <li><a href="http://facebook.com/vogoskorea"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_fb_s.png" alt="VOGOS 페이스북" target="_blank"></a></li>
+                <li><a href="http://blog.naver.com/vogoskorea"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_nblog_s.png" alt="VOGOS 네이버블로그" target="_blank"></a></li>
             </ul>
         </aside>
         <h1 id="topLogo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><?php echo $config['cf_title']; ?></a></h1>
