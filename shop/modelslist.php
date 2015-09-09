@@ -2,7 +2,7 @@
 include_once('./_common.php');
 
 if (G5_IS_MOBILE) {
-    include_once(G5_MSHOP_PATH.'/list.php');
+    include_once(G5_MSHOP_PATH.'/modelslist.php');
     return;
 }
 
@@ -63,7 +63,7 @@ if (file_exists($models_skin))
         <div class="mds_bimg">
             <?php
             $bimg_str = "";
-            $bimg = G5_DATA_PATH.'/models/'.$row['mds_id'].'_b'.$i;
+            $bimg = G5_DATA_PATH.'/models/'.$row['mds_id'].'_b';
 
             if (file_exists($bimg)) {
                 $bimg_str = '<img src="'.G5_DATA_URL.'/models/'.$row['mds_id'].'_b" width="'.$row['mds_bimg_width'].'" alt="">';

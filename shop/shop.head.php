@@ -111,34 +111,22 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
                     <!-- MODEL's CHOICE 시작 { -->
                     <section>
                         <header>
-                            <h2 class="best_item"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2">MODEL's CHOICE</a></h2>
+                            <h2 class="best_item"><a href="<?php echo G5_SHOP_URL.'/modelslist.php' ?>">MODEL's CHOICE</a></h2>
                             <!-- <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> MODEL's CHOICE 모음</p> -->
                         </header>
-                        <?php
-                        $list = new item_list();
-                        $list->set_type(2);
-                        $list->set_view('it_id', false);
-                        $list->set_view('it_name', true);
-                        $list->set_view('it_basic', true);
-                        $list->set_view('it_cust_price', true);
-                        $list->set_view('it_price', true);
-                        $list->set_view('it_icon', false);
-                        $list->set_view('sns', false);
-                        echo $list->run();
-                        ?>
+                        <?php include_once(G5_SHOP_SKIN_PATH.'/main.modelslist.skin.php'); ?>
                     </section>
                     <!-- } MODEL's CHOICE 끝 -->
                     <?php } ?>
 
-                    <?php if($default['de_type2_list_use']) { ?>
                     <!-- NOTICE 시작 { -->
                     <section>
                         <header>
-                            <h2 class="md_choice"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2">NOTICE &amp; EVENT</a></h2>
+                            <h2 class="md_choice"><a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=notice">NOTICE &amp; EVENT</a></h2>
                         </header>
+                            <?php echo latest("basic", "notice", 5, 25);​ ?>
                     </section>
                     <!-- } NOTICE 끝 -->
-                    <?php } ?>
                 </div> <!-- slider end -->
 
                 <!-- 보고스 대표 동영상 시작 { -->
