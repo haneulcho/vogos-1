@@ -35,11 +35,19 @@
      url(fonts/NanumGothic-ExtraBold.ttf) format('truetype');
 }
 body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Nanum Gothic', 'Malgun Gothic',dotum, sans-serif;line-height:1.25em;}
+body.scrolled {padding-top:170px;}
 .w940 {width:940px;margin:0 auto;}
 .w1200 {width:1200px;margin:0 auto;}
 #vogos {margin:0 auto; background-color:#fff;}
 #vogos ul, #vogos li {list-style-type:none;}
-#header {position:relative;height:170px;margin-bottom:8px;}
+#header {position:relative;height:170px;margin-bottom:8px;
+  -webkit-transition: all 500s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+#header.scrolled {position:fixed;top:-118px;left:50%;margin-left:-600px;background-color:#fff;z-index:999;border-bottom:1px solid #ccc;}
 #topLogo {clear:both;float:left;width:210px;margin-top:70px;}
 #topLogo a {display:block;width:186px;height:92px;margin:0;background:url('img/logo.png') no-repeat;font-size:0;line-height:0;text-indent:-9999px;}
 
