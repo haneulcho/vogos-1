@@ -27,8 +27,11 @@ if ($is_admin)
 
 <!-- 모델스초이스 목록 시작 { -->
 <div id="sct" class="sct_wrap">
-
-    <?php
+    <div id="sct_location">
+        <a href="<?php echo G5_SHOP_URL; ?>/" class="sct_bg">Home</a>
+        <a href="<?php echo G5_SHOP_URL.'/modelslist.php' ?>" class="sct_here">Model's Choice</a>
+    </div>
+<?php
 define('G5_SHOP_CSS_URL', G5_SHOP_SKIN_URL);
 
 $models_skin = $skin_dir."/{$mds['mds_skin']}";
