@@ -57,7 +57,7 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 #hd_sch #sch_submit {padding:2px 5px 2px 3px;height:22px;border:0;background:#f7f7f7;cursor:pointer;}
 
 /* footer design navigation */
-#ftMenu {clear:both;padding:30px 0;border-top:1px solid #eee;background-color:#f9f9f9;}
+#ftMenu {clear:both;margin-top:30px;padding:30px 0;border-top:1px solid #eee;background-color:#f9f9f9;}
 #ftMenu>img {display:block;width:1108px;margin:0 auto;}
 
 /* aside:이벤트, 기획전 배너 링크 */
