@@ -6,9 +6,8 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 ?>
 
 <!-- info_content START -->
-<div id="info_content">
-    <h2>MODEL's CHOICE</h2>
-    <?php echo conv_content($mds['mds_subject'], 1); ?>
+<div id="mds_view">
+    <h2 class="mds_subject_v"><?php echo conv_content($mds['mds_subject'], 1); ?></h2>
 <!-- 모델스초이스 동영상 시작 { -->
 <?php if($mds['mds_video_src']) { ?>
 <div id="mds_video">
@@ -18,8 +17,15 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 <?php } ?>
 <!-- } 모델스초이스 동영상 끝 -->
 
+    <?php if ($mds['mds_html']) { // 모델스초이스 내용 ?>
+    <div class="mds_sum_v">
+        <?php echo conv_content($mds['mds_html'], 1); ?>
+    </div>
+    <?php } ?>
+
 <!-- 모델스초이스 관련상품 시작 { -->
 <section id="sit_rel">
+    <div class="mds_tooltip"><img src="<?php echo G5_SHOP_SKIN_URL.'/img/models_tooltip.png'; ?>" alt="모델스초이스 관련 아이템"></div>
     <div class="sct_wrap sct_rel">
         <?php
         $rel_skin_file = $skin_dir.'/'.$default['de_rel_list_skin'];
@@ -34,14 +40,5 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
     </div>
 </section>
 <!-- } 모델스초이스 관련상품 끝 -->
-
-    <?php if ($mds['mds_html']) { // 모델스초이스 내용 ?>
-    <div id="mds_summary">
-        <h3>MODEL's CHOICE SUMMARY</h3>
-        <div id="mds_summary_contents">
-            <?php echo conv_content($mds['mds_html'], 1); ?>
-        </div>
-    </div>
-    <?php } ?>
 
 </div> <!-- info_content END -->

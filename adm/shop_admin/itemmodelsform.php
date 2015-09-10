@@ -34,8 +34,8 @@ else
     // 1.03.00
     // VOGOS 모델스초이스 이미지 기본값 변경
     // bimg는 영상 대표 이미지 사이즈, simg는 영상 캡쳐 이미지 사이즈
-    $mds['mds_bimg_width']  = 350;
-    $mds['mds_bimg_height'] = 490;
+    $mds['mds_bimg_width']  = 430;
+    $mds['mds_bimg_height'] = 243;
     $mds['mds_simg_width']  = 80;
     $mds['mds_simg_height'] = 95;
     $mds['mds_list_mod'] = 1;

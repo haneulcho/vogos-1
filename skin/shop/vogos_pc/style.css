@@ -386,14 +386,14 @@ body.scrolled {padding-top:170px;}
 .sit_btn_more:hover {background-color:#333;}
 .sit_btn_wish:hover {background-color:#333;}
 
-/* 모델스초이스 스킨 */
+/* 모델스초이스 리스트 스킨 */
 #mds_list {width:900px;margin:0 auto 20px;padding:15px 0;border-top:1px solid #eee;}
 #mds_list > li {clear:both;overflow:hidden;padding:35px 0;border-bottom:1px solid #eee;}
 .mds_href {overflow:hidden;display:block;padding:10px 0;}
 .mds_href:hover .mds_bimg, .mds_href:hover #mds_imglist img {opacity:.7;filter:alpha(opacity:70);}
 .mds_bimg {float:left;margin:0 25px 0 0;}
 .mds_des {float:left;width:445px;padding-top:5px;}
-.mds_sum {margin:0 0 24px 0;padding:15px 20px;border-top:2px solid #555;border-bottom:1px solid #eee;background-color:#f9f9f9;line-height:1.35;}
+.mds_sum {margin:0 0 24px 0;padding:15px 20px;border-top:2px solid #555;border-bottom:1px solid #eee;background-color:#f9f9f9;line-height:1.35;font-family:'Nanum Gothic';}
 .mds_subject {margin:0 0 5px 6px;font-size:22px;font-family:'Nanum Gothic Bold';line-height:1.5;color:#555;font-weight:normal;}
 #mds_imglist {margin:0;padding:0;}
 #mds_imglist li {float:left;margin:0 10px 0 0;}
@@ -405,6 +405,17 @@ body.scrolled {padding-top:170px;}
   -o-transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
 }
+
+/* 모델스초이스 뷰 스킨 */
+#mds_view {width:960px;margin:0 auto;}
+#mds_video {width:880px;height:503px;margin:0 auto;}
+.mds_subject_v {width:880px;margin:20px auto 0;padding:20px 0;font-size:44px;text-align:center;line-height:135%;font-family:'Nanum Gothic';letter-spacing:-1px;color:#555;border-bottom:1px solid #eee;}
+.mds_sum_v {width:800px;margin:0 auto 24px;padding:35px 40px;border-top:2px solid #555;border-bottom:1px solid #eee;background-color:#f9f9f9;font-size:13px;line-height:1.65;font-family:'Nanum Gothic';}
+#mds_view #sit_rel {position:relative;}
+#mds_view #sit_rel .sct_wrap li {margin:0 15px 30px 0;}
+#mds_view .sct_rel {float:right !important;width:675px !important;margin-right:15px !important;}
+.mds_tooltip {position:absolute;top:0;left:0;width:227px;height:114px;}
+
 
 
 /* 상품 목록 스킨 10 */

@@ -104,6 +104,8 @@ if (file_exists($models_skin))
         </div>
     </a>
     </li>
+    </ul>
+</div>
 <?php }
     // where 된 전체 상품수
     $total_count = $list->total_count;

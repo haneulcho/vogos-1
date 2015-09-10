@@ -96,6 +96,10 @@ $sns_share_links .= get_sns_share_link('googleplus', $sns_url, $sns_title, G5_SH
 <?php } ?>
 
 <div id="sit">
+    <div id="sct_location">
+        <a href="<?php echo G5_SHOP_URL; ?>/" class="sct_bg">Home</a>
+        <a href="<?php echo G5_SHOP_URL.'/modelslist.php' ?>" class="sct_here">Model's Choice</a>
+    </div>
 
     <?php
     // 상품 상세정보
