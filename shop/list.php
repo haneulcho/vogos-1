@@ -69,6 +69,12 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
         $cate_skin = G5_SHOP_SKIN_PATH.'/listcategory.skin.php';
     include $cate_skin;
 
+    // 분류 Best Item
+    $best_skin = $skin_dir.'/bestitem.skin.php';
+    if(!is_file($best_skin))
+        $best_skin = G5_SHOP_SKIN_PATH.'/bestitem.skin.php';
+    include $best_skin;
+
     // 상품 출력순서가 있다면
     if ($sort != "")
         $order_by = $sort.' '.$sortodr.' , it_order, it_id desc';
