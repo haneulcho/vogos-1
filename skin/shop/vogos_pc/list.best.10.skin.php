@@ -59,10 +59,9 @@ $(function() {
     var owlbest = $('.owlbest');
     owlbest.owlCarousel({
         items: 5,
-        stagePadding: 50,
+        stagePadding: 0,
         loop: true,
-        margin: 10,
-        dotsEach:true,
+        margin: 30,
         autoplay: true,
         autoplayTimeout: 2500,
         autoplayHoverPause: true,

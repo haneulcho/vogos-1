@@ -12,13 +12,17 @@ if ($ca_id)
         $sql = " select ca_name from {$g5['g5_shop_category_table']} where ca_id = '$code' ";
         $row = sql_fetch($sql);
         $b_ca_name = $row['ca_name'];
+        $b_ca_imgname = strtolower($b_ca_name);
     }
 }
 ?>
     <div id="sct_best" class="item best_item">
         <header>
-            <h2><?php echo $b_ca_name ?> BEST</h2>
+            <h2>VOGOS에서 가장 인기 있는 <?php echo $b_ca_name ?> 상품입니다.</h2>
         </header>
+        <div class="sct_best_tooltip">
+            <img src="<?php echo G5_SHOP_SKIN_URL.'/img/title_bs_'.$b_ca_imgname.'.png' ?>">
+        </div>
 <?php
     // 분류 Best Item 출력
     $list_mod = 3;
