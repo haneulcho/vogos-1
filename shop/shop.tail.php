@@ -22,7 +22,7 @@ $admin = get_admin("super");
             <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/itemuselist.php" shape="rect" coords="955,62,1017,86" style="outline:none;" target="_self" />
             <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3" shape="rect" coords="852,86,940,110" style="outline:none;" target="_self" />
             <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4" shape="rect" coords="943,86,1018,109" style="outline:none;" target="_self" />
-            <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2" shape="rect" coords="1019,85,1105,110" style="outline:none;" target="_self" />
+            <area alt="" title="" href="<?php echo G5_SHOP_URL; ?>/modelslist.php" shape="rect" coords="1019,85,1105,110" style="outline:none;" target="_self" />
             </map>
         </div>
     </div> <!-- wrapper end -->
