@@ -31,6 +31,7 @@ if ($is_admin)
         <a href="<?php echo G5_SHOP_URL; ?>/" class="sct_bg">Home</a>
         <a href="<?php echo G5_SHOP_URL.'/modelslist.php' ?>" class="sct_here">Model's Choice</a>
     </div>
+    <p align="center"><img src="<?php echo G5_SHOP_SKIN_URL.'/img/title_models.jpg'; ?>" alt="모델스초이스"></p>
 <?php
 define('G5_SHOP_CSS_URL', G5_SHOP_SKIN_URL);
 
@@ -74,7 +75,13 @@ if (file_exists($models_skin))
             ?>
         </div>
         <div class="mds_des">
-            <?=$row['mds_subject'] ?>
+            <h3 class="mds_subject"><?=$row['mds_subject'] ?></h3>
+            <?php
+                $cut_summary = strip_tags($cut_summary);
+                $cut_summary = mb_substr($row['mds_html'], 0, 200, "UTF-8");
+                $cut_summary.= "...";
+            ?>
+            <div class="mds_sum"><?=$cut_summary; ?></div>
             <ul id="mds_imglist">
                 <!-- 모델스초이스 영상 캡쳐이미지 리스트에서 최대 3개 출력 -->
                 <?php for($i=1; $i<=3; $i++) { ?>

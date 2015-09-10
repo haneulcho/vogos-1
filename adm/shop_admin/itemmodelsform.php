@@ -36,12 +36,12 @@ else
     // bimg는 영상 대표 이미지 사이즈, simg는 영상 캡쳐 이미지 사이즈
     $mds['mds_bimg_width']  = 350;
     $mds['mds_bimg_height'] = 490;
-    $mds['mds_simg_width']  = 350;
-    $mds['mds_simg_height'] = 490;
+    $mds['mds_simg_width']  = 80;
+    $mds['mds_simg_height'] = 95;
     $mds['mds_list_mod'] = 1;
     $mds['mds_list_row'] = 8;
-    $mds['mds_mobile_img_width']  = 350;
-    $mds['mds_mobile_img_height'] = 490;
+    $mds['mds_mobile_img_width']  = 320;
+    $mds['mds_mobile_img_height'] = 400;
     $mds['mds_mobile_list_mod'] = 8;
 }
 
