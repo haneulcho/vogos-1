@@ -78,7 +78,7 @@ if (file_exists($models_skin))
             <h3 class="mds_subject"><?=$row['mds_subject'] ?></h3>
             <?php
                 $cut_summary = strip_tags($cut_summary);
-                $cut_summary = mb_substr($row['mds_html'], 0, 200, "UTF-8");
+                $cut_summary = mb_substr($row['mds_html'], 0, 214, "UTF-8");
                 $cut_summary.= "...";
             ?>
             <div class="mds_sum"><?=$cut_summary; ?></div>
@@ -104,9 +104,10 @@ if (file_exists($models_skin))
         </div>
     </a>
     </li>
+    <?php } // for END ?>
     </ul>
 </div>
-<?php }
+<?php
     // where 된 전체 상품수
     $total_count = $list->total_count;
     // 전체 페이지 계산
