@@ -416,7 +416,9 @@ body.scrolled {padding-top:170px;}
 #mds_view .sct_rel {float:right !important;width:675px !important;margin-right:15px !important;}
 .mds_tooltip {position:absolute;top:0;left:0;width:227px;height:114px;}
 
-
+/* 인덱스 모델스초이스 스킨 */
+.mdschoice .slider_txt {margin:10px 0 0 0;}
+.mdschoice .slider_txt a {font-size:15px;font-family:'Nanum Gothic Bold';letter-spacing:-1px;color:#555;}
 
 /* 상품 목록 스킨 10 */
 .sct_10 .itemDetail {cursor:pointer;position:absolute;bottom:-65px;width:100%;height:60px;background:rgba(255,255,255,0.8);z-index:998;}
