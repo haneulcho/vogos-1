@@ -30,7 +30,6 @@ $admin = get_admin("super");
 
 <!-- 하단 시작 { -->
 <div id="ft">
-    <div class="lineDeco"></div>
     <div>
         <a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/" id="ft_logo"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/logo_footer.png" alt="처음으로"></a>
         <ul>

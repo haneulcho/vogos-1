@@ -65,7 +65,7 @@ body.scrolled {padding-top:170px;}
 #hd_sch #sch_submit {padding:2px 5px 2px 3px;height:22px;border:0;background:#f7f7f7;cursor:pointer;}
 
 /* footer design navigation */
-#ftMenu {clear:both;margin-top:30px;padding:30px 0;border-top:1px solid #eee;background-color:#f9f9f9;}
+#ftMenu {clear:both;margin-top:30px;padding:30px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;background-color:#f9f9f9;}
 #ftMenu>img {display:block;width:1108px;margin:0 auto;}
 
 /* aside:이벤트, 기획전 배너 링크 */
@@ -395,7 +395,7 @@ body.scrolled {padding-top:170px;}
 .mds_bimg {float:left;margin:0 25px 0 0;}
 .mds_des {float:left;width:445px;padding-top:5px;}
 .mds_sum {margin:0 0 24px 0;padding:15px 20px;border-top:2px solid #555;border-bottom:1px solid #eee;background-color:#f9f9f9;line-height:1.35;font-family:'Nanum Gothic';}
-.mds_subject {margin:0 0 5px 6px;font-size:22px;font-family:'Nanum Gothic Bold';line-height:1.5;color:#555;font-weight:normal;}
+.mds_subject {margin:0 0 5px 6px;font-size:22px;font-family:'malgun gothic', 'Nanum Gothic Bold';line-height:1.5;color:#555;font-weight:normal;letter-spacing:-1px;}
 #mds_imglist {margin:0;padding:0;}
 #mds_imglist li {float:left;margin:0 10px 0 0;}
 #mds_imglist img {width:80px;height:95px;}
@@ -407,7 +407,7 @@ body.scrolled {padding-top:170px;}
   transition: opacity 0.2s ease;
 }
 
-.sct_wrap #sct_best h2 {width:auto;font-size:14px;font-family:'Nanum Gothic';color:#0ab1c4;letter-spacing:-1px;}
+.sct_wrap #sct_best h2 {width:auto;font-size:14px;font-family:'Nanum Gothic Bold';color:#0ab1c4;letter-spacing:-1px;}
 #sct_best {position:relative;height:287px;padding:10px 0 13px 360px;border-bottom:1px solid #eee;}
 #sct_best .slider_txt {margin:10px 0 0 0;}
 #sct_best .slider_txt a {font-family:'Nanum Gothic Bold';font-size:12px;color:#666;letter-spacing:-1px;}
@@ -416,7 +416,7 @@ body.scrolled {padding-top:170px;}
 /* 모델스초이스 뷰 스킨 */
 #mds_view {width:960px;margin:0 auto;}
 #mds_video {width:880px;height:503px;margin:0 auto;}
-.mds_subject_v {width:880px;margin:20px auto 0;padding:20px 0;font-size:44px;text-align:center;line-height:135%;font-family:'Nanum Gothic';letter-spacing:-1px;color:#555;border-bottom:1px solid #eee;}
+.mds_subject_v {width:880px;margin:20px auto 0;padding:20px 0;font-size:42px;text-align:center;line-height:135%;font-family:'malgun gothic','Nanum Gothic';letter-spacing:-1.8px;color:#555;border-bottom:1px solid #eee;}
 .mds_sum_v {width:800px;margin:0 auto 24px;padding:35px 40px;border-top:2px solid #555;border-bottom:1px solid #eee;background-color:#f9f9f9;font-size:13px;line-height:1.65;font-family:'Nanum Gothic';}
 #mds_view #sit_rel {position:relative;}
 #mds_view #sit_rel .sct_wrap li {margin:0 15px 30px 0;}
