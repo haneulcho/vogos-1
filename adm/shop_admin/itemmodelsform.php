@@ -43,6 +43,10 @@ else
     $mds['mds_mobile_img_width']  = 320;
     $mds['mds_mobile_img_height'] = 400;
     $mds['mds_mobile_list_mod'] = 8;
+    $mds['mds_video_width'] = 880;
+    $mds['mds_video_height'] = 503;
+    $mds['mds_mobile_video_width'] = 320;
+    $mds['mds_mobile_video_height'] = 400;
 }
 
 // 분류리스트
@@ -292,9 +296,9 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
     </tr>
 
     <tr>
-        <th scope="row">VOGOS 모델스초이스 비메오 영상 넘버(ex 130174373)</th>
+        <th scope="row"><span style="color:#ff0000;">VOGOS 모델스초이스 비메오 영상 넘버(ex 130174373)</span></th>
         <td>
-            <input type="text" name="mds_video_src" value="<?php echo $mds['mds_video_src']; ?>" id="mds_video_src" class="frm_input" size="12">
+            <input type="text" name="mds_video_src" value="<?php echo $mds['mds_video_src']; ?>" id="mds_video_src" class="frm_input" size="12" style="color:#ff0000;border:1px solid #ff0000">
         </td>
     </tr>
     <tr>
