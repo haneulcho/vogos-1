@@ -71,7 +71,7 @@ body.scrolled {padding-top:170px;}
 #ftMenu>img {display:block;width:1108px;margin:0 auto;}
 
 /* aside:이벤트, 기획전 배너 링크 */
-#topBanner {float:right;width:33%;height:70px;margin-top:56px;}
+#topBanner {float:right;width:24%;height:70px;margin-top:56px;}
 #topBanner h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 #topBanner ul {float:right;margin:0;padding:0;border:0;list-style:none}
 #topBanner ul>li {float:left;margin-right:5px;}
@@ -215,7 +215,7 @@ body.scrolled {padding-top:170px;}
 /* aside:gnb */
 #gnb {position:relative;float:left;height:49px;margin:130px 0 0 0;}
 #gnb h2 {position:absolute;font-size:0;line-height:0;overflow:hidden;}
-#gnb>ul {width:590px;}
+#gnb>ul {width:635px;}
 #gnb>ul>li>a>span {display:block;
   animation: fadein 2s;
   -moz-animation: fadein 2s; /* Firefox */
