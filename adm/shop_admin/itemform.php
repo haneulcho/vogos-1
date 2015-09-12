@@ -466,7 +466,7 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
         <input type="hidden" name="it_origin" value="<?php echo get_text($it['it_origin']); ?>" id="it_origin" class="frm_input" size="40">
         <input type="hidden" name="it_brand" value="<?php echo get_text($it['it_brand']); ?>" id="it_brand" class="frm_input" size="40">
         <input type="hidden" name="it_model" value="<?php echo get_text($it['it_model']); ?>" id="it_model" class="frm_input" size="40">
-        <input type="hidden" name="it_tel_inq" value="1" id="it_tel_inq" <?php echo ($it['it_tel_inq']) ? "checked" : ""; ?>>
+        <input type="hidden" name="it_tel_inq" value="0" id="it_tel_inq" <?php echo ($it['it_tel_inq']) ? "checked" : ""; ?>>
         <!-- 
         <tr>
             <th scope="row"><label for="it_maker">제조사</label></th>
