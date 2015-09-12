@@ -20,7 +20,11 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
         if ($this->css) {
             echo "<ul class=\"{$this->css}\">\n";
         } else {
-            echo "<ul class=\"sct sct_10\">\n";
+            if(defined('_INDEX_')) { // index에서만 실행
+                echo "<ul class=\"sct sct_10\">\n";
+            } else {
+                echo "<ul class=\"sct sct_10 sct_10_inlist\">\n";
+            }
         }
     }
 

@@ -25,7 +25,7 @@ if ($ca_id)
         </div>
 <?php
     // 분류 Best Item 출력
-    $list_mod = 3;
+    $list_mod = 10;
     $list_row = 1;
     $limit = $list_mod * $list_row;
     $best_skin = G5_SHOP_SKIN_PATH.'/list.best.10.skin.php';

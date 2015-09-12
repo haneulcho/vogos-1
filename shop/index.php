@@ -19,7 +19,7 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
 
 <?php if($default['de_type4_list_use']) { ?>
 <!-- VOGOS BESTSELLERS 시작 { -->
-<section class="sct_wrap">
+<section class="sct_wrap w1160">
     <header>
         <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">VOGOS<br>BESTSELLERS</a></h2>
     </header>
@@ -41,7 +41,7 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
 
 <?php if($default['de_type3_list_use']) { ?>
 <!-- NEW ARRIVALS 시작 { -->
-<section class="sct_wrap">
+<section class="sct_wrap w1160">
     <header>
         <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3">NEW<br>ARRIVALS</a></h2>
     </header>
@@ -63,7 +63,7 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
 
 <?php if($default['de_type5_list_use']) { ?>
 <!-- 할인상품 시작 { -->
-<section class="sct_wrap">
+<section class="sct_wrap w1160">
     <header>
         <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=5">할인상품</a></h2>
         <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> 할인상품 모음</p>
