@@ -36,6 +36,9 @@ if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이�
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
 $sql  = " select it_id,
+                 it_place_ddm,
+                 it_name_ddm,
+                 it_price_ddm,
                  it_name,
                  it_use,
                  it_stock_qty,
@@ -115,6 +118,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
     <tr>
         <th scope="col"><a href="<?php echo title_sort("it_id") . "&amp;$qstr1"; ?>">상품코드</a></th>
         <th scope="col"><a href="<?php echo title_sort("it_name") . "&amp;$qstr1"; ?>">상품명</a></th>
+        <th scope="col"><a href="<?php echo title_sort("it_place_ddm") . "&amp;$qstr1"; ?>">사입처 / 사입상품명 / 사입단가</a></th>
         <th scope="col"><a href="<?php echo title_sort("it_stock_qty") . "&amp;$qstr1"; ?>">창고재고</a></th>
         <th scope="col">주문대기</th>
         <th scope="col">가재고</th>
@@ -166,6 +170,9 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             <?php echo $row['it_id']; ?>
         </td>
         <td><a href="<?php echo $href; ?>"><?php echo get_it_image($row['it_id'], 50, 50); ?> <?php echo cut_str(stripslashes($row['it_name']), 60, "&#133"); ?></a></td>
+        <td>
+            <?php echo $row['it_place_ddm'].' / '.$row['it_name_ddm'].' / '.$row['it_price_ddm']; ?>
+        </td>
         <td class="td_num<?php echo $it_stock_qty_st; ?>"><?php echo $it_stock_qty; ?></td>
         <td class="td_num"><?php echo number_format($wait_qty); ?></td>
         <td class="td_num"><?php echo number_format($temporary_qty); ?></td>
