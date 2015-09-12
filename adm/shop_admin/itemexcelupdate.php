@@ -88,6 +88,7 @@ if($_FILES['excelfile']['tmp_name']) {
         $it_name_ddm        = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_price_ddm       = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_name            = addslashes($data->sheets[0]['cells'][$i][$j++]);
+        $it_1_subj          = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_1               = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_model           = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_type1           = addslashes($data->sheets[0]['cells'][$i][$j++]);
@@ -152,8 +153,8 @@ if($_FILES['excelfile']['tmp_name']) {
                          it_name_ddm = '$it_name_ddm',
                          it_price_ddm = '$it_price_ddm',
                          it_name = '$it_name',
+                         it_1_subj = '$it_1_subj',
                          it_1 = '$it_1',
-                         it_1_subj = '영상 있음',
                          it_model = '$it_model',
                          it_type1 = '$it_type1',
                          it_type2 = '$it_type2',
