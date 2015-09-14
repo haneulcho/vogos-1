@@ -1,7 +1,7 @@
 function shareToApp(types, text, url, img_url) {
 	// 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
 	var sh_name = '[VOGOS(보고스)]';
-	var sh_site = 'http://vogostest.cafe24.com';
+	var sh_site = 'http://vogos.com';
 	var sh_title = text;
 	var sh_url = url;
 	var sh_img_url = img_url;
