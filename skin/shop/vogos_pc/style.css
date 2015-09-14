@@ -174,8 +174,8 @@ body.scrolled {padding-top:170px;}
 }
 .owl-carousel .item-video {
   /* 상품 상세보기 owl carousel 비디오 사이즈 설정 */
-  width:350px;
-  height:490px;
+  width:400px;
+  height:560px;
 }
 .owl-carousel.owl-text-select-on .owl-item {
   -webkit-user-select: auto;
