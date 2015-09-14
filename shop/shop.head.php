@@ -31,7 +31,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
                 <li><a href="http://blog.naver.com/vogoskorea"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_nblog_s.png" alt="VOGOS 네이버블로그" target="_blank"></a></li>
             </ul>
         </aside>
-        <h1 id="topLogo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><?php echo $config['cf_title']; ?></a></h1>
+        <h1 id="topLogo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/logo.png" alt="<?php echo $config['cf_title']; ?>"></a></h1>
         <!-- join, sign in etc... sub nav -->
         <div id="tnb">
             <h3>회원메뉴</h3>

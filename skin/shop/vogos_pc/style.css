@@ -51,7 +51,7 @@ body.scrolled {padding-top:170px;}
 }
 #header.scrolled {position:fixed;top:-118px;left:50%;margin-left:-600px;background-color:#fff;z-index:999;border-bottom:1px solid #ccc;}
 #topLogo {clear:both;float:left;width:210px;margin-top:70px;}
-#topLogo a {display:block;width:186px;height:92px;margin:0;background:url('img/logo.png') no-repeat;font-size:0;line-height:0;text-indent:-9999px;}
+#topLogo a {display:block;width:186px;height:92px;margin:0;/*background:url('img/logo.png') no-repeat;font-size:0;line-height:0;text-indent:-9999px;*/}
 
 /* 최상단 sns 버튼 */
 #topInfo {position:absolute;top:17px;left:-5px;}
