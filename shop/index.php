@@ -17,6 +17,28 @@ define("_INDEX_", TRUE);
 include_once(G5_SHOP_PATH.'/shop.head.php');
 ?>
 
+<?php if($default['de_type1_list_use']) { ?>
+<!-- VOGOS 야외촬영 시작 { -->
+<section class="sct_wrap w1160">
+    <header>
+        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=1">Everywhere is Runway<br>VOGOS</a></h2>
+    </header>
+    <?php
+    $list = new item_list();
+    $list->set_type(1);
+    $list->set_view('it_id', false);
+    $list->set_view('it_name', true);
+    $list->set_view('it_basic', true);
+    $list->set_view('it_cust_price', true);
+    $list->set_view('it_price', true);
+    $list->set_view('it_icon', false);
+    $list->set_view('sns', false);
+    echo $list->run();
+    ?>
+</section>
+<!-- } VOGOS 야외촬영 끝 -->
+<?php } ?>
+
 <?php if($default['de_type4_list_use']) { ?>
 <!-- VOGOS BESTSELLERS 시작 { -->
 <section class="sct_wrap w1160">
