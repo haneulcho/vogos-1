@@ -24,6 +24,16 @@ include_once(G5_MSHOP_PATH.'/_head.php');
 
 <?php echo display_banner('메인', 'mainbanner.10.skin_m.php'); ?>
 <div id="sidx">
+    <?php if($default['de_mobile_type2_list_use']) { ?>
+    <div class="item md_choice">
+        <header>
+            <h2>MODEL's CHOICE</h2>
+            <div class="it_more"><a href="<?php echo G5_MSHOP_URL; ?>/modelslist.php?type=2"><i class="ion-ios-arrow-right"></i></a></div>
+        </header>
+        <?php include_once(G5_MSHOP_SKIN_PATH.'/main.modelslist.skin.php'); ?>
+    </div>
+    <?php } ?>
+
     <?php if($default['de_mobile_type1_list_use']) { ?>
     <div class="item vogos_clip">
         <header>
@@ -66,26 +76,6 @@ include_once(G5_MSHOP_PATH.'/_head.php');
     </div>
     <?php } ?>
 
-    <?php if($default['de_mobile_type2_list_use']) { ?>
-    <div class="item md_choice">
-        <header>
-            <h2>MD'S CHOICE</h2>
-            <div class="it_more"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2"><i class="ion-ios-arrow-right"></i></a></div>
-        </header>
-        <?php
-        $list = new item_list();
-        $list->set_mobile(true);
-        $list->set_type(2);
-        $list->set_view('it_id', false);
-        $list->set_view('it_name', true);
-        $list->set_view('it_cust_price', true);
-        $list->set_view('it_price', true);
-        $list->set_view('it_icon', false);
-        $list->set_view('sns', false);
-        echo $list->run();
-        ?>
-    </div>
-    <?php } ?>
 
     <?php if($default['de_mobile_type4_list_use']) { ?>
     <div class="item best_item">
