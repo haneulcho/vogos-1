@@ -9,6 +9,19 @@ include_once(G5_MSHOP_PATH.'/_head.php');
 <!-- 인덱스 슬라이더 owl carousel -->
 <script src="<?php echo G5_MSHOP_SKIN_URL; ?>/js/owl.carousel.min.js"></script>
 <?php include_once(G5_MSHOP_SKIN_PATH.'/main.event.skin.php'); // 이벤트 ?>
+
+<style type="text/css">
+.embed-container {position: relative;margin-bottom:10px;padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+</style>
+
+<!-- 보고스 대표 동영상 시작 { -->
+<div id="main_video" class="embed-container">
+<?php if($default['de_index_video_use']) { ?>
+<?php echo '<iframe src="https://player.vimeo.com/video/'.$default['de_index_video_src'].'?autoplay=0&byline=0" width="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+?>
+<?php } ?>
+</div> <!-- } 보고스 대표 동영상 끝 -->
+
 <?php echo display_banner('메인', 'mainbanner.10.skin_m.php'); ?>
 <div id="sidx">
     <?php if($default['de_mobile_type1_list_use']) { ?>
