@@ -6,10 +6,10 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">',
 ?>
 
 <!-- 쇼핑몰 이벤트 시작 { -->
-<ul id="sev">
 <?php
 $hsql = " select ev_id, ev_subject, ev_subject_strong from {$g5['g5_shop_event_table']} where ev_use = '1' order by ev_id desc ";
      $hresult = sql_query($hsql);
+	if ($hresult == 0) { echo '<ul id="sev">'; }
 for ($i=0; $row=sql_fetch_array($hresult); $i++)
 {
 	echo '<li>';
@@ -31,8 +31,8 @@ for ($i=0; $row=sql_fetch_array($hresult); $i++)
 
 }
 
-if ($i==0)
-	echo '<li id="sev_empty">이벤트 없음</li>'.PHP_EOL;
+if ($i==0) { //echo '<li id="sev_empty">이벤트 없음</li>'.PHP_EOL; }
+	if ($hresult ==0) { echo '</ul>'; }
+}
 ?>
-</ul>
 <!-- } 쇼핑몰 이벤트 끝 -->
