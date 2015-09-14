@@ -59,10 +59,10 @@ var g5_shop_url = "<?php echo G5_SHOP_URL; ?>";
     // 상단 HTML
     echo '<div id="sct_hhtml">'.conv_content($ca['ca_mobile_head_html'], 1).'</div>';
 
-    $cate_skin = $skin_dir.'/listcategory.skin.php';
+/*    $cate_skin = $skin_dir.'/listcategory.skin.php';
     if(!is_file($cate_skin))
         $cate_skin = G5_MSHOP_SKIN_PATH.'/listcategory.skin.php';
-    include $cate_skin;
+    include $cate_skin;*/
 
     // 분류 Best Item
     $best_skin = $skin_dir.'/bestitem.skin.php';
