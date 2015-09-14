@@ -11,13 +11,13 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
     <ul id="gnb_1dul" class="w1200">
 <!-- 모델스초이스는 관리자만 접근 가능하도록 (09.11 임시) -->
 <?php
-    if ($member['mb_level'] > 4 ) { 
+    //if ($member['mb_level'] > 4 ) { 
 ?>
         <li class="gnb_1dli modelschoice">
             <a href="<?=G5_SHOP_URL.'/modelslist.php' ?>" class="gnb_1da"><span>MODEL's CHOICE</span></a>
         </li>
 <?php
-    }
+    //}
 ?>
         <?php
         // 1단계 분류 판매 가능한 것만
