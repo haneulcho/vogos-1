@@ -106,6 +106,14 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
     <?php if(defined('_INDEX_')) { ?>
         <div id="mWrapper">
             <div id="index_top" class="w1200">
+                <!-- 보고스 대표 동영상 시작 { -->
+                <div id="main_video">
+                    <?php if($default['de_index_video_use']) { ?>
+                    <?php echo '<iframe src="https://player.vimeo.com/video/'.$default['de_index_video_src'].'?autoplay=0&byline=0" width="'.$default['de_index_video_width'].'" height="'.$default['de_index_video_height'].'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                    ?>
+                    <?php } ?>
+                </div> <!-- } 보고스 대표 동영상 끝 -->
+
                 <div id="slider"> <!-- slider contents -->
                     <?php if($default['de_type2_list_use']) { ?>
                     <!-- MODEL's CHOICE 시작 { -->
@@ -128,14 +136,6 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
                     </section>
                     <!-- } NOTICE 끝 -->
                 </div> <!-- slider end -->
-
-                <!-- 보고스 대표 동영상 시작 { -->
-                <div id="main_video">
-                    <?php if($default['de_index_video_use']) { ?>
-                    <?php echo '<iframe src="https://player.vimeo.com/video/'.$default['de_index_video_src'].'?autoplay=0&byline=0" width="'.$default['de_index_video_width'].'" height="'.$default['de_index_video_height'].'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-                    ?>
-                    <?php } ?>
-                </div> <!-- } 보고스 대표 동영상 끝 -->
             </div> <!-- index_top 끝 -->
         </div> <!-- mWrapper 끝 -->
     <?php } ?>
