@@ -78,7 +78,7 @@ $result = sql_query($sqlcate);
     }
 
     if($i > 0) {
-        echo '<li><a href="'.G5_MSHOP_URL.'/list_all.php">All Items</a></li>';
+        // echo '<li><a href="'.G5_MSHOP_URL.'/list_all.php">All Items</a></li>'; All Items 임시 주석처리 (To Do: Ajax Paging)
         echo '</ul></nav>';
     }
 
