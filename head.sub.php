@@ -81,6 +81,33 @@ if ($is_admin) {
 }
 ?>
 </script>
+<!--  LOG corp Web Analitics & Live Chat  START -->
+<script type="text/javascript">
+//<![CDATA[
+function logCorpAScript_full(){
+    HTTP_MSN_MEMBER_NAME="";/*member name*/
+    LOGSID = "<?=$_SESSION['logsid']?>";/*logsid*/
+    LOGREF = "<?=$_SESSION['logref']?>";/*logref*/
+    var prtc=(document.location.protocol=="https:")?"https://":"http://";
+    var hst=prtc+"asp3.http.or.kr"; 
+    var rnd="r"+(new  Date().getTime()*Math.random()*9);
+    this.ch=function(){
+        if(document.getElementsByTagName("head")[0]){logCorpAnalysis_full.dls();}else{window.setTimeout(logCorpAnalysis_full.ch,30)}
+    }
+    this.dls=function(){
+        var  h=document.getElementsByTagName("head")[0];
+        var  s=document.createElement("script");s.type="text/jav"+"ascript";try{s.defer=true;}catch(e){};try{s.async=true;}catch(e){};
+        if(h){s.src=hst+"/HTTP_MSN/UsrConfig/vogoskorea/js/ASP_Conf.js?s="+rnd;h.appendChild(s);}
+    }
+    this.init= function(){
+        document.write('<img src="'+hst+'/sr.gif?d='+rnd+'"  style="width:1px;height:1px;position:absolute;" alt="" onload="logCorpAnalysis_full.ch()" />');
+    }
+}
+if(typeof logCorpAnalysis_full=="undefined"){   var logCorpAnalysis_full=new logCorpAScript_full();logCorpAnalysis_full.init();}
+//]]>
+</script>
+<noscript><img src="http://asp3.http.or.kr/HTTP_MSN/Messenger/Noscript.php?key=vogoskorea" border="0" style="display:none;width:0;height:0;" /></noscript>
+<!-- LOG corp Web Analitics & Live Chat END  -->
 <!-- <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script> -->
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
