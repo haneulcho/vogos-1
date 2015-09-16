@@ -286,7 +286,7 @@
 #mds_view {margin:0 auto;}
 #mds_video {margin:0 auto;}
 .mds_subject_v {margin:0 auto;padding:20px 0 8px;font-size:24px;text-align:center;line-height:135%;letter-spacing:-1.8px;color:#666;border-bottom:1px solid #eee;}
-.mds_sum_v {margin:0 auto 24px;padding:25px 30px;border-top:2px solid #555;border-bottom:1px solid #eee;background-color:#f9f9f9;font-size:14px;line-height:1.5;font-family:'Nanum Gothic';}
+.mds_sum_v {margin:0 auto 24px;padding:25px 30px;border-top:2px solid #555;border-bottom:1px solid #eee;background-color:#f9f9f9;font-size:13px;line-height:1.5;font-family:'Nanum Gothic';}
 #mds_view #sit_rel {position:relative;overflow:hidden;}
 .mds_tooltip {position:absolute;top:0;left:0;width:227px;height:114px;}
 .slider_txt {text-align:center;}
