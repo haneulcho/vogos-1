@@ -247,7 +247,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
         <?php } ?>
 
         <?php if($is_soldout) { ?>
-        <p id="sit_ov_soldout">상품의 재고가 부족하여 구매할 수 없습니다.</p>
+        <p id="sit_ov_soldout">고객님의 성원에 힘입어 품절되었습니다♥</p>
         <?php } ?>
 
         <div id="sit_ov_btn">
