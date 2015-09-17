@@ -157,12 +157,13 @@
 .no-js .owl-carousel {
   display: block;
 }
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {background:#8b8b8b !important;}
 
 .owl-theme .owl-controls{margin-top:10px;text-align:center;-webkit-tap-highlight-color:transparent}.owl-theme .owl-controls .owl-nav [class*=owl-]{color:#fff;font-size:14px;margin:5px;padding:4px 7px;background:#d6d6d6;display:inline-block;cursor:pointer;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}.owl-theme .owl-controls .owl-nav [class*=owl-]:hover{background:#869791;color:#fff;text-decoration:none}.owl-theme .owl-controls .owl-nav .disabled{opacity:.5;cursor:default}.owl-theme .owl-dots .owl-dot{display:inline-block;zoom:1;*display:inline}.owl-theme .owl-dots .owl-dot span{width:10px;height:10px;margin:5px 7px;background:#d6d6d6;display:block;-webkit-backface-visibility:visible;-webkit-transition:opacity 200ms ease;-moz-transition:opacity 200ms ease;-ms-transition:opacity 200ms ease;-o-transition:opacity 200ms ease;transition:opacity 200ms ease;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px}.owl-theme .owl-dots .owl-dot.active span,.owl-theme .owl-dots .owl-dot:hover span{background:#869791}
 
 /* 상품 목록 스킨 10 */
 .item {margin-bottom:10px;}
-.item header {position:relative;margin:0 0 10px;background:url(http://subtlepatterns.com/patterns/diagonales_decalees.png) #fdfdfd;}
+.item header {position:relative;margin:0 0 10px;background:url(img/diagonales_decalees.png) #fdfdfd;}
 .item header>h2 {display:inline-block;margin:0 !important;padding:6px 12px;color:#fff;font-family:'Oswald', sans-serif;font-size:1.2em;font-weight:normal;line-height:1.5em;}
 .item header>h2 a {color:#fff;}
 .item.vogos_clip header>h2 {background-color:#a954d5;}
@@ -260,6 +261,38 @@
 .sit_btn_more:hover {background-color:#333;}
 .sit_btn_wish:hover {background-color:#ff8c9f;}
 
+/* 모델스초이스 리스트 스킨 */
+#mds_list {margin:0 auto 10px;padding:0;}
+#mds_list > li {clear:both;overflow:hidden;padding:0;border-bottom:1px solid #ccc;}
+.mds_href {overflow:hidden;display:block;padding:0;}
+.mds_href:hover .mds_bimg, .mds_href:hover #mds_imglist img {opacity:.7;filter:alpha(opacity:70);}
+.mds_bimg {margin:0 0 15px 0;}
+.mds_bimg img {width:100%;}
+.mds_des {clear:both;padding:0 20px 20px;}
+.mds_sum {overflow:hidden;margin:0;padding:20px 20px;border-top:2px solid #555;background-color:#f9f9f9;line-height:1.35;font-size:15px;letter-spacing:-1.5px;}
+.mds_subject {margin:0;font-size:22px;line-height:1.5;color:#555;font-weight:bold;letter-spacing:-1.3px;}
+#mds_imglist {margin:10px 0 0 0;padding:0;}
+#mds_imglist li {float:left;margin:0 10px 0 0;}
+#mds_imglist img {width:60px;}
+.mds_bimg, #mds_imglist img {
+  -webkit-transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -ms-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+}
+
+/* 모델스초이스 뷰 스킨 */
+#mds_view {margin:0 auto;}
+#mds_video {margin:0 auto;}
+.mds_subject_v {margin:0 auto;padding:20px 0 8px;font-size:24px;text-align:center;line-height:135%;letter-spacing:-1.8px;color:#666;border-bottom:1px solid #eee;}
+.mds_sum_v {margin:0 auto 24px;padding:25px 30px;border-top:2px solid #555;border-bottom:1px solid #eee;background-color:#f9f9f9;font-size:13px;line-height:1.5;font-family:'Nanum Gothic';}
+#mds_view #sit_rel {position:relative;overflow:hidden;}
+.mds_tooltip {position:absolute;top:0;left:0;width:227px;height:114px;}
+.slider_txt {text-align:center;}
+.slider_txt > a {display:inline-block;margin:15px auto 0;font-size:16px;line-height:1;letter-spacing:-1.3px;color:#555;}
+.md_choice .item {margin:0;}
+
 .sct_20 .sct_basic {overflow:hidden;height:50px;margin:6px 0 12px;letter-spacing:-1px;font-size:1.1em;line-height:1.3em;}
 .sct_20 .sct_cost {display:block;margin:0 0 10px;color:#999;font-weight:bold;font-size:1.2em;}
 .sct_20 .sct_cost strike {display:inline-block;margin:0 10px 0 0;color:#999;font-weight:normal}
@@ -303,10 +336,10 @@
 .sct_admin {margin:0 0 10px;text-align:right}
 
 /* 상품 목록 현재 위치 */
-#sct_location {background:#f2f5f9;letter-spacing:-4px}
-#sct_location a {display:inline-block;padding:5px 10px;text-decoration:none;letter-spacing:0 !important}
-.sct_here {font-weight:bold}
-.sct_bg {padding-right:13px !important;background:url('img/sct_bg_toright.gif') right 8px no-repeat}
+#sct_location {margin:0;border-bottom:1px solid #e9e9e9;background-color:#fafafa;}
+#sct_location a {display:inline-block;padding:10px 10px 8px;text-decoration:none;font-size:11px;font-family:'Francois One',tahoma,arial;color:#999;}
+.sct_here {font-weight:bold;color:#0ab1c4 !important;}
+.sct_bg {padding-right:15px !important;background:url('img/sct_bg_toright.gif') right 13px no-repeat}
 
 /* 상품 목록 카테고리 목록 */
 .sct_ct {}
@@ -345,7 +378,7 @@
 #sct_lst button.sct_lst_gallery span.sct_lst_on {background-position:-30px -30px}
 
 /* 상품 상세보기 */
-#sit {padding-top:5px;margin:0;border-top:1px solid #e9e9e9}
+#sit {margin:0;}
 .sit_admin {margin:10px 10px 0;text-align:right}
 .sit_empty {padding:30px 0;text-align:center}
 
@@ -382,7 +415,7 @@
 #sit_pvi_nw li img {width:60px;height:60px}
 
 /* 상품 상세보기 - 간략정보 및 구매기능 */
-#sit_ov {position:relative;padding:13px 28px 0;height:auto !important;min-height:355px;}
+#sit_ov {position:relative;padding:13px 28px 13px;height:auto !important;min-height:355px;}
 #sit_ov h2 {position:absolute;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden}
 #sit_ov h3 {margin:0 0 10px}
 
@@ -548,7 +581,7 @@ box-shadow:0px -6px 25px rgba(0,0,0,0.3);}
 #sit_qa_w {display:none}
 
 /* 쇼핑몰 이벤트 */
-#sev {margin:0 0 5px;padding:0;height:90px;list-style:none;overflow-x:auto;overflow-y:hidden;background:url(http://subtlepatterns.com/patterns/diagonales_decalees.png) #efefef;white-space:nowrap;}
+#sev {margin:0 0 5px;padding:0;height:90px;list-style:none;overflow-x:auto;overflow-y:hidden;background:url(img/diagonales_decalees.png) #efefef;white-space:nowrap;}
 #sev li {display:inline-block;margin:0 0 0 5px;padding:0;}
 #sev li:first-child {margin-left:0;}
 #sev a {display:block;margin:0;padding:0;height:90px;}

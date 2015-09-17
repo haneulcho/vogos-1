@@ -65,6 +65,7 @@ $result = sql_query($sqlcate);
     for($i=0; $row=sql_fetch_array($result); $i++) {
         if($i == 0) {
             echo '<nav><h2>카테고리 목록</h2><ul>';
+            echo '<li><a href="'.G5_MSHOP_URL.'/modelslist.php">Model\'s Choice</a></li>';
         }
 
         $ca_href = G5_SHOP_URL.'/category.php?ca='.$row['ca_id'];
@@ -78,7 +79,7 @@ $result = sql_query($sqlcate);
     }
 
     if($i > 0) {
-        echo '<li><a href="'.G5_MSHOP_URL.'/list_all.php">All Items</a></li>';
+        // echo '<li><a href="'.G5_MSHOP_URL.'/list_all.php">All Items</a></li>'; All Items 임시 주석처리 (To Do: Ajax Paging)
         echo '</ul></nav>';
     }
 
