@@ -450,9 +450,9 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
                 <input type="checkbox" name="it_type3" value="1" <?php echo ($it['it_type3'] ? "checked" : ""); ?> id="it_type3">
                 <label for="it_type3">NEW ARRIVALS <img src="<?php echo G5_SHOP_URL; ?>/img/icon_new.gif" alt=""></label>
                 <input type="checkbox" name="it_type4" value="1" <?php echo ($it['it_type4'] ? "checked" : ""); ?> id="it_type4">
-                <label for="it_type4">VOGOS BESTSELLERS <img src="<?php echo G5_SHOP_URL; ?>/img/icon_best.gif" alt=""></label>
+                <label for="it_type4">RUNWAY IN VOGOS <img src="<?php echo G5_SHOP_URL; ?>/img/icon_best.gif" alt=""></label>
                 <input type="checkbox" name="it_type5" value="1" <?php echo ($it['it_type5'] ? "checked" : ""); ?> id="it_type5">
-                <label for="it_type5">할인 <img src="<?php echo G5_SHOP_URL; ?>/img/icon_discount.gif" alt=""></label>
+                <label for="it_type5">UP TO 7% OFF <img src="<?php echo G5_SHOP_URL; ?>/img/icon_discount.gif" alt=""></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_ca_it_type" value="1" id="chk_ca_it_type">

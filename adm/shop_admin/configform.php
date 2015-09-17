@@ -410,7 +410,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">VOGOS BESTSELLER 출력</th>
+            <th scope="row">RUNWAY IN VOGOS 출력</th>
             <td>
                 <label for="de_type4_list_use">출력</label>
                 <input type="checkbox" name="de_type4_list_use" value="1" id="de_type4_list_use" <?php echo $default['de_type4_list_use']?"checked":""; ?>>
@@ -429,7 +429,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">할인상품출력</th>
+            <th scope="row">UP TO 7% OFF 출력</th>
             <td>
                 <label for="de_type5_list_use">출력</label>
                 <input type="checkbox" name="de_type5_list_use" value="1" id="de_type5_list_use" <?php echo $default['de_type5_list_use']?"checked":""; ?>>
@@ -473,7 +473,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row">VOGOS 야외촬 출력</th>
+            <th scope="row">VOGOS 야외촬영 출력</th>
             <td>
                 <label for="de_mobile_type1_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type1_list_use" value="1" id="de_mobile_type1_list_use" <?php echo $default['de_mobile_type1_list_use']?"checked":""; ?>>
@@ -529,7 +529,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">VOGOS BESTSELLER 출력</th>
+            <th scope="row">RUNWAY IN VOGOS 출력</th>
             <td>
                 <label for="de_mobile_type4_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type4_list_use" value="1" id="de_mobile_type4_list_use" <?php echo $default['de_mobile_type4_list_use']?"checked":""; ?>>
@@ -548,7 +548,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">할인상품출력</th>
+            <th scope="row">UP TO 7% OFF 출력</th>
             <td>
                 <label for="de_mobile_type5_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type5_list_use" value="1" id="de_mobile_type5_list_use" <?php echo $default['de_mobile_type5_list_use']?"checked":""; ?>>
