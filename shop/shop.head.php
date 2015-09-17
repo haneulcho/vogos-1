@@ -116,23 +116,22 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 
                 <div id="slider"> <!-- slider contents -->
                     <?php if($default['de_type2_list_use']) { ?>
-                    <!-- MODEL's CHOICE 시작 { -->
+                    <!-- VOGOS EVENT 시작 { -->
                     <section>
                         <header>
-                            <h2 class="best_item"><a href="<?php echo G5_SHOP_URL.'/modelslist.php' ?>">MODEL's CHOICE</a></h2>
-                            <!-- <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> MODEL's CHOICE 모음</p> -->
+                            <h2 class="best_item"><a href="<?php echo G5_SHOP_URL.'/modelslist.php' ?>">VOGOS EVENT</a></h2>
                         </header>
-                        <?php include_once(G5_SHOP_SKIN_PATH.'/main.modelslist.skin.php'); ?>
+                        <?php echo display_banner('메인', 'mainbanner.10.skin.php'); ?>
                     </section>
-                    <!-- } MODEL's CHOICE 끝 -->
+                    <!-- } VOGOS EVENT 끝 -->
                     <?php } ?>
 
                     <!-- NOTICE 시작 { -->
-                    <section>
+                    <section class="noticelist">
                         <header>
                             <h2 class="md_choice"><a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=notice">NOTICE &amp; EVENT</a></h2>
                         </header>
-                            <?php echo latest("basic", "notice", 5, 25);​ ?>
+                            <?php echo latest("basic", "notice", 4, 25);​ ?>
                     </section>
                     <!-- } NOTICE 끝 -->
                 </div> <!-- slider end -->

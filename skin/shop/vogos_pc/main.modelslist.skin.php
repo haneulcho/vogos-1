@@ -31,11 +31,11 @@ if($i == 0) echo "<p class=\"sct_noitem\">등록된 모델스초이스 상품이
 
 <script>
 $(function() {
-    var owl30 = $('.mdschoice');
-    owl30.owlCarousel({
-        items: 1,
+    var owl40 = $('.mdschoice');
+    owl40.owlCarousel({
+        items: 4,
         loop: true,
-        margin: 0,
+        margin: 20,
         autoplay: true,
         autoplayTimeout: 6000,
         autoplayHoverPause: true,

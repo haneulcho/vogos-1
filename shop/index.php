@@ -70,11 +70,22 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
 <!-- } VOGOS 야외촬영 끝 -->
 <?php } ?>
 
-<?php if($default['de_type4_list_use']) { ?>
-<!-- VOGOS BESTSELLERS 시작 { -->
+<?php if($default['de_type2_list_use']) { ?>
+<!-- VOGOS 모델스 초이스(MODEL's CHOICE) 시작 { -->
 <section class="sct_wrap w1160">
     <header>
-        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">VOGOS<br>BESTSELLERS</a></h2>
+        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2">VOGOS<br>MODEL's CHOICE</a></h2>
+    </header>
+    <?php include_once(G5_SHOP_SKIN_PATH.'/main.modelslist.skin.php'); ?>
+</section>
+<!-- } VOGOS 모델스 초이스(MODEL's CHOICE) 끝 -->
+<?php } ?>
+
+<?php if($default['de_type4_list_use']) { ?>
+<!-- VOGOS RUNWAY in VOGOS 시작 { -->
+<section class="sct_wrap w1160">
+    <header>
+        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">RUNWAY<br>IN VOGOS</a></h2>
     </header>
     <?php
     $list = new item_list();
@@ -118,8 +129,7 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
 <!-- 할인상품 시작 { -->
 <section class="sct_wrap w1160">
     <header>
-        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=5">할인상품</a></h2>
-        <p class="sct_wrap_hdesc"><?php echo $config['cf_title']; ?> 할인상품 모음</p>
+        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=5">UP TO<br>7% OFF</a></h2>
     </header>
     <?php
     $list = new item_list();
@@ -129,8 +139,8 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
     $list->set_view('it_basic', true);
     $list->set_view('it_cust_price', true);
     $list->set_view('it_price', true);
-    $list->set_view('it_icon', true);
-    $list->set_view('sns', true);
+    $list->set_view('it_icon', false);
+    $list->set_view('sns', false);
     echo $list->run();
     ?>
 </section>
