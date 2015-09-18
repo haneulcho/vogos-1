@@ -51,6 +51,7 @@ $admin = get_admin("super");
             <?php if ($default['de_admin_buga_no']) echo '<span><b>부가통신사업신고번호</b> '.$default['de_admin_buga_no'].'</span>'; ?><br>
             Copyright &copy; 2015 <?php echo $default['de_admin_company_name']; ?>. All Rights Reserved.
         </p>
+        <img src="http://image.inicis.com/mkt/certmark/inipay/inipay_43x43_gray.png" border="0" alt="클릭하시면 이니시스 결제시스템의 유효성을 확인하실 수 있습니다." style="cursor:hand;position: absolute;right: 110px;top: 70px;" onclick="javascript:window.open(&quot;https://mark.inicis.com/mark/popup_v1.php?mid=SIRvogos00&quot;,&quot;mark&quot;,&quot;scrollbars=no,resizable=no,width=565,height=683&quot;);">
         <a href="#" id="ft_totop">상단으로</a>
     </div>
 </div>
