@@ -11,7 +11,12 @@ $mds = sql_fetch($sql);
 if (!$mds['mds_id'])
     alert('등록된 모델스초이스가 없습니다.');
 
-$g5['title'] = '모델스초이스 리스트';
+$g5['title'] = '모델스초이스';
+
+$og_title = '모델스초이스 | VOGOS';
+$og_url = G5_SHOP_URL.'/modelslist.php';
+$og_img = G5_SHOP_SKIN_URL.'/img/logo.png';
+$og_description = 'Everywhere is Runway, Every VOGOS - 보고스 패션을 지금 만나보세요!';
 
 include_once('./_head.php');
 
