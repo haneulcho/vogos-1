@@ -455,7 +455,7 @@
 #sit_btn_buy {display:block;clear:both;width:100%;margin-top:6px;padding:13px 0;background:#d4b900;color:#fff;font-size:1.6em;}
 #sit_btn_cart, #sit_btn_wish {display:inline-block;padding:10px 0;background:#bbb;color:#fff;font-size:1.3em;}
 #sit_btn_wish {width:39%;margin-right:2%;}
-#sit_btn_cart {width:59%;}
+#sit_btn_cart {width:100%;}
 #sit_btn_rec {background:#888;color:#fff}
 
 /* 상품 상세보기 - 다른 상품 보기 */

@@ -237,7 +237,6 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 		<?php } ?>
 
 		<div id="sit_ov_btn">
-			<a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>');" id="sit_btn_wish">+WISH ♥</a>
 			<?php if ($is_orderable) { ?>
 			<input type="submit" onclick="document.pressed=this.value;" value="ADD TO CART" id="sit_btn_cart">
 			<input type="submit" onclick="document.pressed=this.value;" value="BUY NOW" id="sit_btn_buy">
