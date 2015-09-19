@@ -16,9 +16,6 @@ $result = sql_query($sqlcate);
 ?>
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" media="screen" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<div id="hamburger">
-    <i class="ion-navicon"></i>
-</div>
 <div id="sct_win" class="mobile-menu">
   <div class="mobile-menu-inner">
     <ul id="userNav">
