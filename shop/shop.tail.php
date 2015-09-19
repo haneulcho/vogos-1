@@ -43,7 +43,8 @@ $admin = get_admin("super");
             <span><b>사업자 등록번호</b> <?php echo $default['de_admin_company_saupja_no']; ?></span>
             <span><b>대표</b> <?php echo $default['de_admin_company_owner']; ?></span>
             <span><b>전화</b> <?php echo $default['de_admin_company_tel']; ?></span>
-            <span><b>팩스</b> <?php echo $default['de_admin_company_fax']; ?></span><br>
+            <span><b>팩스</b> <?php echo $default['de_admin_company_fax']; ?></span>
+            <span><b>이메일</b> Help@vogos.com</span><br>
             <!-- <span><b>운영자</b> <?php echo $admin['mb_name']; ?></span><br> -->
             <span><b>통신판매업신고번호</b> <?php echo $default['de_admin_tongsin_no']; ?></span>
             <span><b>개인정보관리책임자</b> <?php echo $default['de_admin_info_name']; ?></span>
