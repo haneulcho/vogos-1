@@ -213,7 +213,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 					<input type="hidden" class="io_price" value="0">
 					<input type="hidden" class="io_stock" value="<?php echo $it['it_stock_qty']; ?>">
 					<span class="sit_opt_subj"><?php echo $it['it_name']; ?></span>
-					<span class="sit_opt_prc">(+0원)</span>
+					<span class="sit_opt_prc"></span>
 					<div>
 						<input type="text" name="ct_qty[<?php echo $it_id; ?>][]" value="<?php echo $it['it_buy_min_qty']; ?>" class="frm_input" size="5">
 						<button type="button" class="sit_qty_plus btn_frmline">증가</button>
