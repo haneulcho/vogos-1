@@ -312,13 +312,13 @@ $(window).bind("pageshow", function(event) {
 });
 
 // 스크롤시 상단에 remoconNav 생성
-$(window).scroll(function () {
+/*$(window).scroll(function () {
 	if ($(window).scrollTop() > 300) {
 		$('#sit_siblings').css('top', $(this).scrollTop() + "px").fadeIn(300);
 	} else {
 		$('#sit_siblings').hide();
 	}
-});
+});*/
 
 $(function(){
 	// 상품이미지 슬라이드
