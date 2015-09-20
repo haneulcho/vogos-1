@@ -119,7 +119,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
                     <!-- VOGOS EVENT 시작 { -->
                     <section>
                         <header>
-                            <h2 class="best_item"><a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=notice">EVERYWHERE IS RUNWAY, EVERY VOGOS</a>
+                            <h2 class="best_item"><a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=notice">EVERYWHERE IS RUNWAY, EVERYDAY VOGOS</a>
                         </header>
                         <?php echo display_banner('메인', 'mainbanner.10.skin.php'); ?>
                     </section>

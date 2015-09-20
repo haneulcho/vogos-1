@@ -55,7 +55,7 @@ if($config['cf_add_meta'])
 <?php if (!isset($og_title)) { ?>
 <meta property="og:title" content="VOGOS (보고스)">
 <meta property="og:url" content="http://vogos.com">
-<meta property="og:description" content="Everywhere is Runway, Every VOGOS - 보고스 패션을 지금 만나보세요!">
+<meta property="og:description" content="Everywhere is Runway, Everyday VOGOS - 보고스 패션을 지금 만나보세요!">
 <meta property="og:image" content="<?php echo G5_SHOP_SKIN_URL.'/img/og_img.png' ?>">
 <?php } else { ?>
 <meta property="og:title" content="<?=$og_title ?>">
