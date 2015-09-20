@@ -5,7 +5,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     $sql = " select *
                 from {$g5['g5_shop_models_table']} where mds_use = '1'                
                 order by mds_id desc
-                limit 5";
+                limit 8";
     $result = sql_query($sql);
 ?>
 
@@ -37,7 +37,7 @@ $(function() {
         loop: true,
         margin: 20,
         autoplay: true,
-        autoplayTimeout: 6000,
+        autoplayTimeout: 2000,
         autoplayHoverPause: true,
         autoplaySpeed: 800,
         smartSpeed: 500,

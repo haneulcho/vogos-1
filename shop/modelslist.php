@@ -75,10 +75,6 @@ if (file_exists($models_skin))
 </div>
 <?php
     echo get_paging($config['cf_write_pages'], $page, $total_page, $_SERVER['SCRIPT_NAME'].'?');
-
-echo $total_count.'<br>';
-echo $total_page.'<br>';
-echo $items;
 ?>
 
 <!-- } 모델스초이스 끝 -->
