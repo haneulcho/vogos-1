@@ -40,9 +40,9 @@ if ($is_admin)
 <?php
 define('G5_SHOP_CSS_URL', G5_SHOP_SKIN_URL);
 
-$models_skin = $skin_dir."/{$mds['mds_skin']}";
+$skin_file = $skin_dir."/list.models.10.skin.php";
 
-if (file_exists($models_skin))
+if (file_exists($skin_file))
 {
     // 총몇개 = 한줄에 몇개 * 몇줄
     $list_mod = 1;
@@ -55,7 +55,7 @@ if (file_exists($models_skin))
     $order_by = "mds_id desc";
 }
 
-    $list = new item_list(G5_SHOP_SKIN_PATH.'/list.models.10.skin.php', $list_mod, $list_row);
+    $list = new item_list($skin_file, $list_mod, $list_row);
     $list->set_order_by($order_by);
     $list->set_is_mdschoice(true);
     $list->set_is_page(true);
