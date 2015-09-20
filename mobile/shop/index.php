@@ -77,26 +77,35 @@ include_once(G5_MSHOP_PATH.'/_head.php');
     <?php } ?>
 
 
-    <?php if($default['de_mobile_type4_list_use']) { ?>
-    <div class="item best_item">
+<!-- VOGOS BESTSELLER 베스트 출력 -->
+    <div id="sct_best" class="item best_item">
         <header>
-            <h2>BEST ITEMS</h2>
-            <div class="it_more"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4"><i class="ion-ios-arrow-right"></i></a></div>
+            <h2>VOGOS BESTSELLER</h2>
         </header>
-        <?php
-        $list = new item_list();
+    <?php
+        // 분류 Best Item 출력
+        $list_mod = 3;
+        $list_row = 4;
+        $limit = $list_mod * $list_row;
+        $best_skin = G5_MSHOP_SKIN_PATH.'/list.best.10.skin_m.php';
+
+        $sql = " select *
+                    from {$g5['g5_shop_item_table']}
+                    where it_use = '1'
+                    order by it_order, it_hit desc
+                    limit 0, $limit ";
+
+        $list = new item_list($best_skin, $list_mod, $list_row, 300, 420);
+        $list->set_query($sql);
         $list->set_mobile(true);
-        $list->set_type(4);
+        $list->set_view('it_img', true);
         $list->set_view('it_id', false);
         $list->set_view('it_name', true);
-        $list->set_view('it_cust_price', true);
         $list->set_view('it_price', true);
-        $list->set_view('it_icon', false);
-        $list->set_view('sns', false);
         echo $list->run();
-        ?>
+    ?>
     </div>
-    <?php } ?>
+<!-- VOGOS BESTSELLER 베스트 출력 끝 -->
 
     <?php if($default['de_mobile_type5_list_use']) { ?>
     <div class="item">
