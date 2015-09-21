@@ -54,6 +54,26 @@ $admin = get_admin("super");
         </p>
         <!-- KG이니시스 인증마크 적용 시작 -->
         <img src="http://image.inicis.com/mkt/certmark/inipay/inipay_43x43_gray.png" border="0" alt="클릭하시면 이니시스 결제시스템의 유효성을 확인하실 수 있습니다." style="cursor:hand;position:absolute;right:110px;top:70px;" onclick="javascript:window.open(&quot;https://mark.inicis.com/mark/popup_v1.php?mid=SIRvogos00&quot;,&quot;mark&quot;,&quot;scrollbars=no,resizable=no,width=565,height=683&quot;);">
+        <!-- KB에스크로 이체 인증마크 적용 시작 -->
+        <script>
+        function onPopKBAuthMark()
+        {
+        var url = 'https://okbfex.kbstar.com/quics?page=C016760&mHValue=051eaeb9a19ab2af2e0992e7435fd055201507091430377';
+        window.open(url,'KB_AUTHMARK','height=604, width=648, status=yes, toolbar=no, menubar=no, location=no');
+        document.KB_AUTHMARK_FORM.action='https://okbfex.kbstar.com/quics';
+        document.KB_AUTHMARK_FORM.target='KB_AUTHMARK';
+        document.KB_AUTHMARK_FORM.submit();
+        }
+        </script>
+        <form name="KB_AUTHMARK_FORM" method="get">
+        <input type="hidden" name="page" value="C021590"/>
+        <input type="hidden" name="cc" value="b034066:b035526"/>
+        <input type="hidden" name="mHValue" value='051eaeb9a19ab2af2e0992e7435fd055201507091430377'/>
+        </form>
+        <a href="#" style="display:block;cursor:hand;position:absolute;right:170px;top:40px;" onclick="javascript:onPopKBAuthMark();return false;">
+        <img src="http://img1.kbstar.com/img/escrow/escrowcmark.gif" border="0"/>
+        </a>
+        <!-- KB에스크로이체 인증마크 적용 종료 -->
         <a href="#" id="ft_totop">상단으로</a>
     </div>
 </div>
