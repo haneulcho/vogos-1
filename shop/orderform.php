@@ -58,13 +58,6 @@ require_once('./settle_'.$default['de_pg_service'].'.inc.php');
 require_once('./'.$default['de_pg_service'].'/orderform.1.php');
 ?>
 
-<!-- 네이버 프리미엄로그분석 전환페이지 설정 -->
- <script type="text/javascript" src="http://wcs.naver.net/wcslog.js"> </script> 
- <script type="text/javascript">
-var _nasa={};
- _nasa["cnv"] = wcs.cnv("4","10000");
-</script>
-
 <form name="forderform" id="forderform" method="post" action="<?php echo $order_action_url; ?>" onsubmit="return forderform_check(this);" autocomplete="off">
 <div id="sod_frm">
     <!-- 주문상품 확인 시작 { -->
@@ -112,6 +105,12 @@ var _nasa={};
         $sql .= " group by a.it_id ";
         $sql .= " order by a.ct_id ";
         $result = sql_query($sql);
+
+        // 로그분석기 시작
+        $row_count = mysql_num_rows($result);
+        $http_SO="cartend";    //주문정보입력페이지
+        $http_MP="";    //상품명_가격_수량
+        // 로그분석기 끝
 
         $good_info = '';
         $it_send_cost = 0;
@@ -251,6 +250,17 @@ var _nasa={};
         <?php
             $tot_point      += $point;
             $tot_sell_price += $sell_price;
+
+            // 로그분석기 변수 전달
+            $http_MP .= $row['it_name']."_";
+            $http_MP .= $sell_price."_";
+
+            if ($i < $row_count-1) {
+                $http_MP .= $sum['qty'].";";
+            } else {
+                $http_MP .= $sum['qty'];
+            }
+            // 로그분석기 변수 전달 끝
         } // for 끝
 
         if ($i == 0) {

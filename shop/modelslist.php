@@ -79,13 +79,6 @@ if (file_exists($skin_file))
 
 <!-- } 모델스초이스 끝 -->
 
-<!-- 네이버 프리미엄로그분석 전환페이지 설정_ 기타페이지 -->
- <script type="text/javascript" src="http://wcs.naver.net/wcslog.js"> </script> 
- <script type="text/javascript">
-var _nasa={};
- _nasa["cnv"] = wcs.cnv("5",20000);
-</script>
-
 <?php
 include_once('./_tail.php');
 ?>
