@@ -253,7 +253,7 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
 
             // 로그분석기 변수 전달
             $http_MP .= $row['it_name']."_";
-            $http_MP .= $sell_price."_";
+            $http_MP .= $row['ct_price']."_";
 
             if ($i < $row_count-1) {
                 $http_MP .= $sum['qty'].";";
