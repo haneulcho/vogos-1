@@ -58,6 +58,13 @@ require_once('./settle_'.$default['de_pg_service'].'.inc.php');
 require_once('./'.$default['de_pg_service'].'/orderform.1.php');
 ?>
 
+<!-- 네이버 프리미엄로그분석 전환페이지 설정 -->
+ <script type="text/javascript" src="http://wcs.naver.net/wcslog.js"> </script> 
+ <script type="text/javascript">
+var _nasa={};
+ _nasa["cnv"] = wcs.cnv("4","10000");
+</script>
+
 <form name="forderform" id="forderform" method="post" action="<?php echo $order_action_url; ?>" onsubmit="return forderform_check(this);" autocomplete="off">
 <div id="sod_frm">
     <!-- 주문상품 확인 시작 { -->
