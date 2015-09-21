@@ -8,9 +8,10 @@ if (G5_IS_MOBILE) {
 
 include_once(G5_EDITOR_LIB);
 
-if (!$is_member) {
+/* 임시로 주석처리 */
+/*if (!$is_member) {
     alert_close("사용후기는 회원만 작성 가능합니다.");
-}
+}*/
 
 $w     = trim($_REQUEST['w']);
 $it_id = trim($_REQUEST['it_id']);
