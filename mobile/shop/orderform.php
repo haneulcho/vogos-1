@@ -73,6 +73,12 @@ ob_start();
         $sql .= " order by a.ct_id ";
         $result = sql_query($sql);
 
+        // 로그분석기 시작
+        $row_count = mysql_num_rows($result);
+        $http_SO="cartend";    //주문정보입력페이지
+        $http_MP="";    //상품명_가격_수량
+        // 로그분석기 끝
+
         $good_info = '';
         $it_send_cost = 0;
         $it_cp_count = 0;
@@ -221,6 +227,17 @@ ob_start();
         <?php
             $tot_point      += $point;
             $tot_sell_price += $sell_price;
+
+            // 로그분석기 변수 전달
+            $http_MP .= $row['it_name']."_";
+            $http_MP .= $row['ct_price']."_";
+
+            if ($i < $row_count-1) {
+                $http_MP .= $sum['qty'].";";
+            } else {
+                $http_MP .= $sum['qty'];
+            }
+            // 로그분석기 변수 전달 끝
         } // for 끝
 
         if ($i == 0) {

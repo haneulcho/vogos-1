@@ -44,6 +44,12 @@ $cart_count = mysql_num_rows($result);
         $tot_sell_price = 0;
         $it_send_cost = 0;
 
+        // 로그분석기 시작
+        $row_count = mysql_num_rows($result);
+        $http_SO="cart";    //장바구니페이지
+        $http_PA="";    //장바구니(상품명_수량)
+        // 로그분석기 끝
+
         for ($i=0; $row=sql_fetch_array($result); $i++)
         {
             // 합계금액 계산
@@ -125,6 +131,16 @@ $cart_count = mysql_num_rows($result);
         <?php
             $tot_point      += $point;
             $tot_sell_price += $sell_price;
+
+            // 로그분석기 변수 전달
+            $http_PA .= $row['it_name']."_";
+
+            if ($i < $row_count-1) {
+                $http_PA .= number_format($sum['qty']).";";
+            } else {
+                $http_PA .= number_format($sum['qty']);
+            }
+            // 로그분석기 변수 전달 끝
         } // for 끝
 
         if ($i == 0) {
