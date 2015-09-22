@@ -154,7 +154,7 @@ box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);}
 #mb_login section div .find_id i {margin-right:5px;}
 
 #mb_login_notmb {margin:30px 0;padding:15px 10px;border:1px solid #cfded8;background:#f7f7f7}
-#mb_login_notmb #guest_privacy {margin:0 0 10px;padding:10px;height:150px;border:1px solid #e9e9e9;background:#fff;overflow:auto}
+#mb_login_notmb #guest_privacy {margin:0 0 10px;padding:10px;height:150px;border:1px solid #e9e9e9;background:#fff;overflow:auto;text-align:left !important;}
 #mb_login_notmb .btn_confirm {margin:20px 0 0;text-align:right}
 
 #mb_login_od {position:relative;margin:20px 5px;border-bottom:0;background:#fff}

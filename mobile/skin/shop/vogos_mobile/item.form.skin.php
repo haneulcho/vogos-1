@@ -213,7 +213,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 					<input type="hidden" class="io_price" value="0">
 					<input type="hidden" class="io_stock" value="<?php echo $it['it_stock_qty']; ?>">
 					<span class="sit_opt_subj"><?php echo $it['it_name']; ?></span>
-					<span class="sit_opt_prc">(+0원)</span>
+					<span class="sit_opt_prc"></span>
 					<div>
 						<input type="text" name="ct_qty[<?php echo $it_id; ?>][]" value="<?php echo $it['it_buy_min_qty']; ?>" class="frm_input" size="5">
 						<button type="button" class="sit_qty_plus btn_frmline">증가</button>
@@ -237,7 +237,6 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 		<?php } ?>
 
 		<div id="sit_ov_btn">
-			<a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>');" id="sit_btn_wish">+WISH ♥</a>
 			<?php if ($is_orderable) { ?>
 			<input type="submit" onclick="document.pressed=this.value;" value="ADD TO CART" id="sit_btn_cart">
 			<input type="submit" onclick="document.pressed=this.value;" value="BUY NOW" id="sit_btn_buy">
@@ -312,13 +311,13 @@ $(window).bind("pageshow", function(event) {
 });
 
 // 스크롤시 상단에 remoconNav 생성
-$(window).scroll(function () {
+/*$(window).scroll(function () {
 	if ($(window).scrollTop() > 300) {
 		$('#sit_siblings').css('top', $(this).scrollTop() + "px").fadeIn(300);
 	} else {
 		$('#sit_siblings').hide();
 	}
-});
+});*/
 
 $(function(){
 	// 상품이미지 슬라이드

@@ -182,6 +182,12 @@ $g5['title'] = $it['it_name'].' &gt; '.$it['ca_name'];
 
 include_once(G5_MSHOP_PATH.'/_head.php');
 
+// 로그분석기 시작
+$http_PC=$it['it_name'];    //상품명
+$http_PT=$it['ca_name'];    //카테고리
+$http_PS=$it['it_price'];    //상품가격
+// 로그분석기 끝
+
 // 분류 위치
 // HOME > 1단계 > 2단계 ... > 5단계 분류
 $ca_id = $it['ca_id'];

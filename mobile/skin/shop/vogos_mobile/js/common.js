@@ -21,7 +21,7 @@ $(function(){
         var iconClose = 'ion-android-close';
         if(status == 'open') { // sideNav를 연다 status = open
             $btnHamburger.removeClass(iconOpen).addClass(iconClose);
-            $('#sct_win, #main, #hamburger').addClass(status);
+            $('#sct_win, #main, #hamburger, #hd').addClass(status);
             $('html, body').css({
                 'overflow-x' : 'hidden',
                 'height' : '100%'
@@ -29,7 +29,7 @@ $(function(){
             touchNav(true); // 터치 메소드 실행
         } else { // sideNav를 닫는다
             $btnHamburger.addClass(iconOpen).removeClass(iconClose);
-            $('#sct_win, #main, #hamburger').removeClass('open');
+            $('#sct_win, #main, #hamburger, #hd').removeClass('open');
             $('html, body').css({
                 'overflow-x' : '',
                 'height' : 'auto'

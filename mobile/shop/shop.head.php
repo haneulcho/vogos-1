@@ -9,8 +9,10 @@ include_once(G5_LIB_PATH.'/popular.lib.php');
 include_once(G5_LIB_PATH.'/latest.lib.php');
 ?>
 <?php include_once(G5_MSHOP_PATH.'/m_category.php'); // 상품분류 ?>
-<div id="main">
 <header id="hd">
+		<div id="hamburger">
+		    <i class="ion-navicon"></i>
+		</div>
     <?php if ((!$bo_table || $w == 's' ) && defined('_INDEX_')) { ?><h1><?php echo $config['cf_title'] ?></h1><?php } ?>
 
     <div id="skip_to_container"><a href="#container">본문 바로가기</a></div>
@@ -24,6 +26,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
     <div id="topCart"><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i></a></div>
 
 </header>
+<div id="main">
 
 <div id="container">
     <?php if ((!$bo_table || $w == 's' ) && !defined('_INDEX_')) { ?><h1 id="container_title"><?php echo $g5['title'] ?></h1><?php } ?>
