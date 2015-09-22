@@ -72,6 +72,12 @@ include_once('./_head.php');
 
         $it_send_cost = 0;
 
+        // 로그분석기 시작
+        $row_count = mysql_num_rows($result);
+        $http_SO="cart";    //장바구니페이지
+        $http_PA="";    //장바구니(상품명_수량)
+        // 로그분석기 끝
+
         for ($i=0; $row=mysql_fetch_array($result); $i++)
         {
             // 합계금액 계산
@@ -145,6 +151,17 @@ include_once('./_head.php');
         <?php
             $tot_point      += $point;
             $tot_sell_price += $sell_price;
+
+            // 로그분석기 변수 전달
+            $http_PA .= $row['it_name']."_";
+
+            if ($i < $row_count-1) {
+                $http_PA .= number_format($sum['qty']).";";
+            } else {
+                $http_PA .= number_format($sum['qty']);
+            }
+            // 로그분석기 변수 전달 끝
+
         } // for 끝
 
         if ($i == 0) {
@@ -196,6 +213,14 @@ include_once('./_head.php');
     </form>
 
 </div>
+
+<!-- 네이버 프리미엄로그분석 전환페이지 설정_ 장바구니담기 -->
+ <script type="text/javascript" src="http://wcs.naver.net/wcslog.js"> </script> 
+ <script type="text/javascript">
+var $interValue = "<?php echo number_format($tot_price); ?>";
+var _nasa={};
+ _nasa["cnv"] = wcs.cnv("3",$interValue);
+</script>
 
 <script>
 $(function() {

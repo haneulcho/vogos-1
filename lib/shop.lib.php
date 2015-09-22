@@ -60,7 +60,7 @@ class item_list
     protected $ca_id3 = "";
 
     // 노출순서
-    protected $order_by = "it_order, it_id desc";
+    protected $order_by = "it_order, it_time, it_id desc";
 
     // 상품의 이벤트번호를 저장합니다.
     protected $event = "";
@@ -73,6 +73,9 @@ class item_list
 
     // 모바일에서 노출하고자 할 경우에 true 로 설정합니다.
     protected $is_mobile = false;
+
+    // 모델스초이스 리스트인지, 노출하고자 할 경우에 true 로 설정합니다.
+    protected $is_mdschoice = false;    
 
     // 기본으로 보여지는 필드들
     protected $view_it_id    = false;       // 상품코드
@@ -240,6 +243,10 @@ class item_list
         $this->is_page = $is_page;
     }
 
+    function set_is_mdschoice($is_mdschoice) {
+        $this->is_mdschoice = $is_mdschoice;
+    }
+
     // select ... limit 의 시작값
     function set_from_record($from_record) {
         $this->from_record = $from_record;
@@ -265,7 +272,11 @@ class item_list
 
             $where = array();
             if ($this->use) {
-                $where[] = " it_use = '1' ";
+                if ($this->is_mdschoice) {
+                    $where[] = " mds_use = '1' ";
+                } else {
+                    $where[] = " it_use = '1' ";                
+                }
             }
 
             if ($this->type) {
@@ -294,10 +305,14 @@ class item_list
                 $sql_select = " select {$this->fields} ";
                 $sql_common = " from `{$g5['g5_shop_event_item_table']}` a left join `{$g5['g5_shop_item_table']}` b on (a.it_id = b.it_id) ";
                 $where[] = " a.ev_id = '{$this->event}' ";
+            } else if ($this->is_mdschoice) {
+                $sql_select = " select {$this->fields} ";
+                $sql_common = " from `{$g5['g5_shop_models_table']}` ";                
             } else {
                 $sql_select = " select {$this->fields} ";
                 $sql_common = " from `{$g5['g5_shop_item_table']}` ";
             }
+
             $sql_where = " where " . implode(" and ", $where);
             $sql_limit = " limit " . $this->from_record . " , " . ($this->list_mod * $this->list_row);
 
@@ -1041,10 +1056,15 @@ function get_item_options($it_id, $subject)
         $select = '<select id="it_option_1" class="it_option">'.PHP_EOL;
         $select .= '<option value="">선택</option>'.PHP_EOL;
         for($i=0; $row=sql_fetch_array($result); $i++) {
-            if($row['io_price'] >= 0)
-                $price = '&nbsp;&nbsp;+ '.number_format($row['io_price']).'원';
-            else
+            if($row['io_price'] >= 0) {
+                if($row['io_price'] == 0) {
+                    $price = '&nbsp;&nbsp;';
+                } else {
+                    $price = '&nbsp;&nbsp;+ '.number_format($row['io_price']).'원';
+                }
+            } else {
                 $price = '&nbsp;&nbsp; '.number_format($row['io_price']).'원';
+            }
 
             if($row['io_stock_qty'] < 1)
                 $soldout = '&nbsp;&nbsp;[품절]';
@@ -1090,10 +1110,15 @@ function get_item_supply($it_id, $subject)
             $options[$opt_id[0]] = array();
 
         if(strlen($opt_id[1])) {
-            if($row['io_price'] >= 0)
-                $price = '&nbsp;&nbsp;+ '.number_format($row['io_price']).'원';
-            else
+            if($row['io_price'] >= 0) {
+                if($row['io_price'] == 0) {
+                    $price = '&nbsp;&nbsp;';
+                } else {
+                    $price = '&nbsp;&nbsp;+ '.number_format($row['io_price']).'원';                
+                }
+            } else {
                 $price = '&nbsp;&nbsp; '.number_format($row['io_price']).'원';
+            }
             $io_stock_qty = get_option_stock_qty($it_id, $row['io_id'], $row['io_type']);
 
             if($io_stock_qty < 1)

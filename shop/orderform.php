@@ -106,6 +106,12 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
         $sql .= " order by a.ct_id ";
         $result = sql_query($sql);
 
+        // 로그분석기 시작
+        $row_count = mysql_num_rows($result);
+        $http_SO="cartend";    //주문정보입력페이지
+        $http_MP="";    //상품명_가격_수량
+        // 로그분석기 끝
+
         $good_info = '';
         $it_send_cost = 0;
         $it_cp_count = 0;
@@ -244,6 +250,17 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
         <?php
             $tot_point      += $point;
             $tot_sell_price += $sell_price;
+
+            // 로그분석기 변수 전달
+            $http_MP .= $row['it_name']."_";
+            $http_MP .= $row['ct_price']."_";
+
+            if ($i < $row_count-1) {
+                $http_MP .= $sum['qty'].";";
+            } else {
+                $http_MP .= $sum['qty'];
+            }
+            // 로그분석기 변수 전달 끝
         } // for 끝
 
         if ($i == 0) {
@@ -1258,14 +1275,14 @@ function forderform_check(f)
                 return false;
             }
 
-            if (temp_point != od_price) {
+            if (temp_point != od_price && document.getElementById("od_settle_vpoint").checked) {
                 alert("결제 금액과 포인트가 일치하지 않습니다. 다른 결제방식을 선택하세요.");
                 document.getElementById("od_settle_card").focus();
                 return false;
             }
 
             if (temp_point == od_price) {
-                if(temp_point < 50000) {
+                if(temp_point < 50000 && document.getElementById("od_settle_vpoint").checked) {
                     alert("전액 포인트 50000원 미만 결제시 배송료 2,500원이 부과됩니다. 다른 결제방식 선택 후 "+od_price+"포인트를 입력하세요.");
                     document.getElementById("od_settle_card").focus();
                     return false;

@@ -90,12 +90,22 @@ if($ca_dir_check) {
 define('G5_SHOP_CSS_URL', str_replace(G5_PATH, G5_URL, $skin_dir));
 
 $g5['title'] = $it['it_name'].' &gt; '.$it['ca_name'];
+$og_title = get_text($it['it_name']).' | VOGOS';
+$og_url = G5_SHOP_URL.'/item.php?it_id='.$it['it_id'];
+$og_img = get_it_imageurl($it['it_id']);
+$og_description = 'Everywhere is Runway, Everyday VOGOS - 보고스 패션을 지금 만나보세요!';
 
 // 분류 상단 코드가 있으면 출력하고 없으면 기본 상단 코드 출력
 if ($ca['ca_include_head'])
     @include_once($ca['ca_include_head']);
 else
     include_once('./_head.php');
+
+// 로그분석기 시작
+$http_PC=$it['it_name'];    //상품명
+$http_PT=$it['ca_name'];    //카테고리
+$http_PS=$it['it_price'];    //상품가격
+// 로그분석기 끝
 
 // 분류 위치
 // HOME > 1단계 > 2단계 ... > 6단계 분류

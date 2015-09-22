@@ -106,6 +106,10 @@ if ($w == "") {
 
 include_once('./_head.php');
 
+// 로그분석기 시작
+$http_SO="REGF";    //정보입력페이지
+// 로그분석기 끝
+
 // 회원아이콘 경로
 $mb_icon_path = G5_DATA_PATH.'/member/'.substr($member['mb_id'],0,2).'/'.$member['mb_id'].'.gif';
 $mb_icon_url  = G5_DATA_URL.'/member/'.substr($member['mb_id'],0,2).'/'.$member['mb_id'].'.gif';

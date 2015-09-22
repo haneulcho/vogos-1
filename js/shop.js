@@ -364,7 +364,9 @@ function add_sel_option(type, id, option, price, stock)
     opt += "<input type=\"hidden\" class=\"io_price\" value=\""+price+"\">";
     opt += "<input type=\"hidden\" class=\"io_stock\" value=\""+stock+"\">";
     opt += "<span class=\"sit_opt_subj\">"+option+"</span>";
-    opt += "<span class=\"sit_opt_prc\">"+opt_prc+"</span>";
+    if(parseInt(price) > 0) {
+        opt += "<span class=\"sit_opt_prc\">"+opt_prc+"</span>";    
+    }
     opt += "<div><input type=\"text\" name=\"ct_qty["+item_code+"][]\" value=\"1\" class=\"frm_input\" size=\"5\">";
     opt += "<button type=\"button\" class=\"sit_qty_plus btn_frmline\">증가</button>";
     opt += "<button type=\"button\" class=\"sit_qty_minus btn_frmline\">감소</button>";
