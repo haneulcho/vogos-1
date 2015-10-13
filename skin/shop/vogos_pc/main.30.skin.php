@@ -34,7 +34,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     }
 
     if ($this->view_it_img) {
-        echo get_it_thumbnail($row['it_img10'], $this->img_width, $this->img_height);
+        echo get_it_image2($row['it_id'], 9, $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
     }
 
     if ($this->href) {

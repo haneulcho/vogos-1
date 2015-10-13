@@ -459,14 +459,14 @@ function get_it_image($it_id, $width, $height=0, $anchor=false, $img_id='', $img
 }
 
 // VOGOS COLLECTION 상품 이미지를 얻는다
-function get_it_image2($it_id, $width, $height=0, $anchor=false, $img_id='', $img_alt='')
+function get_it_image2($it_id, $img_num, $width, $height=0, $anchor=false, $img_id='', $img_alt='')
 {
     global $g5;
 
     if(!$it_id || !$width)
         return '';
 
-    $sql = " select it_id, it_img10 from {$g5['g5_shop_item_table']} where it_id = '$it_id' ";
+    $sql = " select it_id, it_img".$img_num." from {$g5['g5_shop_item_table']} where it_id = '$it_id' ";
     $row = sql_fetch($sql);
 
     if(!$row['it_id'])
