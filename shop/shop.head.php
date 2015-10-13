@@ -16,136 +16,90 @@ include_once(G5_LIB_PATH.'/popular.lib.php');
 include_once(G5_LIB_PATH.'/latest.lib.php');
 
 ?>
-<?php if(defined('_INDEX_')) { ?>
-<!-- 인덱스 슬라이더 owl carousel -->
-<script src="<?php echo G5_SHOP_SKIN_URL; ?>/js/owl.carousel.min.js"></script>
-<?php } ?>
-<!-- 상단 시작 { -->
-<div id="vogos">
-    <div id="header" class="w1200">
-        <?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
-        <aside id="topInfo">
-            <ul id="topNav">
-                <li><a href="http://instagram.com/vogos_style"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_insta_s.png" alt="VOGOS 인스타그램" target="_blank"></a></li>
-                <li><a href="http://facebook.com/vogoskorea"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_fb_s.png" alt="VOGOS 페이스북" target="_blank"></a></li>
-                <li><a href="http://blog.naver.com/vogoskorea"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/sns_nblog_s.png" alt="VOGOS 네이버블로그" target="_blank"></a></li>
-            </ul>
-        </aside>
-        <h1 id="topLogo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/logo.png" alt="<?php echo $config['cf_title']; ?>"></a></h1>
-        <!-- join, sign in etc... sub nav -->
-        <div id="tnb">
-            <h3>회원메뉴</h3>
-            <ul>
-                <?php if ($is_member) { ?>
-                <?php if ($is_admin) {  ?>
-                <li class="tadmin"><a href="<?php echo G5_ADMIN_URL; ?>/shop_admin/">관리자</a></li>
-                <?php }  ?>
-                <li class="tmypage"><a href="<?php echo G5_SHOP_URL; ?>/cart.php">Cart</a></li>
-                <li class="tmypage"><a href="<?php echo G5_SHOP_URL; ?>/mypage.php">My Page</a></li>
-                <li class="tonlyu"><a href="<?php echo G5_SHOP_URL; ?>/personalpay.php">Only You</a></li>
-                <li class="tsignout"><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop">Sign Out</a></li>
-                <?php } else { ?>
-                <li class="tjoin"><a href="<?php echo G5_BBS_URL; ?>/register.php">Join</a></li>
-                <li class="tsignin"><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><b>Sign In</b></a></li>
-                <?php } ?>
-            </ul>
-            <ul>
-                <li class="tfaq"><a href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a></li>
-                <li class="tqna"><a href="<?php echo G5_BBS_URL; ?>/qalist.php">Q&amp;A</a></li>
-                <li class="treviews"><a href="<?php echo G5_SHOP_URL; ?>/itemuselist.php">Reviews</a></li>
-                <li class="tnotices"><a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=notice">Notice &amp; Event</a></li>
-                <?php
-                if(!$default['de_root_index_use']) {
-                    $com_href = G5_URL;
-                    $com_name = '커뮤니티';
+<div id="hd_wrap">
+<?php if(defined('_INDEX_')) { // index에서만 실행
+    include G5_BBS_PATH.'/newwin.inc.php'; // 팝업레이어
+ } ?>
+<header id="hd" class="fullWidth">
+    <h1><a href="<?php echo G5_SHOP_URL; ?>"><img src="<?php echo G5_SHOP_SKIN_URL ?>/img/logo.png" alt="<?php echo $config['cf_title']; ?>"></a></h1>
+    <?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 Navigation ?>
+    <div class="fr">
+    <ul id="tnb">
+        <?php if ($is_member) {  ?>
+        <?php if ($is_admin) {  ?>
+        <li class="tnb_adm"><a href="<?php echo G5_ADMIN_URL ?>"><i class="ion-android-settings"></i><b>ADMIN</b></a></li>
+        <?php }  ?>
+        <li><a href="<?php echo G5_SHOP_URL; ?>/mypage.php"><i class="ion-android-person"></i>MY PAGE</a></li>
+        <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop"><i class="ion-android-unlock"></i>SIGN OUT</a></li>
+        <?php } else {  ?>
+        <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i>CART</a></li>
+        <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/register.php"><i class="ion-android-person-add"></i>SIGN UP</a></li>
+        <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><i class="ion-android-lock"></i><b>SIGN IN</b></a></li>
+        <?php }  ?>
+    </ul>
+    <div id="hd_sch">
+        <span>SEARCH PRODUCTS</span>
+        <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
 
-                    if($default['de_shop_layout_use']) {
-                        if(!preg_match('#'.G5_SHOP_DIR.'/#', $_SERVER['SCRIPT_NAME'])) {
-                            $com_href = G5_SHOP_URL;
-                            $com_name = '쇼핑몰';
-                        }
-                    }
-                ?>
-                <!-- <li><a href="<?php //echo $com_href; ?>/"><?php //echo $com_name; ?></a></li> -->
-                <?php
-                    unset($com_href);
-                    unset($com_name);
-                }
-                ?>
-            </ul>
-        </div>
-        <!-- global navigation -->
-        <?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 ?>
+        <label for="sch_str" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+        <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
+        <input type="submit" value="검색" id="sch_submit">
 
-        <?php include_once(G5_SHOP_SKIN_PATH.'/boxevent.skin.php'); // 이벤트, 기획전 배너 연동 ?>
-        <!-- 검색창 -->
-        <div id="hd_sch">
-            <h3>쇼핑몰 검색</h3>
-            <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
-                <label for="sch_str" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-                <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
-                <input type="image" src="http://vogostest.cafe24.com/skin/shop/vogos_pc/img/search.png" value="검색" id="sch_submit">
-            </form>
-            <script>
-            function search_submit(f) {
+        </form>
+        <script>
+        function search_submit(f) {
             if (f.q.value.length < 2) {
-            alert("검색어는 두글자 이상 입력하십시오.");
-            f.q.select();
-            f.q.focus();
-            return false;
+                alert("검색어는 두글자 이상 입력하십시오.");
+                f.q.select();
+                f.q.focus();
+                return false;
             }
 
             return true;
-            }
-            </script>
+        }
+        </script>
+    </div>
+    </div> <!-- class fr -->
+</header>
+</div> <!-- hd_wrap END -->
+
+
+<!-- idx_wrap 시작 { -->
+<?php if(defined('_INDEX_') && _INDEX_) { ?>
+<section id="idx_wrap">
+    <h2 class="sound_only">Main Banner_Index</h2>
+        <!-- 메인 배너 이미지 시작 { -->
+        <?php echo display_banner('메인', 'mainbanner.10.skin.php'); ?>
+        <!-- } 메인 배너 이미지 끝 -->
+<?php } ?>
+</section>
+
+<?php if(defined('_INDEX_') && _INDEX_) { ?>
+<!--
+<section id="idx_container">
+    <div class="fullWidth">
+    <h2 class="sound_only">Event Container</h2>
+    <section class="sct_bn">
+        <div class="bn_event">
+            <?php //include_once(G5_SHOP_SKIN_PATH.'/boxevent.skin.php'); // 이벤트 ?>
         </div>
+    </section>
+    </div>
+</section>
+<?php } ?>
+-->
+<!-- } idx_wrap 끝 -->
 
-    </div> <!-- id="header" -->
-
-    <div id="vWrapper"> <!-- contents wrapper -->
-    <?php if(defined('_INDEX_')) { ?>
-        <div id="mWrapper">
-            <div id="index_top" class="w1200">
-                <!-- 보고스 대표 동영상 시작 { -->
-                <div id="main_video">
-                    <?php if($default['de_index_video_use']) { ?>
-                    <?php echo '<iframe src="https://player.vimeo.com/video/'.$default['de_index_video_src'].'?autoplay=0&byline=0" width="'.$default['de_index_video_width'].'" height="'.$default['de_index_video_height'].'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-                    ?>
-                    <?php } ?>
-                </div> <!-- } 보고스 대표 동영상 끝 -->
-
-                <div id="slider"> <!-- slider contents -->
-                    <?php if($default['de_type2_list_use']) { ?>
-                    <!-- VOGOS EVENT 시작 { -->
-                    <section>
-                        <header>
-                            <h2 class="best_item"><a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=notice">EVERYWHERE IS RUNWAY, EVERYDAY VOGOS</a>
-                        </header>
-                        <?php echo display_banner('메인', 'mainbanner.10.skin.php'); ?>
-                    </section>
-                    <!-- } VOGOS EVENT 끝 -->
-                    <?php } ?>
-
-                    <!-- NOTICE 시작 { -->
-                    <section class="noticelist">
-                        <header>
-                            <h2 class="md_choice"><a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=notice">VOGOS NOTICE</a></h2>
-                        </header>
-                            <?php echo latest("basic", "notice", 4, 25);​ ?>
-                    </section>
-                    <!-- } NOTICE 끝 -->
-                </div> <!-- slider end -->
-            </div> <!-- index_top 끝 -->
-        </div> <!-- mWrapper 끝 -->
+<!-- wrapper 시작 { -->
+<div id="wrapper">
+    <?php if(!defined('_INDEX_')) { ?>
+    <div id="sub_tit">
+        <h2 id="ctn_title"><?php echo get_text((isset($bo_table) && $bo_table) ? $board['bo_subject'] : $g5['title'] ,1); ?></h2>
+    </div>
     <?php } ?>
-
-        <!-- main contents -->
-        <div id="contents" class="w1200">
-        <?php //if ((!$bo_table || $w == 's' ) && !defined('_INDEX_')) { ?><div id="wrapper_title"><?php //echo $g5['title'] ?></div><?php //} ?>
-        <!-- 글자크기 조정 display:none 되어 있음 시작 { -->
-        <div id="text_size">
-            <button class="no_text_resize" onclick="font_resize('container', 'decrease');">작게</button>
-            <button class="no_text_resize" onclick="font_default('container');">기본</button>
-            <button class="no_text_resize" onclick="font_resize('container', 'increase');">크게</button>
-        </div>
-        <!-- } 글자크기 조정 display:none 되어 있음 끝 -->
+    <!-- 콘텐츠 시작 { -->
+    <div id="container">
+        <?php
+        if(!defined('_INDEX_'))
+            include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품
+        ?>

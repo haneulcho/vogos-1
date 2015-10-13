@@ -3,24 +3,23 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0);
+add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.shop.list.js"></script>', 10);
 ?>
 
-<!-- 상품진열 20 시작 { -->
+<!-- 상품진열 20 (신상 5개) 시작 { -->
 <?php
-for ($i=1; $row=sql_fetch_array($result); $i++) {
-    if ($this->list_mod >= 2) { // 1줄 이미지 : 2개 이상
-        if ($i%$this->list_mod == 0) $sct_last = ' sct_last'; // 줄 마지막
-        else if ($i%$this->list_mod == 1) $sct_last = ' sct_clear'; // 줄 첫번째
-        else $sct_last = '';
+for ($i=0; $row=sql_fetch_array($result); $i++) {
+    if ($i % $this->list_mod == 0) { // 1줄 이미지 : 2개 이상
+        $sct_last = ' sct_clear'; // 줄 첫번째
     } else { // 1줄 이미지 : 1개
-        $sct_last = ' sct_clear';
+        $sct_last = '';
     }
 
-    if ($i == 1) {
+    if ($i == 0) {
         if ($this->css) {
             echo "<ul class=\"{$this->css}\">\n";
         } else {
-            echo "<ul class=\"sct sct_20\">\n";
+            echo "<ul class=\"sct sct_10\">\n";
         }
     }
 
@@ -38,13 +37,6 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
         echo "</a></div>\n";
     }
 
-    if ($this->view_it_icon) {
-        echo "<div class=\"sct_icon\">".item_icon($row)."</div>\n";
-    }
-
-    if ($this->view_it_id) {
-        echo "<div class=\"sct_id\">&lt;".stripslashes($row['it_id'])."&gt;</div>\n";
-    }
 
     if ($this->href) {
         echo "<div class=\"sct_txt\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
@@ -57,7 +49,7 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
     if ($this->href) {
         echo "</a></div>\n";
     }
-
+    
     if ($this->view_it_basic && $row['it_basic']) {
         echo "<div class=\"sct_basic\">".stripslashes($row['it_basic'])."</div>\n";
     }
@@ -75,24 +67,27 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
         }
 
         echo "</div>\n";
+        
+        echo"<div class=\"sct_cart\">
+            <div class=\"sct_cart_btn\"  style=\"width:{$this->img_width}px;height:{$this->img_height}px\">
+                <button type=\"button\" class=\"btn_wish\" data-it_id=\"{$row['it_id']}\">위시</button>
+                <button type=\"button\" class=\"btn_cart\" data-it_id=\"{$row['it_id']}\">장바구니</button>
+            </div>
+            <div class=\"sct_cart_op\"  style=\"width:{$this->img_width}px;height:{$this->img_height}px\"></div>
+        </div>\n";
 
-    }
-
-    if ($this->view_sns) {
-        $sns_url  = G5_SHOP_URL.'/item.php?it_id='.$row['it_id'];
-        $sns_title = get_text($row['it_name']).' | '.get_text($config['cf_title']);
-        echo "<div class=\"sct_sns\">";
-        echo get_sns_share_link('facebook', $sns_url, $sns_title, G5_SHOP_SKIN_URL.'/img/sns_fb_s.png');
-        echo get_sns_share_link('twitter', $sns_url, $sns_title, G5_SHOP_SKIN_URL.'/img/sns_twt_s.png');
-        echo get_sns_share_link('googleplus', $sns_url, $sns_title, G5_SHOP_SKIN_URL.'/img/sns_goo_s.png');
-        echo "</div>\n";
     }
 
     echo "</li>\n";
 }
 
-if ($i > 1) echo "</ul>\n";
+if ($i > 0) echo "</ul>\n";
 
-if($i == 1) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
+if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
 ?>
+<script>
+  jQuery(function($){ 
+    $(".sct li:nth-child(odd)").addClass("odd_margin");
+  }); 
+</script>
 <!-- } 상품진열 20 끝 -->
