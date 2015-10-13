@@ -27,9 +27,10 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
     <ul id="tnb">
         <?php if ($is_member) {  ?>
         <?php if ($is_admin) {  ?>
-        <li class="tnb_adm"><a href="<?php echo G5_ADMIN_URL ?>"><i class="ion-android-settings"></i><b>ADMIN</b></a></li>
+        <li class="tnb_adm"><a href="<?php echo G5_ADMIN_URL ?>"><i class="ion-android-settings" style="margin:0"></i></a></li>
         <?php }  ?>
         <li><a href="<?php echo G5_SHOP_URL; ?>/mypage.php"><i class="ion-android-person"></i>MY PAGE</a></li>
+        <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i>CART</a></li>
         <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop"><i class="ion-android-unlock"></i>SIGN OUT</a></li>
         <?php } else {  ?>
         <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i>CART</a></li>
@@ -42,7 +43,11 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
         <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
 
         <label for="sch_str" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-        <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
+        <?php if ($is_admin) {  ?>
+            <input type="text" name="q" style="width:70px" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
+        <?php } else { ?>
+            <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
+        <?php } ?>
         <input type="submit" value="검색" id="sch_submit">
 
         </form>

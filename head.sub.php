@@ -80,6 +80,8 @@ if (defined('G5_IS_ADMIN')) {
 // 자바스크립트에서 사용하는 전역변수 선언
 var g5_url       = "<?php echo G5_URL ?>";
 var g5_bbs_url   = "<?php echo G5_BBS_URL ?>";
+var g5_shop_url   = "<?php echo G5_SHOP_URL ?>";
+var g5_shop_skin_url   = "<?php echo G5_SHOP_SKIN_URL ?>";
 var g5_is_member = "<?php echo isset($is_member)?$is_member:''; ?>";
 var g5_is_admin  = "<?php echo isset($is_admin)?$is_admin:''; ?>";
 var g5_is_mobile = "<?php echo G5_IS_MOBILE ?>";

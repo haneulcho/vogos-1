@@ -7,7 +7,7 @@ $(function (){
         $(".sct_cart_op").not($opt).css("display", "");
 
         $.ajax({
-            url: g5_theme_shop_url+"/ajax.itemoption.php",
+            url: g5_shop_skin_url+"/ajax.itemoption.php",
             type: "POST",
             data: {
                 "it_id" : it_id
@@ -77,7 +77,7 @@ function add_wishitem(el)
     }
 
     $.post(
-        g5_theme_shop_url + "/ajax.wishupdate.php",
+        g5_shop_skin_url + "/ajax.wishupdate.php",
         { it_id: it_id },
         function(error) {
             if(error != "OK") {
