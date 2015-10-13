@@ -3,7 +3,6 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0);
-include_once(G5_SHOP_SKIN_PATH.'/video.php');
 ?>
 
 <!-- 상품진열 10 시작 { -->
@@ -28,38 +27,15 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
     echo "<li class=\"sct_li {$sct_last}\" style=\"width:{$this->img_width}px\">\n";
 
     if ($this->href) {
-/*        if (!empty($row['it_1'])) { // 확장변수 있을 경우 hasVideo
-            echo "<div class=\"sct_img hasVideo\"><a href=\"{$this->href}{$row['it_id']}\" id=\"".$row['it_id']."\" class=\"sct_video_btn\" onclick=\"javascript:view_video('".$row[it_id]."', 'list'); return false;\">\n";
-        } else { } */
-            echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
+        echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
     }
+
     if ($this->view_it_img) {
-        echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."</a></div>\n"; // sct_img END
+        echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
+    }
 
-        echo "<div class=\"itemDetail\">\n";
-        echo "<a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
-
-        if ($this->view_it_name) {
-            echo "<div class=\"sct_txt\">".stripslashes($row['it_name'])."</div>\n";
-        }
-
-        if ($this->view_it_cust_price || $this->view_it_price) {
-
-            echo "<div class=\"sct_cost\">\n";
-
-            if ($this->view_it_cust_price && $row['it_cust_price']) {
-                echo "<strike>".display_price($row['it_cust_price'])."</strike>\n";
-            }
-
-            if ($this->view_it_price) {
-                echo display_price(get_price($row), $row['it_tel_inq'])."\n";
-            }
-
-            echo "</div>\n";
-        }
-
-        echo "</a></div>\n"; // itemDetail END
-
+    if ($this->href) {
+        echo "</a></div>\n";
     }
 
     if ($this->view_it_icon) {
@@ -68,6 +44,38 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 
     if ($this->view_it_id) {
         echo "<div class=\"sct_id\">&lt;".stripslashes($row['it_id'])."&gt;</div>\n";
+    }
+
+    if ($this->href) {
+        echo "<div class=\"sct_txt\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
+    }
+
+    if ($this->view_it_name) {
+        echo stripslashes($row['it_name'])."\n";
+    }
+
+    if ($this->href) {
+        echo "</a></div>\n";
+    }
+
+    if ($this->view_it_basic && $row['it_basic']) {
+        echo "<div class=\"sct_basic\">".stripslashes($row['it_basic'])."</div>\n";
+    }
+
+    if ($this->view_it_cust_price || $this->view_it_price) {
+
+        echo "<div class=\"sct_cost\">\n";
+
+        if ($this->view_it_cust_price && $row['it_cust_price']) {
+            echo "<strike>".display_price($row['it_cust_price'])."</strike>\n";
+        }
+
+        if ($this->view_it_price) {
+            echo display_price(get_price($row), $row['it_tel_inq'])."\n";
+        }
+
+        echo "</div>\n";
+
     }
 
     if ($this->view_sns) {
@@ -86,6 +94,6 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 
 if ($i > 1) echo "</ul>\n";
 
-if($i == 1) echo "<p class=\"sct_noitem\">아쉽게도 관계된 상품이 없네요.</p>\n";
+if($i == 1) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
 ?>
 <!-- } 상품진열 10 끝 -->

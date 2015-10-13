@@ -72,7 +72,7 @@ background-color:#f3f3f3; color:#a7a7a7;outline:0;font-weight:bold;
   -o-transition: all .3s ease;
   transition: all .3s ease;}
 #hd_sch #sch_str:focus {background-color:#fff;color:#555;}
-#hd_sch #sch_submit {float:right;display:block;padding:0;height:30px;border:0;background:url('../img/sch_btn.jpg') no-repeat 50%  50% ;color:#333;cursor:pointer;text-indent:-9999px;overflow:hidden;width:30px;cursor:pointer;}
+#hd_sch #sch_submit {float:right;display:block;padding:0;height:30px;border:0;background:url('../skin/shop/vogos_pc/img/sch_btn.jpg') no-repeat 50%  50% ;color:#333;cursor:pointer;text-indent:-9999px;overflow:hidden;width:30px;cursor:pointer;}
 
 
 /* 중간 레이아웃 */

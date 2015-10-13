@@ -109,6 +109,8 @@ if (defined('_SHOP_')) {
 <?php } ?>
 <script src="<?php echo G5_JS_URL ?>/common.js"></script>
 <script src="<?php echo G5_JS_URL ?>/wrest.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link href="//fonts.googleapis.com/css?family=Lato:100normal,100italic,300normal,300italic,400normal,400italic,700normal,700italic,900normal,900italic&subset=all" rel="stylesheet" type="text/css">
 <?php
 if(G5_IS_MOBILE) {
     echo '<script src="'.G5_JS_URL.'/modernizr.custom.70111.js"></script>'.PHP_EOL; // overflow scroll 감지

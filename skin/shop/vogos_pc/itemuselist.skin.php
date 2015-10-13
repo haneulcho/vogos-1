@@ -8,9 +8,9 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
 <script src="<?php echo G5_JS_URL; ?>/viewimageresize.js"></script>
 
 <!-- 전체 상품 사용후기 목록 시작 { -->
-<form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="get" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <div id="sps_sch">
-    <a href="<?php echo $_SERVER['PHP_SELF']; ?>">전체보기</a>
+    <a href="<?php echo $_SERVER['SCRIPT_NAME']; ?>">전체보기</a>
     <label for="sfl" class="sound_only">검색항목<strong class="sound_only"> 필수</strong></label>
     <select name="sfl" id="sfl" required>
         <option value="">선택</option>
@@ -56,7 +56,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
         </div>
 
         <section class="sps_section">
-            <h2><?php echo $row['is_subject']; ?></h2>
+            <h2><?php echo get_text($row['is_subject']); ?></h2>
 
             <dl class="sps_dl">
                 <dt>작성자</dt>
@@ -67,7 +67,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
                 <dd><img src="<?php echo G5_URL; ?>/shop/img/s_star<?php echo $star; ?>.png" alt="별<?php echo $star; ?>개"></dd>
             </dl>
 
-            <div id="sps_con_<?php echo $i; ?>" style="display:none;">
+            <div id="sps_con_<?php echo $i; ?>" style="display:none;" class="sps_con">
                 <?php echo $is_content; // 사용후기 내용 ?>
             </div>
 
@@ -81,7 +81,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
     ?>
 </div>
 
-<?php echo get_paging($config['cf_write_pages'], $page, $total_page, "{$_SERVER['PHP_SELF']}?$qstr&amp;page="); ?>
+<?php echo get_paging($config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
 
 <script>
 $(function(){

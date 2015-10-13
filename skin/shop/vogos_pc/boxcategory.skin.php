@@ -8,17 +8,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
 <!-- 쇼핑몰 카테고리 시작 { -->
 <nav id="gnb">
     <h2>쇼핑몰 카테고리</h2>
-    <ul id="gnb_1dul" class="w1200">
-<!-- 모델스초이스는 관리자만 접근 가능하도록 (09.11 임시) -->
-<?php
-    //if ($member['mb_level'] > 4 ) { 
-?>
-        <li class="gnb_1dli modelschoice">
-            <a href="<?=G5_SHOP_URL.'/modelslist.php' ?>" class="gnb_1da"><span>MODEL's CHOICE</span></a>
-        </li>
-<?php
-    //}
-?>
+    <ul id="gnb_1dul">
         <?php
         // 1단계 분류 판매 가능한 것만
         $hsql = " select ca_id, ca_name from {$g5['g5_shop_category_table']} where length(ca_id) = '2' and ca_use = '1' order by ca_order, ca_id ";
@@ -29,14 +19,11 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
             $gnb_zindex -= 1; // html 구조에서 앞선 gnb_1dli 에 더 높은 z-index 값 부여
             // 2단계 분류 판매 가능한 것만
             $sql2 = " select ca_id, ca_name from {$g5['g5_shop_category_table']} where LENGTH(ca_id) = '4' and SUBSTRING(ca_id,1,2) = '{$row['ca_id']}' and ca_use = '1' order by ca_order, ca_id ";
-            $imgsql = " select it_id from {$g5['g5_shop_item_table']} where ca_id = '{$row['ca_id']}' order by it_time desc";
-            $imgresult = sql_query($imgsql); 
             $result2 = sql_query($sql2);
             $count = mysql_num_rows($result2);
         ?>
-
-        <li class="gnb_1dli <?php echo strtolower($row['ca_name']); ?>" style="z-index:<?php echo $gnb_zindex; ?>">
-            <a href="<?php echo G5_SHOP_URL.'/list.php?ca_id='.$row['ca_id']; ?>" class="gnb_1da<?php if ($count) echo ' gnb_1dam'; ?>"><span><?php echo strtoupper($row['ca_name']); ?></span></a>
+        <li class="gnb_1dli" style="z-index:<?php echo $gnb_zindex; ?>">
+            <a href="<?php echo G5_SHOP_URL.'/list.php?ca_id='.$row['ca_id']; ?>" class="gnb_1da<?php if ($count) echo ' gnb_1dam'; ?>"><?php echo $row['ca_name']; ?></a>
             <?php
             for ($j=0; $row2=sql_fetch_array($result2); $j++)
             {

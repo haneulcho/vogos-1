@@ -6,39 +6,60 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
 ?>
 
 <!-- 쇼핑몰 이벤트 시작 { -->
-<div id="topBanner">
-    <h2>VOGOS 이벤트, 기획전</h2>
+<aside id="sev">
+    <h2 class="col-lg-12 text-center">쇼핑몰 이벤트</h2>
+
     <ul>
     <?php
-    $hsql = " select ev_id, ev_subject, ev_subject_strong from {$g5['g5_shop_event_table']} where ev_use = '1' order by ev_id desc ";
+    
+
+    // 그외 이벤트
+    $hsql = " select ev_id, ev_subject, ev_subject_strong from {$g5['g5_shop_event_table']} where ev_use = '1' and ev_subject_strong = '0' order by ev_id desc limit 2 ";
     $hresult = sql_query($hsql);
     for ($i=0; $row=sql_fetch_array($hresult); $i++)
     {
-
         echo '<li>';
         $href = G5_SHOP_URL.'/event.php?ev_id='.$row['ev_id'];
 
         $event_img = G5_DATA_PATH.'/event/'.$row['ev_id'].'_m'; // 이벤트 이미지
 
         if (file_exists($event_img)) { // 이벤트 이미지가 있다면 이미지 출력
-            // echo '<a href="'.$href.'" class="sev_img"><img src="'.G5_DATA_URL.'/event/'.$row['ev_id'].'_m" alt="'.$row['ev_subject'].'"></a>'.PHP_EOL;
-        }
-        // 이미지 없다면 텍스트 출력이지만, 이미지가 없으면 출력하지 않음
-/*        else {
+            echo '<a href="'.$href.'" class="sev_img"><img src="'.G5_DATA_URL.'/event/'.$row['ev_id'].'_m" alt="'.$row['ev_subject'].'"></a>'.PHP_EOL;
+        } else { // 없다면 텍스트 출력
             echo '<a href="'.$href.'" class="sev_text">';
             if ($row['ev_subject_strong']) echo '<strong>';
             echo $row['ev_subject'];
             if ($row['ev_subject_strong']) echo '</strong>';
             echo '</a>'.PHP_EOL;
-        }*/
+        }
         echo '</li>'.PHP_EOL;
-
     }
 
     if ($i==0)
-        //echo '<li id="sev_empty">이벤트 준비 중</li>'.PHP_EOL;
+        echo '<li id="sev_empty">이벤트 준비 중</li>'.PHP_EOL;
+        
+    // 제목강조
+    $hsql = " select ev_id, ev_subject, ev_subject_strong from {$g5['g5_shop_event_table']} where ev_use = '1' and ev_subject_strong = '1' order by ev_id desc limit 1 ";
+    $row = sql_fetch($hsql);
+    if($row) {
+        echo '<li class="ev_strong">'.PHP_EOL;
+        $href = G5_SHOP_URL.'/event.php?ev_id='.$row['ev_id'];
+
+        $event_img = G5_DATA_PATH.'/event/'.$row['ev_id'].'_m'; // 이벤트 이미지
+
+        if (is_file($event_img)) { // 이벤트 이미지가 있다면 이미지 출력
+            echo '<a href="'.$href.'" class="sev_img"><img src="'.G5_DATA_URL.'/event/'.$row['ev_id'].'_m" alt="'.$row['ev_subject'].'"></a>'.PHP_EOL;
+        } else { // 없다면 텍스트 출력
+            echo '<a href="'.$href.'" class="sev_text">';
+            if ($row['ev_subject_strong']) echo '<strong>';
+            echo $row['ev_subject'];
+            if ($row['ev_subject_strong']) echo '</strong>';
+            echo '</a>'.PHP_EOL;
+        }
+        echo '</li>'.PHP_EOL;
+    }
     ?>
     </ul>
 
-</div>
+</aside>
 <!-- } 쇼핑몰 이벤트 끝 -->
