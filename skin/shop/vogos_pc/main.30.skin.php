@@ -16,8 +16,9 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     }
 
     if ($i == 0) {
+        $video_src = 'https://player.vimeo.com/video/'.$row['it_1'].'?autoplay=0&loop=1&color=333333&title=0&byline=0&portrait=0';
         echo "<div id=\"sct_30_video\">";
-        
+        echo "<iframe src=\"".$video_src."\" width=\"350\" height=\"621\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
         echo "</div>";
         if ($this->css) {
             echo "<ul class=\"{$this->css}\">\n";
@@ -30,7 +31,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
     if ($this->href) {
         echo "<div class=\"sct_img\">\n";
-        echo "<div class=\"sct_play_m\"><button type=\"button\" class=\"btn_play_m\"><img src=\"".G5_SHOP_SKIN_URL."/img/play_btn.png\" alt=\"PLAY RUNWAY\"></button></div>";
+        echo "<div class=\"sct_play_m\"><button type=\"button\" class=\"btn_play_m\" onclick=\"javascript:play_runway(this, '".$row['it_1']."');\"><img src=\"".G5_SHOP_SKIN_URL."/img/play_btn.png\" alt=\"PLAY RUNWAY\"></button></div>";
     }
 
     if ($this->view_it_img) {
@@ -83,4 +84,16 @@ if ($i > 0) echo "</ul>\n";
 
 if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
 ?>
+
+<script type="text/javascript">
+    function play_runway(e, videoNum) {
+        var $video_src = "https://player.vimeo.com/video/"+videoNum+"?autoplay=1&loop=1&color=333333&title=0&byline=0&portrait=0";
+        var $video = $('#sct_30_video iframe');
+
+        $('.sct_play_m').fadeIn(300);
+        $(e).parent('.sct_play_m').fadeOut(300);
+        $video.attr('src', $video_src);
+    }
+
+</script>
 <!-- } 상품진열 30 끝 -->

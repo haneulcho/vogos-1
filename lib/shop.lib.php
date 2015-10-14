@@ -665,7 +665,7 @@ function display_price($price, $tel_inq=false)
     if ($tel_inq)
         $price = '전화문의';
     else
-        $price = number_format($price, 0).'원';
+        $price = '$'.number_format($price, 0).'.00';
 
     return $price;
 }
