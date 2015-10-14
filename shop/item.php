@@ -113,17 +113,13 @@ $ca_id = $it['ca_id'];
 $nav_skin = $skin_dir.'/navigation.skin.php';
 if(!is_file($nav_skin))
     $nav_skin = G5_SHOP_SKIN_PATH.'/navigation.skin.php';
-include $nav_skin;
+// include $nav_skin;
 
 // 이 분류에 속한 하위분류 출력
 $cate_skin = $skin_dir.'/listcategory.skin.php';
 if(!is_file($cate_skin))
     $cate_skin = G5_SHOP_SKIN_PATH.'/listcategory.skin.php';
-include $cate_skin;
-
-if ($is_admin) {
-    echo '<div class="sit_admin"><a href="'.G5_ADMIN_URL.'/shop_admin/itemform.php?w=u&amp;it_id='.$it_id.'" class="btn_admin">상품 관리</a></div>';
-}
+// include $cate_skin;
 ?>
 
 <!-- 상품 상세보기 시작 { -->
@@ -141,7 +137,7 @@ else
 $sql = " select it_id, it_name from {$g5['g5_shop_item_table']} where it_id > '$it_id' and SUBSTRING(ca_id,1,4) = '".substr($it['ca_id'],0,4)."' and it_use = '1' order by it_id asc limit 1 ";
 $row = sql_fetch($sql);
 if ($row['it_id']) {
-    $prev_title = '<img src="'.G5_SHOP_SKIN_URL.'/img/lArrow.png" alt="이전상품"><span class="sound_only"> '.$row['it_name'].'</span>';
+    $prev_title = '<img src="'.G5_SHOP_SKIN_URL.'/img/lArrow2.png" alt="이전상품"><span class="sound_only"> '.$row['it_name'].'</span>';
     $prev_href = '<a href="./item.php?it_id='.$row['it_id'].'" id="siblings_prev">';
     $prev_href2 = '</a>'.PHP_EOL;
 } else {
@@ -154,7 +150,7 @@ if ($row['it_id']) {
 $sql = " select it_id, it_name from {$g5['g5_shop_item_table']} where it_id < '$it_id' and SUBSTRING(ca_id,1,4) = '".substr($it['ca_id'],0,4)."' and it_use = '1' order by it_id desc limit 1 ";
 $row = sql_fetch($sql);
 if ($row['it_id']) {
-    $next_title = '<img src="'.G5_SHOP_SKIN_URL.'/img/rArrow.png" alt="다음상품"><span class="sound_only"> '.$row['it_name'].'</span>';
+    $next_title = '<img src="'.G5_SHOP_SKIN_URL.'/img/rArrow2.png" alt="다음상품"><span class="sound_only"> '.$row['it_name'].'</span>';
     $next_href = '<a href="./item.php?it_id='.$row['it_id'].'" id="siblings_next">';
     $next_href2 = '</a>'.PHP_EOL;
 } else {

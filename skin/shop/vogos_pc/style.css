@@ -455,12 +455,22 @@ transition: opacity 300ms ease-out, top 300ms ease-out;
 #sct_lst button.sct_lst_gallery span.sct_lst_on {background-position:-30px -30px}
 
 /* 상품 상세보기 */
-#sit {margin:10px 0;border:1px solid #e9e9e9;background:#fff}
+#sit {margin:0}
 .sit_admin {text-align:right}
 .sit_empty {padding:20px 0;text-align:center}
+#sit_ov_title {background:url('img/sct_title_bg.png') #2e2e2e;}
+#sit_ov_title .fullWidth {position:relative;height:100px;}
+.sit_left, .sit_right {position:absolute;top:42px;width:120px;height:15px;}
+.sit_title {width:785px;height:100px;margin:0 auto;text-align:center;background-color:#f3f3f0;}
+.sit_title h2 {padding:35px 0 0;font-size:28px;font-weight:400;line-height:1;color:#3d3d3d;}
+.sit_title h2>span {display:inline-block;margin-left:10px;font-size:13px;vertical-align:6px;}
+.sit_title .btn_admin {padding:5px 10px;background-color:tomato;}
+.sit_left {left:32px;text-align:left;}
+.sit_right {right:32px;text-align:right;}
 
 /* 상품 상세보기 - 개요 */
-#sit_ov_wrap {margin:0 0 20px;background:#fff;zoom:1}
+#sit_ov_bg {background-color:#;}
+#sit_ov_wrap {margin:0 0 20px;zoom:1}
 #sit_ov_wrap:after {display:block;visibility:hidden;clear:both;content:""}
 
 /* 상품 상세보기 - 이미지 미리보기 */

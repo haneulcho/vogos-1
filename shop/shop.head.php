@@ -79,29 +79,15 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 <?php } ?>
 </section>
 
-<?php if(defined('_INDEX_') && _INDEX_) { ?>
-<!--
-<section id="idx_container">
-    <div class="fullWidth">
-    <h2 class="sound_only">Event Container</h2>
-    <section class="sct_bn">
-        <div class="bn_event">
-            <?php //include_once(G5_SHOP_SKIN_PATH.'/boxevent.skin.php'); // 이벤트 ?>
-        </div>
-    </section>
-    </div>
-</section>
-<?php } ?>
--->
+
 <!-- } idx_wrap 끝 -->
 
 <!-- wrapper 시작 { -->
+<?php if(defined('_INDEX_')) { ?>
 <div id="wrapper">
-    <?php if(!defined('_INDEX_')) { ?>
-    <div id="sub_tit">
-        <h2 id="ctn_title"><?php echo get_text((isset($bo_table) && $bo_table) ? $board['bo_subject'] : $g5['title'] ,1); ?></h2>
-    </div>
-    <?php } ?>
+<?php } else { ?>
+<div id="wrapper" class="p60">
+<?php } ?>
     <!-- 콘텐츠 시작 { -->
     <div id="container">
         <?php

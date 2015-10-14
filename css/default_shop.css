@@ -21,7 +21,7 @@ a:hover, a:focus, a:active {color:#000;text-decoration:none}
 
 #coreWrapper {margin:0;padding:0;}
 .fullWidth {margin:0 auto;width:1110px;}
-
+.p60 {padding-top:60px;}
 /* 팝업레이어 */
 #hd_pop {z-index:1000;position:relative;margin:0 auto;width:1200px;height:0}
 #hd_pop h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}

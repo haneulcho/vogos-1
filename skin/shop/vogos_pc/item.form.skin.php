@@ -10,7 +10,37 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 <input type="hidden" name="sw_direct">
 <input type="hidden" name="url">
 
-<div id="sit_ov_wrap">
+<div id="sit_ov_title">
+    <div class="fullWidth">
+        <div class="sit_left">
+            <?php
+            if ($prev_href || $next_href) {
+                echo $prev_href.$prev_title.$prev_href2;
+            }
+            ?>
+        </div>
+        <div class="sit_title">
+            <h2><?php echo stripslashes($it['it_name']); ?>
+            <?php
+                if ($is_admin) {
+                    echo '<span class="sit_admin"><a href="'.G5_ADMIN_URL.'/shop_admin/itemform.php?w=u&amp;it_id='.$it_id.'" class="btn_admin" target="_blank">상품 관리</a></span>';
+                }
+            ?>
+            </h2>
+        </div>
+
+        <div class="sit_right">
+            <?php
+            if ($prev_href || $next_href) {
+                echo $next_href.$next_title.$next_href2;
+            }
+            ?>
+        </div>
+    </div>
+</div>
+
+<div id="sit_ov_bg">
+<div id="sit_ov_wrap" calss="fullWidth">
     <!-- 상품이미지 미리보기 시작 { -->
     <div id="sit_pvi">
         <div id="sit_pvi_big">
@@ -330,20 +360,8 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
         </script>
     </section>
     <!-- } 상품 요약정보 및 구매 끝 -->
-
-        <!-- 다른 상품 보기 시작 { -->
-        <div id="sit_siblings">
-            <?php
-            if ($prev_href || $next_href) {
-                echo $prev_href.$prev_title.$prev_href2;
-                echo $next_href.$next_title.$next_href2;
-            } else {
-                echo '<span class="sound_only">이 분류에 등록된 다른 상품이 없습니다.</span>';
-            }
-            ?>
-        </div>
-        <!-- } 다른 상품 보기 끝 -->
-</div>
+</div> <!-- sit_ov_wrap END -->
+</div> <!-- sit_ov_bg END -->
 
 </form>
 
