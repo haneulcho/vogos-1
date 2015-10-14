@@ -796,7 +796,7 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
                     <tr>
                         <th scope="row">
                             <label for="opt1_subject">옵션1</label>
-                            <input type="text" name="opt1_subject" value="<?php if($opt_subject[0]) echo $opt_subject[0]; else echo '사이즈'; ?>" id="opt1_subject" class="frm_input" size="15">
+                            <input type="text" name="opt1_subject" value="<?php if($opt_subject[0]) echo $opt_subject[0]; else echo 'SIZE'; ?>" id="opt1_subject" class="frm_input" size="15">
                         </th>
                         <td>
                             <label for="opt1"><b>옵션1 항목</b></label>
@@ -806,7 +806,7 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
                     <tr>
                         <th scope="row">
                             <label for="opt2_subject">옵션2</label>
-                            <input type="text" name="opt2_subject" value="<?php if($opt_subject[1]) echo $opt_subject[1]; else echo '색상'; ?>" id="opt2_subject" class="frm_input" size="15">
+                            <input type="text" name="opt2_subject" value="<?php if($opt_subject[1]) echo $opt_subject[1]; else echo 'COLOR'; ?>" id="opt2_subject" class="frm_input" size="15">
                         </th>
                         <td>
                             <label for="opt2"><b>옵션2 항목</b></label>
