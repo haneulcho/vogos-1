@@ -63,7 +63,7 @@ function get_list_options($it_id, $subject, $no)
         $str .= '<label for="it_option_1">'.$subj[0].'</label>'.PHP_EOL;
 
         $select = '<select id="it_option_1" class="it_option">'.PHP_EOL;
-        $select .= '<option value="">선택</option>'.PHP_EOL;
+        $select .= '<option value="">SELECT</option>'.PHP_EOL;
         for($i=0; $row=sql_fetch_array($result); $i++) {
             if($row['io_price'] >= 0)
                 $price = '&nbsp;&nbsp;+ '.number_format($row['io_price']).'원';
@@ -71,7 +71,7 @@ function get_list_options($it_id, $subject, $no)
                 $price = '&nbsp;&nbsp; '.number_format($row['io_price']).'원';
 
             if(!$row['io_stock_qty'])
-                $soldout = '&nbsp;&nbsp;[품절]';
+                $soldout = '&nbsp;&nbsp;[SOLD OUT]';
             else
                 $soldout = '';
 

@@ -1123,7 +1123,7 @@ function get_item_supply($it_id, $subject)
             $io_stock_qty = get_option_stock_qty($it_id, $row['io_id'], $row['io_type']);
 
             if($io_stock_qty < 1)
-                $soldout = '&nbsp;&nbsp;[품절]';
+                $soldout = '&nbsp;&nbsp;[SOLD OUT]';
             else
                 $soldout = '';
 
@@ -1293,7 +1293,7 @@ function get_goods($cart_id)
 // 패턴의 내용대로 해당 디렉토리에서 정렬하여 <select> 태그에 적용할 수 있게 반환
 function get_list_skin_options($pattern, $dirname='./', $sval='')
 {
-    $str = '<option value="">선택</option>'.PHP_EOL;
+    $str = '<option value="">SELECT</option>'.PHP_EOL;
 
     unset($arr);
     $handle = opendir($dirname);

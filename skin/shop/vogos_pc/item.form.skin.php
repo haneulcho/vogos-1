@@ -98,145 +98,13 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"
         <div class="sit_it_basic">
             <p><?php echo $it['it_basic']; ?></p>
         </div>
-        <h2 id="sit_title"><?php echo stripslashes($it['it_name']); ?> <span class="sound_only">요약정보 및 구매</span></h2>
-        <?php if ($star_score) { ?>
-            <span>고객평점<br /><img src="<?php echo G5_SHOP_URL; ?>/img/s_star<?php echo $star_score?>.png" alt="" class="sit_star"></span>
-        <?php } ?>
-        <p id="sit_desc"><?php echo $it['it_basic']; ?></p>
-        <?php if($is_orderable) { ?>
-        <p id="sit_opt_info">
-            상품 선택옵션 <?php echo $option_count; ?> 개, 추가옵션 <?php echo $supply_count; ?> 개
-        </p>
-        <?php } ?>
-        <table class="sit_ov_tbl">
-        <colgroup>
-            <col class="grid_3">
-            <col>
-        </colgroup>
-        <tbody>
-        <?php if ($it['it_maker']) { ?>
-        <tr>
-            <th scope="row">제조사</th>
-            <td><?php echo $it['it_maker']; ?></td>
-        </tr>
-        <?php } ?>
-
-        <?php if ($it['it_origin']) { ?>
-        <tr>
-            <th scope="row">원산지</th>
-            <td><?php echo $it['it_origin']; ?></td>
-        </tr>
-        <?php } ?>
-
-        <?php if ($it['it_brand']) { ?>
-        <tr>
-            <th scope="row">브랜드</th>
-            <td><?php echo $it['it_brand']; ?></td>
-        </tr>
-        <?php } ?>
-
-        <?php if ($it['it_model']) { ?>
-        <tr>
-            <th scope="row">모델</th>
-            <td><?php echo $it['it_model']; ?></td>
-        </tr>
-        <?php } ?>
-
-        <?php if (!$it['it_use']) { // 판매가능이 아닐 경우 ?>
-        <tr>
-            <th scope="row">판매가격</th>
-            <td>판매중지</td>
-        </tr>
-        <?php } else if ($it['it_tel_inq']) { // 전화문의일 경우 ?>
-        <tr>
-            <th scope="row">판매가격</th>
-            <td>전화문의</td>
-        </tr>
-        <?php } else { // 전화문의가 아닐 경우?>
-        <?php if ($it['it_cust_price']) { ?>
-        <tr>
-            <th scope="row">시중가격</th>
-            <td><?php echo display_price($it['it_cust_price']); ?></td>
-        </tr>
-        <?php } // 시중가격 끝 ?>
-
-        <tr>
-            <th scope="row">판매가격</th>
-            <td>
-                <?php echo display_price(get_price($it)); ?>
-                <input type="hidden" id="it_price" value="<?php echo get_price($it); ?>">
-            </td>
-        </tr>
-        <?php } ?>
-
-        <?php
-        /* 재고 표시하는 경우 주석 해제
-        <tr>
-            <th scope="row">재고수량</th>
-            <td><?php echo number_format(get_it_stock_qty($it_id)); ?> 개</td>
-        </tr>
-        */
-        ?>
-
-        <?php if ($config['cf_use_point']) { // 포인트 사용한다면 ?>
-        <tr>
-            <th scope="row">포인트</th>
-            <td>
-                <?php
-                if($it['it_point_type'] == 2) {
-                    echo '구매금액(추가옵션 제외)의 '.$it['it_point'].'%';
-                } else {
-                    $it_point = get_item_point($it);
-                    echo number_format($it_point).'점';
-                }
-                ?>
-            </td>
-        </tr>
-        <?php } ?>
-        <?php
-        $ct_send_cost_label = '배송비결제';
-
-        if($it['it_sc_type'] == 1)
-            $sc_method = '무료배송';
-        else {
-            if($it['it_sc_method'] == 1)
-                $sc_method = '수령후 지불';
-            else if($it['it_sc_method'] == 2) {
-                $ct_send_cost_label = '<label for="ct_send_cost">배송비결제</label>';
-                $sc_method = '<select name="ct_send_cost" id="ct_send_cost">
-                                  <option value="0">주문시 결제</option>
-                                  <option value="1">수령후 지불</option>
-                              </select>';
-            }
-            else
-                $sc_method = '주문시 결제';
-        }
-        ?>
-        <tr>
-            <th><?php echo $ct_send_cost_label; ?></th>
-            <td><?php echo $sc_method; ?></td>
-        </tr>
-        <?php if($it['it_buy_min_qty']) { ?>
-        <tr>
-            <th>최소구매수량</th>
-            <td><?php echo number_format($it['it_buy_min_qty']); ?> 개</td>
-        </tr>
-        <?php } ?>
-        <?php if($it['it_buy_max_qty']) { ?>
-        <tr>
-            <th>최대구매수량</th>
-            <td><?php echo number_format($it['it_buy_max_qty']); ?> 개</td>
-        </tr>
-        <?php } ?>
-        </tbody>
-        </table>
 
         <?php
         if($option_item) {
         ?>
         <!-- 선택옵션 시작 { -->
         <section>
-            <h3>선택옵션</h3>
+            <h3 class="sound_only">Select Options</h3>
             <table class="sit_ov_tbl">
             <colgroup>
                 <col class="grid_3">
@@ -312,8 +180,39 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"
         </section>
         <!-- } 선택된 옵션 끝 -->
 
+
+
+
+        <div id="sit_ov_total">
+            <?php if($is_orderable) { ?>
+            <p id="sit_opt_info">
+                상품 선택옵션 <?php echo $option_count; ?> 개, 추가옵션 <?php echo $supply_count; ?> 개
+            </p>
+            <?php } ?>
+
+
+            <h3 id="sit_title"><?php echo stripslashes($it['it_name']); ?> <span class="sound_only">요약정보 및 구매</span></h3>
+
+
+
+            <?php if (!$it['it_use']) { // 판매가능이 아닐 경우 ?>
+            판매중지되었습니다.
+            <?php } // 시중가격 끝 ?>
+            <div class="sit_ov_unit">
+                <span class="price_unit">UNIT PRICE</span>
+                <span class="price_unit_num"><?php echo display_price(get_price($it)); ?></span>
+            </div>
+            <div class="sit_ov_total">
+                <span class="price_total">SUBTOTAL</span>
+                <input type="hidden" id="it_price" value="<?php echo get_price($it); ?>">
+                <div id="sit_tot_price" class="price_total_num">
+                    <?php echo display_price(get_price($it)); ?>
+                </div>
+            </div>
+        </div> <!-- sit_ov_total END -->
+
+
         <!-- 총 구매액 -->
-        <div id="sit_tot_price"></div>
         <?php } ?>
 
         <?php if($is_soldout) { ?>
@@ -322,14 +221,9 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"
 
         <div id="sit_ov_btn">
             <?php if ($is_orderable) { ?>
-            <input type="submit" onclick="document.pressed=this.value;" value="바로구매" id="sit_btn_buy">
-            <input type="submit" onclick="document.pressed=this.value;" value="장바구니" id="sit_btn_cart">
+            <input type="submit" onclick="document.pressed=this.value;" value="ADD TO CART" id="sit_btn_cart">
+            <input type="submit" onclick="document.pressed=this.value;" value="BUY NOW" id="sit_btn_buy">
             <?php } ?>
-            <?php if(!$is_orderable && $it['it_soldout'] && $it['it_stock_sms']) { ?>
-            <a href="javascript:popup_stocksms('<?php echo $it['it_id']; ?>');" id="sit_btn_buy">재입고알림</a>
-            <?php } ?>
-            <a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>');" id="sit_btn_wish">위시리스트</a>
-            <a href="javascript:popup_item_recommend('<?php echo $it['it_id']; ?>');" id="sit_btn_rec">추천하기</a>
         </div>
 
         <script>
