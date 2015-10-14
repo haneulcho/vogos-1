@@ -3,6 +3,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0);
+add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"></script>', 10);
 ?>
 
 <form name="fitem" method="post" action="<?php echo $action_url; ?>" onsubmit="return fitem_submit(this);">
@@ -39,23 +40,26 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
     </div>
 </div>
 
-<div id="sit_ov_bg">
-<div id="sit_ov_wrap" calss="fullWidth">
+<section id="sit_ov_bg">
+<div id="sit_ov_wrap" class="fullWidth">
     <!-- 상품이미지 미리보기 시작 { -->
     <div id="sit_pvi">
         <div id="sit_pvi_big">
         <?php
         $big_img_count = 0;
         $thumbnails = array();
-        for($i=1; $i<=10; $i++) {
+        for($i=1; $i<=6; $i++) {
             if(!$it['it_img'.$i])
                 continue;
-
-            $img = get_it_thumbnail($it['it_img'.$i], $default['de_mimg_width'], $default['de_mimg_height']);
+            if($i == 1) {
+                $img = get_it_thumbnail($it['it_img'.$i], 450, 1170);
+            } else {
+                $img = get_it_thumbnail($it['it_img'.$i], $default['de_simg_width'], $default['de_simg_height']);            
+            }
 
             if($img) {
                 // 썸네일
-                $thumb = get_it_thumbnail($it['it_img'.$i], 60, 60);
+                $thumb = get_it_thumbnail($it['it_img'.$i], 70, 95);
                 $thumbnails[] = $thumb;
                 $big_img_count++;
 
@@ -91,6 +95,9 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 
     <!-- 상품 요약정보 및 구매 시작 { -->
     <section id="sit_ov">
+        <div class="sit_it_basic">
+            <p><?php echo $it['it_basic']; ?></p>
+        </div>
         <h2 id="sit_title"><?php echo stripslashes($it['it_name']); ?> <span class="sound_only">요약정보 및 구매</span></h2>
         <?php if ($star_score) { ?>
             <span>고객평점<br /><img src="<?php echo G5_SHOP_URL; ?>/img/s_star<?php echo $star_score?>.png" alt="" class="sit_star"></span>
@@ -361,22 +368,44 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
     </section>
     <!-- } 상품 요약정보 및 구매 끝 -->
 </div> <!-- sit_ov_wrap END -->
-</div> <!-- sit_ov_bg END -->
+</section> <!-- sit_ov_bg END -->
 
 </form>
 
 
 <script>
 $(function(){
+    // 큰 이미지 배경색 추출 플러그인
+    var originColor;
+    function changeColor() {
+        $("#sit_pvi_big a:eq(0) img").primaryColor(function(color) {
+                $('#sit_ov_bg').css('background-color', 'rgb('+color+')');
+                originColor = color;
+            }
+        );
+    }
+
+    $(window).load(function() {
+        changeColor();
+        // 상품이미지 미리보기 (썸네일에 마우스 오버시)
+        $("#sit_pvi .img_thumb").bind("mouseover focus", function(){
+            var idx = $("#sit_pvi .img_thumb").index($(this));
+            if(idx == 0) {
+            // 첫번째 이미지 선택시 배경 원복
+                $('#sit_ov_bg').css('background-color', 'rgb('+originColor+')');
+            } else {
+                $('#sit_ov_bg').css('background-color', '#ffffff');
+            }
+            $("#sit_pvi_big a.visible").removeClass("visible").fadeOut('fast', function() {
+                $("#sit_pvi_big a:eq("+idx+")").addClass("visible").hide().filter(":not(:animated)").fadeIn('fast');            
+            });
+        });
+    });
+
+
     // 상품이미지 첫번째 링크
     $("#sit_pvi_big a:first").addClass("visible");
 
-    // 상품이미지 미리보기 (썸네일에 마우스 오버시)
-    $("#sit_pvi .img_thumb").bind("mouseover focus", function(){
-        var idx = $("#sit_pvi .img_thumb").index($(this));
-        $("#sit_pvi_big a.visible").removeClass("visible");
-        $("#sit_pvi_big a:eq("+idx+")").addClass("visible");
-    });
 
     // 상품이미지 크게보기
     $(".popup_item_image").click(function() {
