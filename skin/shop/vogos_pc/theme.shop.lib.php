@@ -47,7 +47,7 @@ function get_list_options($it_id, $subject, $no)
                 $str .= '<label for="it_option_'.$seq.'">'.$subj[$i].'</label>'.PHP_EOL;
 
                 $select = '<select id="it_option_'.$seq.'" class="it_option"'.$disabled.'>'.PHP_EOL;
-                $select .= '<option value="">선택</option>'.PHP_EOL;
+                $select .= '<option value="">SELECT</option>'.PHP_EOL;
                 for($k=0; $k<$opt_count; $k++) {
                     $opt_val = $opt[$k];
                     if(strlen($opt_val)) {
