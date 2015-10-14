@@ -180,9 +180,6 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"
         </section>
         <!-- } 선택된 옵션 끝 -->
 
-
-
-
         <div id="sit_ov_total">
             <?php if($is_orderable) { ?>
             <p id="sit_opt_info">
@@ -190,10 +187,7 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"
             </p>
             <?php } ?>
 
-
             <h3 id="sit_title"><?php echo stripslashes($it['it_name']); ?> <span class="sound_only">요약정보 및 구매</span></h3>
-
-
 
             <?php if (!$it['it_use']) { // 판매가능이 아닐 경우 ?>
             판매중지되었습니다.
@@ -259,6 +253,24 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"
             popup_window(url, "itemstocksms", opt);
         }
         </script>
+
+        <ul id="sit_ov_inf">
+            <li class="product_inf">
+                <a href="#product_inf_v">Product Info</a>
+            </li>
+            <li class="delivery_inf">
+                <a href="#delivery_inf_v">Delivery Info</a>
+            </li>
+            <li class="returns_inf">
+                <a href="#returns_inf_v">Returns Info</a>
+            </li>
+        </ul>
+        <div id="product_inf_v">
+        </div>
+        <div id="delivery_inf_v">
+        </div>
+        <div id="returns_inf_v">
+        </div>
     </section>
     <!-- } 상품 요약정보 및 구매 끝 -->
 </div> <!-- sit_ov_wrap END -->

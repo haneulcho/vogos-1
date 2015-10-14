@@ -287,7 +287,7 @@ function sel_option_process(add_exec)
             sep = " / ";
         }
 
-        option += sep + item + ":" + sel_opt;
+        option += sep + item + ": " + sel_opt;
     });
 
     if(run_error) {
@@ -332,7 +332,7 @@ function sel_supply_process($el, add_exec)
     }
 
     var id = item+chr(30)+info[0];
-    var option = item+":"+info[0];
+    var option = item+": "+info[0];
     var price = info[1];
     var stock = info[2];
 

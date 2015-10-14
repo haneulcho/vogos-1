@@ -527,7 +527,8 @@ transition: opacity 300ms ease-out, top 300ms ease-out;
 
 #sit_sel_option h3 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 /*#sit_sel_option .sit_opt_list div{display:inline-block;text-align:center}*/
-#sit_sel_option .frm_input{width:30px;height:28px;margin-right:0 !important;border-radius:0 !important;width:30px;border-top:1px solid #cfcfcf;border-bottom:1px solid #cfcfcf;border-left:none;border-right:none;text-align:center;}
+#sit_sel_option .frm_input{width:30px;height:28px;margin-right:0 !important;border-radius:0 !important;width:30px;border-top:1px solid #cfcfcf;border-bottom:1px solid #cfcfcf;border-left:none;border-right:none;text-align:center;color:#6c6164;}
+.sit_opt_del {margin-left:10px !important;}
 
 .sit_ov_unit {float:left;width:120px;height:41px;}
 .sit_ov_total {float:left;width:200px;height:41px;}
