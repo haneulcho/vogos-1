@@ -163,7 +163,15 @@ $(function() {
 
     // 수량변경 및 삭제
     $("#sit_sel_option li button").live("click", function() {
-        var mode = $(this).text();
+        // var mode = $(this).text();
+        var mode;
+        if($(this).hasClass('sit_qty_minus')) {
+            mode = '감소';
+        } else if($(this).hasClass('sit_qty_plus')){
+            mode = '증가';
+        } else {
+            mode = '삭제';
+        }
         var this_qty, max_qty = 9999, min_qty = 1;
         var $el_qty = $(this).closest("li").find("input[name^=ct_qty]");
         var stock = parseInt($(this).closest("li").find("input.io_stock").val());
@@ -367,10 +375,11 @@ function add_sel_option(type, id, option, price, stock)
     if(parseInt(price) > 0) {
         opt += "<span class=\"sit_opt_prc\">"+opt_prc+"</span>";    
     }
-    opt += "<div><input type=\"text\" name=\"ct_qty["+item_code+"][]\" value=\"1\" class=\"frm_input\" size=\"5\">";
-    opt += "<button type=\"button\" class=\"sit_qty_plus btn_frmline\">증가</button>";
-    opt += "<button type=\"button\" class=\"sit_qty_minus btn_frmline\">감소</button>";
-    opt += "<button type=\"button\" class=\"sit_opt_del btn_frmline\">삭제</button></div>";
+    opt += "<div>";
+    opt += "<button type=\"button\" class=\"sit_qty_minus btn_frmline\"><i class=\"ion-android-arrow-dropdown\"></i></button>";
+    opt += "<input type=\"text\" name=\"ct_qty["+item_code+"][]\" value=\"1\" class=\"frm_input\" size=\"5\">";
+    opt += "<button type=\"button\" class=\"sit_qty_plus btn_frmline\"><i class=\"ion-android-arrow-dropup\"></i></button>";
+    opt += "<button type=\"button\" class=\"sit_opt_del btn_frmline\"><i class=\"ion-ios-trash-outline\"></i></button></div>";
     opt += "</li>";
 
     if($("#sit_sel_option > ul").size() < 1) {
@@ -445,7 +454,7 @@ function price_calculate()
         }
     });
 
-    $("#sit_tot_price").empty().html("<span>총 금액 :</span> "+number_format(String(total))+"원");
+    $("#sit_tot_price").empty().html("$"+number_format(String(total))+".00");
 }
 
 // php chr() 대응
