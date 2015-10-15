@@ -246,14 +246,6 @@ function pg_anchor($anc_id) {
     include_once($skin_dir.'/item.form.skin.php');
     ?>
 
-    <?php
-    // 상품 상세정보
-    $info_skin = $skin_dir.'/item.info.skin.php';
-    if(!is_file($info_skin))
-        $info_skin = G5_SHOP_SKIN_PATH.'/item.info.skin.php';
-    include $info_skin;
-    ?>
-
 </div>
 
 <?php

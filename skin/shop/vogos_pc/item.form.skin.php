@@ -3,7 +3,9 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0);
+add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/magnific-popup.css">', 0);
 add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"></script>', 10);
+add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.magnific-popup.min.js"></script>', 0);
 ?>
 
 <form name="fitem" method="post" action="<?php echo $action_url; ?>" onsubmit="return fitem_submit(this);">
@@ -44,7 +46,7 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"
 <div id="sit_ov_wrap" class="fullWidth">
     <!-- 상품이미지 미리보기 시작 { -->
     <div id="sit_pvi">
-        <div id="sit_pvi_big">
+        <div id="sit_pvi_big" class="zoom-gallery">
         <?php
         $big_img_count = 0;
         $thumbnails = array();
@@ -63,7 +65,7 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"
                 $thumbnails[] = $thumb;
                 $big_img_count++;
 
-                echo '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$i.'" target="_blank" class="popup_item_image">'.$img.'</a>';
+                echo '<a href="'.G5_DATA_URL.'/item/'.$it['it_img'.$i].'" target="_blank" title="'.$it['it_name'].'">'.$img.'</a>';
             }
         }
 
@@ -254,26 +256,39 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"
         }
         </script>
 
-        <ul id="sit_ov_inf">
-            <li class="product_inf">
-                <a href="#product_inf_v">Product Info</a>
-            </li>
-            <li class="delivery_inf">
-                <a href="#delivery_inf_v">Delivery Info</a>
-            </li>
-            <li class="returns_inf">
-                <a href="#returns_inf_v">Returns Info</a>
-            </li>
-        </ul>
-        <div id="product_inf_v">
-        </div>
-        <div id="delivery_inf_v">
-        </div>
-        <div id="returns_inf_v">
-        </div>
+    <?php
+    // 상품 상세정보
+    $info_skin = $skin_dir.'/item.info.skin.php';
+    if(!is_file($info_skin))
+        $info_skin = G5_SHOP_SKIN_PATH.'/item.info.skin.php';
+    include $info_skin;
+    ?>
+
     </section>
     <!-- } 상품 요약정보 및 구매 끝 -->
 </div> <!-- sit_ov_wrap END -->
+
+<?php if ($default['de_rel_list_use']) { ?>
+<!-- 관련상품 시작 { -->
+<section id="sit_rel">
+    <h2>Related Items</h2>
+
+    <div class="sct_wrap">
+        <?php
+        $rel_skin_file = $skin_dir.'/'.$default['de_rel_list_skin'];
+        if(!is_file($rel_skin_file))
+            $rel_skin_file = G5_SHOP_SKIN_PATH.'/'.$default['de_rel_list_skin'];
+
+        $sql = " select b.* from {$g5['g5_shop_item_relation_table']} a left join {$g5['g5_shop_item_table']} b on (a.it_id2=b.it_id) where a.it_id = '{$it['it_id']}' and b.it_use='1' ";
+        $list = new item_list($rel_skin_file, $default['de_rel_list_mod'], 0, $default['de_rel_img_width'], $default['de_rel_img_height']);
+        $list->set_query($sql);
+        echo $list->run();
+        ?>
+    </div>
+</section>
+<!-- } 관련상품 끝 -->
+<?php } ?>
+
 </section> <!-- sit_ov_bg END -->
 
 </form>
@@ -293,8 +308,9 @@ $(function(){
 
     $(window).load(function() {
         changeColor();
-        // 상품이미지 미리보기 (썸네일에 마우스 오버시)
-        $("#sit_pvi .img_thumb").bind("mouseover focus", function(){
+        // 상품이미지 미리보기 (썸네일에 마우스 오버시에서 클릭시로 수정)
+        $("#sit_pvi .img_thumb").bind("click focus", function(e){
+            e.preventDefault();
             var idx = $("#sit_pvi .img_thumb").index($(this));
             if(idx == 0) {
             // 첫번째 이미지 선택시 배경 원복
@@ -312,9 +328,38 @@ $(function(){
     // 상품이미지 첫번째 링크
     $("#sit_pvi_big a:first").addClass("visible");
 
+    // 상품이미지 클릭시 lightbox 생성
+    $(document).ready(function() {
+        $('.zoom-gallery').magnificPopup({
+            delegate: 'a',
+            type: 'image',
+            closeOnContentClick: false,
+            closeBtnInside: false,
+            mainClass: 'mfp-with-zoom mfp-img-mobile',
+            image: {
+            verticalFit: true,
+            titleSrc: function(item) {
+              return item.el.attr('title');
+            }
+            },
+            gallery: {
+            enabled: true
+            },
+            zoom: {
+            enabled: true,
+            duration: 300, // don't foget to change the duration also in CSS
+            opener: function(element) {
+              return element.find('img');
+            }
+            }
+          
+        });
+    });
+
+
 
     // 상품이미지 크게보기
-    $(".popup_item_image").click(function() {
+/*    $(".popup_item_image").click(function() {
         var url = $(this).attr("href");
         var top = 10;
         var left = 10;
@@ -322,7 +367,7 @@ $(function(){
         popup_window(url, "largeimage", opt);
 
         return false;
-    });
+    });*/
 });
 
 
