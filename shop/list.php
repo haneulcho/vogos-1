@@ -42,9 +42,6 @@ if($ca['ca_skin_dir']) {
 }
 
 define('G5_SHOP_CSS_URL', str_replace(G5_PATH, G5_URL, $skin_dir));
-
-if ($is_admin)
-    echo '<div class="sct_admin"><a href="'.G5_ADMIN_URL.'/shop_admin/categoryform.php?w=u&amp;ca_id='.$ca_id.'" class="btn_admin">분류 관리</a></div>';
 ?>
 
 <script>
@@ -56,10 +53,10 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
 <div id="sct" class="sct_wrap">
 
     <?php
-    $nav_skin = $skin_dir.'/navigation.skin.php';
+/*    $nav_skin = $skin_dir.'/navigation.skin.php';
     if(!is_file($nav_skin))
         $nav_skin = G5_SHOP_SKIN_PATH.'/navigation.skin.php';
-    include $nav_skin;
+    include $nav_skin;*/
 
     // 상단 HTML
     echo '<div id="sct_hhtml">'.conv_content($ca['ca_head_html'], 1).'</div>';
@@ -75,6 +72,9 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
         $best_skin = G5_SHOP_SKIN_PATH.'/bestitem.skin.php';
     include $best_skin;
 
+/*    if ($is_admin)
+    echo '<span class="sct_admin inList"><a href="'.G5_ADMIN_URL.'/shop_admin/categoryform.php?w=u&amp;ca_id='.$ca_id.'" class="btn_admin">분류 관리</a></span>';*/
+
     // 상품 출력순서가 있다면
     if ($sort != "")
         $order_by = $sort.' '.$sortodr.' , it_order, it_id desc';
@@ -88,7 +88,7 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
 
     if (file_exists($skin_file)) {
 
-		echo '<div id="sct_sortlst">';
+		echo '<div id="sct_sortlst" class="fullWidth">';
         $sort_skin = $skin_dir.'/list.sort.skin.php';
         if(!is_file($sort_skin))
             $sort_skin = G5_SHOP_SKIN_PATH.'/list.sort.skin.php';

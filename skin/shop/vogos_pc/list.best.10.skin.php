@@ -4,28 +4,33 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 0);
 ?>
-<!-- Load owl carousel -->
-<script src="<?php echo G5_SHOP_SKIN_URL; ?>/js/owl.carousel.min.js"></script>
 
 <?php
 if($this->total_count > 0) {
     $li_width = intval(100 / $this->list_mod);
     $li_width_style = ' style="width:'.$li_width.'%;"';
     $k = 1;
+    $countRow = mysql_num_rows($result);
+    $owlbestWidth = $countRow * 222;
 
 for ($i=1; $row=sql_fetch_array($result); $i++) {
     if ($i == 1) {
-        echo "<div class=\"owl-carousel owlbest\">\n";
+        echo "<div class=\"owl-carousel owlbest\" style=\"width:".$owlbestWidth."px\">\n";
     }
 
-    echo "<div class=\"item\">\n";
+    if ($i < $countRow) {
+       echo "<div class=\"item\">\n";
+    } else {
+       echo "<div class=\"item item_last\">\n";
+    }
 
     if ($this->href) {
         echo "<div class=\"slider_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
     }
 
     if ($this->view_it_img) {
-        echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
+        echo get_it_image_best($row['it_id'], 222, 300, 8, '', '', 'original', stripslashes($row['it_name']))."\n";
+        echo get_it_image_best($row['it_id'], 222, 300, 2, '', '', 'sub', stripslashes($row['it_name']))."\n";
     }
 
     if ($this->href) {
@@ -39,6 +44,18 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
     if ($this->view_it_name) {
         echo stripslashes($row['it_name'])."\n";
     }
+
+    echo "<div class=\"sct_cost\">\n";
+
+    if ($this->view_it_cust_price && $row['it_cust_price']) {
+        echo "<strike>".display_price($row['it_cust_price'])."</strike>\n";
+    }
+
+    if ($this->view_it_price) {
+        echo display_price(get_price($row), $row['it_tel_inq'])."\n";
+    }
+
+    echo "</div>\n";
 
     if ($this->href) {
         echo "</a></div>\n";
@@ -54,24 +71,18 @@ if ($i > 1) {
 if($i == 1) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
 ?>
 
-<script>
-$(function() {
-    var owlbest = $('.owlbest');
-    owlbest.owlCarousel({
-        items: 5,
-        stagePadding: 0,
-        loop: true,
-        margin: 30,
-        autoplay: true,
-        autoplayTimeout: 2500,
-        autoplayHoverPause: true,
-        autoplaySpeed: 800,
-        smartSpeed: 500,
-        dotsSpeed: 700
-    });
-});
-</script>
-
 <?php
 }
 ?>
+<script type="text/javascript">
+$(function(){
+    $('.owlbest .slider_img a').mouseenter(function() {
+        $(this).children('.original').hide();
+        $(this).children('.sub').show();
+    }).mouseleave(function(e) {
+        $(this).children('.sub').hide();
+        $(this).children('.original').show();
+    });
+});
+
+</script>

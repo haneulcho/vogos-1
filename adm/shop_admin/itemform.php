@@ -1352,16 +1352,24 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
             <col>
         </colgroup>
         <tbody>
+        <?php
+        $vogos_img_titles = array(
+            '[view] 450x1170 혁신 이미지',
+            '[view] 900x1350 얼굴나온1',
+            '[view] 900x1350 얼굴나온2',
+            '[view] 900x1350 앞',
+            '[view] 900x1350 옆',
+            '[view] 900x1350 뒤',
+            '[list] 510x320 좌측 강조',
+            '[list] 270x360 기본',
+            '[index] 360x230 런웨이',
+            '[index] 270x380 신상 기본, 550x770 신상 강조');
+        ?>
         <?php for($i=1; $i<=10; $i++) { ?>
         <tr>
             <th scope="row"><label for="it_img<?php echo $i; ?>">
             <?php
-            if($i == 1) {
-                $vogos_img_title = '인덱스, 상품상세 대표 이미지';
-            } else if($i == 10) {
-                $vogos_img_title = 'VOGOS COLLECTION' ;
-            }
-            if(($i == 1 || $i == 10) && $vogos_img_title) { echo '<span style="display:block;color:#ff0000;font-weight:bold">'.$vogos_img_title.'</span>'; }
+            echo '<span style="display:block;color:#ff0000;font-weight:bold">'.$vogos_img_titles[$i-1].'</span>';
             ?>이미지 <?php echo $i; ?></label></th>
             <td>
                 <input type="file" name="it_img<?php echo $i; ?>" id="it_img<?php echo $i; ?>">
