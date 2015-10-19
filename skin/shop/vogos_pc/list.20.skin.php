@@ -5,7 +5,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0);
 add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.shop.list.js"></script>', 10);
 ?>
-
+ 
 <!-- 상품진열 20 (분류 기본 리스트) 시작 { -->
 <?php
 for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -135,5 +135,25 @@ if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\
   jQuery(function($){ 
     $(".sct li:nth-child(odd)").addClass("odd_margin");
   }); 
+</script>
+
+<script type="text/javascript">
+$(function() {
+    var $li20 = $('.sct_list_20 li');
+    $li20.each(function() {
+        var $des = $(this).children('.sct_des');
+        var $des_bg = $(this).children('.sct_des_bg');
+        $(this).mouseenter(function(e) {
+            $('.sct_20 li .sct_des').fadeOut(100);
+            $('.sct_20 li .sct_des_bg').fadeOut(100);
+            $des.fadeIn(300);
+            $des_bg.fadeIn(300);
+        })
+        .mouseleave(function() {
+            $des.fadeOut(300);
+            $des_bg.fadeOut(300);
+        });
+    });
+});
 </script>
 <!-- } 상품진열 20 끝 -->

@@ -56,7 +56,7 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.magnific-popup.min.j
             if($i == 1) {
                 $img = get_it_thumbnail($it['it_img'.$i], 450, 1170);
             } else {
-                $img = get_it_thumbnail($it['it_img'.$i], $default['de_simg_width'], $default['de_simg_height']);            
+                $img = get_it_thumbnail($it['it_img'.$i], $default['de_simg_width'], $default['de_simg_height']);
             }
 
             if($img) {
@@ -99,13 +99,27 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.magnific-popup.min.j
     <section id="sit_ov">
         <div class="sit_it_basic">
             <p><?php echo $it['it_basic']; ?></p>
+            <?php
+                if(!empty($it['it_img11'])) {
+                    $color_img = get_it_thumbnail($it['it_img11'], 70, 95);
+                    echo '<div class="color_img">';
+                    echo '<a href="'.G5_DATA_URL.'/item/'.$it['it_img11'].'" target="_blank" title="'.$it['it_name'].'">'.$color_img.'</a>';
+                    echo '</div>';
+                }
+            ?>
         </div>
 
         <?php
         if($option_item) {
         ?>
         <!-- 선택옵션 시작 { -->
-        <section>
+        <?php
+            if(!empty($it['it_img11'])) {
+                echo '<section style="min-height:70px;">';
+            } else {
+                echo '<section>';
+            }
+        ?>
             <h3 class="sound_only">Select Options</h3>
             <table class="sit_ov_tbl">
             <colgroup>
@@ -185,14 +199,14 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.magnific-popup.min.j
         <div id="sit_ov_total">
             <?php if($is_orderable) { ?>
             <p id="sit_opt_info">
-                상품 선택옵션 <?php echo $option_count; ?> 개, 추가옵션 <?php echo $supply_count; ?> 개
+                Item Options: <?php echo $option_count; ?>, More Options: <?php echo $supply_count; ?>
             </p>
             <?php } ?>
 
-            <h3 id="sit_title"><?php echo stripslashes($it['it_name']); ?> <span class="sound_only">요약정보 및 구매</span></h3>
+            <h3 id="sit_title"><?php echo stripslashes($it['it_name']); ?> <span class="sound_only">Item Information &amp; Form</span></h3>
 
             <?php if (!$it['it_use']) { // 판매가능이 아닐 경우 ?>
-            판매중지되었습니다.
+            This Product is currently unavailable.
             <?php } // 시중가격 끝 ?>
             <div class="sit_ov_unit">
                 <span class="price_unit">UNIT PRICE</span>
@@ -212,7 +226,7 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.magnific-popup.min.j
         <?php } ?>
 
         <?php if($is_soldout) { ?>
-        <p id="sit_ov_soldout">상품의 재고가 부족하여 구매할 수 없습니다.</p>
+        <p id="sit_ov_soldout">Out of Stock. Please select other items.</p>
         <?php } ?>
 
         <div id="sit_ov_btn">
@@ -354,6 +368,30 @@ $(function(){
             }
           
         });
+        $('.color_img').magnificPopup({
+            delegate: 'a',
+            type: 'image',
+            closeOnContentClick: false,
+            closeBtnInside: false,
+            mainClass: 'mfp-with-zoom mfp-img-mobile',
+            image: {
+            verticalFit: true,
+            titleSrc: function(item) {
+              return item.el.attr('title');
+            }
+            },
+            gallery: {
+            enabled: false
+            },
+            zoom: {
+            enabled: true,
+            duration: 300, // don't foget to change the duration also in CSS
+            opener: function(element) {
+              return element.find('img');
+            }
+            }
+          
+        });       
     });
 
 

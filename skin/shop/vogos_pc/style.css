@@ -214,8 +214,8 @@ transition: opacity 300ms ease-out, top 300ms ease-out;
 .sct_list_20 .sct_a:focus, .sct_list_20 .sct_a:hover {text-decoration:none}
 .sct_list_20 .sct_img {}
 .sct_list_20 .sct_id {display:block;padding:5px 10px 0;background:#f2f5f9}
-.sct_list_20 .sct_des {/*display:none;*/position:absolute;top:0;width:225px;height:205px;padding:155px 0 0 45px;z-index:15;background:url('img/bg_04.png');z-index:14;}
-.sct_list_20 .sct_des_bg {/*display:none;*/position:absolute;bottom:0;width:100%;height:130px;background:url('img/bg_03.png');z-index:14;}
+.sct_list_20 .sct_des {display:none;position:absolute;top:0;width:225px;height:205px;padding:155px 0 0 45px;z-index:15;background:url('img/bg_04.png');z-index:14;}
+.sct_list_20 .sct_des_bg {display:none;position:absolute;bottom:0;width:100%;height:130px;background:url('img/bg_03.png');z-index:14;}
 .sct_list_20 .sct_des .sct_basic {padding:0 30px 0 0;color:#f6f6f6;line-height:1.6;}
 .sct_list_20 .sct_txt {padding:0 20px 3px;}
 .sct_list_20 .sct_txt_big {margin:0 0 10px 0;padding:0 30px 10px 0;padding-bottom:10px;border-bottom:1px solid #777;}
@@ -597,16 +597,18 @@ transition: opacity 300ms ease-out, top 300ms ease-out;
   transition: all .3s ease;}
 #sit_ov_tab li a:hover, #sit_ov_tab li.active a {font-weight:700;color:#6c6164;background-color:#f3f3f0;}
 
-.tab_div {display:none;overflow-y:auto;height:132px;padding:28px 40px;font-size:12px;line-height:19px;color:#555;}
+.tab_div {display:none;overflow-y:auto;height:132px;padding:28px 40px 47px;font-size:12px;line-height:19px;color:#555;}
 .tab_div.active {display:block;}
+
 
 
 /* 상품 상세보기 - 간략정보 및 구매기능 */
 #sit_ov {position:relative;float:right;padding:26px 0 0;width:450px;height:auto !important;min-height:355px;}
 #sit_ov h3 {margin:0 0 10px}
 
-.sit_it_basic {margin-bottom:20px;padding:20px 33px;border-top:1px solid #dadadb;border-bottom:1px solid #e7e7e7;}
+.sit_it_basic {position:relative;margin-bottom:20px;padding:20px 33px;border-top:1px solid #dadadb;border-bottom:1px solid #e7e7e7;}
 .sit_it_basic p {font-size:12px;line-height:19px;color:#555;}
+.color_img {position:absolute;right:0;bottom:-104px;}
 
 #sit_title {margin:0 0 20px !important;font-size:17px;line-height:1;font-weight:700;color:#3d3d3d;}
 #sit_desc {margin:15px 0;padding:0;color:#999;text-align:center;line-height:18px;}
