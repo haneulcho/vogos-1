@@ -90,7 +90,3 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 <?php } ?>
     <!-- 콘텐츠 시작 { -->
     <div id="container">
-        <?php
-        if(!defined('_INDEX_'))
-            include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품
-        ?>
