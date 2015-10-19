@@ -1363,9 +1363,10 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
             '[list] 510x320 좌측 강조',
             '[list] 270x360 기본',
             '[index] 360x230 런웨이',
-            '[index] 270x380 신상 기본, 550x770 신상 강조');
+            '[index] 270x380 신상 기본, 550x770 신상 강조',
+            '[view] 900x1350 깔사진');
         ?>
-        <?php for($i=1; $i<=10; $i++) { ?>
+        <?php for($i=1; $i<=11; $i++) { ?>
         <tr>
             <th scope="row"><label for="it_img<?php echo $i; ?>">
             <?php

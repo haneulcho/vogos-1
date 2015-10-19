@@ -504,6 +504,7 @@ CREATE TABLE IF NOT EXISTS `g5_shop_item` (
   `it_img8` varchar(255) NOT NULL DEFAULT '',
   `it_img9` varchar(255) NOT NULL DEFAULT '',
   `it_img10` varchar(255) NOT NULL DEFAULT '',
+  `it_img11` varchar(255) NOT NULL DEFAULT '',
   `it_1_subj` varchar(255) NOT NULL DEFAULT '',
   `it_2_subj` varchar(255) NOT NULL DEFAULT '',
   `it_3_subj` varchar(255) NOT NULL DEFAULT '',

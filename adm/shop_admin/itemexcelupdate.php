@@ -117,6 +117,7 @@ if($_FILES['excelfile']['tmp_name']) {
         $it_img8            = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_img9            = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_img10           = addslashes($data->sheets[0]['cells'][$i][$j++]);
+        $it_img11           = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_explan2         = strip_tags(trim($it_explan));
 
         if(!$it_id || !$ca_id || !$it_name) {
@@ -186,7 +187,8 @@ if($_FILES['excelfile']['tmp_name']) {
                          it_img7 = '$it_img7',
                          it_img8 = '$it_img8',
                          it_img9 = '$it_img9',
-                         it_img10 = '$it_img10' ";
+                         it_img10 = '$it_img10',
+                         it_img11 = '$it_img11' ";
         sql_query($sql);
 
         $succ_count++;
