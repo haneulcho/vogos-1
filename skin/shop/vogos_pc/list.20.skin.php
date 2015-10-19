@@ -19,8 +19,6 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         if ($this->css) {
             echo "<ul class=\"{$this->css}\">\n";
         } else {
-            echo "<div class=\"fullWidth\">";
-
             if($default['de_type4_list_use']) {
 
 ?>
@@ -129,7 +127,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     echo "</li>\n";
 }
 
-if ($i > 0) echo "</ul></div>\n";
+if ($i > 0) echo "</ul>\n";
 
 if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
 ?>

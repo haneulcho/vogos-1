@@ -72,6 +72,9 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
         $best_skin = G5_SHOP_SKIN_PATH.'/bestitem.skin.php';
     include $best_skin;
 
+
+    echo "<div class=\"fullWidth\">";
+
 /*    if ($is_admin)
     echo '<span class="sct_admin inList"><a href="'.G5_ADMIN_URL.'/shop_admin/categoryform.php?w=u&amp;ca_id='.$ca_id.'" class="btn_admin">분류 관리</a></span>';*/
 
@@ -136,7 +139,7 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
     }
     ?>
 
-    <div class="sct_page fullWidth">
+    <div class="sct_page">
     <?php
     $qstr1 .= 'ca_id='.$ca_id;
     $qstr1 .='&amp;sort='.$sort.'&amp;sortodr='.$sortodr;
@@ -147,6 +150,9 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
     <?php
     // 하단 HTML
     echo '<div id="sct_thtml">'.conv_content($ca['ca_tail_html'], 1).'</div>';
+
+    // fullWidth END
+    echo "</div>";
 
 ?>
 </div>

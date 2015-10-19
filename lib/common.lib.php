@@ -23,7 +23,7 @@ function get_paging($write_pages, $cur_page, $total_page, $url, $add="")
 
     $str = '';
     if ($cur_page > 1) {
-        $str .= '<a href="'.$url.'1'.$add.'" class="pg_page pg_start">처음</a>'.PHP_EOL;
+        $str .= '<a href="'.$url.'1'.$add.'" class="pg_page pg_start"><i class="ion-arrow-left-c"></i></a>'.PHP_EOL;
     }
 
     $start_page = ( ( (int)( ($cur_page - 1 ) / $write_pages ) ) * $write_pages ) + 1;
@@ -31,7 +31,7 @@ function get_paging($write_pages, $cur_page, $total_page, $url, $add="")
 
     if ($end_page >= $total_page) $end_page = $total_page;
 
-    if ($start_page > 1) $str .= '<a href="'.$url.($start_page-1).$add.'" class="pg_page pg_prev">이전</a>'.PHP_EOL;
+    if ($start_page > 1) $str .= '<a href="'.$url.($start_page-1).$add.'" class="pg_page pg_prev"><i class="ion-chevron-left"></i></a>'.PHP_EOL;
 
     if ($total_page > 1) {
         for ($k=$start_page;$k<=$end_page;$k++) {
@@ -42,10 +42,10 @@ function get_paging($write_pages, $cur_page, $total_page, $url, $add="")
         }
     }
 
-    if ($total_page > $end_page) $str .= '<a href="'.$url.($end_page+1).$add.'" class="pg_page pg_next">다음</a>'.PHP_EOL;
+    if ($total_page > $end_page) $str .= '<a href="'.$url.($end_page+1).$add.'" class="pg_page pg_next"><i class="ion-chevron-right"></i></a>'.PHP_EOL;
 
     if ($cur_page < $total_page) {
-        $str .= '<a href="'.$url.$total_page.$add.'" class="pg_page pg_end">맨끝</a>'.PHP_EOL;
+        $str .= '<a href="'.$url.$total_page.$add.'" class="pg_page pg_end"><i class="ion-arrow-right-c"></i></a>'.PHP_EOL;
     }
 
     if ($str)

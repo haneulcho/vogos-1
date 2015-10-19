@@ -208,7 +208,7 @@ transition: opacity 300ms ease-out, top 300ms ease-out;
 .sct_list_20 {float:right;clear:none !important;}
 .sct_list_20:after {display:block;visibility:hidden;clear:both;content:""}
 .sct_list_20 button {border:0;outline:none;}
-.sct_list_20 .sct_li {position:relative;float:left;margin:0 0 52px 14px}
+.sct_list_20 .sct_li {position:relative;float:left;margin:0 0 51px 14px}
 .sct_list_20 .sct_clear {clear:both;margin-left:0;}
 .sct_list_20 .sct_a {display:block;position:relative;text-decoration:none;}
 .sct_list_20 .sct_a:focus, .sct_list_20 .sct_a:hover {text-decoration:none}
@@ -222,7 +222,7 @@ transition: opacity 300ms ease-out, top 300ms ease-out;
 .sct_list_20 .sct_txt_big a {font-size:17px;color:#fff;font-weight:700;line-height:1.4;}
 .sct_list_20 .sct_basic {padding:0 10px 5px;line-height:1.5em}
 .sct_list_20 .sct_buynow {position:absolute;right:0;bottom:25px;display:block;width:150px;height:45px;font-size:0;line-height:0;overflow:hidden;background:url('img/sit_btn_buy_m.jpg') no-repeat;
-  -webkit-transition: all 500s ease;
+  -webkit-transition: all .3s ease;
   -moz-transition: all .3s ease;
   -ms-transition: all .3s ease;
   -o-transition: all .3s ease;
@@ -496,7 +496,7 @@ transition: opacity 300ms ease-out, top 300ms ease-out;
 .sct_admin {margin:0 0 10px;text-align:right}
 .sct_admin.inList {position:absolute;top:25px;right:0;}
 
-.sct_page {clear:both;overflow:hidden;}
+.sct_page {float:right;overflow:hidden;}
 .pg_wrap {float:right;}
 
 

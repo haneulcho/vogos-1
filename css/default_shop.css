@@ -66,7 +66,7 @@ a:hover, a:focus, a:active {color:#000;text-decoration:none}
 -moz-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
 -o-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
 background-color:#f3f3f3; color:#a7a7a7;outline:0;font-weight:bold;
-  -webkit-transition: all 500s ease;
+  -webkit-transition: all .3s ease;
   -moz-transition: all .3s ease;
   -ms-transition: all .3s ease;
   -o-transition: all .3s ease;
@@ -151,7 +151,7 @@ background-color:#f3f3f3; color:#a7a7a7;outline:0;font-weight:bold;
 #ft_help {margin:0 175px 0 0;}
 #ft_about ul, #ft_help ul {margin-left:11px;}
 #ft_about li, #ft_help li {float:left;margin-right:30px;}
-#ft_about li a, #ft_help li a {display:block;font-size:11px;font-family:'Lato';font-weight:300;color:#bbb;}
+#ft_about li a, #ft_help li a {display:block;font-size:11px;font-family:'Lato';font-weight:400;color:#bbb;}
 #ft_about li a:hover, #ft_help li a:hover {color:#fff;}
 #ft_like .ft_sns span {text-indent:100%;white-space:nowrap;display:block;overflow:hidden;width:30px;height:30px;background:url('../skin/shop/vogos_pc/img/sns_sprite.png') no-repeat;}
 #ft_like li {float:left;margin-right:20px;}
@@ -383,12 +383,19 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none}
 /* 페이징 */
 .pg_wrap {clear:both;margin:0 0 20px;padding:20px 0 0;text-align:center}
 .pg {}
-.pg_page, .pg_current, .qa_page {display:inline-block;padding:0 8px;height:25px;color:#000;letter-spacing:0;line-height:2.2em;vertical-align:middle}
-.pg a:focus, .pg a:hover {text-decoration:none}
-.pg_page, .qa_page {color:#000;text-decoration:none}
-.pg_start, .pg_prev {/* 이전 */}
-.pg_end, .pg_next {/* 다음 */}
-.pg_current {display:inline-block;margin:0 4px 0 0;color:#3c95d5;font-weight:bold}
+.pg_page, .pg_current, .qa_page {float:left;display:inline-block;width:7px;height:11px;margin:0 0 0 9px;padding:12px 14px 11px;color:#373737;letter-spacing:0;line-height:1;vertical-align:middle;
+  background-color: #fff;
+  box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
+  -webkit-box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
+  -moz-box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
+  -o-box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;}
+.pg_start, .pg_prev, .pg_end, .pg_next {box-shadow:none;background:none;}
+.pg_current, .pg a:focus, .pg a:hover {color:#fffefe;font-weight:700;background-color:#373737;text-decoration:none}
 
 /* ########## 쇼핑몰 컨텐츠 ########## */
 /* 인덱스 이미지 출력 */
