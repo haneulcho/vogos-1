@@ -285,9 +285,8 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.magnific-popup.min.j
 <?php if ($default['de_rel_list_use']) { ?>
 <!-- 관련상품 시작 { -->
 <section id="sit_rel">
+    <div class="sct_wrap fullWidth">
     <h2>Related Items</h2>
-
-    <div class="sct_wrap">
         <?php
         $rel_skin_file = $skin_dir.'/'.$default['de_rel_list_skin'];
         if(!is_file($rel_skin_file))

@@ -51,11 +51,20 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     echo "<li class=\"sct_li{$sct_last}\" style=\"width:{$this->img_width}px\">\n";
 
     if ($this->href) {
+        echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
+    }
+
+    if ($this->view_it_img) {
+        echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
+    }
+
+    if ($this->href) {
         echo "<div class=\"sct_des\"><div class=\"sct_txt_big\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
     }
 
     if ($this->view_it_name) {
         echo stripslashes($row['it_name'])."\n";
+        echo "</a>\n";
     }
 
     if ($this->href) {
@@ -75,15 +84,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     }
 
     if ($this->href) {
-        echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
-    }
-
-    if ($this->view_it_img) {
-        echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
-    }
-
-    if ($this->href) {
-        echo "</a></div>\n";
+        echo "</div>\n";
     }
 
 
@@ -114,7 +115,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         echo "</div>\n";
 
         echo"<div class=\"sct_cart_m\">
-            <div class=\"sct_cart_btn\" style=\"width:{$sct_img_width}px;height:40px\">
+            <div class=\"sct_cart_btn\" style=\"width:70px;height:40px\">
                 <button type=\"button\" class=\"btn_cart_m\" data-it_id=\"{$row['it_id']}\"><i class=\"ion-android-cart\"></i>CART</button>
             </div>
             <div class=\"sct_cart_op\"></div>
@@ -139,19 +140,16 @@ if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\
 
 <script type="text/javascript">
 $(function() {
-    var $li20 = $('.sct_list_20 li');
+    var $li20 = $('.sct_list_20 li .sct_img');
     $li20.each(function() {
         var $des = $(this).children('.sct_des');
-        var $des_bg = $(this).children('.sct_des_bg');
+        $des.hide();
         $(this).mouseenter(function(e) {
-            $('.sct_20 li .sct_des').fadeOut(100);
-            $('.sct_20 li .sct_des_bg').fadeOut(100);
-            $des.fadeIn(300);
-            $des_bg.fadeIn(300);
+            $des.filter(':not(:animated)').fadeIn(400);
         })
         .mouseleave(function() {
-            $des.fadeOut(300);
-            $des_bg.fadeOut(300);
+            $('.sct_list_20 li .sct_des').hide();
+            $des.filter(':not(:animated)').fadeOut(400);
         });
     });
 });

@@ -36,6 +36,43 @@ $(function (){
         });
     });
 
+    $(".btn_cart_m").on("click", function() {
+        var it_id = $(this).data("it_id");
+        var $opt = $(this).parent().siblings(".sct_cart_op");
+        var $btn = $(this).parent();
+
+        $(".sct_cart_op").not($opt).css("display", "");
+
+        $.ajax({
+            url: g5_shop_skin_url+"/ajax.itemoption.php",
+            type: "POST",
+            data: {
+                "it_id" : it_id
+            },
+            dataType: "json",
+            async: true,
+            cache: false,
+            success: function(data, textStatus) {
+                if(data.error != "") {
+                    alert(data.error);
+                    return false;
+                }
+
+                $opt.html(data.html);
+
+                if(!data.option) {
+                    add_cart($opt.find("form").get(0));
+                    return;
+                }
+
+                $btn.css("display","none");
+                $opt.css("display","block");
+
+                $("select.it_option").fancyOptionSelect();
+            }
+        });
+    });
+
     $("li.sct_li").on("mouseover", function() {
         var $opt = $(this).find(".sct_cart_op");
         var $btn = $(this).find(".sct_cart_btn");
@@ -346,7 +383,7 @@ if(typeof chr == "undefined") {
                         var info = val.split(",");
                         // 재고체크
                         if(parseInt(info[2]) < 1) {
-                            alert("선택하신 선택옵션상품은 재고가 부족하여 구매할 수 없습니다.");
+                            alert("Out of Stock! The quantity requested is not available.");
                             return false;
                         }
                     }

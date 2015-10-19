@@ -77,11 +77,11 @@ if($i == 1) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\
 <script type="text/javascript">
 $(function(){
     $('.owlbest .slider_img a').mouseenter(function() {
-        $(this).children('.original').hide();
-        $(this).children('.sub').show();
+        $(this).filter(':not(:animated)').children('.sub').fadeIn(400);
+        $(this).filter(':not(:animated)').children('.original').fadeOut(400);
     }).mouseleave(function(e) {
-        $(this).children('.sub').hide();
-        $(this).children('.original').show();
+        $(this).filter(':not(:animated)').children('.sub').fadeOut(400);
+        $(this).filter(':not(:animated)').children('.original').fadeIn(400);
     });
 });
 
