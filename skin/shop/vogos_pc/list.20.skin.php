@@ -24,7 +24,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
             if($default['de_type4_list_use']) {
 
 ?>
-            <div class="test">
+            <div class="list_spot">
                 <?php
                 $list = new item_list();
                 $list->set_type(4);
@@ -34,7 +34,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
                 $list->set_view('it_cust_price', false);
                 $list->set_view('it_price', true);
                 $list->set_view('it_icon', true);
-                $list->set_view('sns', true);
+                $list->set_view('sns', false);
                 echo $list->run();
                 ?>
                 
