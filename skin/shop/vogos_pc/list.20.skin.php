@@ -20,6 +20,32 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
             echo "<ul class=\"{$this->css}\">\n";
         } else {
             echo "<div class=\"fullWidth\">";
+
+            if($default['de_type4_list_use']) {
+
+?>
+            <div class="test">
+                <?php
+                $list = new item_list();
+                $list->set_type(4);
+                $list->set_view('it_id', false);
+                $list->set_view('it_name', true);
+                $list->set_view('it_basic', true);
+                $list->set_view('it_cust_price', false);
+                $list->set_view('it_price', true);
+                $list->set_view('it_icon', true);
+                $list->set_view('sns', true);
+                echo $list->run();
+                ?>
+                
+            </div>
+
+<?php
+
+            } // de_type4_list_use END
+
+
+
             echo "<ul class=\"sct sct_list_20\">\n";
         }
     }
@@ -40,6 +66,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
     if ($this->view_it_basic && $row['it_basic']) {
         echo "<div class=\"sct_basic\">".stripslashes($row['it_basic'])."</div>\n";
+    }
+
+    if ($this->href) {
+        echo "<a class=\"sct_buynow\" href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">BUY NOW</a>\n";
     }
 
     if ($this->href) {
@@ -95,7 +125,6 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         echo "</div>\n";
 
     }
-    echo "<div class=\"sct_des_bg\"></div>";
 
     echo "</li>\n";
 }
