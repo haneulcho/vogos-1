@@ -33,15 +33,15 @@ include_once('./_head.php');
         <table>
         <thead>
         <tr>
-            <th scope="col">상품이미지</th>
-            <th scope="col">상품명</th>
-            <th scope="col">총수량</th>
-            <th scope="col">판매가</th>
-            <th scope="col">소계</th>
-            <th scope="col">포인트</th>
-            <th scope="col">배송비</th>
+            <th scope="col">Image</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Total Quantity</th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Point</th>
+            <th scope="col">Shipping Cost</th>
             <th scope="col">
-                <label for="ct_all" class="sound_only">상품 전체</label>
+                <label for="ct_all" class="sound_only">Total Product</label>
                 <input type="checkbox" name="ct_all" value="1" id="ct_all" checked="checked">
             </th>
         </tr>
@@ -165,7 +165,7 @@ include_once('./_head.php');
         } // for 끝
 
         if ($i == 0) {
-            echo '<tr><td colspan="8" class="empty_table">장바구니에 담긴 상품이 없습니다.</td></tr>';
+            echo '<tr><td colspan="8" class="empty_table">Your shopping cart is empty.</td></tr>';
         } else {
             // 배송비 계산
             $send_cost = get_sendcost($s_cart_id, 0);
@@ -181,7 +181,7 @@ include_once('./_head.php');
     ?>
     <dl id="sod_bsk_tot">
         <?php if ($send_cost > 0) { // 배송비가 0 보다 크다면 (있다면) ?>
-        <dt class="sod_bsk_dvr">배송비</dt>
+        <dt class="sod_bsk_dvr">Shipping Cost</dt>
         <dd class="sod_bsk_dvr"><strong><?php echo number_format($send_cost); ?> 원</strong></dd>
         <?php } ?>
 
@@ -189,7 +189,7 @@ include_once('./_head.php');
         if ($tot_price > 0) {
         ?>
 
-        <dt class="sod_bsk_cnt">총계 가격/포인트</dt>
+        <dt class="sod_bsk_cnt">Subtotal/Total Point</dt>
         <dd class="sod_bsk_cnt"><strong><?php echo number_format($tot_price); ?> 원 / <?php echo number_format($tot_point); ?> 점</strong></dd>
         <?php } ?>
 
@@ -198,15 +198,15 @@ include_once('./_head.php');
 
     <div id="sod_bsk_act">
         <?php if ($i == 0) { ?>
-        <a href="<?php echo G5_SHOP_URL; ?>/" class="btn01">쇼핑 계속하기</a>
+        <a href="<?php echo G5_SHOP_URL; ?>/" class="btn01">Continue shopping</a>
         <?php } else { ?>
         <input type="hidden" name="url" value="./orderform.php">
         <input type="hidden" name="records" value="<?php echo $i; ?>">
         <input type="hidden" name="act" value="">
-        <a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=<?php echo $continue_ca_id; ?>" class="btn01">쇼핑 계속하기</a>
-        <button type="button" onclick="return form_check('buy');" class="btn_submit">주문하기</button>
-        <button type="button" onclick="return form_check('seldelete');" class="btn01">선택삭제</button>
-        <button type="button" onclick="return form_check('alldelete');" class="btn01">비우기</button>
+        <a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=<?php echo $continue_ca_id; ?>" class="btn01">Continue Shoppping</a>
+        <button type="button" onclick="return form_check('buy');" class="btn_submit">Order</button>
+        <button type="button" onclick="return form_check('seldelete');" class="btn01">Remove</button>
+        <button type="button" onclick="return form_check('alldelete');" class="btn01">Empty</button>
         <?php } ?>
     </div>
 

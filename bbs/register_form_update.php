@@ -25,10 +25,10 @@ if($w == 'u')
 else if($w == '')
     $mb_id = trim($_POST['mb_id']);
 else
-    alert('잘못된 접근입니다', G5_URL);
+    alert('We could not process your request.', G5_URL);
 
 if(!$mb_id)
-    alert('회원아이디 값이 없습니다. 올바른 방법으로 이용해 주십시오.');
+    alert('Invalid ID value, Please try again');
 
 $mb_password    = trim($_POST['mb_password']);
 $mb_password_re = trim($_POST['mb_password_re']);
@@ -70,9 +70,9 @@ if ($w == '' || $w == 'u') {
     if ($msg = count_mb_id($mb_id))         alert($msg, "", true, true);
 
     if ($w == '' && !$mb_password)
-        alert('비밀번호가 넘어오지 않았습니다.');
+        alert('Invalid Password.');
     if($w == '' && $mb_password != $mb_password_re)
-        alert('비밀번호가 일치하지 않습니다.');
+        alert('Password is Incorrect.');
 
     if ($msg = empty_mb_name($mb_id))       alert($msg, "", true, true);
     if ($msg = empty_mb_nick($mb_nick))     alert($msg, "", true, true);
@@ -143,7 +143,7 @@ if($config['cf_cert_use'] && $_SESSION['ss_cert_type'] && $_SESSION['ss_cert_dup
     $sql = " select mb_id from {$g5['member_table']} where mb_id <> '{$member['mb_id']}' and mb_dupinfo = '{$_SESSION['ss_cert_dupinfo']}' ";
     $row = sql_fetch($sql);
     if ($row['mb_id']) {
-        alert("입력하신 본인확인 정보로 가입된 내역이 존재합니다.\\n회원아이디 : ".$row['mb_id']);
+        alert("ID is already being used.");
     }
 }
 
@@ -225,7 +225,7 @@ if ($w == '') {
     sql_query($sql);
 
     // 회원가입 포인트 부여
-    insert_point($mb_id, $config['cf_register_point'], '회원가입 축하', '@member', $mb_id, '회원가입');
+    insert_point($mb_id, $config['cf_register_point'], 'First Sign In', '@member', $mb_id, '회원가입');
 
     // 추천인에게 포인트 부여
     if ($config['cf_use_recommend'] && $mb_recommend)
@@ -233,7 +233,7 @@ if ($w == '') {
 
     // 회원님께 메일 발송
     if ($config['cf_email_mb_member']) {
-        $subject = '['.$config['cf_title'].'] 회원가입을 축하드립니다.';
+        $subject = '[VOGOS Sign Up] Congratulations!';
 
         $mb_md5 = md5($mb_id.$mb_email.G5_TIME_YMDHIS);
         $certify_href = G5_BBS_URL.'/email_certify.php?mb_id='.$mb_id.'&amp;mb_md5='.$mb_md5;
@@ -270,10 +270,10 @@ if ($w == '') {
 
 } else if ($w == 'u') {
     if (!trim($_SESSION['ss_mb_id']))
-        alert('로그인 되어 있지 않습니다.');
+        alert('Please sign in first!');
 
     if (trim($_POST['mb_id']) != $mb_id)
-        alert("로그인된 정보와 수정하려는 정보가 틀리므로 수정할 수 없습니다.\\n만약 올바르지 않은 방법을 사용하신다면 바로 중지하여 주십시오.");
+        alert("Error Occured! Please try again.");
 
     $sql_password = "";
     if ($mb_password)
@@ -456,14 +456,14 @@ if ($w == '') {
 
     if ($old_email != $mb_email && $config['cf_use_email_certify']) {
         set_session('ss_mb_id', '');
-        alert('회원 정보가 수정 되었습니다.\n\nE-mail 주소가 변경되었으므로 다시 인증하셔야 합니다.', G5_URL);
+        alert('Updated your information successfully.', G5_URL);
     } else {
         echo '
         <!doctype html>
         <html lang="ko">
         <head>
         <meta charset="utf-8">
-        <title>회원정보수정</title>
+        <title>Edit Information</title>
         <body>
         <form name="fregisterupdate" method="post" action="'.G5_HTTP_BBS_URL.'/register_form.php">
         <input type="hidden" name="w" value="u">
@@ -472,7 +472,7 @@ if ($w == '') {
         <input type="hidden" name="is_update" value="1">
         </form>
         <script>
-        alert("회원 정보가 수정 되었습니다.");
+        alert("Updated your information successfully.");
         document.fregisterupdate.submit();
         </script>
         </body>

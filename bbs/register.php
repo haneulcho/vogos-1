@@ -9,7 +9,7 @@ if ($is_member) {
 // 세션을 지웁니다.
 set_session("ss_mb_reg", "");
 
-$g5['title'] = '회원가입약관';
+$g5['title'] = 'Terms and Conditions';
 include_once('./_head.php');
 
 // 로그분석기 시작

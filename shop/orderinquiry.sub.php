@@ -11,13 +11,12 @@ if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
     <table>
     <thead>
     <tr>
-        <th scope="col">주문서번호</th>
-        <th scope="col">주문일시</th>
-        <th scope="col">상품수</th>
-        <th scope="col">주문금액</th>
-        <th scope="col">입금액</th>
+        <th scope="col">Order Number</th>
+        <th scope="col">Order Date</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Order cost</th>
         <th scope="col">미입금액</th>
-        <th scope="col">상태</th>
+        <th scope="col">Order status</th>
     </tr>
     </thead>
     <tbody>
@@ -71,7 +70,7 @@ if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
     }
 
     if ($i == 0)
-        echo '<tr><td colspan="7" class="empty_table">주문 내역이 없습니다.</td></tr>';
+        echo '<tr><td colspan="7" class="empty_table">Your order list is empty.</td></tr>';
     ?>
     </tbody>
     </table>

@@ -52,12 +52,14 @@ $video_frame = "<iframe src=\"".$video_src."\" width=\"330\" height=\"590\" fram
 <div id="sit_ov_wrap" class="fullWidth">
     <!-- 상품이미지 미리보기 시작 { -->
     <div id="sit_pvi">
-        <div id="sit_pvi_video">
-            <a class="play_video" href="<?php echo $video_src; ?>"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/btn_view_runway.jpg"></a>
-            <div class="sit_it_video">
-                <button type="button" class="sit_it_video_close"><i class="ion-close-round"></i></button>
+        <?php if(!empty($it['it_1'])) { ?>
+            <div id="sit_pvi_video">
+                <a class="play_video" href="<?php echo $video_src; ?>"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/btn_view_runway.jpg"></a>
+                <div class="sit_it_video">
+                    <button type="button" class="sit_it_video_close"><i class="ion-close-round"></i></button>
+                </div>
             </div>
-        </div>
+        <?php } ?>
         <div id="sit_pvi_big" class="zoom-gallery">
         <?php
         $big_img_count = 0;
