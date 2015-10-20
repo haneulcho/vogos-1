@@ -16,7 +16,7 @@ $g5['title'] = '모델스초이스';
 $og_title = '모델스초이스 | VOGOS';
 $og_url = G5_SHOP_URL.'/modelslist.php';
 $og_img = G5_SHOP_SKIN_URL.'/img/og_img.png';
-$og_description = 'Everywhere is Runway, Everyday VOGOS - 보고스 패션을 지금 만나보세요!';
+$og_description = 'Everywhere is Runway, Everyday VOGOS';
 
 include_once('./_head.php');
 

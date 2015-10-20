@@ -18,7 +18,7 @@ if(!$is_admin) {
         alert($msg, G5_SHOP_URL);
 }
 
-$g5['title'] = $ca['ca_name'].' 상품리스트';
+$g5['title'] = $ca['ca_name'].' list';
 
 if ($ca['ca_include_head'])
     @include_once($ca['ca_include_head']);

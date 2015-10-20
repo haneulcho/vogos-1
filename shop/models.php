@@ -39,7 +39,7 @@ $g5['title'] = $mds['mds_subject'].' &gt; 모델스초이스';
 $og_title = get_text($mds['mds_subject']).' | VOGOS';
 $og_url = G5_SHOP_URL.'/models.php?mds_id='.$mds['mds_id'];
 $og_img = G5_DATA_URL.'/models/'.$mds['mds_id'].'_b';
-$og_description = 'Everywhere is Runway, Everyday VOGOS - 보고스 패션을 지금 만나보세요!';
+$og_description = 'Everywhere is Runway, Everyday VOGOS';
 
 // 기본 상단 코드 출력
     include_once('./_head.php');

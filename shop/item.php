@@ -93,7 +93,7 @@ $g5['title'] = $it['it_name'].' &gt; '.$it['ca_name'];
 $og_title = get_text($it['it_name']).' | VOGOS';
 $og_url = G5_SHOP_URL.'/item.php?it_id='.$it['it_id'];
 $og_img = get_it_imageurl($it['it_id']);
-$og_description = 'Everywhere is Runway, Everyday VOGOS - 보고스 패션을 지금 만나보세요!';
+$og_description = 'Everywhere is Runway, Everyday VOGOS';
 
 // 분류 상단 코드가 있으면 출력하고 없으면 기본 상단 코드 출력
 if ($ca['ca_include_head'])
