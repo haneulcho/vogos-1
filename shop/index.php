@@ -53,7 +53,7 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
     <section class="sct_wrap">
     <div class="fullWidth">
         <header>
-            <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3"><img src="<?php echo G5_SHOP_SKIN_URL ?>/img/title_vogos_newarrivals.jpg" alt="VOGOS NEW ARRIVALS"></a></h2>
+            <h2><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL ?>/img/title_vogos_newarrivals.jpg" alt="VOGOS NEW ARRIVALS"></a></h2>
         </header>
         <?php
         $list = new item_list();
