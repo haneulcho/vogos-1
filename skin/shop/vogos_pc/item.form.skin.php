@@ -42,10 +42,22 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.magnific-popup.min.j
     </div>
 </div>
 
+<?php
+$video_src = 'https://player.vimeo.com/video/'.$it['it_1'].'?autoplay=1&loop=1&color=333333&title=0&byline=0&portrait=0';
+
+$video_frame = "<iframe src=\"".$video_src."\" width=\"330\" height=\"590\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
+?>
+
 <section id="sit_ov_bg">
 <div id="sit_ov_wrap" class="fullWidth">
     <!-- 상품이미지 미리보기 시작 { -->
     <div id="sit_pvi">
+        <div id="sit_pvi_video">
+            <a class="play_video" href="<?php echo $video_src; ?>"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/btn_view_runway.jpg"></a>
+            <div class="sit_it_video">
+                <button type="button" class="sit_it_video_close"><i class="ion-close-round"></i></button>
+            </div>
+        </div>
         <div id="sit_pvi_big" class="zoom-gallery">
         <?php
         $big_img_count = 0;
@@ -367,6 +379,35 @@ $(function(){
             }
           
         });
+
+        // 동영상 플레이 스크립트
+        $videoWrap = $('.sit_it_video');
+        $video_frame = <?php echo json_encode($video_frame); ?>;
+        $('.play_video').click(function(e) {
+            e.preventDefault();
+            if(!$(this).hasClass('active')){
+                $(this).addClass('active');
+                $("body, html").animate({
+                    scrollTop: 100
+                }, 600);
+                $videoWrap.fadeIn(400).append($video_frame);
+            }
+        });
+
+        $('.sit_it_video_close').click(function() {
+            close_video();
+            $('.play_video').removeClass('active');
+        });
+
+        function close_video() {
+            $videoWrap.fadeOut(400, function() {
+                $(this).children('iframe').remove();
+                $("body, html").animate({
+                    scrollTop: 0
+                }, 600);
+            });
+        }
+
         $('.color_img').magnificPopup({
             delegate: 'a',
             type: 'image',
