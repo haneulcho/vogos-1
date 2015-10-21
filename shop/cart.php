@@ -19,7 +19,7 @@ if (G5_IS_MOBILE) {
     return;
 }
 
-$g5['title'] = '장바구니';
+$g5['title'] = 'My Cart';
 include_once('./_head.php');
 ?>
 
@@ -28,22 +28,21 @@ include_once('./_head.php');
 
 <div id="sod_bsk">
 
+    <div id="sct_best" class="item best_item">
+        <header class="fullWidth">
+            <h2>MY CART <span class="cart_item_num"></span></h2>
+        </header>
+    </div>
+
     <form name="frmcartlist" id="sod_bsk_list" method="post" action="<?php echo $cart_action_url; ?>">
     <div class="tbl_head01 tbl_wrap">
         <table>
         <thead>
         <tr>
-            <th scope="col">Image</th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Total Quantity</th>
-            <th scope="col">Unit Price</th>
-            <th scope="col">Subtotal</th>
-            <th scope="col">Point</th>
-            <th scope="col">Shipping Cost</th>
-            <th scope="col">
-                <label for="ct_all" class="sound_only">Total Product</label>
-                <input type="checkbox" name="ct_all" value="1" id="ct_all" checked="checked">
-            </th>
+            <th scope="col">ITEM DESCRIPTION</th>
+            <th scope="col">TOTAL QTY</th>
+            <th scope="col">UNIT PRICE</th>
+            <th scope="col">TOTAL PRICE</th>
         </tr>
         </thead>
         <tbody>

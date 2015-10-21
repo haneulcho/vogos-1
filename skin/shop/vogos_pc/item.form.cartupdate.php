@@ -61,10 +61,10 @@ for($i=0; $i<$count; $i++) {
         }
 
         if($it['it_buy_min_qty'] > 0 && $sum_qty < $it['it_buy_min_qty'])
-            die($it['it_name'].'의 선택옵션 개수 총합 '.number_format($it['it_buy_min_qty']).'개 이상 주문해 주십시오.');
+            die('The quantity requested is not available. Please enter a lower quantity.');
 
         if($it['it_buy_max_qty'] > 0 && $sum_qty > $it['it_buy_max_qty'])
-            die($it['it_name'].'의 선택옵션 개수 총합 '.number_format($it['it_buy_max_qty']).'개 이하로 주문해 주십시오.');
+            die('The quantity requested is not available. Please enter a lower quantity.');
 
         // 기존에 장바구니에 담긴 상품이 있는 경우에 최대 구매수량 체크
         if($it['it_buy_max_qty'] > 0) {
@@ -77,7 +77,7 @@ for($i=0; $i<$count; $i++) {
             $row4 = sql_fetch($sql4);
 
             if(($sum_qty + $row4['cnt']) > $it['it_buy_max_qty'])
-                die($it['it_name'].'의 선택옵션 개수 총합 '.number_format($it['it_buy_max_qty']).'개 이하로 주문해 주십시오.');
+                die('The quantity requested is not available. Please enter a lower quantity.');
         }
     }
 
@@ -125,7 +125,7 @@ for($i=0; $i<$count; $i++) {
 
         if ($ct_qty + $sum_qty > $it_stock_qty)
         {
-            die($io_value.' 의 The quantity requested is not available. Please enter a lower quantity.\n\n현재 재고수량 : ' . number_format($it_stock_qty - $sum_qty) . ' 개');
+            die('The quantity requested is not available. Please enter a lower quantity.\n\nIn stock : ' . number_format($it_stock_qty - $sum_qty));
         }
     }
     //--------------------------------------------------------
@@ -166,10 +166,10 @@ for($i=0; $i<$count; $i++) {
         // 구매가격이 음수인지 체크
         if($io_type) {
             if((int)$io_price < 0)
-                die('구매금액이 음수인 상품은 구매할 수 없습니다.');
+                die('Please enter valid number.');
         } else {
             if((int)$it['it_price'] + (int)$io_price < 0)
-                die('구매금액이 음수인 상품은 구매할 수 없습니다.');
+                die('Please enter valid number.');
         }
 
         // 동일옵션의 상품이 있으면 수량 더함
