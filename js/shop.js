@@ -186,7 +186,7 @@ $(function() {
 
                 if(this_qty > max_qty) {
                     this_qty = max_qty;
-                    alert("Please specify a quantity less than "+number_format(String(max_qty))+" 0 in a product.");
+                    alert("Please specify a quantity less than "+number_format(String(max_qty))+" in a product.");
                 }
 
                 $el_qty.val(this_qty);
@@ -197,7 +197,7 @@ $(function() {
                 this_qty = parseInt($el_qty.val().replace(/[^0-9]/, "")) - 1;
                 if(this_qty < min_qty) {
                     this_qty = min_qty;
-                    alert("Please specify a quantity larger than "+number_format(String(min_qty))+" 0 in a product.");
+                    alert("Please specify a quantity larger than "+number_format(String(min_qty))+" in a product.");
                 }
                 $el_qty.val(this_qty);
                 price_calculate();

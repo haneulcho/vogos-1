@@ -99,7 +99,7 @@ include_once('./_head.php');
             $it_name = $a1 . stripslashes($row['it_name']) . $a2;
             $it_options = print_item_options($row['it_id'], $s_cart_id);
             if($it_options) {
-                $mod_options = '<div class="sod_option_btn"><button type="button" class="mod_options">선택사항수정</button></div>';
+                $mod_options = '<div class="sod_option_btn"><button type="button" class="mod_options">CHANGE DETAILS</button></div>';
                 $it_name .= '<div class="sod_opt">'.$it_options.'</div>';
             }
 
@@ -181,7 +181,7 @@ include_once('./_head.php');
     <dl id="sod_bsk_tot">
         <?php if ($send_cost > 0) { // 배송비가 0 보다 크다면 (있다면) ?>
         <dt class="sod_bsk_dvr">Shipping Cost</dt>
-        <dd class="sod_bsk_dvr"><strong><?php echo number_format($send_cost); ?> 원</strong></dd>
+        <dd class="sod_bsk_dvr"><strong>$<?php echo number_format($send_cost); ?> .00</strong></dd>
         <?php } ?>
 
         <?php
@@ -189,7 +189,7 @@ include_once('./_head.php');
         ?>
 
         <dt class="sod_bsk_cnt">Subtotal/Total Point</dt>
-        <dd class="sod_bsk_cnt"><strong><?php echo number_format($tot_price); ?> 원 / <?php echo number_format($tot_point); ?> 점</strong></dd>
+        <dd class="sod_bsk_cnt"><strong>$<?php echo number_format($tot_price); ?> .00 / <?php echo number_format($tot_point); ?> Point</strong></dd>
         <?php } ?>
 
     </dl>
@@ -270,7 +270,7 @@ function form_check(act) {
     if (act == "buy")
     {
         if($("input[name^=ct_chk]:checked").size() < 1) {
-            alert("주문하실 상품을 하나이상 선택해 주십시오.");
+            alert("Please select at least one item.");
             return false;
         }
 
@@ -285,7 +285,7 @@ function form_check(act) {
     else if (act == "seldelete")
     {
         if($("input[name^=ct_chk]:checked").size() < 1) {
-            alert("삭제하실 상품을 하나이상 선택해 주십시오.");
+            alert("Please select at least one item.");
             return false;
         }
 

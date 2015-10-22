@@ -51,6 +51,8 @@ $admin = get_admin("super");
         <div id="ft_copy">
             Copyright &copy; 2015 <?php echo $default['de_admin_company_name']; ?>. All Rights Reserved.
         </div>
+        <p>Business License: 123-88-00091 / Tel: +82(2)070-4255-7799 / help@vogos.com<br>
+            B2 Floor, 31, Teheran-ro 33-gil Gangnam-gu, Seoul, Korea<br></p>
         <div id="ft_pay">
             <img src="<?php echo G5_SHOP_SKIN_URL ?>/img/payment.png">
         </div>
