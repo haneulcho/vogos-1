@@ -91,7 +91,7 @@ a.gnb_1da {display:inline-block;padding:21px 22px 5px;text-overflow: ellipsis;bo
 #sbn_idx ul li.sbn_first{display:block}
 
 /* 베스트 스킨 제작 */
-#sct_best {position:relative;padding:0 0 15px;background:url('img/best_title_bg.png') repeat-x #f3f3f0;}
+#sct_best {position:relative;padding:0 0 25px;background:url('img/best_title_bg.png') repeat-x #f3f3f0;}
 #sct_best header {height:38px;padding:27px 0 0 0;color:#fff;}
 #sct_best header h2 {float:left;margin:0;padding:0;font-size:18px;font-weight:700;}
 #sct_best header h2>span {margin-left:15px;font-size:14px;font-weight:400;}
@@ -101,7 +101,7 @@ a.gnb_1da {display:inline-block;padding:21px 22px 5px;text-overflow: ellipsis;bo
 .owlbest {margin:0 auto;height:350px;}
 .owlbest .item {float:left;}
 .owlbest .item_last:after {display:block;visibility:hidden;clear:both;content:""}
-.owlbest .item .slider_img {position:relative;width:220px;height:300px;overflow:hidden;background-color:#fff;}
+.owlbest .item .slider_img {position:relative;width:222px;height:300px;overflow:hidden;background-color:#fff;}
 .owlbest .item .slider_img a {display:block;overflow:hidden;width:100%;height:100%;}
 .owlbest .item .slider_img a>img {position:absolute;top:0;left:0;}
 .owlbest .item .slider_img .sub {display:none;}
@@ -217,6 +217,7 @@ transition: opacity 300ms ease-out, top 300ms ease-out;
 .sct_list_20:after {display:block;visibility:hidden;clear:both;content:""}
 .sct_list_20 button {border:0;outline:none;}
 .sct_list_20 .sct_li {position:relative;float:left;margin:0 0 51px 14px}
+.sct_list_20>li:nth-child(9), .sct_list_20>li:nth-child(10) {margin-bottom:0;}
 .sct_list_20 .sct_clear {clear:both;margin-left:0;}
 .sct_list_20 .sct_a {display:block;position:relative;text-decoration:none;}
 .sct_list_20 .sct_a:focus, .sct_list_20 .sct_a:hover {text-decoration:none}
@@ -539,7 +540,7 @@ transition: opacity 300ms ease-out, top 300ms ease-out;
 #sct_sortlst:after {display:block;visibility:hidden;clear:both;content:""}
 
 /* 상품 정렬 */
-#sct_sort {position:relative;float:right;margin:0 0 24px;width:80%;zoom:1}
+#sct_sort {position:relative;float:right;margin:0 0 15px;width:80%;zoom:1}
 #sct_sort:after {display:block;visibility:hidden;clear:both;content:""}
 #sct_sort h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 

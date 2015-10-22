@@ -82,7 +82,7 @@ var itemlist_ca_id = "<?php echo $ca_id; ?>";
     if ($sort != "")
         $order_by = $sort.' '.$sortodr.' , it_order, it_id desc';
     else
-        $order_by = 'it_order, it_id desc';
+        $order_by = 'it_update_time desc';
 
     $error = '<p class="sct_noitem">등록된 상품이 없습니다.</p>';
 

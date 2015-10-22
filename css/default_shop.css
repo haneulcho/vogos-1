@@ -166,6 +166,7 @@ background-color:#f3f3f3; color:#a7a7a7;outline:0;font-weight:bold;
 #ft_like .ft_sns a:hover span.ft_sns_pt {background-position:-1px -42px;}
 
 .ft_bottom {overflow:hidden;width:760px;margin-top:4px;padding-top:16px;border-top:1px solid #3f3f40;}
+.ft_bottom p {font-size:11px;font-family:'Lato';font-weight:400;color:#888;}
 #ft_copy{float:left;width:265px;height:33px;margin-right:40px;background-position:-5px -46px;}
 #ft_pay {float:left;margin-top:12px;}
 
@@ -381,7 +382,7 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none}
 .sv_nojs .sv {display:block}
 
 /* 페이징 */
-.pg_wrap {clear:both;margin:0 0 20px;padding:20px 0 0;text-align:center}
+.pg_wrap {clear:both;margin:0 0 35px;padding:20px 0 0;text-align:center}
 .pg {}
 .pg_page, .pg_current, .qa_page {float:left;display:inline-block;width:7px;height:11px;margin:0 0 0 9px;padding:12px 14px 11px;color:#373737;letter-spacing:0;line-height:1;vertical-align:middle;
   background-color: #fff;
