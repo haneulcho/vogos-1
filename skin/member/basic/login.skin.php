@@ -27,7 +27,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     </div>
 
     <section>
-        <h2>Haven't you signed up yet? Join us!</h2>
+        <h2>Haven't signed up yet? Join us!</h2>
         <p>
                 
         </p>
@@ -45,10 +45,10 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         <?php if (preg_match("/orderform.php/", $url)) { ?>
 
     <section id="mb_login_notmb">
-        <h2>Order as a non-member</h2>
+        <h2>Order as a guest.</h2>
 
         <p>
-            You can't accumulate points unless you are a member.
+            Recieve points on purchases when you become a member!
         </p>
 
         <div id="guest_privacy">
@@ -67,7 +67,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         {
             if (document.getElementById('agree')) {
                 if (!document.getElementById('agree').checked) {
-                    alert("You need to agree to our Privacy Policy.");
+                    alert("Please agree to our Privacy Policy before proceeding.");
                     return;
                 }
             }
@@ -82,7 +82,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         <?php } else if (preg_match("/orderinquiry.php$/", $url)) { ?>
 
     <fieldset id="mb_login_od">
-        <legend>View my order as a non-member</legend>
+        <legend>View my order as a guest.</legend>
 
         <form name="forderinquiry" method="post" action="<?php echo urldecode($url); ?>" autocomplete="off">
 
@@ -96,7 +96,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     </fieldset>
 
     <section id="mb_login_odinfo">
-        <h2>View my order as a non-member</h2>
+        <h2>View order as a guest.</h2>
         <p>Please verify your password.</p>
     </section>
 

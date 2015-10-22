@@ -23,11 +23,11 @@ if ($w == "") {
     referer_check();
 
     if (!isset($_POST['agree']) || !$_POST['agree']) {
-        alert('You may able to sign up after you agree to our Terms and Conditions.', G5_BBS_URL.'/register.php');
+        alert('Please agree to our Term and Conditions to complete sign up process.', G5_BBS_URL.'/register.php');
     }
 
     if (!isset($_POST['agree2']) || !$_POST['agree2']) {
-        alert('You may able to sign up after you agree to our Privacy Policy.', G5_BBS_URL.'/register.php');
+        alert('Please agree to our Privacy Policy to enable sign in.', G5_BBS_URL.'/register.php');
     }
 
     $member['mb_birth'] = '';

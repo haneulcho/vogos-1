@@ -21,5 +21,5 @@ unset($_SESSION['ss_mb_id']);
 if (!$url)
     $url = G5_URL;
 
-alert('This ID is not valid anymore.', $url);
+alert('Invalid ID', $url);
 ?>

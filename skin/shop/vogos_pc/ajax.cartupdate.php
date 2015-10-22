@@ -24,7 +24,7 @@ if (!$tmp_cart_id)
 // 레벨(권한)이 상품구입 권한보다 작다면 상품을 구입할 수 없음.
 if ($member['mb_level'] < $default['de_level_sell'])
 {
-    die(json_encode(array('error' => 'You are not authorized. Sorry!')));
+    die(json_encode(array('error' => 'Sorry! You are not authorized.')));
 }
 
 $count = count($_POST['it_id']);

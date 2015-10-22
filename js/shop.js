@@ -204,7 +204,7 @@ $(function() {
                 break;
 
             case "삭제":
-                if(confirm("Will you delete the items you selected?")) {
+                if(confirm("Delete selected items.")) {
                     var $el = $(this).closest("li");
                     var del_exec = true;
 
@@ -243,7 +243,7 @@ $(function() {
             } else {
                 var d_val = parseInt(val);
                 if(d_val < 1 || d_val > 9999) {
-                    alert("Please specify a quantity larger than 0 in a product before pressing the 'Add To Cart' button.");
+                    alert("Please specify a quantity to enable the 'Add To Shopping Bag' button.");
                     $(this).val(1);
                 } else {
                     var stock = parseInt($(this).closest("li").find("input.io_stock").val());

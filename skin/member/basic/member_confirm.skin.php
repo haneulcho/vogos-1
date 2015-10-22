@@ -10,11 +10,11 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     <h1><?php echo $g5['title'] ?></h1>
 
     <p>
-        <strong>Please verify your password once again.</strong>
+        <strong>Please verify your password.</strong>
         <?php if ($url == 'member_leave.php') { ?>
-        Your account information will be deleted completely once you.
+        Your account will be deactivated.
         <?php }else{ ?>
-        Please verify your password once again.
+        Please verify your password.
         <?php }  ?>
     </p>
 

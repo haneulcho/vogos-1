@@ -26,12 +26,12 @@ if (!$tmp_cart_id)
 // 레벨(권한)이 상품구입 권한보다 작다면 상품을 구입할 수 없음.
 if ($member['mb_level'] < $default['de_level_sell'])
 {
-    die('You are not authorized. Sorry!');
+    die('Sorry! You are not authorized.');
 }
 
 $count = count($_POST['it_id']);
 if ($count < 1)
-    die('Please select item to add your cart.');
+    die('Please select items to remove from your cart.');
 
 $ct_count = 0;
 for($i=0; $i<$count; $i++) {
@@ -43,7 +43,7 @@ for($i=0; $i<$count; $i++) {
 
     for($k=0; $k<$opt_count; $k++) {
         if ($_POST['ct_qty'][$it_id][$k] < 1)
-            die('Please specify a quantity larger than 0 in a product.');
+            die('Please specify a quantity to enable the "Add To Shopping Bag" button.');
     }
 
     // 상품정보

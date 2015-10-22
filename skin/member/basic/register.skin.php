@@ -29,7 +29,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     </section>
 
     <div class="btn_confirm">
-        <p>You can join us after you agree to our Terms and Conditions.</p>
+        <p>Please agree to our Term and Conditions to complete sign up process.</p>
         <input type="submit" class="btn_submit" value="Sign Up">
     </div>
 
@@ -39,13 +39,13 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     function fregister_submit(f)
     {
         if (!f.agree.checked) {
-            alert("You may able to sign up after you agree to our Terms and Conditions.");
+            alert("Please agree to our Term and Conditions to complete sign up process.");
             f.agree.focus();
             return false;
         }
 
         if (!f.agree2.checked) {
-            alert("You may able to sign up after you agree to our Privacy Policy.");
+            alert("Please agree to our Privacy Policy to enable sign in.");
             f.agree2.focus();
             return false;
         }

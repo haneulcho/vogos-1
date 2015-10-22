@@ -24,7 +24,7 @@ if (!$tmp_cart_id)
 // 레벨(권한)이 상품구입 권한보다 작다면 상품을 구입할 수 없음.
 if ($member['mb_level'] < $default['de_level_sell'])
 {
-    alert('You are not authorized. Sorry!');
+    alert('Sorry! You are not authorized.');
 }
 
 if($act == "buy")
@@ -70,7 +70,7 @@ if($act == "buy")
                     if($row['io_id'])
                         $item_option .= '('.$row['ct_option'].')';
 
-                    alert($item_option." 의 재고수량이 부족합니다.\\n\\n현재 재고수량 : " . number_format($it_stock_qty - $sum_qty) . " 개");
+                    alert("The quantity requested is not available. Please enter a lower quantity.\n\nIn stock : " . number_format($it_stock_qty - $sum_qty));
                 }
             }
 
@@ -97,7 +97,7 @@ else if ($act == "alldelete") // 모두 삭제이면
 else if ($act == "seldelete") // 선택삭제
 {
     if(!count($_POST['ct_chk']))
-        alert("삭제하실 상품을 하나이상 선택해 주십시오.");
+        alert("Please select item to remove your cart.");
 
     $fldcnt = count($_POST['it_id']);
     for($i=0; $i<$fldcnt; $i++) {
@@ -113,7 +113,7 @@ else // 장바구니에 담기
 {
     $count = count($_POST['it_id']);
     if ($count < 1)
-        alert('장바구니에 담을 상품을 선택하여 주십시오.');
+        alert('Please add your selected items to your cart.');
 
     $ct_count = 0;
     for($i=0; $i<$count; $i++) {
@@ -125,11 +125,11 @@ else // 장바구니에 담기
         $opt_count = count($_POST['io_id'][$it_id]);
 
         if($opt_count && $_POST['io_type'][$it_id][0] != 0)
-            alert('상품의 선택옵션을 선택해 주십시오.');
+            alert('Please select an option.');
 
         for($k=0; $k<$opt_count; $k++) {
             if ($_POST['ct_qty'][$it_id][$k] < 1)
-                alert('수량은 1 이상 입력해 주십시오.');
+                alert('Please select at least one item.');
         }
 
         // 상품정보

@@ -533,7 +533,7 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
 
         // 전액 포인트 결제
         $multi_settle++;
-            echo '<input type="radio" id="od_settle_vpoint" name="od_settle_case" value="전액포인트" '.$checked.'> <label for="od_settle_vpoint">Use My Point</label>'.PHP_EOL;
+            echo '<input type="radio" id="od_settle_vpoint" name="od_settle_case" value="전액포인트" '.$checked.'> <label for="od_settle_vpoint">Yes, I want to redeem my reward points</label>'.PHP_EOL;
             $checked = '';
 
         // 신용카드 사용
@@ -901,19 +901,19 @@ function forderform_check(f)
             temp_point = parseInt(f.od_temp_point.value);
 
             if (temp_point < 0) {
-                alert("Please enter your point at least 1000.");
+                alert("Redeem minimum 1,000 points.");
                 f.od_temp_point.select();
                 return false;
             }
 
             if (temp_point > od_price) {
-                alert("Invalid points. Please check your point again.");
+                alert("Invalid number. Please input valid number.");
                 f.od_temp_point.select();
                 return false;
             }
 
             if (temp_point > <?php echo (int)$member['mb_point']; ?>) {
-                alert("Invalid points. Please check your point again.");
+                alert("Invalid number. Please input valid number.");
                 f.od_temp_point.select();
                 return false;
             }
@@ -926,24 +926,24 @@ function forderform_check(f)
 
             if (temp_point == od_price) {
                 if(temp_point < 50000 && document.getElementById("od_settle_vpoint").checked) {
-                    alert("Free shipping when 80$+ left in your account.");
+                    alert("Free shipping on orders over 80$");
                     document.getElementById("od_settle_card").focus();
                     return false;
                 } else if (document.getElementById("od_settle_vbank").checked || document.getElementById("od_settle_card").checked || document.getElementById("od_settle_hp").checked) {
-                    alert("Your total order sould be abouve 1$.");
+                    alert("Your total order should be above 1$.");
                     document.getElementById("od_settle_vpoint").focus();
                     return false;
                 }
             }
 
             if (temp_point > max_point) {
-                alert("Unable to use points over " + max_point);
+                alert("Please redeem your points up to " + max_point);
                 f.od_temp_point.select();
                 return false;
             }
 
             if (parseInt(parseInt(temp_point / point_unit) * point_unit) != temp_point) {
-                alert("Number should be by "+String(point_unit)+" dollars.");
+                alert("Reward points can be redeemed to any value in multiples of "+String(point_unit));
                 f.od_temp_point.select();
                 return false;
             }

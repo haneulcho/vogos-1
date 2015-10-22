@@ -22,7 +22,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         </span>
         <p style="margin:20px 0 0;padding:30px 30px 50px;min-height:200px;height:auto !important;height:200px;border-bottom:1px solid #eee">
             <b><?php echo $mb_name ?></b>, Thank you for joining Vogos.com!<br>
-            We will do our best to fill your wardrobe with personality!<br>
+            We look forward to being the first stop for all your style needs!<br>
         </p>
 
         <?php if ($config['cf_use_email_certify']) { ?>
