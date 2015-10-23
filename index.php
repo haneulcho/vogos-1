@@ -1,33 +1,28 @@
-<!doctype html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="imagetoolbar" content="no">
-<meta http-equiv="X-UA-Compatible" content="IE=10,chrome=1">
-<title>VOGOS</title>
-<link rel="stylesheet" href="http://vogos.com/css/common.css">
-<!--[if lte IE 8]>
-<script src="http://vogos.com/js/html5.js"></script>
-<![endif]-->
-<script>
-// 자바스크립트에서 사용하는 전역변수 선언
-var g5_url       = "http://vogos.com";
-var g5_bbs_url   = "http://vogos.com/bbs";
-var g5_is_member = "1";
-var g5_is_admin  = "super";
-var g5_is_mobile = "";
-var g5_bo_table  = "";
-var g5_sca       = "";
-var g5_editor    = "";
-var g5_cookie_domain = "";
-var g5_admin_url = "http://vogos.com/adm";
-</script>
-</head>
-<body>
-<div id="wrapper">
-    <div class="coming">
-        <img src="comingsoon.png">
-    </div>
-</div>
-</body>
-</html>
+<?php
+define('_INDEX_', true);
+include_once('./_common.php');
+
+// 초기화면 파일 경로 지정 : 이 코드는 가능한 삭제하지 마십시오.
+if ($config['cf_include_index'] && is_file(G5_PATH.'/'.$config['cf_include_index'])) {
+    include_once(G5_PATH.'/'.$config['cf_include_index']);
+    return; // 이 코드의 아래는 실행을 하지 않습니다.
+}
+
+// 루트 index를 쇼핑몰 index 설정했을 때
+if(isset($default['de_root_index_use']) && $default['de_root_index_use']) {
+    require_once(G5_SHOP_PATH.'/index.php');
+    return;
+}
+
+if (G5_IS_MOBILE) {
+    include_once(G5_MOBILE_PATH.'/index.php');
+    return;
+}
+
+include_once('./_head.php');
+?>
+
+
+<?php
+include_once('./_tail.php');
+?>
