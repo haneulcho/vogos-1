@@ -120,9 +120,12 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 <select name="sfl" id="sfl">
     <option value="it_name" <?php echo get_selected($sfl, 'it_name'); ?>>상품명</option>
     <option value="it_id" <?php echo get_selected($sfl, 'it_id'); ?>>상품코드</option>
-    <option value="it_maker" <?php echo get_selected($sfl, 'it_maker'); ?>>제조사</option>
-    <option value="it_origin" <?php echo get_selected($sfl, 'it_origin'); ?>>원산지</option>
-    <option value="it_sell_email" <?php echo get_selected($sfl, 'it_sell_email'); ?>>판매자 e-mail</option>
+    <option value="it_place_ddm" <?php echo get_selected($sfl, 'it_place_ddm'); ?>>사입처</option>
+    <option value="it_name_ddm" <?php echo get_selected($sfl, 'it_name_ddm'); ?>>사입상품명</option>
+    <!--
+    <option value="it_maker" <?php //echo get_selected($sfl, 'it_maker'); ?>>제조사</option>
+    <option value="it_origin" <?php //echo get_selected($sfl, 'it_origin'); ?>>원산지</option>
+    <option value="it_sell_email" <?php //echo get_selected($sfl, 'it_sell_email'); ?>>판매자 e-mail</option> -->
 </select>
 
 <label for="stx" class="sound_only">검색어</label>

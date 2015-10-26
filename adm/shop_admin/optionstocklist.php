@@ -42,6 +42,9 @@ $sql  = " select a.it_id,
                  a.io_noti_qty,
                  a.io_use,
                  b.it_name,
+                 b.it_price_ddm,
+                 b.it_place_ddm,
+                 b.it_name_ddm,
                  b.it_option_subject
            $sql_common
           order by $sort1 $sort2
@@ -84,6 +87,8 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 <select name="sel_field" id="sel_field">
     <option value="it_name" <?php echo get_selected($sel_field, 'b.it_name'); ?>>상품명</option>
     <option value="a.it_id" <?php echo get_selected($sel_field, 'a.it_id'); ?>>상품코드</option>
+    <option value="b.it_place_ddm" <?php echo get_selected($sel_field, 'b.it_place_ddm'); ?>>사입처</option>
+    <option value="b.it_name_ddm" <?php echo get_selected($sel_field, 'b.it_name_ddm'); ?>>사입상품명</option>
 </select>
 
 <label for="search" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
@@ -176,7 +181,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
             <input type="hidden" name="io_id[<?php echo $i; ?>]" value="<?php echo $row['io_id']; ?>">
             <input type="hidden" name="io_type[<?php echo $i; ?>]" value="<?php echo $row['io_type']; ?>">
-            <a href="<?php echo $href; ?>"><?php echo get_it_image($row['it_id'], 50, 50); ?> <?php echo cut_str(stripslashes($row['it_name']), 60, "&#133"); ?></a>
+            <a href="<?php echo $href; ?>"><?php echo get_it_image($row['it_id'], 50, 50); ?> <?php echo cut_str(stripslashes($row['it_name']), 60, "&#133"); ?> - <?php echo $row['it_place_ddm'].' / '.$row['it_name_ddm'].' / '.$row['it_price_ddm']; ?></a>
         </td>
         <td class="td_itopt"><?php echo $option; ?></td>
         <td class="td_mng"><?php echo $type; ?></td>
