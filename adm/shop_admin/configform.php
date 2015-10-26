@@ -321,12 +321,17 @@ if(!isset($default['de_mobile_search_list_row'])) {
     <div class="local_desc02 local_desc">
         <p>
             상품관리에서 선택한 상품의 타입대로 쇼핑몰 초기화면에 출력합니다. (상품 타입 히트/추천/최신/인기/할인)<br>
-            각 타입별로 선택된 상품이 없으면 쇼핑몰 초기화면에 출력하지 않습니다.
+            각 타입별로 선택된 상품이 없으면 쇼핑몰 초기화면에 출력하지 않습니다.<br><br>
+            <b>유형1: 아직 사용 X</b><br>
+            <b>유형2: 인덱스 Runway</b><br>
+            <b>유형3: 인덱스 New Arrivals 5개</b><br>
+            <b>유형4: 리스트 좌측 스팟</b><br>
+            <b>유형5: 할인</b>
         <br><br>
             <span style="color:#ff0000;font-weight:bold;">
             main.10.skin - 일반 상품리스트<br>
-            main.20.skin - VOGOS BESTSELLER 슬라이더<br>
-            main.30.skin - MODEL's CHOICE 슬라이더
+            main.20.skin - 인덱스 New Arrivals<br>
+            main.30.skin - 인덱스 Runway
             </span>            
         </p>
     </div>
@@ -353,7 +358,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-           <th scope="row">VOGOS CLIP 출력</th>
+           <th scope="row">유형1: 아직 사용 X 출력</th>
             <td>
                 <label for="de_type1_list_use">출력</label>
                 <input type="checkbox" name="de_type1_list_use" value="1" id="de_type1_list_use" <?php echo $default['de_type1_list_use']?"checked":""; ?>>
@@ -372,7 +377,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">MODEL's CHOICE 출력</th>
+            <th scope="row">유형2: 인덱스 Runway 출력</th>
             <td>
                 <label for="de_type2_list_use">출력</label>
                 <input type="checkbox" name="de_type2_list_use" value="1" id="de_type2_list_use" <?php echo $default['de_type2_list_use']?"checked":""; ?>>
@@ -391,7 +396,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">NEW ARRIVALS 출력</th>
+            <th scope="row">유형3: 인덱스 New Arrivals 5개 출력</th>
             <td>
                 <label for="de_type3_list_use">출력</label>
                 <input type="checkbox" name="de_type3_list_use" value="1" id="de_type3_list_use" <?php echo $default['de_type3_list_use']?"checked":""; ?>>
@@ -410,7 +415,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">VOGOS BESTSELLER 출력</th>
+            <th scope="row">유형4: 리스트 좌측 스팟 출력</th>
             <td>
                 <label for="de_type4_list_use">출력</label>
                 <input type="checkbox" name="de_type4_list_use" value="1" id="de_type4_list_use" <?php echo $default['de_type4_list_use']?"checked":""; ?>>
@@ -429,7 +434,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">할인상품출력</th>
+            <th scope="row">유형5: 할인 UP TO 7% OFF 출력</th>
             <td>
                 <label for="de_type5_list_use">출력</label>
                 <input type="checkbox" name="de_type5_list_use" value="1" id="de_type5_list_use" <?php echo $default['de_type5_list_use']?"checked":""; ?>>
@@ -473,7 +478,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row">VOGOS CLIP 출력</th>
+            <th scope="row">유형1: 아직 사용 X 출력</th>
             <td>
                 <label for="de_mobile_type1_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type1_list_use" value="1" id="de_mobile_type1_list_use" <?php echo $default['de_mobile_type1_list_use']?"checked":""; ?>>
@@ -492,7 +497,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">MODEL's CHOICE 출력</th>
+            <th scope="row">유형2: 인덱스 Runway 출력</th>
             <td>
                 <label for="de_mobile_type2_list_use">출력</label> <input type="checkbox" name="de_mobile_type2_list_use" value="1" id="de_mobile_type2_list_use" <?php echo $default['de_mobile_type2_list_use']?"checked":""; ?>>
                 <label for="de_mobile_type2_list_skin">스킨 </label>
@@ -510,7 +515,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">NEW ARRIVALS 출력</th>
+            <th scope="row">유형3: 인덱스 New Arrivals 5개 출력</th>
             <td>
                 <label for="de_mobile_type3_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type3_list_use" value="1" id="de_mobile_type3_list_use" <?php echo $default['de_mobile_type3_list_use']?"checked":""; ?>>
@@ -529,7 +534,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">VOGOS BESTSELLER 출력</th>
+            <th scope="row">유형4: 리스트 좌측 스팟 출력</th>
             <td>
                 <label for="de_mobile_type4_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type4_list_use" value="1" id="de_mobile_type4_list_use" <?php echo $default['de_mobile_type4_list_use']?"checked":""; ?>>
@@ -548,7 +553,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">할인상품출력</th>
+            <th scope="row">유형5: 할인 UP TO 7% OFF 출력</th>
             <td>
                 <label for="de_mobile_type5_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type5_list_use" value="1" id="de_mobile_type5_list_use" <?php echo $default['de_mobile_type5_list_use']?"checked":""; ?>>

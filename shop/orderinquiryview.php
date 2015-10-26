@@ -29,6 +29,17 @@ $settle_case = $od['od_settle_case'];
 $g5['title'] = '주문상세내역';
 include_once('./_head.php');
 
+// 로그분석기 시작
+if($_SESSION['ord_num'] != $od_id) {
+    $http_SO = "payend";  //결제완료페이지
+    $http_OD = $od_id;    //주문번호
+} else {
+    $http_OD = '';
+}
+$_SESSION['ord_num'] = $od_id;
+// 로그분석기 끝
+
+
 // LG 현금영수증 JS
 if($od['od_pg'] == 'lg') {
     if($default['de_card_test']) {
@@ -681,6 +692,14 @@ if($od['od_pg'] == 'lg') {
 
 </div>
 <!-- } 주문상세내역 끝 -->
+
+<!-- 네이버 프리미엄로그분석 전환페이지 설정_ 구매완료 -->
+ <script type="text/javascript" src="http://wcs.naver.net/wcslog.js"> </script> 
+ <script type="text/javascript">
+var $interValue = "<?php echo $tot_price; ?>";
+var _nasa={};
+ _nasa["cnv"] = wcs.cnv("1",$interValue);
+</script>
 
 <script>
 $(function() {

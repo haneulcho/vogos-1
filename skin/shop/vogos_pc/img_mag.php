@@ -32,7 +32,7 @@ for($i=1; $i<=10; $i++) {
         // 큰 이미지의 width, height를 가져옴
         $size = getimagesize(G5_DATA_PATH.'/item/'.$it['it_img1']);
 
-        $thumb = get_it_thumbnail($it['it_img'.$i], 60, 84);
+        $thumb = get_it_thumbnail($it['it_img'.$i], 80, 112);
         $thumbnails[] = $thumb;
         $big_img_count++;
 

@@ -11,8 +11,7 @@ $bn_first_class = ' class="sbn_first"';
 
 for ($i=0; $row=sql_fetch_array($result); $i++)
 {
-    if ($i==0) echo '<section id="sbn_idx" class="sbn">'.PHP_EOL.'<h2>쇼핑몰 배너</h2>'.PHP_EOL.'<ul>'.PHP_EOL;
-    //print_r2($row);
+    if ($i==0) echo '<aside class="sbn"><h2>쇼핑몰 배너</h2><ul>'.PHP_EOL;
     // 테두리 있는지
     $bn_border  = ($row['bn_border']) ? ' class="sbn_border"' : '';;
     // 새창 띄우기인지
@@ -37,9 +36,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         if ($row['bn_url'][0] == '#')
             $banner .= '<a href="'.$row['bn_url'].'">';
         else if ($row['bn_url'] && $row['bn_url'] != 'http://') {
-            $banner .= '<a href="'.G5_SHOP_URL.'/bannerhit.php?bn_id='.$row['bn_id'].'&amp;url='.urlencode($row['bn_url']).'"'.$bn_new_win.'>';
+            $banner .= '<a style="background:url('.G5_DATA_URL.'/banner/'.$row['bn_id'].') center top no-repeat;display:block;margin:0 auto;min-width:1100px;height:501px;text-indent:-9999px;font-size:0;" href="'.G5_SHOP_URL.'/bannerhit.php?bn_id='.$row['bn_id'].'&amp;url='.urlencode($row['bn_url']).'"'.$bn_new_win.'>';
         }
-        echo $banner.'<img src="'.G5_DATA_URL.'/banner/'.$row['bn_id'].'" width="'.$size[0].'" alt="'.$row['bn_alt'].'"'.$bn_border.'>';
+        echo $banner.$row['bn_alt'];
+        //echo $banner.'<img src="'.G5_DATA_URL.'/banner/'.$row['bn_id'].'" width="'.$size[0].'" alt="'.$row['bn_alt'].'"'.$bn_border.'>';
         if($banner)
             echo '</a>'.PHP_EOL;
         echo '</li>'.PHP_EOL;

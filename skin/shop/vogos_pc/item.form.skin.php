@@ -3,170 +3,138 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0);
+add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/magnific-popup.css">', 0);
+add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"></script>', 10);
+add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.magnific-popup.min.js"></script>', 0);
 ?>
 
 <form name="fitem" method="post" action="<?php echo $action_url; ?>" onsubmit="return fitem_submit(this);">
 <input type="hidden" name="it_id[]" value="<?php echo $it_id; ?>">
 <input type="hidden" name="sw_direct">
 <input type="hidden" name="url">
-<div id="sit_ov_wrap">
-    <!-- 다른 상품 보기 시작 { -->
-    <div id="sit_siblings">
+
+<div id="sit_ov_title">
+    <div class="fullWidth">
+        <div class="sit_left">
+            <?php
+            if ($prev_href || $next_href) {
+                echo $prev_href.$prev_title.$prev_href2;
+            }
+            ?>
+        </div>
+        <div class="sit_title">
+            <h2><?php echo stripslashes($it['it_name']); ?>
+            <?php
+                if ($is_admin) {
+                    echo '<span class="sit_admin"><a href="'.G5_ADMIN_URL.'/shop_admin/itemform.php?w=u&amp;it_id='.$it_id.'" class="btn_admin" target="_blank">상품 관리</a></span>';
+                }
+            ?>
+            </h2>
+        </div>
+
+        <div class="sit_right">
+            <?php
+            if ($prev_href || $next_href) {
+                echo $next_href.$next_title.$next_href2;
+            }
+            ?>
+        </div>
+    </div>
+</div>
+
+<?php
+$video_src = 'https://player.vimeo.com/video/'.$it['it_1'].'?autoplay=1&loop=1&color=333333&title=0&byline=0&portrait=0';
+
+$video_frame = "<iframe src=\"".$video_src."\" width=\"330\" height=\"590\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
+?>
+
+<section id="sit_ov_bg">
+<div id="sit_ov_wrap" class="fullWidth">
+    <!-- 상품이미지 미리보기 시작 { -->
+    <div id="sit_pvi">
+        <?php if(!empty($it['it_1'])) { ?>
+            <div id="sit_pvi_video">
+                <a class="play_video" href="<?php echo $video_src; ?>"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/btn_view_runway.jpg"></a>
+                <div class="sit_it_video">
+                    <button type="button" class="sit_it_video_close"><i class="ion-close-round"></i></button>
+                </div>
+            </div>
+        <?php } ?>
+        <div id="sit_pvi_big" class="zoom-gallery">
         <?php
-        if ($prev_href || $next_href) {
-            echo $prev_href.$prev_title.$prev_href2;
-            echo $next_href.$next_title.$next_href2;
-        } else {
-            echo '<span class="sound_only">이 분류에 등록된 다른 상품이 없습니다.</span>';
+        $big_img_count = 0;
+        $thumbnails = array();
+        for($i=1; $i<=6; $i++) {
+            if(!$it['it_img'.$i])
+                continue;
+            if($i == 1) {
+                $img = get_it_thumbnail($it['it_img'.$i], 450, 1170);
+            } else {
+                $img = get_it_thumbnail($it['it_img'.$i], $default['de_simg_width'], $default['de_simg_height']);
+            }
+
+            if($img) {
+                // 썸네일
+                $thumb = get_it_thumbnail($it['it_img'.$i], 70, 95);
+                $thumbnails[] = $thumb;
+                $big_img_count++;
+
+                echo '<a href="'.G5_DATA_URL.'/item/'.$it['it_img'.$i].'" target="_blank" title="'.$it['it_name'].'">'.$img.'</a>';
+            }
+        }
+
+        if($big_img_count == 0) {
+            echo '<img src="'.G5_SHOP_URL.'/img/no_image.gif" alt="">';
+        }
+        ?>
+        </div>
+        <?php
+        // 썸네일
+        $thumb1 = true;
+        $thumb_count = 0;
+        $total_count = count($thumbnails);
+        if($total_count > 0) {
+            echo '<ul id="sit_pvi_thumb">';
+            foreach($thumbnails as $val) {
+                $thumb_count++;
+                $sit_pvi_last ='';
+                if ($thumb_count % 5 == 0) $sit_pvi_last = 'class="li_last"';
+                    echo '<li '.$sit_pvi_last.'>';
+                    echo '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$thumb_count.'" target="_blank" class="popup_item_image img_thumb">'.$val.'<span class="sound_only"> '.$thumb_count.'번째 이미지 새창</span></a>';
+                    echo '</li>';
+            }
+            echo '</ul>';
         }
         ?>
     </div>
-    <!-- } 다른 상품 보기 끝 -->
-    <!-- 상품이미지 미리보기 시작 { -->
-    <?php include_once(G5_SHOP_SKIN_PATH.'/img_mag.php'); ?>
     <!-- } 상품이미지 미리보기 끝 -->
 
     <!-- 상품 요약정보 및 구매 시작 { -->
     <section id="sit_ov">
-        <h2 id="sit_title"><?php echo stripslashes($it['it_name']); ?> <span class="sound_only">요약정보 및 구매</span></h2>
-        <p id="sit_desc"><?php echo $it['it_basic']; ?></p>
-        <?php if($is_orderable) { ?>
-        <p id="sit_opt_info">
-            상품 선택옵션 <?php echo $option_count; ?> 개, 추가옵션 <?php echo $supply_count; ?> 개
-        </p>
-        <?php } ?>
-        <div id="sit_star_sns">
-            <?php echo $sns_share_links; ?>
-        </div>
-        <table class="sit_ov_tbl">
-        <colgroup>
-            <col class="grid_3">
-            <col>
-        </colgroup>
-        <tbody>
-        <?php if ($it['it_maker']) { ?>
-        <tr>
-            <th scope="row">제조사</th>
-            <td><?php echo $it['it_maker']; ?></td>
-        </tr>
-        <?php } ?>
-
-        <?php if ($it['it_origin']) { ?>
-        <tr>
-            <th scope="row">원산지</th>
-            <td><?php echo $it['it_origin']; ?></td>
-        </tr>
-        <?php } ?>
-
-        <?php if ($it['it_brand']) { ?>
-        <tr>
-            <th scope="row">브랜드</th>
-            <td><?php echo $it['it_brand']; ?></td>
-        </tr>
-        <?php } ?>
-
-        <?php if ($it['it_model']) { ?>
-        <tr>
-            <th scope="row">모델</th>
-            <td><?php echo $it['it_model']; ?></td>
-        </tr>
-        <?php } ?>
-
-        <?php if (!$it['it_use']) { // 판매가능이 아닐 경우 ?>
-        <tr>
-            <th scope="row">판매가격</th>
-            <td>판매중지</td>
-        </tr>
-        <?php } else if ($it['it_tel_inq']) { // 전화문의일 경우 ?>
-        <tr>
-            <th scope="row">판매가격</th>
-            <td>전화문의</td>
-        </tr>
-        <?php } else { // 전화문의가 아닐 경우?>
-        <?php if ($it['it_cust_price']) { ?>
-        <tr>
-            <th scope="row">시중가격</th>
-            <td><?php echo display_price($it['it_cust_price']); ?></td>
-        </tr>
-        <?php } // 시중가격 끝 ?>
-
-        <tr>
-            <th scope="row">판매가격</th>
-            <td>
-                <?php echo display_price(get_price($it)); ?>
-                <input type="hidden" id="it_price" value="<?php echo get_price($it); ?>">
-            </td>
-        </tr>
-        <?php } ?>
-
-        <?php
-        /* 재고 표시하는 경우 주석 해제
-        <tr>
-            <th scope="row">재고수량</th>
-            <td><?php echo number_format(get_it_stock_qty($it_id)); ?> 개</td>
-        </tr>
-        */
-        ?>
-
-        <?php if ($config['cf_use_point']) { // 포인트 사용한다면 ?>
-        <tr>
-            <th scope="row">포인트</th>
-            <td>
-                <?php
-                if($it['it_point_type'] == 2) {
-                    echo '구매금액(추가옵션 제외)의 '.$it['it_point'].'%';
-                } else {
-                    $it_point = get_item_point($it);
-                    echo number_format($it_point).'점';
+        <div class="sit_it_basic">
+            <p><?php echo $it['it_basic']; ?></p>
+            <?php
+                if(!empty($it['it_img11'])) {
+                    $color_img = get_it_thumbnail($it['it_img11'], 70, 95);
+                    echo '<div class="color_img">';
+                    echo '<a href="'.G5_DATA_URL.'/item/'.$it['it_img11'].'" target="_blank" title="'.$it['it_name'].'">'.$color_img.'</a>';
+                    echo '</div>';
                 }
-                ?>
-            </td>
-        </tr>
-        <?php } ?>
-        <?php
-        $ct_send_cost_label = '배송비결제';
-
-        if($it['it_sc_type'] == 1)
-            $sc_method = '무료배송';
-        else {
-            if($it['it_sc_method'] == 1)
-                $sc_method = '수령후 지불';
-            else if($it['it_sc_method'] == 2) {
-                $ct_send_cost_label = '<label for="ct_send_cost">배송비결제</label>';
-                $sc_method = '<select name="ct_send_cost" id="ct_send_cost">
-                                  <option value="0">주문시 결제</option>
-                                  <option value="1">수령후 지불</option>
-                              </select>';
-            }
-            else
-                $sc_method = '주문시 결제';
-        }
-        ?>
-        <tr>
-            <th><?php echo $ct_send_cost_label; ?></th>
-            <td><?php echo $sc_method; ?></td>
-        </tr>
-        <?php if($it['it_buy_min_qty']) { ?>
-        <tr>
-            <th>최소구매수량</th>
-            <td><?php echo number_format($it['it_buy_min_qty']); ?> 개</td>
-        </tr>
-        <?php } ?>
-        <?php if($it['it_buy_max_qty']) { ?>
-        <tr>
-            <th>최대구매수량</th>
-            <td><?php echo number_format($it['it_buy_max_qty']); ?> 개</td>
-        </tr>
-        <?php } ?>
-        </tbody>
-        </table>
+            ?>
+        </div>
 
         <?php
         if($option_item) {
         ?>
         <!-- 선택옵션 시작 { -->
-        <section>
-            <h3>선택옵션</h3>
+        <?php
+            if(!empty($it['it_img11'])) {
+                echo '<section style="min-height:70px;">';
+            } else {
+                echo '<section>';
+            }
+        ?>
+            <h3 class="sound_only">Select Options</h3>
             <table class="sit_ov_tbl">
             <colgroup>
                 <col class="grid_3">
@@ -242,12 +210,37 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
         </section>
         <!-- } 선택된 옵션 끝 -->
 
+        <div id="sit_ov_total">
+            <?php if($is_orderable) { ?>
+            <p id="sit_opt_info">
+                Item Options: <?php echo $option_count; ?>, More Options: <?php echo $supply_count; ?>
+            </p>
+            <?php } ?>
+
+            <h3 id="sit_title"><?php echo stripslashes($it['it_name']); ?> <span class="sound_only">Item Information &amp; Form</span></h3>
+
+            <?php if (!$it['it_use']) { // 판매가능이 아닐 경우 ?>
+            This Product is currently unavailable.
+            <?php } // 시중가격 끝 ?>
+            <div class="sit_ov_unit">
+                <span class="price_unit">UNIT PRICE</span>
+                <span class="price_unit_num"><?php echo display_price(get_price($it)); ?></span>
+            </div>
+            <div class="sit_ov_total">
+                <span class="price_total">SUBTOTAL</span>
+                <input type="hidden" id="it_price" value="<?php echo get_price($it); ?>">
+                <div id="sit_tot_price" class="price_total_num">
+                    <?php echo display_price(get_price($it)); ?>
+                </div>
+            </div>
+        </div> <!-- sit_ov_total END -->
+
+
         <!-- 총 구매액 -->
-        <div id="sit_tot_price"></div>
         <?php } ?>
 
         <?php if($is_soldout) { ?>
-        <p id="sit_ov_soldout">상품의 재고가 부족하여 구매할 수 없습니다.</p>
+        <p id="sit_ov_soldout">Out of Stock. Please select other items.</p>
         <?php } ?>
 
         <div id="sit_ov_btn">
@@ -255,63 +248,16 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
             <input type="submit" onclick="document.pressed=this.value;" value="ADD TO CART" id="sit_btn_cart">
             <input type="submit" onclick="document.pressed=this.value;" value="BUY NOW" id="sit_btn_buy">
             <?php } ?>
-            <?php if(!$is_orderable && $it['it_soldout'] && $it['it_stock_sms']) { ?>
-            <a href="javascript:popup_stocksms('<?php echo $it['it_id']; ?>');" id="sit_btn_buy">재입고알림</a>
-            <?php } ?>
-            <!-- <a href="javascript:item_wish('<?php //echo $it['it_id']; ?>');" id="sit_btn_wish">Wish ♥</a> -->
-            <!-- <a href="javascript:popup_item_recommend('<?php //echo $it['it_id']; ?>');" id="sit_btn_rec">추천하기</a>-->
         </div>
 
         <script>
-        // 상품보관 위시리스트 ajax 처리를 위해 추가된 부분
-        function item_wish(it_id)
+        // 상품보관
+        function item_wish(f, it_id)
         {
-            if(!it_id) {
-                alert("상품코드가 올바르지 않습니다.");
-                return false;
-            }
-
-            $.post(
-                "<?php echo G5_SHOP_CSS_URL; ?>/item.form.wishupdate.php",
-                { it_id: it_id },
-                function(error) {
-                    if(error != "OK") {
-                        alert(error.replace(/\\n/g, "\n"));
-                        return false;
-                    }
-
-                    var wish_msg_layer = "";
-                    wish_msg_layer += "<div id=\"wish_msg_layer\">";
-                    wish_msg_layer += "<h3>위시리스트 보기</h3>";
-                    wish_msg_layer += "<button type=\"button\" id=\"wish_msg_close\"><span></span>닫기</button>";
-                    wish_msg_layer += "<p>상품이 위시리스트에 담겼습니다.<br><strong>지금 확인하시겠습니까?</strong></p>";
-                    wish_msg_layer += "<div>";
-                    wish_msg_layer += "<button type=\"button\" id=\"wish_msg_yes\"><img src=\"<?php echo G5_SHOP_CSS_URL; ?>/img/pop_msg_yes.gif\" alt=\"예\"></button>";
-                    wish_msg_layer += "<button type=\"button\" id=\"wish_msg_no\"><img src=\"<?php echo G5_SHOP_CSS_URL; ?>/img/pop_msg_no.gif\" alt=\"아니오\"></button>";
-                    wish_msg_layer += "</div>";
-                    wish_msg_layer += "</div>";
-
-                    var pos = $("#sit_btn_wish").position();
-                    var top = pos.top + 30;
-
-                    $("#sit_ov").append(wish_msg_layer);
-                    $("#wish_msg_layer").css("top", top+"px");
-                }
-            );
+            f.url.value = "<?php echo G5_SHOP_URL; ?>/wishupdate.php?it_id="+it_id;
+            f.action = "<?php echo G5_SHOP_URL; ?>/wishupdate.php";
+            f.submit();
         }
-        $(function(){
-            // 위시리스트 레이어 닫기
-            $("#wish_msg_close, #wish_msg_no").live("click", function() {
-                $("#wish_msg_layer").fadeOut(400, function() {
-                    $(this).remove();
-                });
-            });
-
-            // 위시리스트 이동
-            $("#wish_msg_yes").live("click", function() {
-                document.location.href = "<?php echo G5_SHOP_URL; ?>/wishlist.php";
-            });
-        });
 
         // 추천메일
         function popup_item_recommend(it_id)
@@ -337,27 +283,163 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
             popup_window(url, "itemstocksms", opt);
         }
         </script>
+
+    <?php
+    // 상품 상세정보
+    $info_skin = $skin_dir.'/item.info.skin.php';
+    if(!is_file($info_skin))
+        $info_skin = G5_SHOP_SKIN_PATH.'/item.info.skin.php';
+    include $info_skin;
+    ?>
+
     </section>
     <!-- } 상품 요약정보 및 구매 끝 -->
-</div>
+</div> <!-- sit_ov_wrap END -->
+
+<?php if ($default['de_rel_list_use']) { ?>
+<!-- 관련상품 시작 { -->
+<section id="sit_rel">
+    <div class="sct_wrap fullWidth">
+    <h2>Related Items</h2>
+        <?php
+        $rel_skin_file = $skin_dir.'/'.$default['de_rel_list_skin'];
+        if(!is_file($rel_skin_file))
+            $rel_skin_file = G5_SHOP_SKIN_PATH.'/'.$default['de_rel_list_skin'];
+
+        $sql = " select b.* from {$g5['g5_shop_item_relation_table']} a left join {$g5['g5_shop_item_table']} b on (a.it_id2=b.it_id) where a.it_id = '{$it['it_id']}' and b.it_use='1' ";
+        $list = new item_list($rel_skin_file, $default['de_rel_list_mod'], 0, $default['de_rel_img_width'], $default['de_rel_img_height']);
+        $list->set_query($sql);
+        echo $list->run();
+        ?>
+    </div>
+</section>
+<!-- } 관련상품 끝 -->
+<?php } ?>
+
+</section> <!-- sit_ov_bg END -->
 
 </form>
 
 
 <script>
 $(function(){
+    // 큰 이미지 배경색 추출 플러그인
+    var originColor;
+    function changeColor() {
+        $("#sit_pvi_big a:eq(0) img").primaryColor(function(color) {
+                $('#sit_ov_bg').css('background-color', 'rgb('+color+')');
+                originColor = color;
+            }
+        );
+    }
+
+    $(window).load(function() {
+        changeColor();
+        // 상품이미지 미리보기 (썸네일에 마우스 오버시에서 클릭시로 수정)
+        $("#sit_pvi .img_thumb").bind("click focus", function(e){
+            e.preventDefault();
+            var idx = $("#sit_pvi .img_thumb").index($(this));
+            if(idx == 0) {
+            // 첫번째 이미지 선택시 배경 원복
+                $('#sit_ov_bg').css('background-color', 'rgb('+originColor+')');
+            } else {
+                $('#sit_ov_bg').css('background-color', '#ffffff');
+            }
+            $("#sit_pvi_big a.visible").removeClass("visible").fadeOut('fast', function() {
+                $("#sit_pvi_big a:eq("+idx+")").addClass("visible").hide().filter(":not(:animated)").fadeIn('fast');            
+            });
+        });
+    });
+
+
     // 상품이미지 첫번째 링크
     $("#sit_pvi_big a:first").addClass("visible");
 
-    // 상품이미지 미리보기 (썸네일에 마우스 오버시)
-    $("#sit_pvi .img_thumb").bind("mouseover focus", function(){
-        var idx = $("#sit_pvi .img_thumb").index($(this));
-        $("#sit_pvi_big a.visible").removeClass("visible");
-        $("#sit_pvi_big a:eq("+idx+")").addClass("visible");
+    // 상품이미지 클릭시 lightbox 생성
+    $(document).ready(function() {
+        $('.zoom-gallery').magnificPopup({
+            delegate: 'a',
+            type: 'image',
+            closeOnContentClick: false,
+            closeBtnInside: false,
+            mainClass: 'mfp-with-zoom mfp-img-mobile',
+            image: {
+            verticalFit: true,
+            titleSrc: function(item) {
+              return item.el.attr('title');
+            }
+            },
+            gallery: {
+            enabled: true
+            },
+            zoom: {
+            enabled: true,
+            duration: 300, // don't foget to change the duration also in CSS
+            opener: function(element) {
+              return element.find('img');
+            }
+            }
+          
+        });
+
+        // 동영상 플레이 스크립트
+        $videoWrap = $('.sit_it_video');
+        $video_frame = <?php echo json_encode($video_frame); ?>;
+        $('.play_video').click(function(e) {
+            e.preventDefault();
+            if(!$(this).hasClass('active')){
+                $(this).addClass('active');
+                $("body, html").animate({
+                    scrollTop: 100
+                }, 600);
+                $videoWrap.fadeIn(400).append($video_frame);
+            }
+        });
+
+        $('.sit_it_video_close').click(function() {
+            close_video();
+            $('.play_video').removeClass('active');
+        });
+
+        function close_video() {
+            $videoWrap.fadeOut(400, function() {
+                $(this).children('iframe').remove();
+                $("body, html").animate({
+                    scrollTop: 0
+                }, 600);
+            });
+        }
+
+        $('.color_img').magnificPopup({
+            delegate: 'a',
+            type: 'image',
+            closeOnContentClick: false,
+            closeBtnInside: false,
+            mainClass: 'mfp-with-zoom mfp-img-mobile',
+            image: {
+            verticalFit: true,
+            titleSrc: function(item) {
+              return item.el.attr('title');
+            }
+            },
+            gallery: {
+            enabled: false
+            },
+            zoom: {
+            enabled: true,
+            duration: 300, // don't foget to change the duration also in CSS
+            opener: function(element) {
+              return element.find('img');
+            }
+            }
+          
+        });       
     });
 
+
+
     // 상품이미지 크게보기
-    $(".popup_item_image").click(function() {
+/*    $(".popup_item_image").click(function() {
         var url = $(this).attr("href");
         var top = 10;
         var left = 10;
@@ -365,7 +447,7 @@ $(function(){
         popup_window(url, "largeimage", opt);
 
         return false;
-    });
+    });*/
 });
 
 
@@ -380,12 +462,12 @@ function fitem_submit(f)
 
     // 판매가격이 0 보다 작다면
     if (document.getElementById("it_price").value < 0) {
-        alert("전화로 문의해 주시면 감사하겠습니다.");
+        alert("An error occured. Please contact to us.");
         return false;
     }
 
     if($(".sit_opt_list").size() < 1) {
-        alert("상품의 선택옵션을 선택해 주십시오.");
+        alert("Please select an option.");
         return false;
     }
 
@@ -399,19 +481,19 @@ function fitem_submit(f)
         val = $(this).val();
 
         if(val.length < 1) {
-            alert("수량을 입력해 주십시오.");
+            alert("Please enter item quantity you selected.");
             result = false;
             return false;
         }
 
         if(val.replace(/[0-9]/g, "").length > 0) {
-            alert("수량은 숫자로 입력해 주십시오.");
+            alert("Please check a quantity.\nYou can use only number.");
             result = false;
             return false;
         }
 
         if(parseInt(val.replace(/[^0-9]/g, "")) < 1) {
-            alert("수량은 1이상 입력해 주십시오.");
+            alert("Please enter quantity at least one.");
             result = false;
             return false;
         }
@@ -426,61 +508,15 @@ function fitem_submit(f)
     }
 
     if(min_qty > 0 && sum_qty < min_qty) {
-        alert("선택옵션 개수 총합 "+number_format(String(min_qty))+"개 이상 주문해 주십시오.");
+        alert("The quantity requested is not available. Please enter a lower quantity.");
         return false;
     }
 
     if(max_qty > 0 && sum_qty > max_qty) {
-        alert("선택옵션 개수 총합 "+number_format(String(max_qty))+"개 이하로 주문해 주십시오.");
+        alert("The quantity requested is not available. Please enter a lower quantity.");
         return false;
     }
 
-    // 장바구니 ajax 처리를 위해 추가된 부분
-    if (document.pressed == "ADD TO CART") {
-        $.post(
-            "<?php echo G5_SHOP_CSS_URL; ?>/item.form.cartupdate.php",
-            $(f).serialize(),
-            function(error) {
-                if(error != "OK") {
-                    alert(error.replace(/\\n/g, "\n"));
-                    return false;
-                }
-
-                var cart_msg_layer = "";
-                cart_msg_layer += "<div id=\"cart_msg_layer\">";
-                cart_msg_layer += "<h3>장바구니 보기</h3>";
-                cart_msg_layer += "<button type=\"button\" id=\"cart_msg_close\"><span></span>닫기</button>";
-                cart_msg_layer += "<p>상품이 장바구니에 담겼습니다.<br><strong>지금 확인하시겠습니까?</strong></p>";
-                cart_msg_layer += "<div>";
-                cart_msg_layer += "<button type=\"button\" id=\"cart_msg_yes\"><img src=\"<?php echo G5_SHOP_CSS_URL; ?>/img/pop_msg_yes.gif\" alt=\"예\"></button>";
-                cart_msg_layer += "<button type=\"button\" id=\"cart_msg_no\"><img src=\"<?php echo G5_SHOP_CSS_URL; ?>/img/pop_msg_no.gif\" alt=\"아니오\"></button>";
-                cart_msg_layer += "</div>";
-                cart_msg_layer += "</div>";
-
-                var pos = $("#sit_btn_cart").position();
-                var top = pos.top + 40;
-
-                $("#sit_ov").append(cart_msg_layer);
-                $("#cart_msg_layer").css("top", top+"px");
-            }
-        );
-
-        return false;
-    } else {
-        return true;
-    }
+    return true;
 }
-$(function(){
-    // 장바구니 레이어 닫기
-    $("#cart_msg_close, #cart_msg_no").live("click", function() {
-        $("#cart_msg_layer").fadeOut(400, function() {
-            $(this).remove();
-        });
-    });
-
-    // 장바구니 이동
-    $("#cart_msg_yes").live("click", function() {
-        document.location.href = "<?php echo G5_SHOP_URL; ?>/cart.php";
-    });
-});
 </script>

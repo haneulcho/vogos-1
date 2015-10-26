@@ -1,7 +1,7 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
-$sct_sort_href = $_SERVER['PHP_SELF'].'?';
+$sct_sort_href = $_SERVER['SCRIPT_NAME'].'?';
 if($ca_id)
     $sct_sort_href .= 'ca_id='.$ca_id;
 else if($ev_id)
@@ -30,12 +30,10 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
     </ul> -->
 
     <ul id="ssch_sort">
-        <li><a href="<?php echo $sct_sort_href; ?>it_sum_qty&amp;sortodr=desc" class="btn01">판매많은순</a></li>
-        <li><a href="<?php echo $sct_sort_href; ?>it_price&amp;sortodr=asc" class="btn01">낮은가격순</a></li>
-        <li><a href="<?php echo $sct_sort_href; ?>it_price&amp;sortodr=desc" class="btn01">높은가격순</a></li>
-        <li><a href="<?php echo $sct_sort_href; ?>it_use_avg&amp;sortodr=desc" class="btn01">평점높은순</a></li>
-        <li><a href="<?php echo $sct_sort_href; ?>it_use_cnt&amp;sortodr=desc" class="btn01">후기많은순</a></li>
-        <li><a href="<?php echo $sct_sort_href; ?>it_update_time&amp;sortodr=desc" class="btn01">최근등록순</a></li>
+        <li><a href="<?php echo $sct_sort_href; ?>it_update_time&amp;sortodr=desc" class="btn01">latest</a></li>
+        <li><a href="<?php echo $sct_sort_href; ?>it_sum_qty&amp;sortodr=desc" class="btn01">popular</a></li>
+        <li><a href="<?php echo $sct_sort_href; ?>it_price&amp;sortodr=asc" class="btn01">price<i class="ion-chevron-down"></i></a></li>
+        <li><a href="<?php echo $sct_sort_href; ?>it_price&amp;sortodr=desc" class="btn01">price<i class="ion-chevron-up"></i></a></li>
     </ul>
 </section>
 <!-- } 상품 정렬 선택 끝 -->

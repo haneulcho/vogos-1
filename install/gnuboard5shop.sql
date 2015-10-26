@@ -382,6 +382,52 @@ CREATE TABLE IF NOT EXISTS `g5_shop_event_item` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `g5_shop_models`
+--
+
+DROP TABLE IF EXISTS `g5_shop_models`;
+CREATE TABLE IF NOT EXISTS `g5_shop_models` (
+  `mds_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mds_skin` varchar(255) NOT NULL DEFAULT '',
+  `mds_mobile_skin` varchar(255) NOT NULL DEFAULT '',
+  `mds_bimg_width` int(11) NOT NULL DEFAULT '0',
+  `mds_bimg_height` int(11) NOT NULL DEFAULT '0',
+  `mds_simg_width` int(11) NOT NULL DEFAULT '0',
+  `mds_simg_height` int(11) NOT NULL DEFAULT '0',  
+  `mds_list_mod` int(11) NOT NULL DEFAULT '0',
+  `mds_list_row` int(11) NOT NULL DEFAULT '0',
+  `mds_mobile_img_width` int(11) NOT NULL DEFAULT '0',
+  `mds_mobile_img_height` int(11) NOT NULL DEFAULT '0',
+  `mds_mobile_list_mod` int(11) NOT NULL DEFAULT '0',
+  `mds_subject` varchar(255) NOT NULL DEFAULT '',
+  `mds_html` text NOT NULL,
+  `mds_use` tinyint(4) NOT NULL DEFAULT '0',
+  `mds_hit` int(11) NOT NULL DEFAULT '0',
+  `mds_video_src` int(12) NOT NULL DEFAULT '0',
+  `mds_video_width` int(11) NOT NULL DEFAULT '0',
+  `mds_video_height` int(11) NOT NULL DEFAULT '0',
+  `mds_mobile_video_width` int(11) NOT NULL DEFAULT '0',
+  `mds_mobile_video_height` int(11) NOT NULL DEFAULT '0',  
+  PRIMARY KEY (`mds_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `g5_shop_models_item`
+--
+
+DROP TABLE IF EXISTS `g5_shop_models_item`;
+CREATE TABLE IF NOT EXISTS `g5_shop_models_item` (
+  `mds_id` int(11) NOT NULL DEFAULT '0',
+  `it_id` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`mds_id`,`it_id`),
+  KEY `it_id` (`it_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `g5_shop_item`
 --
 
@@ -393,6 +439,9 @@ CREATE TABLE IF NOT EXISTS `g5_shop_item` (
   `ca_id3` varchar(255) NOT NULL DEFAULT '',
   `it_skin` varchar(255) NOT NULL DEFAULT '',
   `it_mobile_skin` varchar(255) NOT NULL DEFAULT '',
+  `it_place_ddm` varchar(255) NOT NULL DEFAULT '',
+  `it_name_ddm` varchar(255) NOT NULL DEFAULT '',
+  `it_price_ddm` varchar(255) NOT NULL DEFAULT '',
   `it_name` varchar(255) NOT NULL DEFAULT '',
   `it_maker` varchar(255) NOT NULL DEFAULT '',
   `it_origin` varchar(255) NOT NULL DEFAULT '',
@@ -455,6 +504,7 @@ CREATE TABLE IF NOT EXISTS `g5_shop_item` (
   `it_img8` varchar(255) NOT NULL DEFAULT '',
   `it_img9` varchar(255) NOT NULL DEFAULT '',
   `it_img10` varchar(255) NOT NULL DEFAULT '',
+  `it_img11` varchar(255) NOT NULL DEFAULT '',
   `it_1_subj` varchar(255) NOT NULL DEFAULT '',
   `it_2_subj` varchar(255) NOT NULL DEFAULT '',
   `it_3_subj` varchar(255) NOT NULL DEFAULT '',

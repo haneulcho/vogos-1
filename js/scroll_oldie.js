@@ -25,6 +25,6 @@ $(function(){
         {
             yPosition = 0;
         }
-        $layer.animate({"top":yPosition }, {duration:speed, easing:easing, queue:false});
+        $layer.animate({"top":30 }, {duration:speed, easing:easing, queue:false});
     });
 });

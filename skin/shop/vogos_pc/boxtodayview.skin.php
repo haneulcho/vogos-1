@@ -100,9 +100,9 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
         <?php } ?>
 
         <ul id="stv_nb">
-            <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><img src="<?php echo G5_SHOP_URL; ?>/img/hd_nb_cart.gif" alt="장바구니"></a></li>
-            <li><a href="<?php echo G5_SHOP_URL; ?>/wishlist.php"><img src="<?php echo G5_SHOP_URL; ?>/img/hd_nb_wish.gif" alt="위시리스트"></a></li>
-            <li><a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php"><img src="<?php echo G5_SHOP_URL; ?>/img/hd_nb_deli.gif" alt="주문/배송조회"></a></li>
+            <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/hd_nb_cart.png" alt="장바구니"></a></li>
+            <li><a href="<?php echo G5_SHOP_URL; ?>/wishlist.php"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/hd_nb_wish.png" alt="위시리스트"></a></li>
+            <li><a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/hd_nb_deli.png" alt="주문/배송조회"></a></li>
         </ul>
     </div>
 </aside>

@@ -120,9 +120,12 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 <select name="sfl" id="sfl">
     <option value="it_name" <?php echo get_selected($sfl, 'it_name'); ?>>상품명</option>
     <option value="it_id" <?php echo get_selected($sfl, 'it_id'); ?>>상품코드</option>
-    <option value="it_maker" <?php echo get_selected($sfl, 'it_maker'); ?>>제조사</option>
-    <option value="it_origin" <?php echo get_selected($sfl, 'it_origin'); ?>>원산지</option>
-    <option value="it_sell_email" <?php echo get_selected($sfl, 'it_sell_email'); ?>>판매자 e-mail</option>
+    <option value="it_place_ddm" <?php echo get_selected($sfl, 'it_place_ddm'); ?>>사입처</option>
+    <option value="it_name_ddm" <?php echo get_selected($sfl, 'it_name_ddm'); ?>>사입상품명</option>
+    <!--
+    <option value="it_maker" <?php //echo get_selected($sfl, 'it_maker'); ?>>제조사</option>
+    <option value="it_origin" <?php //echo get_selected($sfl, 'it_origin'); ?>>원산지</option>
+    <option value="it_sell_email" <?php //echo get_selected($sfl, 'it_sell_email'); ?>>판매자 e-mail</option> -->
 </select>
 
 <label for="stx" class="sound_only">검색어</label>
@@ -153,7 +156,8 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             <label for="chkall" class="sound_only">상품 전체</label>
             <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
         </th>
-        <th scope="col" rowspan="3"><?php echo subject_sort_link('it_id', 'sca='.$sca); ?>상품코드</a></th>
+        <th scope="col" rowspan="3"><?php echo subject_sort_link('it_id', 'sca='.$sca); ?>상품코드</a></th>        
+        <th scope="col" rowspan="3"><?php echo subject_sort_link('it_update_time', 'sca='.$sca, 'desc'); ?>등록, 수정일</a></th>
         <th scope="col" colspan="5">분류</th>
         <th scope="col" rowspan="3"><?php echo subject_sort_link('it_order', 'sca='.$sca); ?>순서</a></th>
         <th scope="col" rowspan="3"><?php echo subject_sort_link('it_use', 'sca='.$sca, 1); ?>판매</a></th>
@@ -194,6 +198,9 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
             <?php echo $row['it_id']; ?>
         </td>
+        <td rowspan="3" class="td_num">
+            <span style="font-size:11px;"><?php echo $row['it_update_time']; ?></span>
+        </td>
         <td colspan="5">
             <label for="ca_id_<?php echo $i; ?>" class="sound_only"><?php echo get_text($row['it_name']); ?> 기본분류</label>
             <select name="ca_id[<?php echo $i; ?>]" id="ca_id_<?php echo $i; ?>">
@@ -231,7 +238,8 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         <td rowspan="2" class="td_img"><a href="<?php echo $href; ?>"><?php echo get_it_image($row['it_id'], 50, 50); ?></a></td>
         <td headers="th_pc_title" rowspan="2" class="td_input">
             <label for="name_<?php echo $i; ?>" class="sound_only">상품명</label>
-            <input type="text" name="it_name[<?php echo $i; ?>]" value="<?php echo htmlspecialchars2(cut_str($row['it_name'],250, "")); ?>" id="name_<?php echo $i; ?>" required class="frm_input required" size="30">
+            <input type="text" name="it_name[<?php echo $i; ?>]" style="color:#ff0000" value="<?php echo htmlspecialchars2(cut_str($row['it_name'],250, "")); ?>" id="name_<?php echo $i; ?>" required class="frm_input required" size="30"><br><br>
+            사입처: <?php echo $row['it_place_ddm'].' / '.$row['it_name_ddm'].' / '.$row['it_price_ddm']; ?>
         </td>
         <td headers="th_amt" class="td_numbig td_input">
             <label for="price_<?php echo $i; ?>" class="sound_only">판매가격</label>

@@ -60,6 +60,7 @@ class item_list
     protected $ca_id3 = "";
 
     // 노출순서
+    // protected $order_by = "it_order, it_update_time, it_id desc";
     protected $order_by = "it_order, it_id desc";
 
     // 상품의 이벤트번호를 저장합니다.
@@ -73,6 +74,9 @@ class item_list
 
     // 모바일에서 노출하고자 할 경우에 true 로 설정합니다.
     protected $is_mobile = false;
+
+    // 모델스초이스 리스트인지, 노출하고자 할 경우에 true 로 설정합니다.
+    protected $is_mdschoice = false;    
 
     // 기본으로 보여지는 필드들
     protected $view_it_id    = false;       // 상품코드
@@ -98,59 +102,310 @@ class item_list
 
     // 외부에서 쿼리문을 넘겨줄 경우에 담아두는 변수
     protected $query = "";
-            $size = @getimagesize($file);
-            if($size[2] < 1 || $size[2] > 3)
-                continue;
 
-            $filename = basename($file);
-            $filepath = dirname($file);
-            $img_width = $size[0];
-            $img_height = $size[1];
 
-            break;
+    // $type        : 상품유형 (기본으로 1~5까지 사용)
+    // $list_skin   : 상품리스트를 노출할 스킨을 설정합니다. 스킨위치는 skin/shop/쇼핑몰설정스킨/type??.skin.php
+    // $list_mod    : 1줄에 몇개의 상품을 노출할지를 설정합니다.
+    // $list_row    : 상품을 몇줄에 노출할지를 설정합니다.
+    // $img_width   : 상품이미지의 폭을 설정합니다.
+    // $img_height  : 상품이미지의 높이을 설정합니다. 0 으로 설정하는 경우 썸네일 이미지의 높이는 폭에 비례하여 생성합니다.
+    //function __construct($type=0, $list_skin='', $list_mod='', $list_row='', $img_width='', $img_height=0, $ca_id='') {
+    function __construct($list_skin='', $list_mod='', $list_row='', $img_width='', $img_height=0) {
+        $this->list_skin  = $list_skin;
+        $this->list_mod   = $list_mod;
+        $this->list_row   = $list_row;
+        $this->img_width  = $img_width;
+        $this->img_height = $img_height;
+        $this->set_href(G5_SHOP_URL.'/item.php?it_id=');
+        $this->count++;
+    }
+
+    function set_type($type) {
+        $this->type = $type;
+        if ($type) {
+            $this->set_list_skin($this->list_skin);
+            $this->set_list_mod($this->list_mod);
+            $this->set_list_row($this->list_row);
+            $this->set_img_size($this->img_width, $this->img_height);
         }
     }
 
-    if($img_width && !$height) {
-        $height = round(($width * $img_height) / $img_width);
+    // 분류코드로 검색을 하고자 하는 경우 아래와 같이 인수를 넘겨줍니다.
+    // 1단계 분류는 (분류코드, 1)
+    // 2단계 분류는 (분류코드, 2)
+    // 3단계 분류는 (분류코드, 3)
+    function set_category($ca_id, $level=1) {
+        if ($level == 2) {
+            $this->ca_id2 = $ca_id;
+        } else if ($level == 3) {
+            $this->ca_id3 = $ca_id;
+        } else {
+            $this->ca_id = $ca_id;
+        }
     }
 
-    if($filename) {
-        //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
-        // 보고스에서는 기본값을 is_crop = true로
-        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+    // 이벤트코드를 인수로 넘기게 되면 해당 이벤트에 속한 상품을 노출합니다.
+    function set_event($ev_id) {
+        $this->event = $ev_id;
     }
 
-    if($thumb) {
-        $file_url = str_replace(G5_PATH, G5_URL, $filepath.'/'.$thumb);
-        //$img = '<img src="'.$file_url.'" width="'.$width.'" height="'.$height.'" alt="'.$img_alt.'"';
-        $img = '<img src="'.$file_url.'" alt="'.$img_alt.'"';
-    } else {
-        $img = '<img src="'.G5_SHOP_URL.'/img/no_image.gif" width="'.$width.'"';
-        if($height)
-            $img .= ' height="'.$height.'"';
-        $img .= ' alt="'.$img_alt.'"';
+    // 리스트 스킨을 바꾸고자 하는 경우에 사용합니다.
+    // 리스트 스킨의 위치는 skin/shop/쇼핑몰설정스킨/type??.skin.php 입니다.
+    // 특별히 설정하지 않는 경우 상품유형을 사용하는 경우는 쇼핑몰설정 값을 그대로 따릅니다.
+    function set_list_skin($list_skin) {
+        global $default;
+        if ($this->is_mobile) {
+            $this->list_skin = $list_skin ? $list_skin : G5_MSHOP_SKIN_PATH.'/'.$default['de_mobile_type'.$this->type.'_list_skin'];
+        } else {
+            $this->list_skin = $list_skin ? $list_skin : G5_SHOP_SKIN_PATH.'/'.$default['de_type'.$this->type.'_list_skin'];
+        }
     }
 
-    if($img_id)
-        $img .= ' id="'.$img_id.'"';
-    $img .= '>';
+    // 1줄에 몇개를 노출할지를 사용한다.
+    // 특별히 설정하지 않는 경우 상품유형을 사용하는 경우는 쇼핑몰설정 값을 그대로 따릅니다.
+    function set_list_mod($list_mod) {
+        global $default;
+        if ($this->is_mobile) {
+            $this->list_mod = $list_mod ? $list_mod : $default['de_mobile_type'.$this->type.'_list_mod'];
+        } else {
+            $this->list_mod = $list_mod ? $list_mod : $default['de_type'.$this->type.'_list_mod'];
+        }
+    }
 
-    if($anchor)
-        $img = '<a href="'.G5_SHOP_URL.'/item.php?it_id='.$it_id.'">'.$img.'</a>';
+    // 몇줄을 노출할지를 사용한다.
+    // 특별히 설정하지 않는 경우 상품유형을 사용하는 경우는 쇼핑몰설정 값을 그대로 따릅니다.
+    function set_list_row($list_row) {
+        global $default;
+        if ($this->is_mobile) {
+            $this->list_row = $list_row ? $list_row : $default['de_mobile_type'.$this->type.'_list_row'];
+        } else {
+            $this->list_row = $list_row ? $list_row : $default['de_type'.$this->type.'_list_row'];
+        }
+        if (!$this->list_row)
+            $this->list_row = 1;
+    }
 
-    return $img;
+    // 노출이미지(썸네일생성)의 폭, 높이를 설정합니다. 높이를 0 으로 설정하는 경우 쎰네일 비율에 따릅니다.
+    // 특별히 설정하지 않는 경우 상품유형을 사용하는 경우는 쇼핑몰설정 값을 그대로 따릅니다.
+    function set_img_size($img_width, $img_height=0) {
+        global $default;
+        if ($this->is_mobile) {
+            $this->img_width = $img_width ? $img_width : $default['de_mobile_type'.$this->type.'_img_width'];
+            $this->img_height = $img_height ? $img_height : $default['de_mobile_type'.$this->type.'_img_height'];
+        } else {
+            $this->img_width = $img_width ? $img_width : $default['de_type'.$this->type.'_img_width'];
+            $this->img_height = $img_height ? $img_height : $default['de_type'.$this->type.'_img_height'];
+        }
+    }
+
+    // 특정 필드만 select 하는 경우에는 필드명을 , 로 구분하여 "field1, field2, field3, ... fieldn" 으로 인수를 넘겨줍니다.
+    function set_fields($str) {
+        $this->fields = $str;
+    }
+
+    // 특정 필드로 정렬을 하는 경우 필드와 정렬순서를 , 로 구분하여 "field1 desc, field2 asc, ... fieldn desc " 으로 인수를 넘겨줍니다.
+    function set_order_by($str) {
+        $this->order_by = $str;
+    }
+
+    // 사용하는 상품외에 모든 상품을 노출하려면 0 을 인수로 넘겨줍니다.
+    function set_use($use) {
+        $this->use = $use;
+    }
+
+    // 모바일로 사용하려는 경우 true 를 인수로 넘겨줍니다.
+    function set_mobile($mobile=true) {
+        $this->is_mobile = $mobile;
+    }
+
+    // 스킨에서 특정 필드를 노출하거나 하지 않게 할수 있습니다.
+    // 가령 소비자가는 처음에 노출되지 않도록 설정되어 있지만 노출을 하려면
+    // ("it_cust_price", true) 와 같이 인수를 넘겨줍니다.
+    // 이때 인수로 넘겨주는 값은 스킨에 정의된 필드만 가능하다는 것입니다.
+    function set_view($field, $view=true) {
+        $this->{"view_".$field} = $view;
+    }
+
+    // anchor 태그에 하이퍼링크를 다른 주소로 걸거나 아예 링크를 걸지 않을 수 있습니다.
+    // 인수를 "" 공백으로 넘기면 링크를 걸지 않습니다.
+    function set_href($href) {
+        $this->href = $href;
+    }
+
+    // ul 태그의 css 를 교체할수 있다. "sct sct_abc" 를 인수로 넘기게 되면
+    // 기존의 ul 태그에 걸린 css 는 무시되며 인수로 넘긴 css 가 사용됩니다.
+    function set_css($css) {
+        $this->css = $css;
+    }
+
+    // 페이지를 노출하기 위해 true 로 설정할때 사용합니다.
+    function set_is_page($is_page) {
+        $this->is_page = $is_page;
+    }
+
+    function set_is_mdschoice($is_mdschoice) {
+        $this->is_mdschoice = $is_mdschoice;
+    }
+
+    // select ... limit 의 시작값
+    function set_from_record($from_record) {
+        $this->from_record = $from_record;
+    }
+
+    // 외부에서 쿼리문을 넘겨줄 경우에 담아둡니다.
+    function set_query($query) {
+        $this->query = $query;
+    }
+
+    // class 에 설정된 값으로 최종 실행합니다.
+    function run() {
+
+        global $g5, $config, $member, $default;
+
+        if ($this->query) {
+
+            $sql = $this->query;
+            $result = sql_query($sql);
+            $this->total_count = @mysql_num_rows($result);
+
+        } else {
+
+            $where = array();
+            if ($this->use) {
+                if ($this->is_mdschoice) {
+                    $where[] = " mds_use = '1' ";
+                } else {
+                    $where[] = " it_use = '1' ";                
+                }
+            }
+
+            if ($this->type) {
+                $where[] = " it_type{$this->type} = '1' ";
+            }
+
+            if ($this->ca_id || $this->ca_id2 || $this->ca_id3) {
+                $where_ca_id = array();
+                if ($this->ca_id) {
+                    $where_ca_id[] = " ca_id like '{$this->ca_id}%' ";
+                }
+                if ($this->ca_id2) {
+                    $where_ca_id[] = " ca_id2 like '{$this->ca_id2}%' ";
+                }
+                if ($this->ca_id3) {
+                    $where_ca_id[] = " ca_id3 like '{$this->ca_id3}%' ";
+                }
+                $where[] = " ( " . implode(" or ", $where_ca_id) . " ) ";
+            }
+
+            if ($this->order_by) {
+                $sql_order = " order by {$this->order_by} ";
+            }
+
+            if ($this->event) {
+                $sql_select = " select {$this->fields} ";
+                $sql_common = " from `{$g5['g5_shop_event_item_table']}` a left join `{$g5['g5_shop_item_table']}` b on (a.it_id = b.it_id) ";
+                $where[] = " a.ev_id = '{$this->event}' ";
+            } else if ($this->is_mdschoice) {
+                $sql_select = " select {$this->fields} ";
+                $sql_common = " from `{$g5['g5_shop_models_table']}` ";                
+            } else {
+                $sql_select = " select {$this->fields} ";
+                $sql_common = " from `{$g5['g5_shop_item_table']}` ";
+            }
+
+            $sql_where = " where " . implode(" and ", $where);
+            $sql_limit = " limit " . $this->from_record . " , " . ($this->list_mod * $this->list_row);
+
+            $sql = $sql_select . $sql_common . $sql_where . $sql_order . $sql_limit;
+            $result = sql_query($sql);
+
+            if ($this->is_page) {
+                $sql2 = " select count(*) as cnt " . $sql_common . $sql_where;
+                $row2 = sql_fetch($sql2);
+                $this->total_count = $row2['cnt'];
+            }
+
+        }
+
+        $file = $this->list_skin;
+
+        if ($this->list_skin == "") {
+            return $this->count."번 item_list() 의 스킨파일이 지정되지 않았습니다.";
+        } else if (!file_exists($file)) {
+            return $file." 파일을 찾을 수 없습니다.";
+        } else {
+            ob_start();
+            $list_mod = $this->list_mod;
+            include($file);
+            $content = ob_get_contents();
+            ob_end_clean();
+            return $content;
+        }
+    }
 }
 
-// VOGOS COLLECTION 상품 이미지를 얻는다
-function get_it_image2($it_id, $width, $height=0, $anchor=false, $img_id='', $img_alt='')
+
+// 장바구니 건수 검사
+function get_cart_count($cart_id)
+{
+    global $g5, $default;
+
+    $sql = " select count(ct_id) as cnt from {$g5['g5_shop_cart_table']} where od_id = '$cart_id' ";
+    $row = sql_fetch($sql);
+    $cnt = (int)$row['cnt'];
+    return $cnt;
+}
+
+
+// 이미지를 얻는다
+function get_image($img, $width=0, $height=0, $img_id='')
+{
+    global $g5, $default;
+
+    $full_img = G5_DATA_PATH.'/item/'.$img;
+
+    if (file_exists($full_img) && $img)
+    {
+        if (!$width)
+        {
+            $size = getimagesize($full_img);
+            $width = $size[0];
+            $height = $size[1];
+        }
+        $str = '<img src="'.G5_DATA_URL.'/item/'.$img.'" alt="" width="'.$width.'" height="'.$height.'"';
+
+        if($img_id)
+            $str .= ' id="'.$img_id.'"';
+
+        $str .= '>';
+    }
+    else
+    {
+        $str = '<img src="'.G5_SHOP_URL.'/img/no_image.gif" alt="" ';
+        if ($width)
+            $str .= 'width="'.$width.'" height="'.$height.'"';
+        else
+            $str .= 'width="'.$default['de_mimg_width'].'" height="'.$default['de_mimg_height'].'"';
+
+        if($img_id)
+            $str .= ' id="'.$img_id.'"'.
+        $str .= '>';
+    }
+
+    return $str;
+}
+
+
+// 상품 이미지를 얻는다
+function get_it_image($it_id, $width, $height=0, $anchor=false, $img_id='', $img_alt='')
 {
     global $g5;
 
     if(!$it_id || !$width)
         return '';
 
-    $sql = " select it_id, it_img10 from {$g5['g5_shop_item_table']} where it_id = '$it_id' ";
+    $sql = " select it_id, it_img1, it_img2, it_img3, it_img4, it_img5, it_img6, it_img7, it_img8, it_img9, it_img10, it_img11 from {$g5['g5_shop_item_table']} where it_id = '$it_id' ";
     $row = sql_fetch($sql);
 
     if(!$row['it_id'])
@@ -179,7 +434,131 @@ function get_it_image2($it_id, $width, $height=0, $anchor=false, $img_id='', $im
     if($filename) {
         //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
         // 보고스에서는 기본값을 is_crop = true로
-        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, false, 'center', false, $um_value='80/0.5/3');
+    }
+
+    if($thumb) {
+        $file_url = str_replace(G5_PATH, G5_URL, $filepath.'/'.$thumb);
+        //$img = '<img src="'.$file_url.'" width="'.$width.'" height="'.$height.'" alt="'.$img_alt.'"';
+        $img = '<img src="'.$file_url.'" alt="'.$img_alt.'"';
+    } else {
+        $img = '<img src="'.G5_SHOP_URL.'/img/no_image.gif" width="'.$width.'"';
+        if($height)
+            $img .= ' height="'.$height.'"';
+        $img .= ' alt="'.$img_alt.'"';
+    }
+
+    if($img_id)
+        $img .= ' id="'.$img_id.'"';
+    $img .= '>';
+
+    if($anchor)
+        $img = '<a href="'.G5_SHOP_URL.'/item.php?it_id='.$it_id.'">'.$img.'</a>';
+
+    return $img;
+}
+
+// 베스트 상품 5개 이미지를 얻는다
+function get_it_image_best($it_id, $width, $height=0, $img_num, $anchor=false, $img_id='', $img_class='', $img_alt='')
+{
+    global $g5;
+
+    if(!$it_id || !$width)
+        return '';
+
+    $sql = " select it_id, it_img".$img_num." from {$g5['g5_shop_item_table']} where it_id = '$it_id' ";
+    $row = sql_fetch($sql);
+
+    if(!$row['it_id'])
+        return '';
+
+    for($i=1;$i<=10; $i++) {
+        $file = G5_DATA_PATH.'/item/'.$row['it_img'.$i];
+        if(is_file($file) && $row['it_img'.$i]) {
+            $size = @getimagesize($file);
+            if($size[2] < 1 || $size[2] > 3)
+                continue;
+
+            $filename = basename($file);
+            $filepath = dirname($file);
+            $img_width = $size[0];
+            $img_height = $size[1];
+
+            break;
+        }
+    }
+
+    if($img_width && !$height) {
+        $height = round(($width * $img_height) / $img_width);
+    }
+
+    if($filename) {
+        //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
+        // 보고스에서는 기본값을 is_crop = true로
+        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', false, $um_value='80/0.5/3');
+    }
+
+    if($thumb) {
+        $file_url = str_replace(G5_PATH, G5_URL, $filepath.'/'.$thumb);
+        //$img = '<img src="'.$file_url.'" width="'.$width.'" height="'.$height.'" alt="'.$img_alt.'"';
+        $img = '<img src="'.$file_url.'" class="'.$img_class.'" alt="'.$img_alt.'"';
+    } else {
+        $img = '<img src="'.G5_SHOP_URL.'/img/no_image.gif" width="'.$width.'"';
+        if($height)
+            $img .= ' height="'.$height.'"';
+        $img .= ' alt="'.$img_alt.'"';
+    }
+
+    if($img_id)
+        $img .= ' id="'.$img_id.'"';
+    $img .= '>';
+
+    if($anchor)
+        $img = '<a href="'.G5_SHOP_URL.'/item.php?it_id='.$it_id.'">'.$img.'</a>';
+
+    return $img;
+}
+
+
+
+// VOGOS COLLECTION 상품 이미지를 얻는다
+function get_it_image2($it_id, $img_num, $width, $height=0, $anchor=false, $img_id='', $img_alt='')
+{
+    global $g5;
+
+    if(!$it_id || !$width)
+        return '';
+
+    $sql = " select it_id, it_img".$img_num." from {$g5['g5_shop_item_table']} where it_id = '$it_id' ";
+    $row = sql_fetch($sql);
+
+    if(!$row['it_id'])
+        return '';
+
+    for($i=1;$i<=10; $i++) {
+        $file = G5_DATA_PATH.'/item/'.$row['it_img'.$i];
+        if(is_file($file) && $row['it_img'.$i]) {
+            $size = @getimagesize($file);
+            if($size[2] < 1 || $size[2] > 3)
+                continue;
+
+            $filename = basename($file);
+            $filepath = dirname($file);
+            $img_width = $size[0];
+            $img_height = $size[1];
+
+            break;
+        }
+    }
+
+    if($img_width && !$height) {
+        $height = round(($width * $img_height) / $img_width);
+    }
+
+    if($filename) {
+        //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
+        // 보고스에서는 기본값을 is_crop = true로
+        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', false, $um_value='80/0.5/3');
     }
 
     if($thumb) {
@@ -226,7 +605,7 @@ function get_it_thumbnail($img, $width, $height=0, $id='')
     }
 
     // 기본값 is_crop = true로
-    $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+    $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', false, $um_value='80/0.5/3');
 
     if($thumb) {
         $file_url = str_replace(G5_PATH, G5_URL, $filepath.'/'.$thumb);
@@ -245,7 +624,7 @@ function get_it_imageurl($it_id)
 {
     global $g5;
 
-    $sql = " select it_img1, it_img2, it_img3, it_img4, it_img5, it_img6, it_img7, it_img8, it_img9, it_img10
+    $sql = " select it_img1, it_img2, it_img3, it_img4, it_img5, it_img6, it_img7, it_img8, it_img9, it_img10, it_img11
                 from {$g5['g5_shop_item_table']}
                 where it_id = '$it_id' ";
     $row = sql_fetch($sql);
@@ -349,7 +728,7 @@ function display_price($price, $tel_inq=false)
     if ($tel_inq)
         $price = '전화문의';
     else
-        $price = number_format($price, 0).'원';
+        $price = '$'.number_format($price, 0).'.00';
 
     return $price;
 }
@@ -498,6 +877,106 @@ function display_type($type, $list_skin='', $list_mod='', $list_row='', $img_wid
     }
     */
 
+    //$file = G5_SHOP_PATH.'/'.$skin_file;
+    $file = G5_SHOP_SKIN_PATH.'/'.$list_skin;
+    if (!file_exists($file)) {
+        return G5_SHOP_SKIN_URL.'/'.$list_skin.' 파일을 찾을 수 없습니다.';
+    } else {
+        $td_width = (int)(100 / $list_mod);
+        ob_start();
+        include $file;
+        $content = ob_get_contents();
+        ob_end_clean();
+        return $content;
+    }
+}
+
+
+// 모바일 유형별 상품 출력
+function mobile_display_type($type, $skin_file, $list_row, $img_width, $img_height, $ca_id="")
+{
+    global $member, $g5, $config;
+
+    // 상품수
+    $items = $list_row;
+
+    // 1.02.00
+    // it_order 추가
+    $sql = " select * from {$g5['g5_shop_item_table']} where it_use = '1' and it_type{$type} = '1' ";
+    if ($ca_id) $sql .= " and ca_id like '$ca_id%' ";
+    $sql .= " order by it_order, it_id desc limit $items ";
+    $result = sql_query($sql);
+    /*
+    if (!mysql_num_rows($result)) {
+        return false;
+    }
+    */
+
+    $file = G5_MSHOP_PATH.'/'.$skin_file;
+    if (!file_exists($file)) {
+        echo $file.' 파일을 찾을 수 없습니다.';
+    } else {
+        //$td_width = (int)(100 / $list_mod);
+        include $file;
+    }
+}
+
+
+// 분류별 출력
+// 스킨파일번호, 1라인이미지수, 총라인수, 이미지폭, 이미지높이 , 분류번호
+function display_category($no, $list_mod, $list_row, $img_width, $img_height, $ca_id="")
+{
+    global $member, $g5;
+
+    // 상품수
+    $items = $list_mod * $list_row;
+
+    $sql = " select * from {$g5['g5_shop_item_table']} where it_use = '1'";
+    if ($ca_id)
+        $sql .= " and ca_id LIKE '{$ca_id}%' ";
+    $sql .= " order by it_order, it_id desc limit $items ";
+    $result = sql_query($sql);
+    if (!mysql_num_rows($result)) {
+        return false;
+    }
+
+    $file = G5_SHOP_PATH.'/maintype'.$no.'.inc.php';
+    if (!file_exists($file)) {
+        echo $file.' 파일을 찾을 수 없습니다.';
+    } else {
+        $td_width = (int)(100 / $list_mod);
+        include $file;
+    }
+}
+
+
+// 별
+function get_star($score)
+{
+    $star = round($score);
+    if ($star > 5) $star = 5;
+    else if ($star < 0) $star = 0;
+
+    return $star;
+}
+
+
+// 별 이미지
+function get_star_image($it_id)
+{
+    global $g5;
+
+    $sql = "select (SUM(is_score) / COUNT(*)) as score from {$g5['g5_shop_item_use_table']} where it_id = '$it_id' ";
+    $row = sql_fetch($sql);
+
+    return (int)get_star($row['score']);
+}
+
+
+// 메일 보내는 내용을 HTML 형식으로 만든다.
+function email_content($str)
+{
+    global $g5;
 
     $s = "";
     $s .= "<html><head><meta http-equiv=\"content-type\" content=\"text/html; charset={$g5['charset']}\"><title>메일</title>\n";
@@ -598,6 +1077,116 @@ function get_item_options($it_id, $subject)
         // 옵션항목 배열에 저장
         for($i=0; $row=sql_fetch_array($result); $i++) {
             $opt_id = explode(chr(30), $row['io_id']);
+
+            for($k=0; $k<$subj_count; $k++) {
+                if(!is_array($options[$k]))
+                    $options[$k] = array();
+
+                if($opt_id[$k] && !in_array($opt_id[$k], $options[$k]))
+                    $options[$k][] = $opt_id[$k];
+            }
+        }
+
+        // 옵션선택목록 만들기
+        for($i=0; $i<$subj_count; $i++) {
+            $opt = $options[$i];
+            $opt_count = count($opt);
+            $disabled = '';
+            if($opt_count) {
+                $seq = $i + 1;
+                if($i > 0)
+                    $disabled = ' disabled="disabled"';
+                $str .= '<tr>'.PHP_EOL;
+                $str .= '<th><label for="it_option_'.$seq.'">'.$subj[$i].'</label></th>'.PHP_EOL;
+
+                $select = '<select id="it_option_'.$seq.'" class="it_option"'.$disabled.'>'.PHP_EOL;
+                $select .= '<option value="">SELECT</option>'.PHP_EOL;
+                for($k=0; $k<$opt_count; $k++) {
+                    $opt_val = $opt[$k];
+                    if(strlen($opt_val)) {
+                        $select .= '<option value="'.$opt_val.'">'.$opt_val.'</option>'.PHP_EOL;
+                    }
+                }
+                $select .= '</select>'.PHP_EOL;
+
+                $str .= '<td>'.$select.'</td>'.PHP_EOL;
+                $str .= '</tr>'.PHP_EOL;
+            }
+        }
+    } else {
+        $str .= '<tr>'.PHP_EOL;
+        $str .= '<th><label for="it_option_1">'.$subj[0].'</label></th>'.PHP_EOL;
+
+        $select = '<select id="it_option_1" class="it_option">'.PHP_EOL;
+        $select .= '<option value="">SELECT</option>'.PHP_EOL;
+        for($i=0; $row=sql_fetch_array($result); $i++) {
+            if($row['io_price'] >= 0) {
+                if($row['io_price'] == 0) {
+                    $price = '&nbsp;&nbsp;';
+                } else {
+                    $price = '&nbsp;&nbsp;+ '.number_format($row['io_price']).'원';
+                }
+            } else {
+                $price = '&nbsp;&nbsp; '.number_format($row['io_price']).'원';
+            }
+
+            if($row['io_stock_qty'] < 1)
+                $soldout = '&nbsp;&nbsp;[SOLD OUT]';
+            else
+                $soldout = '';
+
+            $select .= '<option value="'.$row['io_id'].','.$row['io_price'].','.$row['io_stock_qty'].'">'.$row['io_id'].$price.$soldout.'</option>'.PHP_EOL;
+        }
+        $select .= '</select>'.PHP_EOL;
+
+        $str .= '<td>'.$select.'</td>'.PHP_EOL;
+        $str .= '</tr>'.PHP_EOL;
+    }
+
+    return $str;
+}
+
+
+// 상품 추가옵션
+function get_item_supply($it_id, $subject)
+{
+    global $g5;
+
+    if(!$it_id || !$subject)
+        return '';
+
+    $sql = " select * from {$g5['g5_shop_item_option_table']} where io_type = '1' and it_id = '$it_id' and io_use = '1' order by io_no asc ";
+    $result = sql_query($sql);
+    if(!mysql_num_rows($result))
+        return '';
+
+    $str = '';
+
+    $subj = explode(',', $subject);
+    $subj_count = count($subj);
+    $options = array();
+
+    // 옵션항목 배열에 저장
+    for($i=0; $row=sql_fetch_array($result); $i++) {
+        $opt_id = explode(chr(30), $row['io_id']);
+
+        if($opt_id[0] && !array_key_exists($opt_id[0], $options))
+            $options[$opt_id[0]] = array();
+
+        if(strlen($opt_id[1])) {
+            if($row['io_price'] >= 0) {
+                if($row['io_price'] == 0) {
+                    $price = '&nbsp;&nbsp;';
+                } else {
+                    $price = '&nbsp;&nbsp;+ '.number_format($row['io_price']).'원';                
+                }
+            } else {
+                $price = '&nbsp;&nbsp; '.number_format($row['io_price']).'원';
+            }
+            $io_stock_qty = get_option_stock_qty($it_id, $row['io_id'], $row['io_type']);
+
+            if($io_stock_qty < 1)
+                $soldout = '&nbsp;&nbsp;[SOLD OUT]';
             else
                 $soldout = '';
 
@@ -615,7 +1204,7 @@ function get_item_options($it_id, $subject)
             $str .= '<th><label for="it_supply_'.$seq.'">'.$subj[$i].'</label></th>'.PHP_EOL;
 
             $select = '<select id="it_supply_'.$seq.'" class="it_supply">'.PHP_EOL;
-            $select .= '<option value="">선택</option>'.PHP_EOL;
+            $select .= '<option value="">SELECT</option>'.PHP_EOL;
             for($k=0; $k<$opt_count; $k++) {
                 $opt_val = $opt[$k];
                 if($opt_val) {
@@ -698,6 +1287,706 @@ function display_banner($position, $skin='')
         echo '<p>'.str_replace(G5_PATH.'/', '', $skin_path).'파일이 존재하지 않습니다.</p>';
     }
 }
+
+
+// 1.00.02
+// 파일번호, 이벤트번호, 1라인이미지수, 총라인수, 이미지폭, 이미지높이
+// 1.02.01 $ca_id 추가
+function display_event($no, $event, $list_mod, $list_row, $img_width, $img_height, $ca_id="")
+{
+    global $member, $g5;
+
+    // 상품수
+    $items = $list_mod * $list_row;
+
+    // 1.02.00
+    // b.it_order 추가
+    $sql = " select b.* from {$g5['g5_shop_event_item_table']} a, {$g5['g5_shop_item_table']} b where a.it_id = b.it_id and b.it_use = '1' and a.ev_id = '$event' ";
+    if ($ca_id) $sql .= " and ca_id = '$ca_id' ";
+    $sql .= " order by b.it_order, a.it_id desc limit $items ";
+    $result = sql_query($sql);
+    if (!mysql_num_rows($result)) {
+        return false;
+    }
+
+    $file = G5_SHOP_PATH.'/maintype'.$no.'.inc.php';
+    if (!file_exists($file)) {
+        echo $file.' 파일을 찾을 수 없습니다.';
+    } else {
+        $td_width = (int)(100 / $list_mod);
+        include $file;
+    }
+}
+
+
+function get_yn($val, $case='')
+{
+    switch ($case) {
+        case '1' : $result = ($val > 0) ? 'Y' : 'N'; break;
+        default :  $result = ($val > 0) ? '예' : '아니오';
+    }
+    return $result;
+}
+
+
+// 상품명과 건수를 반환
+function get_goods($cart_id)
+{
+    global $g5;
+
+    // 상품명만들기
+    $row = sql_fetch(" select a.it_id, b.it_name from {$g5['g5_shop_cart_table']} a, {$g5['g5_shop_item_table']} b where a.it_id = b.it_id and a.od_id = '$cart_id' order by ct_id limit 1 ");
+    // 상품명에 "(쌍따옴표)가 들어가면 오류 발생함
+    $goods['it_id'] = $row['it_id'];
+    $goods['full_name']= $goods['name'] = addslashes($row['it_name']);
+    // 특수문자제거
+    $goods['full_name'] = preg_replace ("/[ #\&\+\-%@=\/\\\:;,\.'\"\^`~\_|\!\?\*$#<>()\[\]\{\}]/i", "",  $goods['full_name']);
+
+    // 상품건수
+    $row = sql_fetch(" select count(*) as cnt from {$g5['g5_shop_cart_table']} where od_id = '$cart_id' ");
+    $cnt = $row['cnt'] - 1;
+    if ($cnt)
+        $goods['full_name'] .= ' 외 '.$cnt.'건';
+    $goods['count'] = $row['cnt'];
+
+    return $goods;
+}
+
+
+// 패턴의 내용대로 해당 디렉토리에서 정렬하여 <select> 태그에 적용할 수 있게 반환
+function get_list_skin_options($pattern, $dirname='./', $sval='')
+{
+    $str = '<option value="">SELECT</option>'.PHP_EOL;
+
+    unset($arr);
+    $handle = opendir($dirname);
+    while ($file = readdir($handle)) {
+        if (preg_match("/$pattern/", $file, $matches)) {
+            $arr[] = $matches[0];
+        }
+    }
+    closedir($handle);
+
+    sort($arr);
+    foreach($arr as $value) {
+        if($value == $sval)
+            $selected = ' selected="selected"';
+        else
+            $selected = '';
+
+        $str .= '<option value="'.$value.'"'.$selected.'>'.$value.'</option>'.PHP_EOL;
+    }
+
+    return $str;
+}
+
+
+// 일자 시간을 검사한다.
+function check_datetime($datetime)
+{
+    if ($datetime == "0000-00-00 00:00:00")
+        return true;
+
+    $year   = substr($datetime, 0, 4);
+    $month  = substr($datetime, 5, 2);
+    $day    = substr($datetime, 8, 2);
+    $hour   = substr($datetime, 11, 2);
+    $minute = substr($datetime, 14, 2);
+    $second = substr($datetime, 17, 2);
+
+    $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
+
+    $tmp_datetime = date("Y-m-d H:i:s", $timestamp);
+    if ($datetime == $tmp_datetime)
+        return true;
+    else
+        return false;
+}
+
+
+// 경고메세지를 경고창으로
+function alert_opener($msg='', $url='')
+{
+    global $g5;
+
+    if (!$msg) $msg = '올바른 방법으로 이용해 주십시오.';
+
+    echo "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">";
+    echo "<script>";
+    echo "alert(\"$msg\");";
+    echo "opener.location.href=\"$url\";";
+    echo "self.close();";
+    echo "</script>";
+    exit;
+}
+
+
+// option 리스트에 selected 추가
+function conv_selected_option($options, $value)
+{
+    if(!$options)
+        return '';
+
+    $options = str_replace('value="'.$value.'"', 'value="'.$value.'" selected', $options);
+
+    return $options;
+}
+
+
+// 주문서 번호를 얻는다.
+function get_new_od_id()
+{
+    global $g5;
+
+    // 주문서 테이블 Lock 걸고
+    sql_query(" LOCK TABLES {$g5['g5_shop_order_table']} READ, {$g5['g5_shop_order_table']} WRITE ", FALSE);
+    // 주문서 번호를 만든다.
+    $date = date("ymd", time());    // 2002년 3월 7일 일경우 020307
+    $sql = " select max(od_id) as max_od_id from {$g5['g5_shop_order_table']} where SUBSTRING(od_id, 1, 6) = '$date' ";
+    $row = sql_fetch($sql);
+    $od_id = $row['max_od_id'];
+    if ($od_id == 0)
+        $od_id = 1;
+    else
+    {
+        $od_id = (int)substr($od_id, -4);
+        $od_id++;
+    }
+    $od_id = $date . substr("0000" . $od_id, -4);
+    // 주문서 테이블 Lock 풀고
+    sql_query(" UNLOCK TABLES ", FALSE);
+
+    return $od_id;
+}
+
+
+// cart id 설정
+function set_cart_id($direct)
+{
+    global $g5, $default, $member;
+
+    if ($direct) {
+        $tmp_cart_id = get_session('ss_cart_direct');
+        if(!$tmp_cart_id) {
+            $tmp_cart_id = get_uniqid();
+            set_session('ss_cart_direct', $tmp_cart_id);
+        }
+    } else {
+        // 비회원장바구니 cart id 쿠키설정
+        if($default['de_guest_cart_use']) {
+            $tmp_cart_id = get_cookie('ck_guest_cart_id');
+            if($tmp_cart_id) {
+                set_session('ss_cart_id', $tmp_cart_id);
+                //set_cookie('ck_guest_cart_id', $tmp_cart_id, ($default['de_cart_keep_term'] * 86400));
+            } else {
+                $tmp_cart_id = get_uniqid();
+                set_session('ss_cart_id', $tmp_cart_id);
+                set_cookie('ck_guest_cart_id', $tmp_cart_id, ($default['de_cart_keep_term'] * 86400));
+            }
+        } else {
+            $tmp_cart_id = get_session('ss_cart_id');
+            if(!$tmp_cart_id) {
+                $tmp_cart_id = get_uniqid();
+                set_session('ss_cart_id', $tmp_cart_id);
+            }
+        }
+
+        // 보관된 회원장바구니 자료 cart id 변경
+        if($member['mb_id'] && $tmp_cart_id) {
+            $sql = " update {$g5['g5_shop_cart_table']}
+                        set od_id = '$tmp_cart_id'
+                        where mb_id = '{$member['mb_id']}'
+                          and ct_direct = '0'
+                          and ct_status = '쇼핑' ";
+            sql_query($sql);
+        }
+    }
+}
+
+
+// 상품 목록 : 관련 상품 출력
+function relation_item($it_id, $width, $height, $rows=3)
+{
+    global $g5;
+
+    $str = '';
+
+    if(!$it_id)
+        return $str;
+
+    $sql = " select b.it_id, b.it_name, b.it_price, b.it_tel_inq from {$g5['g5_shop_item_relation_table']} a left join {$g5['g5_shop_item_table']} b on ( a.it_id2 = b.it_id ) where a.it_id = '$it_id' order by ir_no asc limit 0, $rows ";
+    $result = sql_query($sql);
+
+    for($i=0; $row=sql_fetch_array($result); $i++) {
+        if($i == 0) {
+            $str .= '<span class="sound_only">관련 상품 시작</span>';
+            $str .= '<ul class="sct_rel_ul">';
+        }
+
+        $it_name = get_text($row['it_name']); // 상품명
+        $it_price = get_price($row); // 상품가격
+        if(!$row['it_tel_inq'])
+            $it_price = display_price($it_price);
+
+        $img = get_it_image($row['it_id'], $width, $height);
+
+        $str .= '<li class="sct_rel_li"><a href="'.G5_SHOP_URL.'/item.php?it_id='.$row['it_id'].'" class="sct_rel_a">'.$img.'</a></li>';
+    }
+
+    if($i > 0)
+        $str .= '</ul><span class="sound_only">관련 상품 끝</span>';
+
+    return $str;
+}
+
+
+// 상품이미지에 유형 아이콘 출력
+function item_icon($it)
+{
+    global $g5;
+
+    $icon = '<span class="sit_icon">';
+    // 품절
+    if (is_soldout($it['it_id']))
+        $icon .= '<img src="'.G5_SHOP_URL.'/img/icon_soldout.gif" alt="품절">';
+
+    if ($it['it_type1'])
+        $icon .= '<img src="'.G5_SHOP_URL.'/img/icon_hit.gif" alt="히트상품">';
+
+    if ($it['it_type2'])
+        $icon .= '<img src="'.G5_SHOP_URL.'/img/icon_rec.gif" alt="추천상품">';
+
+    if ($it['it_type3'])
+        $icon .= '<img src="'.G5_SHOP_URL.'/img/icon_new.gif" alt="최신상품">';
+
+    if ($it['it_type4'])
+        $icon .= '<img src="'.G5_SHOP_URL.'/img/icon_best.gif" alt="인기상품">';
+
+    if ($it['it_type5'])
+        $icon .= '<img src="'.G5_SHOP_URL.'/img/icon_discount.gif" alt="할인상품">';
+
+    // 쿠폰상품
+    $sql = " select count(*) as cnt
+                from {$g5['g5_shop_coupon_table']}
+                where cp_start <= '".G5_TIME_YMD."'
+                  and cp_end >= '".G5_TIME_YMD."'
+                  and (
+                        ( cp_method = '0' and cp_target = '{$it['it_id']}' )
+                        OR
+                        ( cp_method = '1' and ( cp_target IN ( '{$it['ca_id']}', '{$it['ca_id2']}', '{$it['ca_id3']}' ) ) )
+                      ) ";
+    $row = sql_fetch($sql);
+    if($row['cnt'])
+        $icon .= '<img src="'.G5_SHOP_URL.'/img/icon_cp.gif" alt="쿠폰상품">';
+
+    $icon .= '</span>';
+
+    return $icon;
+}
+
+
+// sns 공유하기
+// sns로 썸네일 url 넘기기 위해 $thumb_url 변수 추가
+// 연동 js => kakaolink.js
+function get_sns_share_link($sns, $url, $title, $img, $thumb_url)
+{
+    global $config;
+
+    if(!$sns)
+        return '';
+
+    switch($sns) {
+        case 'facebook':
+            $str = '<a href="https://www.facebook.com/sharer/sharer.php?u='.urlencode($url).'&amp;p='.urlencode($title).'" class="share-facebook" target="_blank"><img src="'.$img.'" alt="페이스북에 공유"></a>';
+            break;
+        case 'twitter':
+            $str = '<a href="https://twitter.com/share?url='.urlencode($url).'&amp;text='.urlencode($title).'" class="share-twitter" target="_blank"><img src="'.$img.'" alt="트위터에 공유"></a>';
+            break;
+        case 'googleplus':
+            $str = '<a href="https://plus.google.com/share?url='.urlencode($url).'" class="share-googleplus" target="_blank"><img src="'.$img.'" alt="구글플러스에 공유"></a>';
+            break;
+        case 'kakaotalk':
+            if($config['cf_kakao_js_apikey'])
+                $str = '<a href="javascript:shareToApp(\'kakaotalk\', \''.str_replace('+', ' ', urlencode($title)).'\', \''.urlencode($url).'\', \''.urlencode($thumb_url).'\');" class="share-kakaotalk"><img src="'.$img.'" alt="카카오톡 링크보내기"></a>';
+            break;
+        case 'kakaostory':
+            if($config['cf_kakao_js_apikey'])
+                $str = '<a href="javascript:shareToApp(\'kakaostory\', \''.str_replace('+', ' ', strip_tags($title)).'\', \''.urlencode($url).'\', \''.urlencode($thumb_url).'\');" class="share-kakaostory"><img src="'.$img.'" alt="카카오스토리에 공유"></a>';
+            break;
+        case 'naverline':
+            $str = '<a href="javascript:shareToApp(\'naverline\', \''.str_replace('+', ' ', strip_tags($title)).'\', \''.urlencode($url).'\', \''.urlencode($thumb_url).'\');" class="share-naverline"><img src="'.$img.'" alt="라인에 공유"></a>';
+            break;
+        case 'naverband':
+            $str = '<a href="javascript:shareToApp(\'naverband\', \''.str_replace('+', ' ', strip_tags($title)).'\', \''.urlencode($url).'\', \''.urlencode($thumb_url).'\');" class="share-naverband"><img src="'.$img.'" alt="밴드에 공유"></a>';
+            break;
+    }
+
+    return $str;
+}
+
+
+// 상품이미지 썸네일 삭제
+function delete_item_thumbnail($dir, $file)
+{
+    if(!$dir || !$file)
+        return;
+
+    $filename = preg_replace("/\.[^\.]+$/i", "", $file); // 확장자제거
+
+    $files = glob($dir.'/thumb-'.$filename.'*');
+
+    if(is_array($files)) {
+        foreach($files as $thumb_file) {
+            @unlink($thumb_file);
+        }
+    }
+}
+
+
+// 쿠폰번호 생성함수
+function get_coupon_id()
+{
+    $len = 16;
+    $chars = "ABCDEFGHJKLMNPQRSTUVWXYZ123456789";
+
+    srand((double)microtime()*1000000);
+
+    $i = 0;
+    $str = '';
+
+    while ($i < $len) {
+        $num = rand() % strlen($chars);
+        $tmp = substr($chars, $num, 1);
+        $str .= $tmp;
+        $i++;
+    }
+
+    $str = preg_replace("/([0-9A-Z]{4})([0-9A-Z]{4})([0-9A-Z]{4})([0-9A-Z]{4})/", "\\1-\\2-\\3-\\4", $str);
+
+    return $str;
+}
+
+
+// 주문의 금액, 배송비 과세금액 등의 정보를 가져옴
+function get_order_info($od_id)
+{
+    global $g5;
+
+    // 주문정보
+    $sql = " select * from {$g5['g5_shop_order_table']} where od_id = '$od_id' ";
+    $od = sql_fetch($sql);
+
+    if(!$od['od_id'])
+        return false;
+
+    $info = array();
+
+    // 장바구니 주문금액정보
+    $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+                    SUM(cp_price) as coupon,
+                    SUM( IF( ct_notax = 0, ( IF(io_type = 1, (io_price * ct_qty), ( (ct_price + io_price) * ct_qty) ) - cp_price ), 0 ) ) as tax_mny,
+                    SUM( IF( ct_notax = 1, ( IF(io_type = 1, (io_price * ct_qty), ( (ct_price + io_price) * ct_qty) ) - cp_price ), 0 ) ) as free_mny
+                from {$g5['g5_shop_cart_table']}
+                where od_id = '$od_id'
+                  and ct_status IN ( '주문', '입금', '준비', '배송', '완료' ) ";
+    $sum = sql_fetch($sql);
+
+    $cart_price = $sum['price'];
+    $cart_coupon = $sum['coupon'];
+
+    // 배송비
+    $send_cost = get_sendcost($od_id);
+
+    $od_coupon = $od_send_coupon = 0;
+
+    if($od['mb_id']) {
+        // 주문할인 쿠폰
+        $sql = " select a.cp_id, a.cp_type, a.cp_price, a.cp_trunc, a.cp_minimum, a.cp_maximum
+                    from {$g5['g5_shop_coupon_table']} a right join {$g5['g5_shop_coupon_log_table']} b on ( a.cp_id = b.cp_id )
+                    where b.od_id = '$od_id'
+                      and b.mb_id = '{$od['mb_id']}'
+                      and a.cp_method = '2' ";
+        $cp = sql_fetch($sql);
+
+        $tot_od_price = $cart_price - $cart_coupon;
+
+        if($cp['cp_id']) {
+            $dc = 0;
+
+            if($cp['cp_minimum'] <= $tot_od_price) {
+                if($cp['cp_type']) {
+                    $dc = floor(($tot_od_price * ($cp['cp_price'] / 100)) / $cp['cp_trunc']) * $cp['cp_trunc'];
+                } else {
+                    $dc = $cp['cp_price'];
+                }
+
+                if($cp['cp_maximum'] && $dc > $cp['cp_maximum'])
+                    $dc = $cp['cp_maximum'];
+
+                if($tot_od_price < $dc)
+                    $dc = $tot_od_price;
+
+                $tot_od_price -= $dc;
+                $od_coupon = $dc;
+            }
+        }
+
+        // 배송쿠폰 할인
+        $sql = " select a.cp_id, a.cp_type, a.cp_price, a.cp_trunc, a.cp_minimum, a.cp_maximum
+                    from {$g5['g5_shop_coupon_table']} a right join {$g5['g5_shop_coupon_log_table']} b on ( a.cp_id = b.cp_id )
+                    where b.od_id = '$od_id'
+                      and b.mb_id = '{$od['mb_id']}'
+                      and a.cp_method = '3' ";
+        $cp = sql_fetch($sql);
+
+        if($cp['cp_id']) {
+            $dc = 0;
+            if($cp['cp_minimum'] <= $tot_od_price) {
+                if($cp['cp_type']) {
+                    $dc = floor(($send_cost * ($cp['cp_price'] / 100)) / $cp['cp_trunc']) * $cp['cp_trunc'];
+                } else {
+                    $dc = $cp['cp_price'];
+                }
+
+                if($cp['cp_maximum'] && $dc > $cp['cp_maximum'])
+                    $dc = $cp['cp_maximum'];
+
+                if($dc > $send_cost)
+                    $dc = $send_cost;
+
+                $od_send_coupon = $dc;
+            }
+        }
+    }
+
+    // 과세, 비과세 금액정보
+    $tax_mny = $sum['tax_mny'];
+    $free_mny = $sum['free_mny'];
+
+    if($od['od_tax_flag']) {
+        $tot_tax_mny = ( $tax_mny + $send_cost + $od['od_send_cost2'] )
+                       - ( $od_coupon + $od_send_coupon + $od['od_receipt_point'] );
+        if($tot_tax_mny < 0) {
+            $free_mny += $tot_tax_mny;
+            $tot_tax_mny = 0;
+        }
+    } else {
+        $tot_tax_mny = ( $tax_mny + $free_mny + $send_cost + $od['od_send_cost2'] )
+                       - ( $od_coupon + $od_send_coupon + $od['od_receipt_point'] );
+        $free_mny = 0;
+    }
+
+    $od_tax_mny = round($tot_tax_mny / 1.1);
+    $od_vat_mny = $tot_tax_mny - $od_tax_mny;
+    $od_free_mny = $free_mny;
+
+    // 장바구니 취소금액 정보
+    $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price
+                from {$g5['g5_shop_cart_table']}
+                where od_id = '$od_id'
+                  and ct_status IN ( '취소', '반품', '품절' ) ";
+    $sum = sql_fetch($sql);
+    $cancel_price = $sum['price'];
+
+    // 미수금액
+    $od_misu = ( $cart_price + $send_cost + $od['od_send_cost2'] )
+               - ( $cart_coupon + $od_coupon + $od_send_coupon )
+               - ( $od['od_receipt_price'] + $od['od_receipt_point'] - $od['od_refund_price'] );
+
+    // 장바구니상품금액
+    $od_cart_price = $cart_price + $cancel_price;
+
+    // 결과처리
+    $info['od_cart_price']      = $od_cart_price;
+    $info['od_send_cost']       = $send_cost;
+    $info['od_coupon']          = $od_coupon;
+    $info['od_send_coupon']     = $od_send_coupon;
+    $info['od_cart_coupon']     = $cart_coupon;
+    $info['od_tax_mny']         = $od_tax_mny;
+    $info['od_vat_mny']         = $od_vat_mny;
+    $info['od_free_mny']        = $od_free_mny;
+    $info['od_cancel_price']    = $cancel_price;
+    $info['od_misu']            = $od_misu;
+
+    return $info;
+}
+
+
+// 상품포인트
+function get_item_point($it, $io_id='', $trunc=10)
+{
+    global $g5;
+
+    $it_point = 0;
+
+    if($it['it_point_type'] > 0) {
+        $it_price = $it['it_price'];
+
+        if($it['it_point_type'] == 2 && $io_id) {
+            $sql = " select io_id, io_price
+                        from {$g5['g5_shop_item_option_table']}
+                        where it_id = '{$it['it_id']}'
+                          and io_id = '$io_id'
+                          and io_type = '0'
+                          and io_use = '1' ";
+            $opt = sql_fetch($sql);
+
+            if($opt['io_id'])
+                $it_price += $opt['io_price'];
+        }
+
+        $it_point = floor(($it_price * ($it['it_point'] / 100) / $trunc)) * $trunc;
+    } else {
+        $it_point = $it['it_point'];
+    }
+
+    return $it_point;
+}
+
+
+// 배송비 구함
+function get_sendcost($cart_id, $selected=1)
+{
+    global $default, $g5;
+
+    $send_cost = 0;
+    $total_price = 0;
+    $total_send_cost = 0;
+
+    $sql = " select distinct it_id
+                from {$g5['g5_shop_cart_table']}
+                where od_id = '$cart_id'
+                  and ct_send_cost = '0'
+                  and ct_status IN ( '쇼핑', '주문', '입금', '준비', '배송', '완료' )
+                  and ct_select = '$selected' ";
+
+    $result = sql_query($sql);
+    for($i=0; $sc=sql_fetch_array($result); $i++) {
+        // 합계
+        $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+                        SUM(ct_qty) as qty
+                    from {$g5['g5_shop_cart_table']}
+                    where it_id = '{$sc['it_id']}'
+                      and od_id = '$cart_id'
+                      and ct_status IN ( '쇼핑', '주문', '입금', '준비', '배송', '완료' )
+                      and ct_select = '$selected'";
+        $sum = sql_fetch($sql);
+
+        $send_cost = get_item_sendcost($sc['it_id'], $sum['price'], $sum['qty'], $cart_id);
+
+        if($send_cost > 0)
+            $total_send_cost += $send_cost;
+
+        if($default['de_send_cost_case'] == '차등' && $send_cost == -1)
+            $total_price += $sum['price'];
+    }
+
+    $send_cost = 0;
+    if($default['de_send_cost_case'] == '차등' && $total_price > 0) {
+        // 금액별차등 : 여러단계의 배송비 적용 가능
+        $send_cost_limit = explode(";", $default['de_send_cost_limit']);
+        $send_cost_list  = explode(";", $default['de_send_cost_list']);
+        $send_cost = 0;
+        for ($k=0; $k<count($send_cost_limit); $k++) {
+            // 총판매금액이 배송비 상한가 보다 작다면
+            if ($total_price < preg_replace('/[^0-9]/', '', $send_cost_limit[$k])) {
+                $send_cost = preg_replace('/[^0-9]/', '', $send_cost_list[$k]);
+                break;
+            }
+        }
+    }
+
+    return ($total_send_cost + $send_cost);
+}
+
+
+// 상품별 배송비
+function get_item_sendcost($it_id, $price, $qty, $cart_id)
+{
+    global $g5, $default;
+
+    $sql = " select it_id, it_sc_type, it_sc_method, it_sc_price, it_sc_minimum, it_sc_qty
+                from {$g5['g5_shop_cart_table']}
+                where it_id = '$it_id'
+                  and od_id = '$cart_id'
+                order by ct_id
+                limit 1 ";
+    $ct = sql_fetch($sql);
+    if(!$ct['it_id'])
+        return 0;
+
+    if($ct['it_sc_type'] > 1) {
+        if($ct['it_sc_type'] == 2) { // 조건부무료
+            if($price >= $ct['it_sc_minimum'])
+                $sendcost = 0;
+            else
+                $sendcost = $ct['it_sc_price'];
+        } else if($ct['it_sc_type'] == 3) { // 유료배송
+            $sendcost = $ct['it_sc_price'];
+        } else { // 수량별 부과
+            if(!$ct['it_sc_qty'])
+                $ct['it_sc_qty'] = 1;
+
+            $q = ceil((int)$qty / (int)$ct['it_sc_qty']);
+            $sendcost = (int)$ct['it_sc_price'] * $q;
+        }
+    } else if($ct['it_sc_type'] == 1) { // 무료배송
+        $sendcost = 0;
+    } else {
+        $sendcost = -1;
+    }
+
+    return $sendcost;
+}
+
+
+// 가격비교 사이트 상품 배송비
+function get_item_sendcost2($it_id, $price, $qty)
+{
+    global $g5, $default;
+
+    $sql = " select it_id, it_sc_type, it_sc_method, it_sc_price, it_sc_minimum, it_sc_qty
+                from {$g5['g5_shop_item_table']}
+                where it_id = '$it_id' ";
+    $it = sql_fetch($sql);
+    if(!$it['it_id'])
+        return 0;
+
+    $sendcost = 0;
+
+    // 쇼핑몰 기본설정을 사용할 때
+    if($it['it_sc_type'] == 0)
+    {
+        if($default['de_send_cost_case'] == '차등') {
+            // 금액별차등 : 여러단계의 배송비 적용 가능
+            $send_cost_limit = explode(";", $default['de_send_cost_limit']);
+            $send_cost_list  = explode(";", $default['de_send_cost_list']);
+
+            for ($k=0; $k<count($send_cost_limit); $k++) {
+                // 총판매금액이 배송비 상한가 보다 작다면
+                if ($price < preg_replace('/[^0-9]/', '', $send_cost_limit[$k])) {
+                    $sendcost = preg_replace('/[^0-9]/', '', $send_cost_list[$k]);
+                    break;
+                }
+            }
+        }
+    }
+    else
+    {
+        if($it['it_sc_type'] > 1) {
+            if($it['it_sc_type'] == 2) { // 조건부무료
+                if($price >= $it['it_sc_minimum'])
+                    $sendcost = 0;
+                else
+                    $sendcost = $it['it_sc_price'];
+            } else if($it['it_sc_type'] == 3) { // 유료배송
+                $sendcost = $it['it_sc_price'];
+            } else { // 수량별 부과
+                if(!$it['it_sc_qty'])
+                    $it['it_sc_qty'] = 1;
+
+                $q = ceil((int)$qty / (int)$it['it_sc_qty']);
+                $sendcost = (int)$it['it_sc_price'] * $q;
             }
         } else if($it['it_sc_type'] == 1) { // 무료배송
             $sendcost = 0;
@@ -798,106 +2087,6 @@ function check_itemuse_write($it_id, $mb_id, $close=true)
 }
 
 
-            $str .= ' (문의전화: '.$tel.')';
-    }
-
-    return $str;
-}
-
-
-// 사용후기의 확인된 건수를 상품테이블에 저장합니다.
-function update_use_cnt($it_id)
-{
-    global $g5;
-    $row = sql_fetch(" select count(*) as cnt from {$g5['g5_shop_item_use_table']} where it_id = '{$it_id}' and is_confirm = 1 ");
-    return sql_query(" update {$g5['g5_shop_item_table']} set it_use_cnt = '{$row['cnt']}' where it_id = '{$it_id}' ");
-}
-
-
-// 사용후기의 선호도(별) 평균을 상품테이블에 저장합니다.
-function update_use_avg($it_id)
-{
-    global $g5;
-    $row = sql_fetch(" select count(*) as cnt, sum(is_score) as total from {$g5['g5_shop_item_use_table']} where it_id = '{$it_id}' ");
-    $average = ($row['total'] && $row['cnt']) ? $row['total'] / $row['cnt'] : 0;
-    return sql_query(" update {$g5['g5_shop_item_table']} set it_use_avg = '$average' where it_id = '{$it_id}' ");
-}
-
-
-//------------------------------------------------------------------------------
-// 주문포인트를 적립한다.
-// 설정일이 지난 포인트 부여되지 않은 배송완료된 장바구니 자료에 포인트 부여
-// 설정일이 0 이면 주문서 완료 설정 시점에서 포인트를 바로 부여합니다.
-//------------------------------------------------------------------------------
-function save_order_point($ct_status="완료")
-{
-    global $g5, $default;
-
-    $beforedays = date("Y-m-d H:i:s", ( time() - (86400 * (int)$default['de_point_days']) ) ); // 86400초는 하루
-    $sql = " select * from {$g5['g5_shop_cart_table']} where ct_status = '$ct_status' and ct_point_use = '0' and ct_time <= '$beforedays' ";
-    $result = sql_query($sql);
-    for ($i=0; $row=sql_fetch_array($result); $i++) {
-        // 회원 ID 를 얻는다.
-        $od_row = sql_fetch("select od_id, mb_id from {$g5['g5_shop_order_table']} where od_id = '{$row['od_id']}' ");
-        if ($od_row['mb_id'] && $row['ct_point'] > 0) { // 회원이면서 포인트가 0보다 크다면
-            $po_point = $row['ct_point'] * $row['ct_qty'];
-            $po_content = "주문번호 {$od_row['od_id']} ({$row['ct_id']}) 배송완료";
-            insert_point($od_row['mb_id'], $po_point, $po_content, "@delivery", $od_row['mb_id'], "{$od_row['od_id']},{$row['ct_id']}");
-        }
-        sql_query("update {$g5['g5_shop_cart_table']} set ct_point_use = '1' where ct_id = '{$row['ct_id']}' ");
-    }
-}
-
-
-// 배송업체 리스트 얻기
-function get_delivery_company($company)
-{
-    $option = '<option value="">없음</option>'.PHP_EOL;
-    $option .= '<option value="자체배송" '.get_selected($company, '자체배송').'>자체배송</option>'.PHP_EOL;
-
-    $dlcomp = explode(")", str_replace("(", "", G5_DELIVERY_COMPANY));
-    for ($i=0; $i<count($dlcomp); $i++) {
-        if (trim($dlcomp[$i])=="") continue;
-        list($value, $url, $tel) = explode("^", $dlcomp[$i]);
-        $option .= '<option value="'.$value.'" '.get_selected($company, $value).'>'.$value.'</option>'.PHP_EOL;
-    }
-
-    return $option;
-}
-
-// 사용후기 썸네일 생성
-function get_itemuselist_thumbnail($it_id, $contents, $thumb_width, $thumb_height, $is_create=false, $is_crop=true, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
-{
-    global $g5, $config;
-    $img = $filename = $alt = "";
-
-    if($contents) {
-        $matches = get_editor_image($contents, false);
-
-        for($i=0; $i<count($matches[1]); $i++)
-        {
-            // 이미지 path 구함
-            $p = parse_url($matches[1][$i]);
-            if(strpos($p['path'], '/'.G5_DATA_DIR.'/') != 0)
-                $data_path = preg_replace('/^\/.*\/'.G5_DATA_DIR.'/', '/'.G5_DATA_DIR, $p['path']);
-            else
-                $data_path = $p['path'];
-
-            $srcfile = G5_PATH.$data_path;
-
-            if(preg_match("/\.({$config['cf_image_extension']})$/i", $srcfile) && is_file($srcfile)) {
-                $size = @getimagesize($srcfile);
-                if(empty($size))
-                    continue;
-
-                $filename = basename($srcfile);
-                $filepath = dirname($srcfile);
-
-                preg_match("/alt=[\"\']?([^\"\']*)[\"\']?/", $matches[0][$i], $malt);
-                $alt = get_text($malt[1]);
-
-                break;
-            }
 // 구매 본인인증 체크
 function shop_member_cert_check($id, $type)
 {
@@ -998,6 +2187,106 @@ function get_delivery_inquiry($company, $invoice, $class='')
             $str .= ' class="'.$class.'"';
         $str .='>배송조회</a>';
         if($tel)
+            $str .= ' (문의전화: '.$tel.')';
+    }
+
+    return $str;
+}
+
+
+// 사용후기의 확인된 건수를 상품테이블에 저장합니다.
+function update_use_cnt($it_id)
+{
+    global $g5;
+    $row = sql_fetch(" select count(*) as cnt from {$g5['g5_shop_item_use_table']} where it_id = '{$it_id}' and is_confirm = 1 ");
+    return sql_query(" update {$g5['g5_shop_item_table']} set it_use_cnt = '{$row['cnt']}' where it_id = '{$it_id}' ");
+}
+
+
+// 사용후기의 선호도(별) 평균을 상품테이블에 저장합니다.
+function update_use_avg($it_id)
+{
+    global $g5;
+    $row = sql_fetch(" select count(*) as cnt, sum(is_score) as total from {$g5['g5_shop_item_use_table']} where it_id = '{$it_id}' ");
+    $average = ($row['total'] && $row['cnt']) ? $row['total'] / $row['cnt'] : 0;
+    return sql_query(" update {$g5['g5_shop_item_table']} set it_use_avg = '$average' where it_id = '{$it_id}' ");
+}
+
+
+//------------------------------------------------------------------------------
+// 주문포인트를 적립한다.
+// 설정일이 지난 포인트 부여되지 않은 배송완료된 장바구니 자료에 포인트 부여
+// 설정일이 0 이면 주문서 완료 설정 시점에서 포인트를 바로 부여합니다.
+//------------------------------------------------------------------------------
+function save_order_point($ct_status="완료")
+{
+    global $g5, $default;
+
+    $beforedays = date("Y-m-d H:i:s", ( time() - (86400 * (int)$default['de_point_days']) ) ); // 86400초는 하루
+    $sql = " select * from {$g5['g5_shop_cart_table']} where ct_status = '$ct_status' and ct_point_use = '0' and ct_time <= '$beforedays' ";
+    $result = sql_query($sql);
+    for ($i=0; $row=sql_fetch_array($result); $i++) {
+        // 회원 ID 를 얻는다.
+        $od_row = sql_fetch("select od_id, mb_id from {$g5['g5_shop_order_table']} where od_id = '{$row['od_id']}' ");
+        if ($od_row['mb_id'] && $row['ct_point'] > 0) { // 회원이면서 포인트가 0보다 크다면
+            $po_point = $row['ct_point'] * $row['ct_qty'];
+            $po_content = "주문번호 {$od_row['od_id']} ({$row['ct_id']}) 배송완료";
+            insert_point($od_row['mb_id'], $po_point, $po_content, "@delivery", $od_row['mb_id'], "{$od_row['od_id']},{$row['ct_id']}");
+        }
+        sql_query("update {$g5['g5_shop_cart_table']} set ct_point_use = '1' where ct_id = '{$row['ct_id']}' ");
+    }
+}
+
+
+// 배송업체 리스트 얻기
+function get_delivery_company($company)
+{
+    $option = '<option value="">없음</option>'.PHP_EOL;
+    $option .= '<option value="자체배송" '.get_selected($company, '자체배송').'>자체배송</option>'.PHP_EOL;
+
+    $dlcomp = explode(")", str_replace("(", "", G5_DELIVERY_COMPANY));
+    for ($i=0; $i<count($dlcomp); $i++) {
+        if (trim($dlcomp[$i])=="") continue;
+        list($value, $url, $tel) = explode("^", $dlcomp[$i]);
+        $option .= '<option value="'.$value.'" '.get_selected($company, $value).'>'.$value.'</option>'.PHP_EOL;
+    }
+
+    return $option;
+}
+
+// 사용후기 썸네일 생성
+function get_itemuselist_thumbnail($it_id, $contents, $thumb_width, $thumb_height, $is_create=false, $is_crop=true, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
+{
+    global $g5, $config;
+    $img = $filename = $alt = "";
+
+    if($contents) {
+        $matches = get_editor_image($contents, false);
+
+        for($i=0; $i<count($matches[1]); $i++)
+        {
+            // 이미지 path 구함
+            $p = parse_url($matches[1][$i]);
+            if(strpos($p['path'], '/'.G5_DATA_DIR.'/') != 0)
+                $data_path = preg_replace('/^\/.*\/'.G5_DATA_DIR.'/', '/'.G5_DATA_DIR, $p['path']);
+            else
+                $data_path = $p['path'];
+
+            $srcfile = G5_PATH.$data_path;
+
+            if(preg_match("/\.({$config['cf_image_extension']})$/i", $srcfile) && is_file($srcfile)) {
+                $size = @getimagesize($srcfile);
+                if(empty($size))
+                    continue;
+
+                $filename = basename($srcfile);
+                $filepath = dirname($srcfile);
+
+                preg_match("/alt=[\"\']?([^\"\']*)[\"\']?/", $matches[0][$i], $malt);
+                $alt = get_text($malt[1]);
+
+                break;
+            }
         }
 
         if($filename) {

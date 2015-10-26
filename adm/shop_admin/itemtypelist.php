@@ -59,6 +59,10 @@ if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이�
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
 $sql  = " select it_id,
+                 it_update_time,
+                 it_name_ddm,
+                 it_price_ddm,
+                 it_place_ddm,
                  it_name,
                  it_type1,
                  it_type2,
@@ -103,6 +107,8 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 <select name="sfl" id="sfl">
     <option value="it_name" <?php echo get_selected($sfl, 'it_name'); ?>>상품명</option>
     <option value="it_id" <?php echo get_selected($sfl, 'it_id'); ?>>상품코드</option>
+    <option value="it_place_ddm" <?php echo get_selected($sfl, 'it_place_ddm'); ?>>사입처</option>
+    <option value="it_name_ddm" <?php echo get_selected($sfl, 'it_name_ddm'); ?>>사입상품명</option>
 </select>
 
 <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
@@ -125,12 +131,13 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
     <thead>
     <tr>
         <th scope="col"><?php echo subject_sort_link("it_id", $qstr, 1); ?>상품코드</a></th>
+        <th scope="col" style="width:130px"><?php echo subject_sort_link("it_update_time", $qstr, 'desc', 1); ?>등록, 수정일</a></th>
         <th scope="col"><?php echo subject_sort_link("it_name"); ?>상품명</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type1", $qstr, 1); ?>VOGOS<br>CLIP</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type1", $qstr, 1); ?>야외<br>촬영</a></th>
         <th scope="col"><?php echo subject_sort_link("it_type2", $qstr, 1); ?>MODEL's<br>CHOICE</a></th>
         <th scope="col"><?php echo subject_sort_link("it_type3", $qstr, 1); ?>NEW<br>ARRIVALS</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type4", $qstr, 1); ?>VOGOS<br>BESTSELLERS</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type5", $qstr, 1); ?>할인<br>상품</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type4", $qstr, 1); ?>RUNWAY<br>IN VOGOS</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type5", $qstr, 1); ?>UP TO<br>7% OFF</a></th>
         <th scope="col">관리</th>
     </tr>
     </thead>
@@ -145,7 +152,10 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
             <?php echo $row['it_id']; ?>
         </td>
-        <td><a href="<?php echo $href; ?>"><?php echo get_it_image($row['it_id'], 50, 50); ?><?php echo cut_str(stripslashes($row['it_name']), 60, "&#133"); ?></a></td>
+        <td class="td_code">
+            <span style="font-size:11px"><?php echo $row['it_update_time']; ?></span>
+        </td>
+        <td><a href="<?php echo $href; ?>"><?php echo get_it_image($row['it_id'], 50, 50); ?><span style="color:#ff0000"> <?php echo cut_str(stripslashes($row['it_name']), 60, "&#133"); ?></span> - <?php echo $row['it_place_ddm'].' / '.$row['it_name_ddm'].' / '.$row['it_price_ddm']; ?></a></td>
         <td class="td_chk">
             <label for="type1_<?php echo $i; ?>" class="sound_only">히트상품</label>
             <input type="checkbox" name="it_type1[<?php echo $i; ?>]" value="1" id="type1_<?php echo $i; ?>" <?php echo ($row['it_type1'] ? 'checked' : ''); ?>>

@@ -18,7 +18,7 @@ check_input_vars();
 
 // 파일정보
 if($w == "u") {
-    $sql = " select it_img1, it_img2, it_img3, it_img4, it_img5, it_img6, it_img7, it_img8, it_img9, it_img10
+    $sql = " select it_img1, it_img2, it_img3, it_img4, it_img5, it_img6, it_img7, it_img8, it_img9, it_img10, it_img11
                 from {$g5['g5_shop_item_table']}
                 where it_id = '$it_id' ";
     $file = sql_fetch($sql);
@@ -33,6 +33,7 @@ if($w == "u") {
     $it_img8    = $file['it_img8'];
     $it_img9    = $file['it_img9'];
     $it_img10   = $file['it_img10'];
+    $it_img11   = $file['it_img11'];
 }
 
 $it_img_dir = G5_DATA_PATH.'/item';
@@ -97,6 +98,12 @@ if ($it_img10_del) {
     @unlink($file_img10);
     delete_item_thumbnail(dirname($file_img10), basename($file_img10));
     $it_img10 = '';
+}
+if ($it_img11_del) {
+    $file_img11 = $it_img_dir.'/'.$it_img11;
+    @unlink($file_img11);
+    delete_item_thumbnail(dirname($file_img11), basename($file_img11));
+    $it_img11 = '';
 }
 
 // 이미지업로드
@@ -179,6 +186,14 @@ if ($_FILES['it_img10']['name']) {
         delete_item_thumbnail(dirname($file_img10), basename($file_img10));
     }
     $it_img10 = it_img_upload($_FILES['it_img10']['tmp_name'], $_FILES['it_img10']['name'], $it_img_dir.'/'.$it_id);
+}
+if ($_FILES['it_img11']['name']) {
+    if($w == 'u' && $it_img11) {
+        $file_img11 = $it_img_dir.'/'.$it_img11;
+        @unlink($file_img11);
+        delete_item_thumbnail(dirname($file_img11), basename($file_img11));
+    }
+    $it_img11 = it_img_upload($_FILES['it_img11']['tmp_name'], $_FILES['it_img11']['name'], $it_img_dir.'/'.$it_id);
 }
 
 if ($w == "" || $w == "u")
@@ -268,6 +283,9 @@ $sql_common = " ca_id               = '$ca_id',
                 ca_id3              = '$ca_id3',
                 it_skin             = '$it_skin',
                 it_mobile_skin      = '$it_mobile_skin',
+                it_place_ddm        = '$it_place_ddm',
+                it_name_ddm         = '$it_name_ddm',
+                it_price_ddm        = '$it_price_ddm',
                 it_name             = '$it_name',
                 it_maker            = '$it_maker',
                 it_origin           = '$it_origin',
@@ -324,6 +342,7 @@ $sql_common = " ca_id               = '$ca_id',
                 it_img8             = '$it_img8',
                 it_img9             = '$it_img9',
                 it_img10            = '$it_img10',
+                it_img11            = '$it_img11',
                 it_1_subj           = '$it_1_subj',
                 it_2_subj           = '$it_2_subj',
                 it_3_subj           = '$it_3_subj',

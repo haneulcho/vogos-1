@@ -8,7 +8,7 @@ if (G5_IS_MOBILE) {
 
 $type = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\s]/", "", $_REQUEST['type']);
 if ($type == 1) {
-    // 보고스클립 > VOGOS CLIP
+    // 보고스 야외촬영 > VOGOS
     $g5['title'] = 'VOGOS CLIP';
     $nbm_class = 'vogos_clip';
 }

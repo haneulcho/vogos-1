@@ -2,7 +2,7 @@
 include_once('./_common.php');
 include_once(G5_LIB_PATH.'/mailer.lib.php');
 
-if($od_settle_case != '무통장' && $default['de_pg_service'] == 'lg' && !$_POST['LGD_PAYKEY'])
+if($od_settle_case != '무통장' && $od_settle_case != '전액 포인트' && $default['de_pg_service'] == 'lg' && !$_POST['LGD_PAYKEY'])
     alert('결제등록 요청 후 주문해 주십시오.');
 
 // 장바구니가 비어있는가?
@@ -266,6 +266,16 @@ $order_price = $tot_od_price + $send_cost + $send_cost2 - $tot_sc_cp_price - $od
 
 $od_status = '주문';
 if ($od_settle_case == "무통장")
+{
+    $od_receipt_point   = $i_temp_point;
+    $od_receipt_price   = 0;
+    $od_misu            = $i_price - $od_receipt_price;
+    if($od_misu == 0) {
+        $od_status      = '입금';
+        $od_receipt_time = G5_TIME_YMDHIS;
+    }
+}
+else if ($od_settle_case == "전액포인트")
 {
     $od_receipt_point   = $i_temp_point;
     $od_receipt_price   = 0;

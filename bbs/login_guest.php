@@ -1,7 +1,7 @@
 <?php
 include_once('./_common.php');
 
-$g5['title'] = '로그인';
+$g5['title'] = 'Sign In';
 
 $url = $_GET['url'];
 
@@ -65,22 +65,22 @@ box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);}
 </style>
 <div id="mb_login" class="mbskin">
 
-    <h1><?php $g5['title'] = 'VOGOS 관리자만 접근하실 수 있습니다.<br>로그인 하십시오.'; echo $g5['title'] ?></h1>
+    <h1><?php $g5['title'] = 'Admin Access Only!<br>Please Sign In'; echo $g5['title'] ?></h1>
 
     <form name="flogin" action="<?php echo $login_action_url ?>" onsubmit="return flogin_submit(this);" method="post">
     <input type="hidden" name="url" value="<?php echo $login_url ?>">
 
     <div id="login_frm">
-        <label for="login_id" class="sound_only">아이디</label>
-        <input type="text" name="mb_id" id="login_id" placeholder="아이디(필수)" required class="frm_input required" maxLength="20">
-        <label for="login_pw" class="sound_only">비밀번호</label>
-        <input type="password" name="mb_password" id="login_pw" placeholder="비밀번호(필수)" required class="frm_input required" maxLength="20">
+        <label for="login_id" class="sound_only">ID</label>
+        <input type="text" name="mb_id" id="login_id" placeholder="ID(required)" required class="frm_input required" maxLength="20">
+        <label for="login_pw" class="sound_only">Password</label>
+        <input type="password" name="mb_password" id="login_pw" placeholder="PW(required)" required class="frm_input required" maxLength="20">
         <div>
                 <input type="checkbox" name="auto_login" id="login_auto_login">
-                <label for="login_auto_login">로그인 상태 유지</label>
+                <label for="login_auto_login">Keep me logged in</label>
         </div>
         <div class="login_frm_btns">
-            <input type="submit" value="로그인" class="btn_submit">
+            <input type="submit" value="Sign In" class="btn_submit">
         </div>
     </div>
     </form>
@@ -91,7 +91,7 @@ box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);}
 $(function(){
     $("#login_auto_login").click(function(){
         if (this.checked) {
-            this.checked = confirm("자동로그인을 사용하시면 다음부터 회원아이디와 비밀번호를 입력하실 필요가 없습니다.\n\n공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?");
+            this.checked = confirm("Do you want us to keep you logged in?");
         }
     });
 });

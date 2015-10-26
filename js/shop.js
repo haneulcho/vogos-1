@@ -98,7 +98,7 @@ $(function() {
             var info = val.split(",");
             // 재고체크
             if(parseInt(info[2]) < 1) {
-                alert("선택하신 선택옵션상품은 재고가 부족하여 구매할 수 없습니다.");
+                alert("Out of Stock.\\nPlease select other items.");
                 return false;
             }
 
@@ -163,7 +163,15 @@ $(function() {
 
     // 수량변경 및 삭제
     $("#sit_sel_option li button").live("click", function() {
-        var mode = $(this).text();
+        // var mode = $(this).text();
+        var mode;
+        if($(this).hasClass('sit_qty_minus')) {
+            mode = '감소';
+        } else if($(this).hasClass('sit_qty_plus')){
+            mode = '증가';
+        } else {
+            mode = '삭제';
+        }
         var this_qty, max_qty = 9999, min_qty = 1;
         var $el_qty = $(this).closest("li").find("input[name^=ct_qty]");
         var stock = parseInt($(this).closest("li").find("input.io_stock").val());
@@ -172,13 +180,13 @@ $(function() {
             case "증가":
                 this_qty = parseInt($el_qty.val().replace(/[^0-9]/, "")) + 1;
                 if(this_qty > stock) {
-                    alert("재고수량 보다 많은 수량을 구매할 수 없습니다.");
+                    alert("You've reached the limit for this item.");
                     this_qty = stock;
                 }
 
                 if(this_qty > max_qty) {
                     this_qty = max_qty;
-                    alert("최대 구매수량은 "+number_format(String(max_qty))+" 입니다.");
+                    alert("Please specify a quantity less than "+number_format(String(max_qty))+" in a product.");
                 }
 
                 $el_qty.val(this_qty);
@@ -189,14 +197,14 @@ $(function() {
                 this_qty = parseInt($el_qty.val().replace(/[^0-9]/, "")) - 1;
                 if(this_qty < min_qty) {
                     this_qty = min_qty;
-                    alert("최소 구매수량은 "+number_format(String(min_qty))+" 입니다.");
+                    alert("Please specify a quantity larger than "+number_format(String(min_qty))+" in a product.");
                 }
                 $el_qty.val(this_qty);
                 price_calculate();
                 break;
 
             case "삭제":
-                if(confirm("선택하신 옵션항목을 삭제하시겠습니까?")) {
+                if(confirm("Delete selected items.")) {
                     var $el = $(this).closest("li");
                     var del_exec = true;
 
@@ -212,14 +220,14 @@ $(function() {
                         $el.closest("li").remove();
                         price_calculate();
                     } else {
-                        alert("선택옵션은 하나이상이어야 합니다.");
+                        alert("Please specify a quantity larger than 0 in a product.");
                         return false;
                     }
                 }
                 break;
 
             default:
-                alert("올바른 방법으로 이용해 주십시오.");
+                alert("We could not process your request.\\nPlease try again.");
                 break;
         }
     });
@@ -230,17 +238,17 @@ $(function() {
 
         if(val != "") {
             if(val.replace(/[0-9]/g, "").length > 0) {
-                alert("수량은 숫자만 입력해 주십시오.");
+                alert("Please check a quantity.");
                 $(this).val(1);
             } else {
                 var d_val = parseInt(val);
                 if(d_val < 1 || d_val > 9999) {
-                    alert("수량은 1에서 9999 사이의 값으로 입력해 주십시오.");
+                    alert("Please specify a quantity to enable the 'Add To Shopping Bag' button.");
                     $(this).val(1);
                 } else {
                     var stock = parseInt($(this).closest("li").find("input.io_stock").val());
                     if(d_val > stock) {
-                        alert("재고수량 보다 많은 수량을 구매할 수 없습니다.");
+                        alert("You've reached the limit for this item.");
                         $(this).val(stock);
                     }
                 }
@@ -279,11 +287,11 @@ function sel_option_process(add_exec)
             sep = " / ";
         }
 
-        option += sep + item + ":" + sel_opt;
+        option += sep + item + ": " + sel_opt;
     });
 
     if(run_error) {
-        alert(item+"을(를) 선택해 주십시오.");
+        alert("Please select: "+item);
         return false;
     }
 
@@ -292,7 +300,7 @@ function sel_option_process(add_exec)
 
     // 금액 음수 체크
     if(it_price + parseInt(price) < 0) {
-        alert("구매금액이 음수인 상품은 구매할 수 없습니다.");
+        alert("Please enter valid number.");
         return false;
     }
 
@@ -311,7 +319,7 @@ function sel_supply_process($el, add_exec)
     var item = $el.closest("tr").find("th label").text();
 
     if(!val) {
-        alert(item+"을(를) 선택해 주십시오.");
+        alert("Please select: "+item);
         return;
     }
 
@@ -319,18 +327,18 @@ function sel_supply_process($el, add_exec)
 
     // 재고체크
     if(parseInt(info[2]) < 1) {
-        alert(info[0]+"은(는) 재고가 부족하여 구매할 수 없습니다.");
+        alert(info[0]+"is not available!");
         return false;
     }
 
     var id = item+chr(30)+info[0];
-    var option = item+":"+info[0];
+    var option = item+": "+info[0];
     var price = info[1];
     var stock = info[2];
 
     // 금액 음수 체크
     if(parseInt(price) < 0) {
-        alert("구매금액이 음수인 상품은 구매할 수 없습니다.");
+        alert("Please enter valid number.");
         return false;
     }
 
@@ -364,11 +372,14 @@ function add_sel_option(type, id, option, price, stock)
     opt += "<input type=\"hidden\" class=\"io_price\" value=\""+price+"\">";
     opt += "<input type=\"hidden\" class=\"io_stock\" value=\""+stock+"\">";
     opt += "<span class=\"sit_opt_subj\">"+option+"</span>";
-    opt += "<span class=\"sit_opt_prc\">"+opt_prc+"</span>";
-    opt += "<div><input type=\"text\" name=\"ct_qty["+item_code+"][]\" value=\"1\" class=\"frm_input\" size=\"5\">";
-    opt += "<button type=\"button\" class=\"sit_qty_plus btn_frmline\">증가</button>";
-    opt += "<button type=\"button\" class=\"sit_qty_minus btn_frmline\">감소</button>";
-    opt += "<button type=\"button\" class=\"sit_opt_del btn_frmline\">삭제</button></div>";
+    if(parseInt(price) > 0) {
+        opt += "<span class=\"sit_opt_prc\">"+opt_prc+"</span>";    
+    }
+    opt += "<div>";
+    opt += "<button type=\"button\" class=\"sit_qty_minus btn_frmline\"><i class=\"ion-android-arrow-dropdown\"></i></button>";
+    opt += "<input type=\"text\" name=\"ct_qty["+item_code+"][]\" value=\"1\" class=\"frm_input\" size=\"5\">";
+    opt += "<button type=\"button\" class=\"sit_qty_plus btn_frmline\"><i class=\"ion-android-arrow-dropup\"></i></button>";
+    opt += "<button type=\"button\" class=\"sit_opt_del btn_frmline\"><i class=\"ion-ios-trash-outline\"></i></button></div>";
     opt += "</li>";
 
     if($("#sit_sel_option > ul").size() < 1) {
@@ -413,7 +424,7 @@ function same_option_check(val)
     });
 
     if(result)
-        alert(val+" 은(는) 이미 추가하신 옵션상품입니다.");
+        alert(" You have already added '"+val+"'");
 
     return result;
 }
@@ -443,7 +454,7 @@ function price_calculate()
         }
     });
 
-    $("#sit_tot_price").empty().html("<span>총 금액 :</span> "+number_format(String(total))+"원");
+    $("#sit_tot_price").empty().html("$"+number_format(String(total))+".00");
 }
 
 // php chr() 대응

@@ -1,9 +1,10 @@
 <?php
 include_once('./_common.php');
 
-if (!$is_member) {
+// 임시로 주석 처리
+/*if (!$is_member) {
     alert_close("사용후기는 회원만 작성이 가능합니다.");
-}
+}*/
 
 $it_id       = trim($_REQUEST['it_id']);
 $is_subject  = trim($_POST['is_subject']);
