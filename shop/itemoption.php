@@ -14,7 +14,7 @@ $sql = " select * from {$g5['g5_shop_item_option_table']}
                 order by io_no asc ";
 $result = sql_query($sql);
 
-$str = '<option value="">선택</option>';
+$str = '<option value="">SELECT</option>';
 $opt = array();
 
 for($i=0; $row=sql_fetch_array($result); $i++) {
@@ -52,7 +52,7 @@ for($i=0; $row=sql_fetch_array($result); $i++) {
         $io_stock_qty = get_option_stock_qty($it_id, $row['io_id'], $row['io_type']);
 
         if($io_stock_qty < 1)
-            $soldout = '&nbsp;&nbsp;[품절]';
+            $soldout = '&nbsp;&nbsp;[SOLD OUT]';
         else
             $soldout = '';
 

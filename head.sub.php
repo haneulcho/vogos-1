@@ -55,7 +55,7 @@ if($config['cf_add_meta'])
 <?php if (!isset($og_title)) { ?>
 <meta property="og:title" content="VOGOS (보고스)">
 <meta property="og:url" content="http://vogos.com">
-<meta property="og:description" content="Everywhere is Runway, Everyday VOGOS - 보고스 패션을 지금 만나보세요!">
+<meta property="og:description" content="Everywhere is Runway, Everyday VOGOS">
 <meta property="og:image" content="<?php echo G5_SHOP_SKIN_URL.'/img/og_img.png' ?>">
 <?php } else { ?>
 <meta property="og:title" content="<?=$og_title ?>">
@@ -80,6 +80,8 @@ if (defined('G5_IS_ADMIN')) {
 // 자바스크립트에서 사용하는 전역변수 선언
 var g5_url       = "<?php echo G5_URL ?>";
 var g5_bbs_url   = "<?php echo G5_BBS_URL ?>";
+var g5_shop_url   = "<?php echo G5_SHOP_URL ?>";
+var g5_shop_skin_url   = "<?php echo G5_SHOP_SKIN_URL ?>";
 var g5_is_member = "<?php echo isset($is_member)?$is_member:''; ?>";
 var g5_is_admin  = "<?php echo isset($is_admin)?$is_admin:''; ?>";
 var g5_is_mobile = "<?php echo G5_IS_MOBILE ?>";
@@ -109,6 +111,8 @@ if (defined('_SHOP_')) {
 <?php } ?>
 <script src="<?php echo G5_JS_URL ?>/common.js"></script>
 <script src="<?php echo G5_JS_URL ?>/wrest.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link href="//fonts.googleapis.com/css?family=Lato:100normal,100italic,300normal,300italic,400normal,400italic,700normal,700italic,900normal,900italic&subset=all" rel="stylesheet" type="text/css">
 <?php
 if(G5_IS_MOBILE) {
     echo '<script src="'.G5_JS_URL.'/modernizr.custom.70111.js"></script>'.PHP_EOL; // overflow scroll 감지

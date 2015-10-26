@@ -17,15 +17,12 @@ if ($ca_id)
 }
 ?>
     <div id="sct_best" class="item best_item">
-        <header>
-            <h2>VOGOS에서 가장 인기 있는 <?php echo $b_ca_name ?> 상품입니다.</h2>
+        <header class="fullWidth">
+            <span class="sct_best_blit_left">/</span><h2><?php echo $b_ca_name ?> <span>BEST SELLERS</span></h2><span class="sct_best_blit_right">/</span>
         </header>
-        <div class="sct_best_tooltip">
-            <img src="<?php echo G5_SHOP_SKIN_URL.'/img/title_bs_'.$b_ca_imgname.'.png' ?>">
-        </div>
 <?php
     // 분류 Best Item 출력
-    $list_mod = 10;
+    $list_mod = 5;
     $list_row = 1;
     $limit = $list_mod * $list_row;
     $best_skin = G5_SHOP_SKIN_PATH.'/list.best.10.skin.php';

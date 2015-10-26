@@ -48,104 +48,53 @@ define("_INDEX_", TRUE);
 include_once(G5_SHOP_PATH.'/shop.head.php');
 ?>
 
-<?php if($default['de_type1_list_use']) { ?>
-<!-- VOGOS 야외촬영 시작 { -->
-<section class="sct_wrap w1160">
-    <header>
-        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=1">Everywhere is Runway<br>VOGOS</a></h2>
-    </header>
-    <?php
-    $list = new item_list();
-    $list->set_type(1);
-    $list->set_view('it_id', false);
-    $list->set_view('it_name', true);
-    $list->set_view('it_basic', true);
-    $list->set_view('it_cust_price', true);
-    $list->set_view('it_price', true);
-    $list->set_view('it_icon', false);
-    $list->set_view('sns', false);
-    echo $list->run();
-    ?>
-</section>
-<!-- } VOGOS 야외촬영 끝 -->
-<?php } ?>
+    <?php if($default['de_type3_list_use']) { ?>
+    <!-- New Arrivals 시작 { -->
+    <section class="sct_wrap">
+    <div class="fullWidth">
+        <header>
+            <h2><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL ?>/img/title_vogos_newarrivals.jpg" alt="VOGOS NEW ARRIVALS"></a></h2>
+        </header>
+        <?php
+        $list = new item_list();
+        $list->set_type(3);
+        $list->set_view('it_id', false);
+        $list->set_view('it_name', true);
+        $list->set_view('it_basic', true);
+        $list->set_view('it_cust_price', false);
+        $list->set_view('it_price', true);
+        $list->set_view('it_icon', true);
+        $list->set_view('sns', false);
+        echo $list->run();
+        ?>
+    </div>
+    </section>
+    <!-- } New Arrivals 끝 -->
+    <?php } ?>
 
-<?php if($default['de_type2_list_use']) { ?>
-<!-- VOGOS 모델스 초이스(MODEL's CHOICE) 시작 { -->
-<section class="sct_wrap w1160">
-    <header>
-        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2">VOGOS<br>MODEL's CHOICE</a></h2>
-    </header>
-    <?php include_once(G5_SHOP_SKIN_PATH.'/main.modelslist.skin.php'); ?>
-</section>
-<!-- } VOGOS 모델스 초이스(MODEL's CHOICE) 끝 -->
-<?php } ?>
-
-<?php if($default['de_type4_list_use']) { ?>
-<!-- VOGOS RUNWAY in VOGOS 시작 { -->
-<section class="sct_wrap w1160">
-    <header>
-        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">RUNWAY<br>IN VOGOS</a></h2>
-    </header>
-    <?php
-    $list = new item_list();
-    $list->set_type(4);
-    $list->set_view('it_id', false);
-    $list->set_view('it_name', false);
-    $list->set_view('it_basic', false);
-    $list->set_view('it_cust_price', false);
-    $list->set_view('it_price', false);
-    $list->set_view('it_icon', false);
-    $list->set_view('sns', false);
-    echo $list->run();
-    ?>
-</section>
-<!-- } VOGOS BESTSELLERS 끝 -->
-<?php } ?>
-
-<?php if($default['de_type3_list_use']) { ?>
-<!-- NEW ARRIVALS 시작 { -->
-<section class="sct_wrap w1160">
-    <header>
-        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3">NEW<br>ARRIVALS</a></h2>
-    </header>
-    <?php
-    $list = new item_list();
-    $list->set_type(3);
-    $list->set_view('it_id', false);
-    $list->set_view('it_name', true);
-    $list->set_view('it_basic', true);
-    $list->set_view('it_cust_price', true);
-    $list->set_view('it_price', true);
-    $list->set_view('it_icon', false);
-    $list->set_view('sns', false);
-    echo $list->run();
-    ?>
-</section>
-<!-- } NEW ARRIVALS 끝 -->
-<?php } ?>
-
-<?php if($default['de_type5_list_use']) { ?>
-<!-- 할인상품 시작 { -->
-<section class="sct_wrap w1160">
-    <header>
-        <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=5">UP TO<br>7% OFF</a></h2>
-    </header>
-    <?php
-    $list = new item_list();
-    $list->set_type(5);
-    $list->set_view('it_id', false);
-    $list->set_view('it_name', true);
-    $list->set_view('it_basic', true);
-    $list->set_view('it_cust_price', true);
-    $list->set_view('it_price', true);
-    $list->set_view('it_icon', false);
-    $list->set_view('sns', false);
-    echo $list->run();
-    ?>
-</section>
-<!-- } 할인상품 끝 -->
-<?php } ?>
+    <?php if($default['de_type2_list_use']) { ?>
+    <!-- runway product 시작 { -->
+    <section class="sct_wrap f8f8f8">
+    <div class="fullWidth">
+        <header>
+            <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2"><img src="<?php echo G5_SHOP_SKIN_URL ?>/img/title_vogos_slogan.jpg" alt="VOGOS NEW ARRIVALS"></a></h2>
+        </header>
+        <?php
+        $list = new item_list();
+        $list->set_type(2);
+        $list->set_view('it_id', false);
+        $list->set_view('it_name', true);
+        $list->set_view('it_basic', true);
+        $list->set_view('it_cust_price', false);
+        $list->set_view('it_price', true);
+        $list->set_view('it_icon', true);
+        $list->set_view('sns', true);
+        echo $list->run();
+        ?>
+    </div>
+    </section>
+    <!-- } runway product 끝 -->
+    <?php } ?>
 
 <?php // echo poll('shop_basic'); // 설문조사 ?>
 

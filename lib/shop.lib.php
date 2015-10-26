@@ -60,7 +60,8 @@ class item_list
     protected $ca_id3 = "";
 
     // 노출순서
-    protected $order_by = "it_order, it_time, it_id desc";
+    // protected $order_by = "it_order, it_update_time, it_id desc";
+    protected $order_by = "it_order, it_id desc";
 
     // 상품의 이벤트번호를 저장합니다.
     protected $event = "";
@@ -404,7 +405,7 @@ function get_it_image($it_id, $width, $height=0, $anchor=false, $img_id='', $img
     if(!$it_id || !$width)
         return '';
 
-    $sql = " select it_id, it_img1, it_img2, it_img3, it_img4, it_img5, it_img6, it_img7, it_img8, it_img9, it_img10 from {$g5['g5_shop_item_table']} where it_id = '$it_id' ";
+    $sql = " select it_id, it_img1, it_img2, it_img3, it_img4, it_img5, it_img6, it_img7, it_img8, it_img9, it_img10, it_img11 from {$g5['g5_shop_item_table']} where it_id = '$it_id' ";
     $row = sql_fetch($sql);
 
     if(!$row['it_id'])
@@ -457,15 +458,78 @@ function get_it_image($it_id, $width, $height=0, $anchor=false, $img_id='', $img
     return $img;
 }
 
-// VOGOS COLLECTION 상품 이미지를 얻는다
-function get_it_image2($it_id, $width, $height=0, $anchor=false, $img_id='', $img_alt='')
+// 베스트 상품 5개 이미지를 얻는다
+function get_it_image_best($it_id, $width, $height=0, $img_num, $anchor=false, $img_id='', $img_class='', $img_alt='')
 {
     global $g5;
 
     if(!$it_id || !$width)
         return '';
 
-    $sql = " select it_id, it_img10 from {$g5['g5_shop_item_table']} where it_id = '$it_id' ";
+    $sql = " select it_id, it_img".$img_num." from {$g5['g5_shop_item_table']} where it_id = '$it_id' ";
+    $row = sql_fetch($sql);
+
+    if(!$row['it_id'])
+        return '';
+
+    for($i=1;$i<=10; $i++) {
+        $file = G5_DATA_PATH.'/item/'.$row['it_img'.$i];
+        if(is_file($file) && $row['it_img'.$i]) {
+            $size = @getimagesize($file);
+            if($size[2] < 1 || $size[2] > 3)
+                continue;
+
+            $filename = basename($file);
+            $filepath = dirname($file);
+            $img_width = $size[0];
+            $img_height = $size[1];
+
+            break;
+        }
+    }
+
+    if($img_width && !$height) {
+        $height = round(($width * $img_height) / $img_width);
+    }
+
+    if($filename) {
+        //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
+        // 보고스에서는 기본값을 is_crop = true로
+        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+    }
+
+    if($thumb) {
+        $file_url = str_replace(G5_PATH, G5_URL, $filepath.'/'.$thumb);
+        //$img = '<img src="'.$file_url.'" width="'.$width.'" height="'.$height.'" alt="'.$img_alt.'"';
+        $img = '<img src="'.$file_url.'" class="'.$img_class.'" alt="'.$img_alt.'"';
+    } else {
+        $img = '<img src="'.G5_SHOP_URL.'/img/no_image.gif" width="'.$width.'"';
+        if($height)
+            $img .= ' height="'.$height.'"';
+        $img .= ' alt="'.$img_alt.'"';
+    }
+
+    if($img_id)
+        $img .= ' id="'.$img_id.'"';
+    $img .= '>';
+
+    if($anchor)
+        $img = '<a href="'.G5_SHOP_URL.'/item.php?it_id='.$it_id.'">'.$img.'</a>';
+
+    return $img;
+}
+
+
+
+// VOGOS COLLECTION 상품 이미지를 얻는다
+function get_it_image2($it_id, $img_num, $width, $height=0, $anchor=false, $img_id='', $img_alt='')
+{
+    global $g5;
+
+    if(!$it_id || !$width)
+        return '';
+
+    $sql = " select it_id, it_img".$img_num." from {$g5['g5_shop_item_table']} where it_id = '$it_id' ";
     $row = sql_fetch($sql);
 
     if(!$row['it_id'])
@@ -560,7 +624,7 @@ function get_it_imageurl($it_id)
 {
     global $g5;
 
-    $sql = " select it_img1, it_img2, it_img3, it_img4, it_img5, it_img6, it_img7, it_img8, it_img9, it_img10
+    $sql = " select it_img1, it_img2, it_img3, it_img4, it_img5, it_img6, it_img7, it_img8, it_img9, it_img10, it_img11
                 from {$g5['g5_shop_item_table']}
                 where it_id = '$it_id' ";
     $row = sql_fetch($sql);
@@ -664,7 +728,7 @@ function display_price($price, $tel_inq=false)
     if ($tel_inq)
         $price = '전화문의';
     else
-        $price = number_format($price, 0).'원';
+        $price = '$'.number_format($price, 0).'.00';
 
     return $price;
 }
@@ -1036,7 +1100,7 @@ function get_item_options($it_id, $subject)
                 $str .= '<th><label for="it_option_'.$seq.'">'.$subj[$i].'</label></th>'.PHP_EOL;
 
                 $select = '<select id="it_option_'.$seq.'" class="it_option"'.$disabled.'>'.PHP_EOL;
-                $select .= '<option value="">선택</option>'.PHP_EOL;
+                $select .= '<option value="">SELECT</option>'.PHP_EOL;
                 for($k=0; $k<$opt_count; $k++) {
                     $opt_val = $opt[$k];
                     if(strlen($opt_val)) {
@@ -1054,7 +1118,7 @@ function get_item_options($it_id, $subject)
         $str .= '<th><label for="it_option_1">'.$subj[0].'</label></th>'.PHP_EOL;
 
         $select = '<select id="it_option_1" class="it_option">'.PHP_EOL;
-        $select .= '<option value="">선택</option>'.PHP_EOL;
+        $select .= '<option value="">SELECT</option>'.PHP_EOL;
         for($i=0; $row=sql_fetch_array($result); $i++) {
             if($row['io_price'] >= 0) {
                 if($row['io_price'] == 0) {
@@ -1067,7 +1131,7 @@ function get_item_options($it_id, $subject)
             }
 
             if($row['io_stock_qty'] < 1)
-                $soldout = '&nbsp;&nbsp;[품절]';
+                $soldout = '&nbsp;&nbsp;[SOLD OUT]';
             else
                 $soldout = '';
 
@@ -1122,7 +1186,7 @@ function get_item_supply($it_id, $subject)
             $io_stock_qty = get_option_stock_qty($it_id, $row['io_id'], $row['io_type']);
 
             if($io_stock_qty < 1)
-                $soldout = '&nbsp;&nbsp;[품절]';
+                $soldout = '&nbsp;&nbsp;[SOLD OUT]';
             else
                 $soldout = '';
 
@@ -1140,7 +1204,7 @@ function get_item_supply($it_id, $subject)
             $str .= '<th><label for="it_supply_'.$seq.'">'.$subj[$i].'</label></th>'.PHP_EOL;
 
             $select = '<select id="it_supply_'.$seq.'" class="it_supply">'.PHP_EOL;
-            $select .= '<option value="">선택</option>'.PHP_EOL;
+            $select .= '<option value="">SELECT</option>'.PHP_EOL;
             for($k=0; $k<$opt_count; $k++) {
                 $opt_val = $opt[$k];
                 if($opt_val) {
@@ -1292,7 +1356,7 @@ function get_goods($cart_id)
 // 패턴의 내용대로 해당 디렉토리에서 정렬하여 <select> 태그에 적용할 수 있게 반환
 function get_list_skin_options($pattern, $dirname='./', $sval='')
 {
-    $str = '<option value="">선택</option>'.PHP_EOL;
+    $str = '<option value="">SELECT</option>'.PHP_EOL;
 
     unset($arr);
     $handle = opendir($dirname);

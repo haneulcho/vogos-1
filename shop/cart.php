@@ -19,7 +19,7 @@ if (G5_IS_MOBILE) {
     return;
 }
 
-$g5['title'] = '장바구니';
+$g5['title'] = 'My Cart';
 include_once('./_head.php');
 ?>
 
@@ -28,22 +28,21 @@ include_once('./_head.php');
 
 <div id="sod_bsk">
 
+    <div id="sct_best" class="item best_item">
+        <header class="fullWidth">
+            <h2>MY CART <span class="cart_item_num"></span></h2>
+        </header>
+    </div>
+
     <form name="frmcartlist" id="sod_bsk_list" method="post" action="<?php echo $cart_action_url; ?>">
     <div class="tbl_head01 tbl_wrap">
         <table>
         <thead>
         <tr>
-            <th scope="col">상품이미지</th>
-            <th scope="col">상품명</th>
-            <th scope="col">총수량</th>
-            <th scope="col">판매가</th>
-            <th scope="col">소계</th>
-            <th scope="col">포인트</th>
-            <th scope="col">배송비</th>
-            <th scope="col">
-                <label for="ct_all" class="sound_only">상품 전체</label>
-                <input type="checkbox" name="ct_all" value="1" id="ct_all" checked="checked">
-            </th>
+            <th scope="col">ITEM DESCRIPTION</th>
+            <th scope="col">TOTAL QTY</th>
+            <th scope="col">UNIT PRICE</th>
+            <th scope="col">TOTAL PRICE</th>
         </tr>
         </thead>
         <tbody>
@@ -100,7 +99,7 @@ include_once('./_head.php');
             $it_name = $a1 . stripslashes($row['it_name']) . $a2;
             $it_options = print_item_options($row['it_id'], $s_cart_id);
             if($it_options) {
-                $mod_options = '<div class="sod_option_btn"><button type="button" class="mod_options">선택사항수정</button></div>';
+                $mod_options = '<div class="sod_option_btn"><button type="button" class="mod_options">CHANGE DETAILS</button></div>';
                 $it_name .= '<div class="sod_opt">'.$it_options.'</div>';
             }
 
@@ -140,8 +139,6 @@ include_once('./_head.php');
             <td class="td_num"><?php echo number_format($sum['qty']); ?></td>
             <td class="td_numbig"><?php echo number_format($row['ct_price']); ?></td>
             <td class="td_numbig"><span id="sell_price_<?php echo $i; ?>"><?php echo number_format($sell_price); ?></span></td>
-            <td class="td_numbig"><?php echo number_format($point); ?></td>
-            <td class="td_dvr"><?php echo $ct_send_cost; ?></td>
             <td class="td_chk">
                 <label for="ct_chk_<?php echo $i; ?>" class="sound_only">상품</label>
                 <input type="checkbox" name="ct_chk[<?php echo $i; ?>]" value="1" id="ct_chk_<?php echo $i; ?>" checked="checked">
@@ -165,7 +162,7 @@ include_once('./_head.php');
         } // for 끝
 
         if ($i == 0) {
-            echo '<tr><td colspan="8" class="empty_table">장바구니에 담긴 상품이 없습니다.</td></tr>';
+            echo '<tr><td colspan="8" class="empty_table">Your shopping cart is empty.</td></tr>';
         } else {
             // 배송비 계산
             $send_cost = get_sendcost($s_cart_id, 0);
@@ -181,16 +178,16 @@ include_once('./_head.php');
     ?>
     <dl id="sod_bsk_tot">
         <?php if ($send_cost > 0) { // 배송비가 0 보다 크다면 (있다면) ?>
-        <dt class="sod_bsk_dvr">배송비</dt>
-        <dd class="sod_bsk_dvr"><strong><?php echo number_format($send_cost); ?> 원</strong></dd>
+        <dt class="sod_bsk_dvr">Shipping Cost</dt>
+        <dd class="sod_bsk_dvr"><strong>$<?php echo number_format($send_cost); ?> .00</strong></dd>
         <?php } ?>
 
         <?php
         if ($tot_price > 0) {
         ?>
 
-        <dt class="sod_bsk_cnt">총계 가격/포인트</dt>
-        <dd class="sod_bsk_cnt"><strong><?php echo number_format($tot_price); ?> 원 / <?php echo number_format($tot_point); ?> 점</strong></dd>
+        <dt class="sod_bsk_cnt">Subtotal/Total Point</dt>
+        <dd class="sod_bsk_cnt"><strong>$<?php echo number_format($tot_price); ?> .00 / <?php echo number_format($tot_point); ?> Point</strong></dd>
         <?php } ?>
 
     </dl>
@@ -198,15 +195,15 @@ include_once('./_head.php');
 
     <div id="sod_bsk_act">
         <?php if ($i == 0) { ?>
-        <a href="<?php echo G5_SHOP_URL; ?>/" class="btn01">쇼핑 계속하기</a>
+        <a href="<?php echo G5_SHOP_URL; ?>/" class="btn01">Continue shopping</a>
         <?php } else { ?>
         <input type="hidden" name="url" value="./orderform.php">
         <input type="hidden" name="records" value="<?php echo $i; ?>">
         <input type="hidden" name="act" value="">
-        <a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=<?php echo $continue_ca_id; ?>" class="btn01">쇼핑 계속하기</a>
-        <button type="button" onclick="return form_check('buy');" class="btn_submit">주문하기</button>
-        <button type="button" onclick="return form_check('seldelete');" class="btn01">선택삭제</button>
-        <button type="button" onclick="return form_check('alldelete');" class="btn01">비우기</button>
+        <a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=<?php echo $continue_ca_id; ?>" class="btn01">Continue Shoppping</a>
+        <button type="button" onclick="return form_check('buy');" class="btn_submit">Order</button>
+        <button type="button" onclick="return form_check('seldelete');" class="btn01">Remove</button>
+        <button type="button" onclick="return form_check('alldelete');" class="btn01">Empty</button>
         <?php } ?>
     </div>
 
@@ -217,7 +214,7 @@ include_once('./_head.php');
 <!-- 네이버 프리미엄로그분석 전환페이지 설정_ 장바구니담기 -->
  <script type="text/javascript" src="http://wcs.naver.net/wcslog.js"> </script> 
  <script type="text/javascript">
-var $interValue = "<?php echo number_format($tot_price); ?>";
+var $interValue = "<?php echo $tot_price; ?>";
 var _nasa={};
  _nasa["cnv"] = wcs.cnv("3",$interValue);
 </script>
@@ -271,7 +268,7 @@ function form_check(act) {
     if (act == "buy")
     {
         if($("input[name^=ct_chk]:checked").size() < 1) {
-            alert("주문하실 상품을 하나이상 선택해 주십시오.");
+            alert("Please select at least one item.");
             return false;
         }
 
@@ -286,7 +283,7 @@ function form_check(act) {
     else if (act == "seldelete")
     {
         if($("input[name^=ct_chk]:checked").size() < 1) {
-            alert("삭제하실 상품을 하나이상 선택해 주십시오.");
+            alert("Please select at least one item.");
             return false;
         }
 

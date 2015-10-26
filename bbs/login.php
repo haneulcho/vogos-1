@@ -1,7 +1,7 @@
 <?php
 include_once('./_common.php');
 
-$g5['title'] = '로그인';
+$g5['title'] = 'Sign In';
 include_once('./_head.php');
 
 $url = $_GET['url'];
