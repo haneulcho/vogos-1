@@ -285,6 +285,13 @@ require_once(G5_MSHOP_PATH.'/'.$default['de_pg_service'].'/orderform.1.php');
 ?>
 </div>
 
+<!-- 네이버 프리미엄로그분석 전환페이지 설정 -->
+ <script type="text/javascript" src="http://wcs.naver.net/wcslog.js"> </script> 
+ <script type="text/javascript">
+var _nasa={};
+ _nasa["cnv"] = wcs.cnv("4","10000");
+</script>
+
 <div id="sod_frm">
     <form name="forderform" method="post" action="<?php echo $order_action_url; ?>" autocomplete="off">
     <input type="hidden" name="od_price"    value="<?php echo $tot_sell_price; ?>">
