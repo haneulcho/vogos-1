@@ -612,17 +612,31 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none}
 
 
 /* 상품검색 */
-#ssch_frm {margin-top:10px;padding:20px;border:1px solid #c4c4c4;background:#ebebeb;zoom:1}
+#ssch_frm {margin-top:10px;padding:20px 20px 17px;border-top:2px solid #e0e0e0;border-bottom:1px solid #eee;background:#fefefe;zoom:1}
+#ssch_frm label {margin-right:12px;}
 #ssch_frm:after {display:block;visibility:hidden;clear:both;content:""}
 #ssch_frm div {margin:0 0 5px}
 #ssch_frm strong, #ssch_frm .ssch_lbl {display:inline-block;width:100px;font-weight:bold}
-#ssch_frm .frm_input {background:#fff;border-radius:0;margin-right:0 !important}
-#ssch_frm .btn_submit {padding:17px 20px !important;height:24px !important;border-radius:3px;line-height:3px}
 #ssch_frm p {padding:10px 0;border-top:1px solid #e9e9e9;line-height:1.5em}
 #ssch_frm #ssch_sort {float:left;margin:0;padding:0;list-style:none;zoom:1}
 #ssch_frm #ssch_sort:after {display:block;visibility:hidden;clear:both;content:""}
 #ssch_frm #ssch_sort li {float:left;margin:0 1px 0 0}
 #ssch_frm #ssch_ov {float:right}
+
+#ssch_frm #ssch_q {width:140px;color:tomato;font-size:15px;font-weight:400;background-color:#fff;}
+#ssch_frm .frm_input {width:88px;height:12px;margin:0 !important;padding:10px 10px;border:1px solid #efefef;box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+-webkit-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+-moz-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+-o-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+background-color:#f3f3f3; color:#a7a7a7;outline:0;font-weight:bold;border-radius:0;-webkit-border-radius:0;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;}
+#ssch_frm .frm_input:focus {background-color:#fff;color:#555;}
+#ssch_frm .btn_submit {display:inline-block;padding:0;height:34px;border:0;background:url('../skin/shop/vogos_pc/img/sch_btn.jpg') #6a5f63 no-repeat 50%  50% ;color:#333;cursor:pointer;text-indent:-9999px;overflow:hidden;width:30px;border-radius:0;-webkit-border-radius:0;cursor:pointer;zoom:1;}
+
 
 #ssch_sort {float:right;margin:0;padding:0;list-style:none;zoom:1}
 #ssch_sort:after {display:block;visibility:hidden;clear:both;content:""}

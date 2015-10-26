@@ -12,7 +12,7 @@ $admin = get_admin("super");
 // 사용자 화면 우측과 하단을 담당하는 페이지입니다.
 // 우측, 하단 화면을 꾸미려면 이 파일을 수정합니다.
 ?>
-        <a href="#hd" id="top_btn">상단으로</a>
+        <!-- <a href="#hd" id="top_btn">상단으로</a> -->
     </div><!-- } container 콘텐츠 끝 -->
 </div><!-- } Wrapper 끝 -->
 
@@ -51,7 +51,7 @@ $admin = get_admin("super");
         <div id="ft_copy">
             Copyright &copy; 2015 <?php echo $default['de_admin_company_name']; ?>. All Rights Reserved.
         </div>
-        <p>Business License: 123-88-00091 / Tel: +82 070-4255-7799 / help@vogos.com<br>
+        <p>Business License: 123-88-00091 / Tel: +82 (0)70-4255-7799 / help@vogos.com<br>
             B2 Floor, 31, Teheran-ro 33-gil Gangnam-gu, Seoul, Korea<br></p>
         <div id="ft_pay">
             <img src="<?php echo G5_SHOP_SKIN_URL ?>/img/payment.png">
