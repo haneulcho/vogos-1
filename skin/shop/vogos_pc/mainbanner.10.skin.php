@@ -36,7 +36,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         if ($row['bn_url'][0] == '#')
             $banner .= '<a href="'.$row['bn_url'].'">';
         else if ($row['bn_url'] && $row['bn_url'] != 'http://') {
-            $banner .= '<a style="background:url('.G5_DATA_URL.'/banner/'.$row['bn_id'].') center top no-repeat;display:block;margin:0 auto;min-width:1100px;height:540px;text-indent:-9999px;font-size:0;" href="'.G5_SHOP_URL.'/bannerhit.php?bn_id='.$row['bn_id'].'&amp;url='.urlencode($row['bn_url']).'"'.$bn_new_win.'>';
+            $banner .= '<a style="background:url('.G5_DATA_URL.'/banner/'.$row['bn_id'].') center top no-repeat;display:block;margin:0 auto;min-width:1100px;height:501px;text-indent:-9999px;font-size:0;" href="'.G5_SHOP_URL.'/bannerhit.php?bn_id='.$row['bn_id'].'&amp;url='.urlencode($row['bn_url']).'"'.$bn_new_win.'>';
         }
         echo $banner.$row['bn_alt'];
         //echo $banner.'<img src="'.G5_DATA_URL.'/banner/'.$row['bn_id'].'" width="'.$size[0].'" alt="'.$row['bn_alt'].'"'.$bn_border.'>';
