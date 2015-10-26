@@ -434,7 +434,7 @@ function get_it_image($it_id, $width, $height=0, $anchor=false, $img_id='', $img
     if($filename) {
         //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
         // 보고스에서는 기본값을 is_crop = true로
-        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, false, 'center', false, $um_value='80/0.5/3');
     }
 
     if($thumb) {
@@ -495,7 +495,7 @@ function get_it_image_best($it_id, $width, $height=0, $img_num, $anchor=false, $
     if($filename) {
         //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
         // 보고스에서는 기본값을 is_crop = true로
-        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', false, $um_value='80/0.5/3');
     }
 
     if($thumb) {
@@ -558,7 +558,7 @@ function get_it_image2($it_id, $img_num, $width, $height=0, $anchor=false, $img_
     if($filename) {
         //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
         // 보고스에서는 기본값을 is_crop = true로
-        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', false, $um_value='80/0.5/3');
     }
 
     if($thumb) {
@@ -605,7 +605,7 @@ function get_it_thumbnail($img, $width, $height=0, $id='')
     }
 
     // 기본값 is_crop = true로
-    $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+    $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', false, $um_value='80/0.5/3');
 
     if($thumb) {
         $file_url = str_replace(G5_PATH, G5_URL, $filepath.'/'.$thumb);
