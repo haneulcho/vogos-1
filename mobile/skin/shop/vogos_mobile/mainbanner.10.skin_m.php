@@ -10,7 +10,7 @@ $max_width = $max_height = 0;
 
 for ($i=0; $row=sql_fetch_array($result); $i++)
 {
-    if ($i==0) echo '<section id="sbn_idx" class="sbn">'.PHP_EOL.'<h2>쇼핑몰 배너</h2>'.PHP_EOL.'<div id="main_event" class="owl-carousel">'.PHP_EOL;
+    if ($i==0) echo '<section id="sbn_idx" class="sbn">'.PHP_EOL.'<h2>VOGOS BANNER</h2>'.PHP_EOL.'<div id="main_event" class="owl-carousel2">'.PHP_EOL;
     //print_r2($row);
     // 테두리 있는지
     $bn_border  = ($row['bn_border']) ? ' class="sbn_border"' : '';;
@@ -51,11 +51,10 @@ if ($i>0) echo '</div>'.PHP_EOL.'</section>'.PHP_EOL;
 
 <script>
 $(function() {
-    var owl = $('.owl-carousel');
-    owl.owlCarousel({
-        items: 1,
+    var owl2 = $('.owl-carousel2');
+    owl2.owlCarousel({
+        items: 1, // items가 1일 때 loop 옵션 주면 멈추니 주의할 것
         autoHeight: true,
-        loop: true,
         margin: 0,
         autoplay: true,
         autoplayTimeout: 3000,
@@ -64,11 +63,5 @@ $(function() {
         smartSpeed: 500,
         dotsSpeed: 800
     });
-    $('.play').on('click', function() {
-        owl.trigger('play.owl.autoplay', [3000])
-    })
-    $('.stop').on('click', function() {
-        owl.trigger('stop.owl.autoplay')
-    })
 });
 </script>
