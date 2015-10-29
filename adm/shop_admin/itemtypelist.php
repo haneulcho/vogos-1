@@ -133,10 +133,10 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         <th scope="col"><?php echo subject_sort_link("it_id", $qstr, 1); ?>상품코드</a></th>
         <th scope="col" style="width:130px"><?php echo subject_sort_link("it_update_time", $qstr, 'desc', 1); ?>등록, 수정일</a></th>
         <th scope="col"><?php echo subject_sort_link("it_name"); ?>상품명</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type1", $qstr, 1); ?>야외<br>촬영</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type2", $qstr, 1); ?>MODEL's<br>CHOICE</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type1", $qstr, 1); ?>사용<br>X</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type2", $qstr, 1); ?>인덱스<br>Runway</a></th>
         <th scope="col"><?php echo subject_sort_link("it_type3", $qstr, 1); ?>NEW<br>ARRIVALS</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type4", $qstr, 1); ?>RUNWAY<br>IN VOGOS</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type4", $qstr, 1); ?>리스트<br>좌측 스팟</a></th>
         <th scope="col"><?php echo subject_sort_link("it_type5", $qstr, 1); ?>UP TO<br>7% OFF</a></th>
         <th scope="col">관리</th>
     </tr>
