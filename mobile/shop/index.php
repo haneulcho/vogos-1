@@ -15,7 +15,6 @@ include_once(G5_MSHOP_PATH.'/_head.php');
 
 <?php echo display_banner('메인', 'mainbanner.10.skin_m.php'); ?>
 <div id="sidx">
-
     <?php if($default['de_mobile_type3_list_use']) { ?>
     <div class="item new_arrivals">
         <header>
@@ -23,18 +22,28 @@ include_once(G5_MSHOP_PATH.'/_head.php');
             <div class="it_more"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3"><i class="ion-ios-arrow-right"></i></a></div>
         </header>
         <?php
-        $list = new item_list();
-        $list->set_mobile(true);
-        $list->set_type(3);
-        $list->set_view('it_id', false);
+        $skin_file = G5_MSHOP_SKIN_PATH .'/main.20.skin.php';
+        $item_mod = 1; //한줄당 갯수
+        $item_rows = 12; //줄 수 
+        $item_width= 300; //이미지 가로 
+        $item_height = 450; //이미지 세로 
+        $order_by = "it_update_time desc"; // 최신등록순
+
+
+        $list = new item_list($skin_file, $item_mod , $item_rows , $item_width, $item_height); 
+        $list->set_order_by($order_by); 
+        $list->set_view('it_img', true);
+        $list->set_view('it_id', true);
         $list->set_view('it_name', true);
-        $list->set_view('it_cust_price', true);
+        $list->set_view('it_basic', true);
+        $list->set_view('it_cust_price', false);
         $list->set_view('it_price', true);
         $list->set_view('it_icon', false);
         $list->set_view('sns', false);
         echo $list->run();
         ?>
     </div>
+
     <?php } ?>
 
 
