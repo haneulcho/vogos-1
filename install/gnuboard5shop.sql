@@ -555,6 +555,23 @@ CREATE TABLE IF NOT EXISTS `g5_shop_item_option` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `g5_shop_item_option_img`
+--
+
+DROP TABLE IF EXISTS `g5_shop_item_option_img`;
+CREATE TABLE IF NOT EXISTS `g5_shop_item_option_img` (
+  `io_no` INT(11) NOT NULL AUTO_INCREMENT,
+  `it_id` VARCHAR(20) NOT NULL DEFAULT '',
+  `io_color` VARCHAR(255) NOT NULL DEFAULT '0',
+  `io_use` TINYINT(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`io_no`),
+  KEY `it_id` (`it_id`),
+  KEY `io_color` (`io_color`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `g5_shop_item_use`
 --
 

@@ -54,6 +54,7 @@ $g5['g5_shop_models_table'] = G5_SHOP_TABLE_PREFIX.'models'; // 모델스초이�
 $g5['g5_shop_models_item_table'] = G5_SHOP_TABLE_PREFIX.'models_item'; // 상품, 모델스초이스 연결 테이블
 $g5['g5_shop_item_table'] = G5_SHOP_TABLE_PREFIX.'item'; // 상품 테이블
 $g5['g5_shop_item_option_table'] = G5_SHOP_TABLE_PREFIX.'item_option'; // 상품옵션 테이블
+$g5['g5_shop_item_option_img_table'] = G5_SHOP_TABLE_PREFIX.'item_option_img'; // 상품옵션 이미지 테이블
 $g5['g5_shop_item_use_table'] = G5_SHOP_TABLE_PREFIX.'item_use'; // 상품 사용후기 테이블
 $g5['g5_shop_item_qa_table'] = G5_SHOP_TABLE_PREFIX.'item_qa'; // 상품 질문답변 테이블
 $g5['g5_shop_item_relation_table'] = G5_SHOP_TABLE_PREFIX.'item_relation'; // 관련 상품 테이블

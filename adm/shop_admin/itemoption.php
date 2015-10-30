@@ -69,6 +69,7 @@ if($po_run) {
     <tbody>
     <?php
     if($it['it_id']) {
+        $it_color = array();
         for($i=0; $row=sql_fetch_array($result); $i++) {
             $opt_id = $row['io_id'];
             $opt_val = explode(chr(30), $opt_id);
@@ -81,6 +82,9 @@ if($po_run) {
             $opt_stock_qty = $row['io_stock_qty'];
             $opt_noti_qty = $row['io_noti_qty'];
             $opt_use = $row['io_use'];
+
+            $it_color[] = $opt_2;
+            $it_color_result = array_unique($it_color);
     ?>
     <tr>
         <td class="td_chk">
@@ -111,7 +115,13 @@ if($po_run) {
     </tr>
     <?php
         } // for
+
+        foreach($it_color_result as $key){
+            echo $key."</br>";
+        }
+
     } else {
+        $it_color = array();
         for($i=0; $i<$opt1_count; $i++) {
             $j = 0;
             do {
@@ -133,6 +143,8 @@ if($po_run) {
                     $opt_stock_qty = 9999;
                     $opt_noti_qty = 100;
                     $opt_use = 1;
+
+                    $it_color[] = $opt_2;
 
                     // 기존에 설정된 값이 있는지 체크
                     if($_POST['w'] == 'u') {
@@ -185,6 +197,9 @@ if($po_run) {
                 $j++;
             } while($j < $opt2_count);
         } // for
+        foreach($it_color_result as $key){
+            echo $key."</br>";
+        }
     }
     ?>
     </tbody>
