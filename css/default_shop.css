@@ -46,7 +46,7 @@ a:hover, a:focus, a:active {color:#000;text-decoration:none}
 #logo {float:left;padding:0;background:#262439;height:55px;width:150px;padding-left:20px}
 #logo a{display:inline-block;vertical-align:middle;margin-top:13px}
 
-.fr {float:right;margin-top:18px;}
+.fr {padding-top:18px;}
 /*상단_로그인*/
 #tnb {float:left;margin-top:3px !important;}
 #tnb li{float:left;margin-right:6px;}
@@ -61,7 +61,7 @@ a:hover, a:focus, a:active {color:#000;text-decoration:none}
 #hd_sch {float:right;margin-left:5px;}
 #hd_sch:after {display:block;visibility:hidden;clear:both;content:""}
 #hd_sch span {position:absolute;margin:0;padding:0;font-size:0;line-height:0;text-indent:-9999em;overflow:hidden;}
-#hd_sch #sch_str {width:88px;height:8px;padding:10px 10px;border:1px solid #efefef;box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+#hd_sch #sch_str {width:88px;height:8px;padding:10px 8px;border:1px solid #efefef;box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
 -webkit-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
 -moz-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
 -o-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
