@@ -115,11 +115,56 @@ if($po_run) {
     </tr>
     <?php
         } // for
+    ?>
+    <tr>
+        <td colspan="6">
+            <div id="colorImgDiv">
+            <section id="it_color_img">
+                <h2 class="h2_frm">상품선택옵션 이미지</h2>
 
-        foreach($it_color_result as $key){
-            echo $key."</br>";
-        }
-
+                <div class="tbl_frm01 tbl_wrap">
+                    <table>
+                    <caption>이미지 업로드</caption>
+                    <colgroup>
+                        <col class="grid_4">
+                        <col>
+                    </colgroup>
+                    <tbody>
+            <?php
+                foreach($it_color_result as $key){
+            ?>
+                        <tr>
+                            <th scope="row"><label for="it_color_img">
+                            <?php
+                            echo '<span style="display:block;color:#ff0000;font-weight:bold">'.$key.'</span>';
+                            ?></label></th>
+                            <td>
+                                <input type="file" name="it_color_img" id="it_color_img">
+                                <?php
+                                $it_color_img = G5_DATA_PATH.'/item/'.$it['it_color_img'];
+                                if(is_file($it_color_img) && $it['it_color_img']) {
+                                    $size = @getimagesize($it_color_img);
+                                    $thumb = get_it_thumbnail($it['it_color_img'], 30, 30);
+                                ?>
+                                <label for="it_color_img_del"><span class="sound_only">이미지 </span>파일삭제</label>
+                                <input type="checkbox" name="it_color_img_del" id="it_color_img_del" value="1">
+                                <span><?php echo $thumb; ?></span>
+                                <div id="limg" class="banner_or_img">
+                                    <img src="<?php echo G5_DATA_URL; ?>/item/<?php echo $it['it_color_img']; ?>" alt="" width="<?php echo $size[0]; ?>" height="<?php echo $size[1]; ?>">
+                                    <button type="button" class="sit_wimg_close">닫기</button>
+                                </div>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                <?php } //END foreach ?>
+                    </tbody>
+                    </table>
+                </div>
+            </section>
+            </div>        
+        </td>
+    </tr>
+    <?php
     } else {
         $it_color = array();
         for($i=0; $i<$opt1_count; $i++) {
@@ -145,6 +190,7 @@ if($po_run) {
                     $opt_use = 1;
 
                     $it_color[] = $opt_2;
+                    $it_color_result = array_unique($it_color);
 
                     // 기존에 설정된 값이 있는지 체크
                     if($_POST['w'] == 'u') {
@@ -197,11 +243,56 @@ if($po_run) {
                 $j++;
             } while($j < $opt2_count);
         } // for
-        foreach($it_color_result as $key){
-            echo $key."</br>";
-        }
-    }
     ?>
+    <tr>
+        <td colspan="6">
+            <div id="colorImgDiv">
+            <section id="it_color_img">
+                <h2 class="h2_frm">상품선택옵션 이미지</h2>
+
+                <div class="tbl_frm01 tbl_wrap">
+                    <table>
+                    <caption>이미지 업로드</caption>
+                    <colgroup>
+                        <col class="grid_4">
+                        <col>
+                    </colgroup>
+                    <tbody>
+            <?php
+                foreach($it_color_result as $key){
+            ?>
+                        <tr>
+                            <th scope="row"><label for="it_color_img">
+                            <?php
+                            echo '<span style="display:block;color:#ff0000;font-weight:bold">'.$key.'</span>';
+                            ?></label></th>
+                            <td>
+                                <input type="file" name="it_color_img" id="it_color_img">
+                                <?php
+                                $it_color_img = G5_DATA_PATH.'/item/'.$it['it_color_img'];
+                                if(is_file($it_color_img) && $it['it_color_img']) {
+                                    $size = @getimagesize($it_color_img);
+                                    $thumb = get_it_thumbnail($it['it_color_img'], 30, 30);
+                                ?>
+                                <label for="it_color_img_del"><span class="sound_only">이미지 </span>파일삭제</label>
+                                <input type="checkbox" name="it_color_img_del" id="it_color_img_del" value="1">
+                                <span><?php echo $thumb; ?></span>
+                                <div id="limg" class="banner_or_img">
+                                    <img src="<?php echo G5_DATA_URL; ?>/item/<?php echo $it['it_color_img']; ?>" alt="" width="<?php echo $size[0]; ?>" height="<?php echo $size[1]; ?>">
+                                    <button type="button" class="sit_wimg_close">닫기</button>
+                                </div>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                <?php } //END foreach ?>
+                    </tbody>
+                    </table>
+                </div>
+            </section>
+            </div>        
+        </td>
+    </tr>
+    <?php } //END else ?>
     </tbody>
     </table>
 </div>

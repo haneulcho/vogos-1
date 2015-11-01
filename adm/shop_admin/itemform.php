@@ -872,6 +872,7 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
                         var opt2 = $.trim($("#opt2").val());
                         var opt3 = $.trim($("#opt3").val());
                         var $option_table = $("#sit_option_frm");
+                        var $color_img_table = $("#color_img_frm");
 
                         if(!opt1_subject || !opt1) {
                             alert("옵션명과 옵션항목을 입력해 주십시오.");
