@@ -15,14 +15,23 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">',
 </script>
 <?php } ?>
 
-<!-- 상품진열 20 (VOGOS CLIP 비디오 상품) 시작 { -->
+<!-- 상품진열 30 (VOGOS CLIP 비디오 상품) 시작 { -->
 <?php
 for ($i=0; $row=sql_fetch_array($result); $i++) {
+    if ($i == 4) {
+        $sct_big = true;
+        $sct_last = ' sct_big';
+        $sct_img_width = '360';
+        $sct_img_height = '230';
+    } else {
+        $sct_big = false;
+        $sct_last = '';
+    }
     if ($i == 0) {
         if ($this->css) {
-            echo "<ul id=\"sct_wrap\" class=\"{$this->css}\">\n";
+            echo "<ul class=\"sct_wrap {$this->css}\">\n";
         } else {
-            echo "<ul id=\"sct_wrap\" class=\"sct sct_20\">\n";
+            echo "<ul class=\"sct_wrap sct sct_30\">\n";
         }
     }
 
@@ -105,7 +114,7 @@ if ($i > 0) echo "</ul>\n";
 
 if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
 ?>
-<!-- } 상품진열 20 끝 -->
+<!-- } 상품진열 30 끝 -->
 <script type="text/javascript">
 var $G5_MSHOP_SKIN_URL = "<?php echo G5_MSHOP_SKIN_URL; ?>";
 </script>

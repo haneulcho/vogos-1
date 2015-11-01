@@ -35,11 +35,11 @@ if($this->total_count > 0) {
         }
 
         if ($this->view_it_img) {
-            echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name'])).PHP_EOL;
+            echo get_it_image2($row['it_id'], 2, 300, 450, '', '', stripslashes($row['it_name'])).PHP_EOL;
         }
 
         if ($this->href) {
-            echo '</a><span class="best_icon">베스트상품</span></div>'.PHP_EOL;
+            echo '</a><span class="best_icon">BEST SELLERS</span></div>'.PHP_EOL;
         }
 
         if ($this->view_it_id) {

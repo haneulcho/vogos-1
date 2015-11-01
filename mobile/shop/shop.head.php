@@ -21,7 +21,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
         include G5_MOBILE_PATH.'/newwin.inc.php'; // 팝업레이어
     } ?>
 
-    <div id="logo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><img src="<?php echo G5_DATA_URL; ?>/common/mobile_logo_img.png" alt="<?php echo $config['cf_title']; ?> 메인"></a></div>
+    <div id="logo"><a href="<?php echo $default['de_root_index_use'] ? G5_URL : G5_SHOP_URL; ?>/"><img src="<?php echo G5_DATA_URL; ?>/common/mobile_logo_img.png" alt="<?php echo $config['cf_title']; ?>"></a></div>
 
     <div id="topCart"><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i></a></div>
 

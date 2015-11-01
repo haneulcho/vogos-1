@@ -61,8 +61,8 @@ $result = sql_query($sqlcate);
     <?php
     for($i=0; $row=sql_fetch_array($result); $i++) {
         if($i == 0) {
-            echo '<nav><h2>카테고리 목록</h2><ul>';
-            echo '<li><a href="'.G5_MSHOP_URL.'/modelslist.php">Model\'s Choice</a></li>';
+            echo '<nav><h2>Category</h2><ul>';
+            //echo '<li><a href="'.G5_MSHOP_URL.'/modelslist.php">Model\'s Choice</a></li>';
         }
 
         $ca_href = G5_SHOP_URL.'/category.php?ca='.$row['ca_id'];
@@ -85,10 +85,8 @@ $result = sql_query($sqlcate);
     }
     ?>
     <ul id="otherNav">
-        <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i>CART</a></li>
-        <li><a href="<?php echo G5_BBS_URL ?>/board.php?bo_table=notice"><i class="ion-speakerphone"></i>NOTICE</a></li>
         <li><a href="<?php echo G5_BBS_URL; ?>/faq.php"><i class="ion-android-happy"></i>FAQ</a></li>
-        <li><a href="<?php echo G5_BBS_URL; ?>/qalist.php"><i class="ion-chatbubbles"></i>QNA</a></li>
+        <li><a href="<?php echo G5_BBS_URL ?>/board.php?bo_table=notice"><i class="ion-speakerphone"></i>NOTICE</a></li>
     </ul>
   </div> <!-- inner end -->
 </div>
