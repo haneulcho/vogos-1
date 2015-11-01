@@ -534,7 +534,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">유형4: 리스트 좌측 스팟 출력</th>
+            <th scope="row">유형4: 인덱스 하단 스팟 출력</th>
             <td>
                 <label for="de_mobile_type4_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type4_list_use" value="1" id="de_mobile_type4_list_use" <?php echo $default['de_mobile_type4_list_use']?"checked":""; ?>>

@@ -444,13 +444,13 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
             <td>
                 <?php echo help("메인화면에 유형별로 출력할때 사용합니다.\n이곳에 체크하게되면 상품리스트에서 유형별로 정렬할때 체크된 상품이 가장 먼저 출력됩니다."); ?>
                 <input type="checkbox" name="it_type1" value="1" <?php echo ($it['it_type1'] ? "checked" : ""); ?> id="it_type1">
-                <label for="it_type1">야외촬영 <!-- <img src="<?php //echo G5_SHOP_URL; ?>/img/icon_hit.gif" alt=""> --></label>
+                <label for="it_type1">사용하지 않음 <!-- <img src="<?php //echo G5_SHOP_URL; ?>/img/icon_hit.gif" alt=""> --></label>
                 <input type="checkbox" name="it_type2" value="1" <?php echo ($it['it_type2'] ? "checked" : ""); ?> id="it_type2">
-                <label for="it_type2">MODEL's CHOICE <img src="<?php echo G5_SHOP_URL; ?>/img/icon_rec.gif" alt=""></label>
+                <label for="it_type2">인덱스 Runway <img src="<?php echo G5_SHOP_URL; ?>/img/icon_rec.gif" alt=""></label>
                 <input type="checkbox" name="it_type3" value="1" <?php echo ($it['it_type3'] ? "checked" : ""); ?> id="it_type3">
-                <label for="it_type3">NEW ARRIVALS <img src="<?php echo G5_SHOP_URL; ?>/img/icon_new.gif" alt=""></label>
+                <label for="it_type3">인덱스 New Arrivals <img src="<?php echo G5_SHOP_URL; ?>/img/icon_new.gif" alt=""></label>
                 <input type="checkbox" name="it_type4" value="1" <?php echo ($it['it_type4'] ? "checked" : ""); ?> id="it_type4">
-                <label for="it_type4">RUNWAY IN VOGOS <img src="<?php echo G5_SHOP_URL; ?>/img/icon_best.gif" alt=""></label>
+                <label for="it_type4">리스트 좌측 스팟 <img src="<?php echo G5_SHOP_URL; ?>/img/icon_best.gif" alt=""></label>
                 <input type="checkbox" name="it_type5" value="1" <?php echo ($it['it_type5'] ? "checked" : ""); ?> id="it_type5">
                 <label for="it_type5">UP TO 7% OFF <img src="<?php echo G5_SHOP_URL; ?>/img/icon_discount.gif" alt=""></label>
             </td>
@@ -872,6 +872,7 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
                         var opt2 = $.trim($("#opt2").val());
                         var opt3 = $.trim($("#opt3").val());
                         var $option_table = $("#sit_option_frm");
+                        var $color_img_table = $("#color_img_frm");
 
                         if(!opt1_subject || !opt1) {
                             alert("옵션명과 옵션항목을 입력해 주십시오.");
