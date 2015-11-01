@@ -505,6 +505,16 @@ CREATE TABLE IF NOT EXISTS `g5_shop_item` (
   `it_img9` varchar(255) NOT NULL DEFAULT '',
   `it_img10` varchar(255) NOT NULL DEFAULT '',
   `it_img11` varchar(255) NOT NULL DEFAULT '',
+  `it_color_img1` varchar(255) NOT NULL DEFAULT '',
+  `it_color_img2` varchar(255) NOT NULL DEFAULT '',
+  `it_color_img3` varchar(255) NOT NULL DEFAULT '',
+  `it_color_img4` varchar(255) NOT NULL DEFAULT '',
+  `it_color_img5` varchar(255) NOT NULL DEFAULT '',
+  `it_color_img6` varchar(255) NOT NULL DEFAULT '',
+  `it_color_img7` varchar(255) NOT NULL DEFAULT '',
+  `it_color_img8` varchar(255) NOT NULL DEFAULT '',
+  `it_color_img9` varchar(255) NOT NULL DEFAULT '',
+  `it_color_img10` varchar(255) NOT NULL DEFAULT '',
   `it_1_subj` varchar(255) NOT NULL DEFAULT '',
   `it_2_subj` varchar(255) NOT NULL DEFAULT '',
   `it_3_subj` varchar(255) NOT NULL DEFAULT '',
@@ -550,23 +560,6 @@ CREATE TABLE IF NOT EXISTS `g5_shop_item_option` (
   PRIMARY KEY (`io_no`),
   KEY `io_id` (`io_id`),
   KEY `it_id` (`it_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `g5_shop_item_option_img`
---
-
-DROP TABLE IF EXISTS `g5_shop_item_option_img`;
-CREATE TABLE IF NOT EXISTS `g5_shop_item_option_img` (
-  `io_no` INT(11) NOT NULL AUTO_INCREMENT,
-  `it_id` VARCHAR(20) NOT NULL DEFAULT '',
-  `io_color` VARCHAR(255) NOT NULL DEFAULT '0',
-  `io_use` TINYINT(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`io_no`),
-  KEY `it_id` (`it_id`),
-  KEY `io_color` (`io_color`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
