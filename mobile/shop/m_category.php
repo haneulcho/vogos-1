@@ -84,9 +84,5 @@ $result = sql_query($sqlcate);
         echo '<p id="sct_win_empty">하위 분류가 없습니다.</p>';
     }
     ?>
-    <ul id="otherNav">
-        <li><a href="<?php echo G5_BBS_URL; ?>/faq.php"><i class="ion-android-happy"></i>FAQ</a></li>
-        <li><a href="<?php echo G5_BBS_URL ?>/board.php?bo_table=notice"><i class="ion-speakerphone"></i>NOTICE</a></li>
-    </ul>
   </div> <!-- inner end -->
 </div>

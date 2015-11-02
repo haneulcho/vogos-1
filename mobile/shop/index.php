@@ -18,38 +18,6 @@ include_once(G5_MSHOP_PATH.'/_head.php');
         <div class="inv_run"><a href="#">RUNWAY</a></div>
     </div>
 <?php echo display_banner('메인', 'mainbanner.10.skin_m.php'); ?>
-<div id="inv_run_view">
-    <?php if($default['de_mobile_type2_list_use']) { ?>
-    <div class="item new_arrivals">
-        <header>
-            <h2>RUNWAY</h2>
-            <div class="it_more"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2"><i class="ion-ios-arrow-right"></i></a></div>
-        </header>
-        <?php
-        $skin_file = G5_MSHOP_SKIN_PATH .'/main.40.skin.php';
-        $item_mod = 1; //한줄당 갯수
-        $item_rows = 12; //줄 수 
-        $item_width= 300; //이미지 가로 
-        $item_height = 450; //이미지 세로 
-        $order_by = "it_update_time desc"; // 최신등록순
-
-
-        $list = new item_list($skin_file, $item_mod , $item_rows , $item_width, $item_height); 
-        $list->set_order_by($order_by); 
-        $list->set_view('it_img', true);
-        $list->set_view('it_id', false);
-        $list->set_view('it_name', true);
-        $list->set_view('it_basic', true);
-        $list->set_view('it_cust_price', false);
-        $list->set_view('it_price', true);
-        $list->set_view('it_icon', false);
-        $list->set_view('sns', false);
-        echo $list->run();
-        ?>
-    </div>
-
-    <?php } ?>
-</div>
 <div id="inv_new_view">
     <?php if($default['de_mobile_type3_list_use']) { ?>
     <div class="item new_arrivals">
@@ -83,6 +51,29 @@ include_once(G5_MSHOP_PATH.'/_head.php');
     <?php } ?>
 </div>
 
+<div id="inv_run_view">
+    <?php if($default['de_mobile_type4_list_use']) { ?>
+    <div class="item new_arrivals">
+        <header>
+            <h2>SPOT ITEMS</h2>
+            <div class="it_more"><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2"><i class="ion-ios-arrow-right"></i></a></div>
+        </header>
+        <?php
+        $list = new item_list();
+        $list->set_mobile(true);
+        $list->set_type(4);
+        $list->set_view('it_id', false);
+        $list->set_view('it_name', true);
+        $list->set_view('it_cust_price', true);
+        $list->set_view('it_price', true);
+        $list->set_view('it_icon', false);
+        $list->set_view('sns', false);
+        echo $list->run();
+        ?>
+    </div>
+
+    <?php } ?>
+</div>
 
 <!-- VOGOS BESTSELLER 베스트 출력 -->
     <div id="sct_best" class="item best_item">
