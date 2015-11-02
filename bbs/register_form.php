@@ -42,6 +42,9 @@ if ($w == "") {
     if (isset($_POST['mb_name'])) {
         $member['mb_name']  = $_POST['mb_name'];
     }
+    if (isset($_POST['mb_country'])) {
+        $member['mb_country']  = $_POST['mb_country'];
+    }
 
     $g5['title'] = 'Sign Up';
 
@@ -85,6 +88,8 @@ if ($w == "") {
     $member['mb_birth']       = get_text($member['mb_birth']);
     $member['mb_tel']         = get_text($member['mb_tel']);
     $member['mb_hp']          = get_text($member['mb_hp']);
+    $member['mb_country']     = get_text($member['mb_country']);
+    $member['mb_zip']         = get_text($member['mb_zip']);
     $member['mb_addr1']       = get_text($member['mb_addr1']);
     $member['mb_addr2']       = get_text($member['mb_addr2']);
     $member['mb_signature']   = get_text($member['mb_signature']);
