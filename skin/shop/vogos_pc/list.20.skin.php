@@ -55,20 +55,19 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     }
 
     if ($this->view_it_img) {
-        echo get_it_image_best($row['it_id'], $this->img_width, $this->img_height, 8, '', '', 'original', stripslashes($row['it_name']))."\n";
+        echo get_it_image_best($row['it_id'], $this->img_width, $this->img_height, 8, '', '', 'original', stripslashes($row['it_name']))."</a>\n";
     }
 
     if ($this->href) {
-        echo "<div class=\"sct_des\"><div class=\"sct_txt_big\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
+        echo "<a class=\"sct_des\" href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\"><div class=\"sct_txt_big\">\n";
     }
 
     if ($this->view_it_name) {
         echo stripslashes($row['it_name'])."\n";
-        echo "</a>\n";
     }
 
     if ($this->href) {
-        echo "</a></div>\n";
+        echo "</div>\n";
     }
 
     if ($this->view_it_basic && $row['it_basic']) {
@@ -76,11 +75,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     }
 
     if ($this->href) {
-        echo "<a class=\"sct_buynow\" href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">BUY NOW</a>\n";
+        echo "<div class=\"sct_buynow\" href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">BUY NOW</div>\n";
     }
 
     if ($this->href) {
-        echo "</div>\n"; //sct_des END
+        echo "</a>\n"; //sct_des END
     }
 
     if ($this->href) {

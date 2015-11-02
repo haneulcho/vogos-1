@@ -228,7 +228,7 @@ transition: opacity 300ms ease-out, top 300ms ease-out;
 .sct_list_20 .sct_des .sct_basic {padding:0 30px 0 0;color:#f6f6f6;line-height:1.6;}
 .sct_list_20 .sct_txt {padding:0 20px 3px;}
 .sct_list_20 .sct_txt_big {margin:0 0 10px 0;padding:0 30px 10px 0;padding-bottom:10px;border-bottom:1px solid #777;}
-.sct_list_20 .sct_txt_big a {font-size:17px;color:#fff;font-weight:700;line-height:1.4;}
+.sct_list_20 .sct_txt_big, .sct_list_20 .sct_txt_big a {font-size:17px;color:#fff;font-weight:700;line-height:1.4;}
 .sct_list_20 .sct_basic {padding:0 10px 5px;line-height:1.5em}
 .sct_list_20 .sct_buynow {position:absolute;right:0;bottom:25px;display:block;width:150px;height:45px;font-size:0;line-height:0;overflow:hidden;background:url('img/sit_btn_buy_m.jpg') no-repeat;
   -webkit-transition: all .3s ease;
