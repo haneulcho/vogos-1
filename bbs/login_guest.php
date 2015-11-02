@@ -26,7 +26,7 @@ $login_action_url = G5_HTTPS_BBS_URL."/login_check.php";
 body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Nanum Gothic', 'Malgun Gothic',dotum, sans-serif;line-height:1.25em;}
 /* 로그인 */
 #mb_login {max-width:360px;margin:20px auto;padding:0 30px;}
-#mb_login h1 {margin:0 0 20px;padding:0 10px 0 0 ;font-size:1.2em;font-family:'Oswald', sans-serif;color:#666;}
+#mb_login h1 {margin:0 0 20px;padding:0 10px 0 0 ;font-size:1.2em;font-family:'Lato', sans-serif;color:#666;}
 #mb_login h2 {margin:0}
 #mb_login p {padding:10px 0;line-height:1.5em}
 #mb_login #login_frm {position:relative;padding:0;font-size:1em}

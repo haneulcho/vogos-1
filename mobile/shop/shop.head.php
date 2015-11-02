@@ -8,6 +8,7 @@ include_once(G5_LIB_PATH.'/connect.lib.php');
 include_once(G5_LIB_PATH.'/popular.lib.php');
 include_once(G5_LIB_PATH.'/latest.lib.php');
 ?>
+<link href="//fonts.googleapis.com/css?family=Lato:100normal,100italic,300normal,300italic,400normal,400italic,700normal,700italic,900normal,900italic&subset=all" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" media="screen" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <?php include_once(G5_MSHOP_PATH.'/m_category.php'); // 상품분류 ?>
 <header id="hd">

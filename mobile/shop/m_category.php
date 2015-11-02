@@ -15,7 +15,6 @@ $sqlcate = " select ca_id, ca_name from {$g5['g5_shop_category_table']}
 $result = sql_query($sqlcate);
 ?>
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" media="screen" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <div id="sct_win" class="mobile-menu">
   <div class="mobile-menu-inner">
     <ul id="userNav">
