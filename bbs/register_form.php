@@ -83,6 +83,7 @@ if ($w == "") {
     set_session("ss_reg_mb_name", $member['mb_name']);
     set_session("ss_reg_mb_hp", $member['mb_hp']);
 
+    $member['mb_name']        = get_text($member['mb_name']);
     $member['mb_email']       = get_text($member['mb_email']);
     $member['mb_homepage']    = get_text($member['mb_homepage']);
     $member['mb_birth']       = get_text($member['mb_birth']);
