@@ -15,25 +15,37 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 </script>
 <?php } ?>
 
-<!-- 상품진열 10 시작 { -->
+<!-- 상품진열 20 시작 { -->
 <?php
 for ($i=0; $row=sql_fetch_array($result); $i++) {
+    if ($i == 6) {
+        $sct_big = true;
+        $sct_last = ' sct_big';
+        $sct_img_width = '540';
+        $sct_img_height = '720';
+    } else {
+        $sct_big = false;
+        $sct_last = '';
+    }
     if ($i == 0) {
         if ($this->css) {
             echo "<ul class=\"sct_wrap {$this->css}\">\n";
         } else {
-            echo "<ul class=\"sct_wrap sct sct_10\">\n";
+            echo "<ul class=\"sct_wrap sct sct_main_20\">\n";
         }
     }
-
-    echo "<li class=\"sct_li\">\n";
+    echo "<li class=\"sct_li{$sct_last}\">\n";
 
     if ($this->href) {
         echo "<div class=\"sct_img\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
     }
 
     if ($this->view_it_img) {
-        echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
+        if($sct_big) {
+            echo get_it_image2($row['it_id'], 8, $sct_img_width, $sct_img_height, '', '', stripslashes($row['it_name']))."\n";
+        } else {
+            echo get_it_image2($row['it_id'], 8, $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
+        }
     }
 
     if ($this->href) {
@@ -76,23 +88,14 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
             echo display_price(get_price($row), $row['it_tel_inq'])."\n";
         }
 
-        echo "</div></div>\n"; // div.des 끝
+        echo "</div>";
 
-    }
+        echo"<div class=\"sct_cart_m\">
+                <button type=\"button\" class=\"btn_cart_m\" onclick=\"location.href='{$this->href}{$row['it_id']}'\"><i class=\"ion-android-cart\"></i>CART</button>
+        </div>\n";
 
-    if ($this->view_sns) {
-        $sns_url  = G5_SHOP_URL.'/item.php?it_id='.$row['it_id'];
-        $sns_title = get_text($row['it_name']).' | '.get_text($config['cf_title']);
-        echo "<div class=\"sct_sns\">";
-        echo get_sns_share_link('facebook', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns_fb.png');
-        echo get_sns_share_link('twitter', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns_twt.png');
-        echo get_sns_share_link('googleplus', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns_goo.png');
-        echo get_sns_share_link('kakaotalk', $sns_url, $sns_title, G5_MSHOP_SKIN_URL.'/img/sns_kakao.png');
         echo "</div>\n";
-    }
 
-    if ($this->href) {
-        echo "</a>\n";
     }
 
     echo "</li>\n";
@@ -103,18 +106,25 @@ if ($i > 0) echo "</ul>\n";
 if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
 ?>
 <!-- } 상품진열 10 끝 -->
-</div>
+
 <script>
 (function($) {
-    var li = $('.sct_10 .sct_li');
+    var li = $('.sct_main_20 .sct_li');
     var win_width = $(window).width();
-    if(win_width>1023) { var lic = 1024 }
-        else if(win_width>767) { var lic = 768 }
-        else if(win_width>639) { var lic = 640 }
-        else if(win_width>479) { var lic = 480 }
-        else if(win_width>359) { var lic = 360 }
-        else { var lic = 340 }
-    var lic = 'lic'+lic;
-    li.addClass(lic);
+    li.each(function() {
+        if (!$(this).hasClass('sct_big')) {
+            if(win_width>1023) { var lic = 1024 }
+                else if(win_width>767) { var lic = 768 }
+                else if(win_width>639) { var lic = 640 }
+                else if(win_width>479) { var lic = 480 }
+                else if(win_width>359) { var lic = 360 }
+                else { var lic = 340 }
+            var lic = 'lic'+lic;
+            $(this).addClass(lic);            
+        }        
+    });
 }(jQuery));
+$(document).ready(function () {
+    $('.sct_main_20').hide(0).fadeIn(1000);
+ });
 </script>

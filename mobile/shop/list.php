@@ -124,7 +124,7 @@ var g5_shop_url = "<?php echo G5_SHOP_URL; ?>";
         $ajax_url = G5_SHOP_URL.'/ajax.list.php?'.$qstr1;
     ?>
     <div class="li_more">
-        <p id="item_load_msg"><img src="<?php echo G5_SHOP_CSS_URL; ?>/img/loading.gif" alt="로딩이미지" ><br>잠시만 기다려주세요.</p>
+        <p id="item_load_msg"><img src="<?php echo G5_SHOP_CSS_URL; ?>/img/loading.gif" alt="loading" ><br>Please wait...</p>
         <div class="li_more_btn">
             <button type="button" id="btn_more_item" data-url="<?php echo $ajax_url; ?>" data-page="<?php echo $page; ?>">MORE ITEM +</button>
         </div>
