@@ -39,10 +39,10 @@ $admin = get_admin("super");
         <div id="ft_like">
             <h2>LIKE &amp; FOLLOW US</h2>
             <ul class="ft_sns">
-                <li><a href="https://instagram.com/vogos_style"><span class="ft_sns_in">Instagram</span></a></li>
-                <li><a href="https://facebook.com/vogos.style"><span class="ft_sns_fb">Facebook</span></a></li>
-                <li><a href="#"><span class="ft_sns_yt">Youtube</span></a></li>
-                <li><a href="https://www.pinterest.com/vogos_style"><span class="ft_sns_pt">Pinterest</span></a></li>
+                <li><a href="https://instagram.com/vogos_style" target="_blank"><span class="ft_sns_in">Instagram</span></a></li>
+                <li><a href="https://facebook.com/vogos.style" target="_blank"><span class="ft_sns_fb">Facebook</span></a></li>
+                <li><a href="#" target="_blank" onClick="alert('Coming Soon!');return false;"><span class="ft_sns_yt">Youtube</span></a></li>
+                <li><a href="https://www.pinterest.com/vogos_style" target="_blank"><span class="ft_sns_pt">Pinterest</span></a></li>
                 <!-- <li><a href="http://"><span>Tumblr</span></a></li> -->                
             </ul>
         </div>
