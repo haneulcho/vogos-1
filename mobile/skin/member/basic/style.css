@@ -97,7 +97,7 @@
 
 /* 회원가입, 로그인 공통 */
 #mb_join, #mb_login {max-width:360px;margin:20px auto;padding:0 30px;}
-#mb_join h1, #mb_login h1 {margin:0 0 10px;padding:0 10px 0 0 ;font-size:1.2em;font-family:'Lato', sans-serif;color:#666;}
+#mb_join h1, #mb_login h1 {margin:0 0 10px;padding:0 10px 0 0 ;font-size:1.2em;font-family:'Oswald', sans-serif;color:#666;}
 
 /* 회원가입 */
 #mb_join h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
