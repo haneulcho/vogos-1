@@ -48,7 +48,7 @@ a:hover, a:focus, a:active {color:#000;text-decoration:none}
 
 .fr {padding-top:18px;}
 /*상단_로그인*/
-#tnb {float:left;margin-top:3px !important;}
+#tnb {float:right;margin-top:3px !important;}
 #tnb li{float:left;margin-right:6px;}
 #tnb li a{display:block;padding:5px 8px 4px;color:#6b6b6b;font-size:11px;font-family:"Calibri";font-weight:bold;background:#fff;border-radius:3px;border:1px solid #beb9ba;}
 #tnb li a i {margin-right:5px;color:#605457;}
