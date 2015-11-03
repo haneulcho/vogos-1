@@ -6,6 +6,10 @@ add_stylesheet('<link rel="stylesheet" href="'.$content_skin_url.'/style.css">',
 ?>
 
 <article id="ctt" class="ctt_<?php echo $co_id; ?>">
+<?php
+if ($is_admin)
+    echo '<div class="ctt_admin"><a href="'.G5_ADMIN_URL.'/contentform.php?w=u&amp;co_id='.$co_id.'" class="btn_admin" target="_blank">내용 수정</a></div>';
+?>
     <header>
         <h1><?php echo $g5['title']; ?></h1>
     </header>
@@ -13,5 +17,4 @@ add_stylesheet('<link rel="stylesheet" href="'.$content_skin_url.'/style.css">',
     <div id="ctt_con">
         <?php echo $str; ?>
     </div>
-
 </article>
