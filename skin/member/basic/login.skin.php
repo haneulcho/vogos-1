@@ -5,6 +5,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 0);
 ?>
 
+<div class="default_contents">
 <div id="mb_login" class="mbskin">
     <h1><?php $g5['title'] = 'VOGOS SIGN IN'; echo $g5['title'] ?></h1>
 
@@ -26,6 +27,9 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     </div>
     <section id="login_frm_signup">
         <h2>Haven't signed up yet? Join us!</h2>
+        <p>15% off of your first order when you sign up<br />
+        *order must be placed within 7 days from sign up.
+        </p>
         <div class="login_frm_btns">
             <a href="./register.php" class="btn01">Sign Up</a>
         </div>
@@ -104,9 +108,11 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     <?php // 쇼핑몰 사용시 여기까지 반드시 복사해 넣으세요 ?>
 
 </div>
+</div> <!-- END default_contents -->
 
 <script>
 $(function(){
+    $("#login_id").focus();
     $("#login_auto_login").click(function(){
         if (this.checked) {
             this.checked = confirm("Do you want us to keep you logged in?");

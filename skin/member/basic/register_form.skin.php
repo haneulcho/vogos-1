@@ -369,6 +369,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
     <script>
     $(function() {
+        $("#reg_mb_id").focus();
         $("#reg_zip_find").css("display", "inline-block");
 
         var $mb_country = "<?php echo $member['mb_country']; ?>";

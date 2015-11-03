@@ -232,7 +232,10 @@ button.btn02 {display:inline-block;margin:0;padding:10px 20px;border:1px solid #
 
 .btn_confirm {text-align:center} /* 서식단계 진행 */
 .btn_confirm .btn_submit{border-radius:3px;}
-.btn_submit {padding:10px 20px !important;border:1px solid #3e3c52;background:#3e3c52;color:#fff;letter-spacing:-0.1em;cursor:pointer;border-radius:0 5px 5px 0;}
+.btn_submit {padding:10px 20px;color:#fff;cursor:pointer;border-radius:0 5px 5px 0;
+background-color:#474747;border:1px solid #323232;}
+.btn_submit:hover, .btn_submit:focus {background-color:#6c6165;border-color:#6c6165;}
+
 fieldset .btn_submit {padding:0 7px;height:24px;line-height:1em}
 
 
