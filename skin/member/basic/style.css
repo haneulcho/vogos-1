@@ -170,10 +170,11 @@ outline:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:bo
 -moz-box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);
 box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);}
 #mb_login .login_frm_btns {padding-top:5px !important;}
-#mb_login .login_frm_btns * {font-family:'malgun gothic';letter-spacing:0;line-height:1em;height:45px;-webkit-border-radius:border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius:5px;outline:0;
+#mb_login .login_frm_btns * {letter-spacing:0;line-height:1em;height:45px;-webkit-border-radius:border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius:5px;outline:0;
 -webkit-transition:all ease .2s;-moz-transition:all ease .2s;-o-transition:all ease .2s;transition:all ease .2s;
 -webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
-#mb_login .login_frm_btns a {height:60px;font-size:24px;font-weight:700;width:100%;margin-right:0;background-color:#6c6165; border:1px solid #6c6165;color:#fff;text-align:center;padding:19px 0;}
+
+#mb_login .login_frm_btns a {height:60px;font-size:24px;font-weight:700;width:100%;margin-right:0;background-color:#6c6165; border:1px solid #6c6165;color:#fff;text-align:center;padding:16px 0;}
 #mb_login .btn_submit {float:right;font-size:18px;padding:10px;width:155px;text-align:center;font-weight:bold;
 border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;
 -webkit-transition:all ease .2s;-moz-transition:all ease .2s;-o-transition:all ease .2s;transition:all ease .2s;}
