@@ -12,25 +12,23 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     <input type="hidden" name="url" value="<?php echo $login_url ?>">
 
     <div id="login_frm">
-        <label for="login_id" class="sound_only">ID<strong class="sound_only"> required</strong></label>
-        <input type="text" name="mb_id" id="login_id" placeholder="ID(required)" required class="frm_input required" maxLength="20">
-        <label for="login_pw" class="sound_only">Password<strong class="sound_only"> required</strong></label>
-        <input type="password" name="mb_password" id="login_pw" placeholder="Password(required)" required class="frm_input required" maxLength="20">
-        <div>
-                <input type="checkbox" name="auto_login" id="login_auto_login">
-                <label for="login_auto_login">Keep me logged in</label>
-        </div>
-        <div class="login_frm_btns">
-            <a href="./register.php" class="btn01">Sign Up</a>
+        <div class="login_frm_inputs">
+            <label for="login_id" class="sound_only">ID<strong class="sound_only"> required</strong></label>
+            <input type="text" name="mb_id" id="login_id" placeholder="ID(required)" required class="frm_input required" maxLength="20">
+            <label for="login_pw" class="sound_only">Password<strong class="sound_only"> required</strong></label>
+            <input type="password" name="mb_password" id="login_pw" placeholder="Password(required)" required class="frm_input required" maxLength="20">
             <input type="submit" value="Sign In" class="btn_submit">
         </div>
+        <div class="login_frm_keep">
+            <input type="checkbox" name="auto_login" id="login_auto_login">
+            <label for="login_auto_login">Keep me logged in</label>
+        </div>
     </div>
-
-    <section>
+    <section id="login_frm_signup">
         <h2>Haven't signed up yet? Join us!</h2>
-        <p>
-                
-        </p>
+        <div class="login_frm_btns">
+            <a href="./register.php" class="btn01">Sign Up</a>
+        </div>
         <div style="display:none;">
                 <a href="<?php echo G5_BBS_URL ?>/password_lost.php" target="_blank" id="login_password_lost" class="find_id btn02"><i class="ion-help-circled"></i>아이디 / 비밀번호 찾기</a>
         </div>
