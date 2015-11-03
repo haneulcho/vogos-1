@@ -200,7 +200,7 @@ include_once('./_head.php');
         <input type="hidden" name="url" value="./orderform.php">
         <input type="hidden" name="records" value="<?php echo $i; ?>">
         <input type="hidden" name="act" value="">
-        <a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=<?php echo $continue_ca_id; ?>" class="btn01">Continue Shoppping</a>
+        <a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=<?php echo $continue_ca_id; ?>" class="btn01">Continue Shopping</a>
         <button type="button" onclick="return form_check('buy');" class="btn_submit">Order</button>
         <button type="button" onclick="return form_check('seldelete');" class="btn01">Remove</button>
         <button type="button" onclick="return form_check('alldelete');" class="btn01">Empty</button>

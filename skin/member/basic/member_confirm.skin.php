@@ -5,16 +5,16 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 0);
 ?>
 
+<div class="default_contents">
 <!-- 회원 비밀번호 확인 시작 { -->
 <div id="mb_confirm" class="mbskin">
     <h1><?php echo $g5['title'] ?></h1>
 
     <p>
-        <strong>Please verify your password.</strong>
         <?php if ($url == 'member_leave.php') { ?>
-        Your account will be deactivated.
+        <strong>Your account will be deactivated.</strong>
         <?php }else{ ?>
-        Please verify your password.
+        </strong>Please confirm your password.</strong>
         <?php }  ?>
     </p>
 
@@ -36,6 +36,8 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     <div class="btn_confirm">
         <a href="<?php echo G5_URL ?>">Back to Main page</a>
     </div>
+
+</div>
 
 </div>
 

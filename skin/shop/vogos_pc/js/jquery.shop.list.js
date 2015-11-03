@@ -208,6 +208,7 @@ function add_cart(frm)
             }
 
             alert("ADDED TO YOUR CART!");
+            $(".sct_cart_op").fadeOut(300);
         }
     });
 

@@ -5,13 +5,14 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 0);
 ?>
 
+<div class="default_contents">
 <!-- 회원정보 입력/수정 시작 { -->
 <div id="mb_join" class="mbskin">
     <script src="<?php echo G5_JS_URL ?>/jquery.register_form.js"></script>
     <?php if($config['cf_cert_use'] && ($config['cf_cert_ipin'] || $config['cf_cert_hp'])) { ?>
     <script src="<?php echo G5_JS_URL ?>/certify.js"></script>
     <?php } ?>
-    <h1>VOGOS Sign Up</h1>
+    <h1><?php echo $w==''?'VOGOS Sign Up':'Edit Information'; ?></h1>
     <form name="fregisterform" id="fregisterform" action="<?php echo $register_action_url ?>" onsubmit="return fregisterform_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off">
     <input type="hidden" name="w" value="<?php echo $w ?>">
     <input type="hidden" name="url" value="<?php echo $urlencode ?>">
@@ -25,9 +26,9 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     <input type="hidden" name="mb_nick" value="<?php echo $member['mb_nick'] ?>">
     <?php } ?>
 
-    <div class="tbl_frm01 tbl_wrap">
+    <div class="tbl">
         <table>
-        <caption>Set Information</caption>
+        <caption>Basic Information</caption>
         <tr>
             <th scope="row"><label for="reg_mb_id">ID<strong class="sound_only">Required</strong></label></th>
             <td>
@@ -36,7 +37,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="reg_mb_email">E-mail<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="reg_mb_email">E-mail<strong class="sound_only">required</strong></label></th>
             <td>
                 <input type="hidden" name="old_email" value="<?php echo $member['mb_email'] ?>">
                 <input type="text" name="mb_email" value="<?php echo isset($member['mb_email'])?$member['mb_email']:''; ?>" id="reg_mb_email" required class="frm_input email required" size="50" maxlength="100">
@@ -293,7 +294,57 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         </table>
     </div>
 
-    <div class="tbl_frm01 tbl_wrap" style="margin-bottom:12px;">
+<?php if(!$w=='') { ?>
+    <div class="tbl">
+        <table>
+        <caption>Additional Information</caption>
+        <tr>
+            <th scope="row"><label for="reg_mb_name">Name(First Name)<strong class="sound_only">*</strong></label></th>
+            <td>
+                <input type="text" id="reg_mb_name" name="mb_name" value="<?php echo $member['mb_name'] ?>" <?php echo $required ?> class="frm_input <?php echo $required ?>">
+            </td>
+        </tr>
+        <?php if ($config['cf_use_tel']) { ?>
+        <tr>
+            <th scope="row"><label for="reg_mb_tel">Telephone</label></th>
+            <td>
+                <input type="text" name="mb_tel" value="<?php echo $member['mb_tel'] ?>" id="reg_mb_tel" class="frm_input" maxlength="20">
+            </td>
+        </tr>
+        <?php } ?>
+        <?php if ($config['cf_use_hp']) { ?>
+        <tr>
+            <th scope="row"><label for="reg_mb_hp">Mobile Phone</label></th>
+            <td>
+                <input type="text" name="mb_hp" value="<?php echo $member['mb_hp'] ?>" id="reg_mb_hp" class="frm_input" maxlength="20">
+            </td>
+        </tr>
+        <?php } ?>
+        <?php if ($config['cf_use_addr']) { ?>
+        <tr>
+            <th scope="row"><label for="reg_mb_zip">Postal Code</label></th>
+            <td>
+                <input type="text" name="mb_zip" value="<?php echo $member['mb_zip']; ?>" id="reg_mb_zip" class="frm_input" size="5" maxlength="15">
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="reg_mb_addr1">Address Line 1</label></th>
+            <td>
+                <input type="text" name="mb_addr1" value="<?php echo $member['mb_addr1']; ?>" id="reg_mb_addr1" class="frm_input" size="5" maxlength="65">
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="reg_mb_addr2">Address Line 2</label></th>
+            <td>
+                <input type="text" name="mb_addr2" value="<?php echo $member['mb_addr2']; ?>" id="reg_mb_addr2" class="frm_input" size="5" maxlength="65">
+            </td>
+        </tr>
+        <?php } ?>
+        </table>
+    </div>
+<?php } ?>
+
+    <div class="tbl" style="margin-bottom:20px;">
         <table>
         <tr>
             <th scope="row">I'd like to receive exclusive discounts and news from VOGOS by email and post</th>
@@ -319,6 +370,9 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     <script>
     $(function() {
         $("#reg_zip_find").css("display", "inline-block");
+
+        var $mb_country = "<?php echo $member['mb_country']; ?>";
+        $('#reg_mb_country').val($mb_country).attr('selected', 'selected');
 
         <?php if($config['cf_cert_use'] && $config['cf_cert_ipin']) { ?>
         // 아이핀인증
@@ -454,3 +508,4 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
 </div>
 <!-- } 회원정보 입력/수정 끝 -->
+</div>

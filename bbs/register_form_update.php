@@ -287,7 +287,8 @@ if ($w == '') {
         $sql_email_certify = " , mb_email_certify = '' ";
 
     $sql = " update {$g5['member_table']}
-                set mb_nick = '{$mb_nick}',
+                set mb_name = '{$mb_name}',
+                    mb_nick = '{$mb_nick}',
                     mb_mailling = '{$mb_mailling}',
                     mb_sms = '{$mb_sms}',
                     mb_open = '{$mb_open}',

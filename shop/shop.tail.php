@@ -32,7 +32,7 @@ $admin = get_admin("super");
                 <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=privacy">Privacy Policy</a></li>
                 <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=provision">Terms and Conditions</a></li>
                 <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=shippinginfo">Shipping Info</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=returnpolicy">Return Policy</a></li>
+                <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=returnpolicy">Returns and Policies</a></li>
                 <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=sizeguide">Size Guide</a></li>
             </ul>
         </div>
