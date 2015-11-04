@@ -109,6 +109,12 @@ else if ($act == "seldelete") // 선택삭제
         }
     }
 }
+else if ($act == "onedelete") // 하나만 삭제
+{
+    $it_del_id = $_POST['it_del_id'];
+    $sql = " delete from {$g5['g5_shop_cart_table']} where it_id = '$it_del_id' and od_id = '$tmp_cart_id' ";
+    sql_query($sql);
+}
 else // 장바구니에 담기
 {
     $count = count($_POST['it_id']);

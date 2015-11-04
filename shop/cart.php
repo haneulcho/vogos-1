@@ -21,6 +21,32 @@ if (G5_IS_MOBILE) {
 
 $g5['title'] = 'My Cart';
 include_once('./_head.php');
+
+$tot_point = 0;
+$tot_sell_price = 0;
+
+// $s_cart_id 로 현재 장바구니 자료 쿼리
+$sql = " select a.ct_id,
+                a.it_id,
+                a.it_name,
+                a.ct_price,
+                a.ct_point,
+                a.ct_qty,
+                a.ct_status,
+                a.ct_send_cost,
+                a.it_sc_type,
+                b.ca_id,
+                b.ca_id2,
+                b.ca_id3
+           from {$g5['g5_shop_cart_table']} a left join {$g5['g5_shop_item_table']} b on ( a.it_id = b.it_id )
+          where a.od_id = '$s_cart_id' ";
+$sql .= " group by a.it_id ";
+$sql .= " order by a.ct_id ";
+$result = sql_query($sql);
+
+$cart_item_num = mysql_num_rows($result);
+
+$it_send_cost = 0;
 ?>
 
 <!-- 장바구니 시작 { -->
@@ -30,7 +56,7 @@ include_once('./_head.php');
 
     <div id="sct_best" class="item best_item">
         <header class="fullWidth">
-            <h2>MY CART <span class="cart_item_num"></span></h2>
+            <h2>MY CART <span class="cart_item_num"><?php echo $cart_item_num; ?></span></h2>
         </header>
     </div>
 
@@ -39,38 +65,15 @@ include_once('./_head.php');
         <table>
         <thead>
         <tr>
-            <th scope="col">ITEM DESCRIPTION</th>
+            <th scope="col" colspan="2">ITEM DESCRIPTION</th>
             <th scope="col">TOTAL QTY</th>
             <th scope="col">UNIT PRICE</th>
             <th scope="col">TOTAL PRICE</th>
+            <th scope="col"><i class="ion-android-checkbox-outline"></i></th>
         </tr>
         </thead>
         <tbody>
         <?php
-        $tot_point = 0;
-        $tot_sell_price = 0;
-
-        // $s_cart_id 로 현재 장바구니 자료 쿼리
-        $sql = " select a.ct_id,
-                        a.it_id,
-                        a.it_name,
-                        a.ct_price,
-                        a.ct_point,
-                        a.ct_qty,
-                        a.ct_status,
-                        a.ct_send_cost,
-                        a.it_sc_type,
-                        b.ca_id,
-                        b.ca_id2,
-                        b.ca_id3
-                   from {$g5['g5_shop_cart_table']} a left join {$g5['g5_shop_item_table']} b on ( a.it_id = b.it_id )
-                  where a.od_id = '$s_cart_id' ";
-        $sql .= " group by a.it_id ";
-        $sql .= " order by a.ct_id ";
-        $result = sql_query($sql);
-
-        $it_send_cost = 0;
-
         // 로그분석기 시작
         $row_count = mysql_num_rows($result);
         $http_SO="cart";    //장바구니페이지
@@ -96,11 +99,11 @@ include_once('./_head.php');
             $a2 = '</b></a>';
             $image = get_it_image($row['it_id'], 70, 70);
 
-            $it_name = $a1 . stripslashes($row['it_name']) . $a2;
-            $it_options = print_item_options($row['it_id'], $s_cart_id);
+            $it_name = $a1 . stripslashes($row['it_name']) . $a2; // 상품명
+            $it_options = print_item_options_cart($row['it_id'], $s_cart_id);
             if($it_options) {
-                $mod_options = '<div class="sod_option_btn"><button type="button" class="mod_options">CHANGE DETAILS</button></div>';
                 $it_name .= '<div class="sod_opt">'.$it_options.'</div>';
+                $mod_options = '<div class="sod_option_btn"><button type="button" class="mod_options">CHANGE DETAILS</button></div>';
             }
 
             // 배송비
@@ -132,15 +135,16 @@ include_once('./_head.php');
         <tr>
             <td class="sod_img"><?php echo $image; ?></td>
             <td>
-                <input type="hidden" name="it_id[<?php echo $i; ?>]"    value="<?php echo $row['it_id']; ?>">
-                <input type="hidden" name="it_name[<?php echo $i; ?>]"  value="<?php echo get_text($row['it_name']); ?>">
+                <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
+                <input type="hidden" name="it_name[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name']); ?>">
                 <?php echo $it_name.$mod_options; ?>
+                <button type="button" onclick="remove_item('<?php echo $row['it_id']; ?>');" class="btn01">REMOVE</button>
             </td>
             <td class="td_num"><?php echo number_format($sum['qty']); ?></td>
-            <td class="td_numbig"><?php echo number_format($row['ct_price']); ?></td>
-            <td class="td_numbig"><span id="sell_price_<?php echo $i; ?>"><?php echo number_format($sell_price); ?></span></td>
+            <td class="td_numbig">$<?php echo number_format($row['ct_price']); ?></td>
+            <td class="td_numbig"><span id="sell_price_<?php echo $i; ?>">$<?php echo number_format($sell_price); ?></span></td>
             <td class="td_chk">
-                <label for="ct_chk_<?php echo $i; ?>" class="sound_only">상품</label>
+                <label for="ct_chk_<?php echo $i; ?>" class="sound_only">Select</label>
                 <input type="checkbox" name="ct_chk[<?php echo $i; ?>]" value="1" id="ct_chk_<?php echo $i; ?>" checked="checked">
             </td>
         </tr>
@@ -179,15 +183,15 @@ include_once('./_head.php');
     <dl id="sod_bsk_tot">
         <?php if ($send_cost > 0) { // 배송비가 0 보다 크다면 (있다면) ?>
         <dt class="sod_bsk_dvr">Shipping Cost</dt>
-        <dd class="sod_bsk_dvr"><strong>$<?php echo number_format($send_cost); ?> .00</strong></dd>
+        <dd class="sod_bsk_dvr"><strong>$<?php echo number_format($send_cost, 2); ?></strong></dd>
         <?php } ?>
 
         <?php
         if ($tot_price > 0) {
         ?>
 
-        <dt class="sod_bsk_cnt">Subtotal/Total Point</dt>
-        <dd class="sod_bsk_cnt"><strong>$<?php echo number_format($tot_price); ?> .00 / <?php echo number_format($tot_point); ?> Point</strong></dd>
+        <dt class="sod_bsk_cnt">SUBTOTAL</dt>
+        <dd class="sod_bsk_cnt"><strong>$<?php echo number_format($tot_price, 2); ?></strong></dd>
         <?php } ?>
 
     </dl>
@@ -195,15 +199,16 @@ include_once('./_head.php');
 
     <div id="sod_bsk_act">
         <?php if ($i == 0) { ?>
-        <a href="<?php echo G5_SHOP_URL; ?>/" class="btn01">Continue shopping</a>
+        <a href="<?php echo G5_SHOP_URL; ?>/" class="btn01">Continue Shopping</a>
         <?php } else { ?>
         <input type="hidden" name="url" value="./orderform.php">
         <input type="hidden" name="records" value="<?php echo $i; ?>">
         <input type="hidden" name="act" value="">
+        <input type="hidden" name="it_del_id" value="">
         <a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=<?php echo $continue_ca_id; ?>" class="btn01">Continue Shopping</a>
-        <button type="button" onclick="return form_check('buy');" class="btn_submit">Order</button>
+        <button type="button" onclick="return form_check('buy');" class="btn_submit">CHECKOUT</button>
         <button type="button" onclick="return form_check('seldelete');" class="btn01">Remove</button>
-        <button type="button" onclick="return form_check('alldelete');" class="btn01">Empty</button>
+        <button type="button" onclick="return form_check('alldelete');" class="btn01">EMPTY CART</button>
         <?php } ?>
     </div>
 
@@ -260,6 +265,15 @@ $(function() {
     });
 
 });
+
+function remove_item(remove_id) {
+    var f = document.frmcartlist;
+    var cnt = f.records.value;
+
+    f.act.value = "onedelete";
+    f.it_del_id.value = remove_id;
+    f.submit();
+}
 
 function form_check(act) {
     var f = document.frmcartlist;
