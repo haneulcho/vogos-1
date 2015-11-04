@@ -728,7 +728,7 @@ function display_price($price, $tel_inq=false)
     if ($tel_inq)
         $price = '전화문의';
     else
-        $price = '$'.number_format($price, 0).'.00';
+        $price = '$'.number_format($price, 2);
 
     return $price;
 }
@@ -744,7 +744,7 @@ function get_price($it)
 
     $price = $it['it_price'];
 
-    return (int)$price;
+    return (float)$price;
 }
 
 
@@ -1238,6 +1238,35 @@ function print_item_options($it_id, $cart_id)
         if($row['io_price'] >= 0)
             $price_plus = '+';
         $str .= '<li>'.$row['ct_option'].' '.$row['ct_qty'].'개 ('.$price_plus.display_price($row['io_price']).')</li>'.PHP_EOL;
+    }
+
+    if($i > 0)
+        $str .= '</ul>';
+
+    return $str;
+}
+
+function print_item_options_cart($it_id, $cart_id)
+{
+    global $g5;
+
+    $sql = " select ct_option, ct_qty, io_price
+                from {$g5['g5_shop_cart_table']} where it_id = '$it_id' and od_id = '$cart_id' order by io_type asc, ct_id asc ";
+    $result = sql_query($sql);
+
+    $str = '';
+    for($i=0; $row=sql_fetch_array($result); $i++) {
+        $ct_option = $row['ct_option'];
+        $ct_option = strtoupper($ct_option);
+        if($i == 0)
+            $str .= '<ul class="cart_optlst">'.PHP_EOL;
+        $price_plus = '';
+        if($row['io_price'] > 0) {
+            $price_plus = '+';
+            $str .= '<li><span>Option</span>'.$ct_option.'<br><span>Quantity</span>'.$row['ct_qty'].' ('.$price_plus.display_price($row['io_price']).')</li>'.PHP_EOL;
+        } else {
+            $str .= '<li><span>Option</span>'.$ct_option.'<br><span>Quantity</span>'.$row['ct_qty'].'</li>'.PHP_EOL;
+        }
     }
 
     if($i > 0)

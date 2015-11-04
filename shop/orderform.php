@@ -282,19 +282,19 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
     <!-- 주문상품 합계 시작 { -->
     <dl id="sod_bsk_tot">
         <dt class="sod_bsk_sell">Total Price</dt>
-        <dd class="sod_bsk_sell"><strong>$<?php echo number_format($tot_sell_price); ?>.00</strong></dd>
+        <dd class="sod_bsk_sell"><strong>$<?php echo number_format($tot_sell_price, 2); ?></strong></dd>
         <dt class="sod_bsk_dvr">Shipping Price</dt>
-        <dd class="sod_bsk_dvr"><strong>$<?php echo number_format($send_cost); ?>.00</strong></dd>
+        <dd class="sod_bsk_dvr"><strong>$<?php echo number_format($send_cost,2 ); ?></strong></dd>
         <dt class="sod_bsk_cnt">Subtotal</dt>
         <dd class="sod_bsk_cnt">
             <?php $tot_price = $tot_sell_price + $send_cost; // 총계 = 주문상품금액합계 + 배송비 ?>
-            <strong id="ct_tot_price">$<?php echo number_format($tot_price); ?>.00</strong>
+            <strong id="ct_tot_price">$<?php echo number_format($tot_price, 2); ?></strong>
         </dd>
     </dl>
     <!-- } 주문상품 합계 끝 -->
 
-    <input type="hidden" name="od_price"    value="<?php echo $tot_sell_price; ?>">
-    <input type="hidden" name="org_od_price"    value="<?php echo $tot_sell_price; ?>">
+    <input type="hidden" name="od_price" value="<?php echo $tot_sell_price; ?>">
+    <input type="hidden" name="org_od_price" value="<?php echo $tot_sell_price; ?>">
     <input type="hidden" name="od_send_cost" value="<?php echo $send_cost; ?>">
     <input type="hidden" name="od_send_cost2" value="0">
     <input type="hidden" name="item_coupon" value="0">
@@ -510,7 +510,7 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
             <tbody>
             <tr>
                 <th>SUBTOTAL</th>
-                <td>$<span id="od_tot_price"><?php echo number_format($tot_price); ?></span>.00</td>
+                <td>$<span id="od_tot_price"><?php echo number_format($tot_price, 2); ?></span></td>
             </tr>
             </tbody>
             </table>
