@@ -743,8 +743,10 @@ function get_price($it)
     if ($it['it_tel_inq']) return '전화문의';
 
     $price = $it['it_price'];
+    $price = (float)$price;
+    $price = number_format($price, 2, '.', '');
 
-    return (float)$price;
+    return $price;
 }
 
 
@@ -1124,10 +1126,10 @@ function get_item_options($it_id, $subject)
                 if($row['io_price'] == 0) {
                     $price = '&nbsp;&nbsp;';
                 } else {
-                    $price = '&nbsp;&nbsp;+ '.number_format($row['io_price']).'원';
+                    $price = '&nbsp;&nbsp;+ '.number_format($row['io_price'], 2);
                 }
             } else {
-                $price = '&nbsp;&nbsp; '.number_format($row['io_price']).'원';
+                $price = '&nbsp;&nbsp; '.number_format($row['io_price'], 2);
             }
 
             if($row['io_stock_qty'] < 1)
@@ -1178,10 +1180,10 @@ function get_item_supply($it_id, $subject)
                 if($row['io_price'] == 0) {
                     $price = '&nbsp;&nbsp;';
                 } else {
-                    $price = '&nbsp;&nbsp;+ '.number_format($row['io_price']).'원';                
+                    $price = '&nbsp;&nbsp;+ '.number_format($row['io_price'], 2);
                 }
             } else {
-                $price = '&nbsp;&nbsp; '.number_format($row['io_price']).'원';
+                $price = '&nbsp;&nbsp; '.number_format($row['io_price'], 2);
             }
             $io_stock_qty = get_option_stock_qty($it_id, $row['io_id'], $row['io_type']);
 
