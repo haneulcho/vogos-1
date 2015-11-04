@@ -61,7 +61,7 @@ class item_list
 
     // 노출순서
     // protected $order_by = "it_order, it_update_time, it_id desc";
-    protected $order_by = "it_order, it_id desc";
+    protected $order_by = "it_order, it_update_time desc";
 
     // 상품의 이벤트번호를 저장합니다.
     protected $event = "";
