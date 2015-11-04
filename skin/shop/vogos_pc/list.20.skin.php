@@ -24,8 +24,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 ?>
             <div class="list_spot">
                 <?php
+                $order_by = "it_update_time desc"; // 최신등록순
                 $list = new item_list();
                 $list->set_type(4);
+                $list->set_order_by($order_by);
                 $list->set_view('it_id', false);
                 $list->set_view('it_name', true);
                 $list->set_view('it_basic', true);
