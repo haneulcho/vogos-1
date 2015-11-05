@@ -204,7 +204,7 @@ $(function() {
                 break;
 
             case "삭제":
-                if(confirm("Delete selected items.")) {
+                if(confirm("Delete selected items?")) {
                     var $el = $(this).closest("li");
                     var del_exec = true;
 
