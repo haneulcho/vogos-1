@@ -1921,7 +1921,7 @@ function get_sendcost($cart_id, $selected=1)
         for ($k=0; $k<count($send_cost_limit); $k++) {
             // 총판매금액이 배송비 상한가 보다 작다면
             if ($total_price < preg_replace('/[^0-9]/', '', $send_cost_limit[$k])) {
-                $send_cost = preg_replace('/[^0-9]/', '', $send_cost_list[$k]);
+                $send_cost = (float)$send_cost_list[$k];
                 break;
             }
         }
