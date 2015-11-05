@@ -1235,13 +1235,15 @@ function print_item_options($it_id, $cart_id)
     $str = '';
     for($i=0; $row=sql_fetch_array($result); $i++) {
         if($i == 0)
-            $str .= '<ul>'.PHP_EOL;
+            $str .= '<ul class="order_optlst">'.PHP_EOL;
         $price_plus = '';
-        if($row['io_price'] >= 0)
+        if($row['io_price'] > 0) {
             $price_plus = '+';
-        $str .= '<li>'.$row['ct_option'].' '.$row['ct_qty'].'개 ('.$price_plus.display_price($row['io_price']).')</li>'.PHP_EOL;
+            $str .= '<li><span>Option</span>'.$row['ct_option'].'<br><span>Quantity</span>'.$row['ct_qty'].' ('.$price_plus.display_price($row['io_price']).')</li>'.PHP_EOL;
+        } else {
+            $str .= '<li><span>Option</span>'.$row['ct_option'].'<br><span>Quantity</span>'.$row['ct_qty'].'</li>'.PHP_EOL;
+        }
     }
-
     if($i > 0)
         $str .= '</ul>';
 

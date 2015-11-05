@@ -56,7 +56,7 @@ $it_send_cost = 0;
 
     <div id="sod_title">
         <header class="fullWidth">
-            <h2 class="title_cart">MY CART <span class="cart_item_num"><?php echo $cart_item_num; ?></span></h2>
+            <h2 class="title_order">MY CART <span class="cart_item_num"><?php echo $cart_item_num; ?></span></h2>
         </header>
     </div>
 

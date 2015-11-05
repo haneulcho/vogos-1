@@ -24,7 +24,7 @@ else {
 if (get_cart_count($tmp_cart_id) == 0)
     alert('장바구니가 비어 있습니다.', G5_SHOP_URL.'/cart.php');
 
-$g5['title'] = 'Shopping Cart';
+$g5['title'] = 'Proceed to Checkout';
 
 // 전자결제를 사용할 때만 실행
 if($default['de_iche_use'] || $default['de_vbank_use'] || $default['de_hp_use'] || $default['de_card_use']) {
@@ -60,18 +60,24 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
 
 <form name="forderform" id="forderform" method="post" action="<?php echo $order_action_url; ?>" onsubmit="return forderform_check(this);" autocomplete="off">
 <div id="sod_frm">
-    <!-- 주문상품 확인 시작 { -->
-    <p>Please check your order.</p>
 
-    <div class="tbl_head01 tbl_wrap">
+    <div id="sod_title">
+        <header class="fullWidth">
+            <h2 class="title_order">Proceed to Checkout</h2>
+        </header>
+    </div>
+
+    <div class="fullWidth">
+    <!-- 주문상품 확인 시작 { -->
+    <div class="sct_cart_tbl review_order">
+        <div class="ro_title"><span>1</span>Review<br>Your Order</div>
         <table id="sod_list">
         <thead>
         <tr>
-            <th scope="col"></th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Total Quantity</th>
-            <th scope="col">Unit Price</th>
-            <th scope="col">Subtotal</th>
+            <th class="th_cart_des" scope="col" colspan="2" class="itemdes">ITEM DESCRIPTION</th>
+            <th class="th_cart_qty" scope="col">TOTAL QTY</th>
+            <th class="th_cart_num" scope="col">UNIT PRICE</th>
+            <th class="th_cart_num" scope="col">TOTAL PRICE</th>
         </tr>
         </thead>
         <tbody>
@@ -149,9 +155,9 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
                 $good_info .= "good_amtx=".$row['ct_price'].chr(31);
             }
 
-            $image = get_it_image($row['it_id'], 50, 50);
+            $image = get_it_image_best($row['it_id'], 105, 140, 8, '', '', 'original', stripslashes($row['it_name']));
 
-            $it_name = '<b>' . stripslashes($row['it_name']) . '</b>';
+            $it_name = '<span class="cart_it_name"><b>'.stripslashes($row['it_name']).'</b></span>';
             $it_options = print_item_options($row['it_id'], $s_cart_id);
             if($it_options) {
                 $it_name .= '<div class="sod_opt">'.$it_options.'</div>';
@@ -224,10 +230,10 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
         ?>
 
         <tr>
-            <td class="sod_img"><?php echo $image; ?></td>
-            <td>
-                <input type="hidden" name="it_id[<?php echo $i; ?>]"    value="<?php echo $row['it_id']; ?>">
-                <input type="hidden" name="it_name[<?php echo $i; ?>]"  value="<?php echo get_text($row['it_name']); ?>">
+            <td class="cart_img"><?php echo $image; ?></td>
+            <td class="cart_des">
+                <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
+                <input type="hidden" name="it_name[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name']); ?>">
                 <input type="hidden" name="it_price[<?php echo $i; ?>]" value="<?php echo $sell_price; ?>">
                 <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
                 <input type="hidden" name="cp_price[<?php echo $i; ?>]" value="0">
@@ -236,10 +242,10 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
                 <?php } ?>
                 <?php echo $it_name; ?>
             </td>
-            <td class="td_num"><?php echo number_format($sum['qty']); ?></td>
-            <td class="td_numbig"><?php echo number_format($row['ct_price']); ?></td>
-            <td class="td_numbig"><span class="total_price"><?php echo number_format($sell_price); ?></span></td>
-            <td class="td_dvr"><?php echo $ct_send_cost; ?></td>
+            <td class="cart_qty"><?php echo number_format($sum['qty']); ?></td>
+            <td class="cart_num"><?php echo number_format($row['ct_price'], 2); ?></td>
+            <td class="cart_num"><span class="total_price"><?php echo number_format($sell_price, 2); ?></span></td>
+            <!-- <td class="td_dvr"><?php //echo $ct_send_cost; ?></td> -->
         </tr>
 
         <?php
@@ -260,7 +266,7 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
 
         if ($i == 0) {
             //echo '<tr><td colspan="7" class="empty_table">장바구니에 담긴 상품이 없습니다.</td></tr>';
-            alert('장바구니가 비어 있습니다.', G5_SHOP_URL.'/cart.php');
+            alert('There are no items in your cart.', G5_SHOP_URL.'/cart.php');
         } else {
             // 배송비 계산
             $send_cost = get_sendcost($s_cart_id);
@@ -284,7 +290,7 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
         <dt class="sod_bsk_sell">Total Price</dt>
         <dd class="sod_bsk_sell"><strong>$<?php echo number_format($tot_sell_price, 2); ?></strong></dd>
         <dt class="sod_bsk_dvr">Shipping Price</dt>
-        <dd class="sod_bsk_dvr"><strong>$<?php echo number_format($send_cost,2 ); ?></strong></dd>
+        <dd class="sod_bsk_dvr"><strong>$<?php echo number_format($send_cost, 2); ?></strong></dd>
         <dt class="sod_bsk_cnt">Subtotal</dt>
         <dd class="sod_bsk_cnt">
             <?php $tot_price = $tot_sell_price + $send_cost; // 총계 = 주문상품금액합계 + 배송비 ?>
@@ -593,6 +599,8 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
         require_once('./'.$default['de_pg_service'].'/orderform.4.php');
     }
     ?>
+
+</div>
 
 </div>
 
