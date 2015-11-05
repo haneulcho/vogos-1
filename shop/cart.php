@@ -141,8 +141,8 @@ $it_send_cost = 0;
                 <button type="button" onclick="remove_item('<?php echo $row['it_id']; ?>');" class="btn01">REMOVE</button>
             </td>
             <td class="td_num"><?php echo number_format($sum['qty']); ?></td>
-            <td class="td_numbig">$<?php echo number_format($row['ct_price']); ?></td>
-            <td class="td_numbig"><span id="sell_price_<?php echo $i; ?>">$<?php echo number_format($sell_price); ?></span></td>
+            <td class="td_numbig">$<?php echo number_format($row['ct_price'], 2); ?></td>
+            <td class="td_numbig"><span id="sell_price_<?php echo $i; ?>">$<?php echo number_format($sell_price, 2); ?></span></td>
             <td class="td_chk">
                 <label for="ct_chk_<?php echo $i; ?>" class="sound_only">Select</label>
                 <input type="checkbox" name="ct_chk[<?php echo $i; ?>]" value="1" id="ct_chk_<?php echo $i; ?>" checked="checked">
@@ -234,6 +234,7 @@ $(function() {
         var $this = $(this);
         close_btn_idx = $(".mod_options").index($(this));
 
+        // 카트 옵션 ajax로 불러오
         $.post(
             "./cartoption.php",
             { it_id: it_id },

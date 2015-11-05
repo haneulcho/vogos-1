@@ -267,10 +267,10 @@ else // 장바구니에 담기
 
             // 구매가격이 음수인지 체크
             if($io_type) {
-                if((int)$io_price < 0)
+                if((float)$io_price < 0)
                     alert('구매금액이 음수인 상품은 구매할 수 없습니다.');
             } else {
-                if((int)$it['it_price'] + (int)$io_price < 0)
+                if((float)$it['it_price'] + (float)$io_price < 0)
                     alert('구매금액이 음수인 상품은 구매할 수 없습니다.');
             }
 
