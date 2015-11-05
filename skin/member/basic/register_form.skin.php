@@ -350,7 +350,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
             <th scope="row">I'd like to receive exclusive discounts and news from VOGOS by email and post</th>
             <td>
                 <input type="radio" name="mb_mailling" value="1" id="reg_mb_mailling1" <?php echo ($w=='' || $member['mb_mailling'])?'checked':''; ?>> <label for="reg_mb_mailling1" style="margin-right:10px;">Yes</label>
-                <input type="radio" name="mb_mailling" value="0" id="reg_mb_mailling0"> <label for="reg_mb_mailling0">No, Thanks</label>
+                <input type="radio" name="mb_mailling" value="0" id="reg_mb_mailling0"> <label for="reg_mb_mailling0">No thanks</label>
             </td>
         </tr>
 

@@ -24,7 +24,7 @@ else {
 if (get_cart_count($tmp_cart_id) == 0)
     alert('장바구니가 비어 있습니다.', G5_SHOP_URL.'/cart.php');
 
-$g5['title'] = '주문서 작성';
+$g5['title'] = 'Shopping Cart';
 
 // 전자결제를 사용할 때만 실행
 if($default['de_iche_use'] || $default['de_vbank_use'] || $default['de_hp_use'] || $default['de_card_use']) {
@@ -61,7 +61,7 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
 <form name="forderform" id="forderform" method="post" action="<?php echo $order_action_url; ?>" onsubmit="return forderform_check(this);" autocomplete="off">
 <div id="sod_frm">
     <!-- 주문상품 확인 시작 { -->
-    <p>Check your order</p>
+    <p>Please check your order.</p>
 
     <div class="tbl_head01 tbl_wrap">
         <table id="sod_list">
