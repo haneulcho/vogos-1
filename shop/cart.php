@@ -70,7 +70,7 @@ $it_send_cost = 0;
             <th class="th_cart_qty" scope="col">TOTAL QTY</th>
             <th class="th_cart_num" scope="col">UNIT PRICE</th>
             <th class="th_cart_num" scope="col">TOTAL PRICE</th>
-            <th class="th_cart_chk" scope="col"><i class="ion-android-checkbox-outline"></i></th>
+            <th class="th_cart_chk" scope="col"><div class="chk_all active"><i class="ion-android-checkbox-outline"></i></div></th>
         </tr>
         </thead>
         <tbody>
@@ -240,30 +240,35 @@ $(function() {
         var $this = $(this);
         close_btn_idx = $(".mod_options").index($(this));
 
-        // 카트 옵션 ajax로 불러오
+        // 카트 옵션 ajax로 불러오기
         $.post(
             "./cartoption.php",
             { it_id: it_id },
             function(data) {
                 $("#mod_option_frm").remove();
                 $this.after("<div id=\"mod_option_frm\"></div>");
-                $("#mod_option_frm").html(data);
+                $("#mod_option_frm").hide().html(data).fadeIn('fast');
                 price_calculate();
             }
         );
     });
 
     // 모두선택
-    $("input[name=ct_all]").click(function() {
-        if($(this).is(":checked"))
-            $("input[name^=ct_chk]").attr("checked", true);
-        else
+    $(".chk_all").click(function() {
+        if($(this).hasClass('active')) {
             $("input[name^=ct_chk]").attr("checked", false);
+            $(this).removeClass('active');            
+        } else {
+            $("input[name^=ct_chk]").attr("checked", true);
+            $(this).addClass('active');
+        }
     });
 
     // 옵션수정 닫기
     $("#mod_option_close").live("click", function() {
-        $("#mod_option_frm").remove();
+        $("#mod_option_frm").fadeOut('fast', function() {
+            $(this).remove();            
+        });
         $(".mod_options").eq(close_btn_idx).focus();
     });
     $("#win_mask").click(function () {

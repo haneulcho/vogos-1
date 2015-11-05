@@ -142,10 +142,31 @@ a.gnb_1da {display:inline-block;padding:21px 17px 5px;text-overflow: ellipsis;bo
 #sit_opt_added button:hover {border-color:#A09E9E;}
 
 #sod_bsk_list {position:relative;padding:25px 0 50px;}
-#sod_bsk_list #mod_option_frm {z-index:10000;position:absolute;top:0;left:99px;padding:20px;width:500px;height:auto !important;height:500px;max-height:500px;border:1px solid #000;background:#f2f5f9;overflow-y:scroll;overflow-x:none}
+#sod_bsk_list #mod_option_frm {z-index:10000;position:absolute;top:55px;left:0;padding:0;width:500px;height:auto !important;height:500px;max-height:500px;overflow-y:auto;overflow-x:none;
+  border:1px solid #e7e7e7;
+  background:#f3f3f0;
+  box-shadow: 1.414px 1.414px 5px 0px rgba(119, 108, 111, 0.1);
+  -webkit-box-shadow: 1.414px 1.414px 5px 0px rgba(119, 108, 111, 0.1);
+  -moz-box-shadow: 1.414px 1.414px 5px 0px rgba(119, 108, 111, 0.1);
+  -o-box-shadow: 1.414px 1.414px 5px 0px rgba(119, 108, 111, 0.1);
+}
+#sod_bsk_list #mod_option_frm .tbl_head02 {margin:10px 0;}
+#sod_bsk_list #mod_option_frm .tbl_head02>h3 {position:absolute;border:0;font-size:0;line-height:0;overflow:hidden;}
+#sod_bsk_list #mod_option_frm .tbl_head02 tr:hover {background:none;}
+#sod_bsk_list #mod_option_frm .tbl_head02 tbody th,
+#sod_bsk_list #mod_option_frm .tbl_head02 td {height:30px;padding:0 0 0 20px;border:0;line-height:1;}
+#sod_bsk_list #mod_option_frm .tbl_head02 tbody th {width:90px;}
+#sod_bsk_list #mod_option_frm .tbl_head02 .it_option {width:95px;height:25px;border:1px solid #cfcfcf;background:#fff;border-radius:0 !important;font-size:12px;}
+#sod_bsk_list #mod_option_frm .tbl_head02 .sit_ov_tbl {margin-bottom:10px;}
+#sod_bsk_list #mod_option_frm  #sit_opt_added li {border-top:1px solid #e7e7e7;padding-left:20px;font-size:12px;}
+#sod_bsk_list #mod_option_frm #sit_opt_added li .sit_opt_subj {margin-top:6px;}
+#sod_bsk_list #mod_option_frm .btn_confirm {float:right;margin:13px 25px 13px 0;}
+#sod_bsk_list #mod_option_frm .btn_confirm button {display:inline-block;border:0;padding:0;background:none;}
+#sod_bsk_list #mod_option_frm #sit_tot_price {display:none;}
+#sod_bsk_list #mod_option_frm .btn_confirm #mod_option_close {margin-right:10px;}
 
 /* 장바구니 하단 결제 버튼 */
-#sod_bsk_tot {float:right;width:300px;margin:0 0 25px;background:#ebebeb;zoom:1;border-collapse:collapse;border-spacing:0;color:#fff;}
+#sod_bsk_tot {float:right;width:300px;margin:0 0 35px;background:#ebebeb;zoom:1;border-collapse:collapse;border-spacing:0;color:#fff;}
 .sod_shipping {background-color:#d6d6d0;color:#666;}
 .sod_subtotal {background-color:#989193;font-size:30px;height:70px;}
 .sod_checkout {background-color:#989193;text-align:center;}
@@ -153,14 +174,14 @@ a.gnb_1da {display:inline-block;padding:21px 17px 5px;text-overflow: ellipsis;bo
 .sod_bsk_dvr {width:95px;padding:10px 15px;font-size:12px;}
 .sod_bsk_cnt {padding:10px 15px;text-align:right;}
 #sod_bsk_act {float:left;text-align:center}
+#sod_bsk_act:after {display:block;visibility:hidden;clear:both;content:""}
 #sod_bsk_act p {margin:0 0 10px}
 #sod_bsk_act .btn_submit{border-radius:3px;margin-right:3px}
 #sod_bsk_act .btn_act{display:inline-block;zoom:1;margin-right:10px;border:1px solid #ddd;outline:0;}
-#sod_bsk_act .btn_act:after {display:block;visibility:hidden;clear:both;content:""}
 #sod_bsk_act_con {clear:both;text-align:center;}
 
 /* 장바구니 테이블 */
-.sct_cart_tbl {overflow:hidden;margin-bottom:20px;background-color:#fff;
+.sct_cart_tbl {margin-bottom:20px;background-color:#fff;
 box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
 -webkit-box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
 -moz-box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
@@ -178,7 +199,7 @@ box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
 .sct_cart_tbl td.cart_qty,
 .sct_cart_tbl td.cart_num,
 .sct_cart_tbl td.cart_chk {padding:17px 0;border-top:1px solid #e7e7e7;font-size:13px;line-height:1.5em;word-break:break-all;color:#666;text-align:center;}
-.sct_cart_tbl td.cart_des {text-align:left;vertical-align:top;}
+.sct_cart_tbl td.cart_des {position:relative;text-align:left;vertical-align:top;}
 .sct_cart_tbl td.cart_img {width:155px;vertical-align:top;}
 .sct_cart_tbl td.cart_num span {font-size:14px;font-weight:700;}
 .sct_cart_tbl td.cart_chk input {width:14px;height:14px;}

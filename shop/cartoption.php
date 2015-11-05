@@ -114,8 +114,8 @@ if($option_2) {
 <div id="sit_tot_price"></div>
 
 <div class="btn_confirm">
-    <input type="submit" value="UPDATE" class="btn_submit">
-    <button type="button" id="mod_option_close" class="btn_cancel">CANCEL</button>
+    <button type="button" id="mod_option_close" class="btn_cancel"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/cart/btn_cancel.jpg"></button>
+    <button type="submit" class="btn_submit"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/cart/btn_update.jpg"></button>
 </div>
 </form>
 
