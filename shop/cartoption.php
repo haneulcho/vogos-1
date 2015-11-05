@@ -100,10 +100,7 @@ if($option_2) {
             <span class="sit_opt_prc"><?php echo $io_price; ?></span>
             <div>
                 <label for="ct_qty_<?php echo $i; ?>" class="sound_only">Quantity</label>
-                <button type="button" class="sit_qty_minus btn_frmline"><i class="ion-android-arrow-dropdown"></i></button>                
-                <input type="text" name="ct_qty[<?php echo $it['it_id']; ?>][]" value="<?php echo $row['ct_qty']; ?>" id="ct_qty_<?php echo $i; ?>" class="frm_input" size="5">
-                <button type="button" class="sit_qty_plus btn_frmline"><i class="ion-android-arrow-dropup"></i></button>
-                <button type="button" class="sit_opt_del btn_frmline"><i class="ion-ios-trash-outline"></i></button>
+                <button type="button" class="sit_qty_minus btn_frmline"><i class="ion-android-arrow-dropdown"></i></button><input type="text" name="ct_qty[<?php echo $it['it_id']; ?>][]" value="<?php echo $row['ct_qty']; ?>" id="ct_qty_<?php echo $i; ?>" class="frm_input" size="5"><button type="button" class="sit_qty_plus btn_frmline"><i class="ion-android-arrow-dropup"></i></button><button type="button" class="sit_opt_del btn_frmline"><i class="ion-ios-trash-outline"></i></button>
             </div>
 
 

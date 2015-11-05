@@ -56,8 +56,11 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
             <h2><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL ?>/img/title_vogos_newarrivals.jpg" alt="VOGOS NEW ARRIVALS"></a></h2>
         </header>
         <?php
+        $order_by = 'it_update_time desc';
+
         $list = new item_list();
         $list->set_type(3);
+        $list->set_order_by($order_by);
         $list->set_view('it_id', false);
         $list->set_view('it_name', true);
         $list->set_view('it_basic', true);
