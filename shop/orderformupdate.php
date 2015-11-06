@@ -337,30 +337,6 @@ else if ($od_settle_case == "가상계좌")
     $pg_price           = $amount;
     $od_misu            = $i_price - $od_receipt_price;
 }
-else if ($od_settle_case == "휴대폰")
-{
-    switch($default['de_pg_service']) {
-        case 'lg':
-            include G5_SHOP_PATH.'/lg/xpay_result.php';
-            break;
-        case 'inicis':
-            include G5_SHOP_PATH.'/inicis/inipay_result.php';
-            break;
-        default:
-            include G5_SHOP_PATH.'/kcp/pp_ax_hub.php';
-            break;
-    }
-
-    $od_tno             = $tno;
-    $od_receipt_price   = $amount;
-    $od_receipt_point   = $i_temp_point;
-    $od_receipt_time    = preg_replace("/([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "\\1-\\2-\\3 \\4:\\5:\\6", $app_time);
-    $od_bank_account    = $commid . ($commid ? ' ' : '').$mobile_no;
-    $pg_price           = $amount;
-    $od_misu            = $i_price - $od_receipt_price;
-    if($od_misu == 0)
-        $od_status      = '입금';
-}
 else if ($od_settle_case == "신용카드")
 {
     switch($default['de_pg_service']) {

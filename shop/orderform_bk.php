@@ -22,7 +22,7 @@ else {
 }
 
 if (get_cart_count($tmp_cart_id) == 0)
-    alert('Your shopping cart is empty.', G5_SHOP_URL.'/cart.php');
+    alert('장바구니가 비어 있습니다.', G5_SHOP_URL.'/cart.php');
 
 $g5['title'] = 'Proceed to Checkout';
 
@@ -320,14 +320,8 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
     <section id="sod_frm_orderer">
     <div class="sct_cart_tbl review_order">
         <div class="ro_title"><span>2</span>Billing<br>Address</div>
-        <table id="sod_list" class="ads_list">
-            <thead>
-                <tr>
-                    <th scope="col" colspan="2" class="">Please provide your billing information.</th>
-                </tr>
-            </thead>
+        <table id="sod_list">
             <tbody>
-            <tr><td colspan="2" style="height:12px"></td></tr>
             <tr>
                 <th scope="row"><label for="od_name">First Name<strong class="sound_only"> required</strong></label></th>
                 <td><input type="text" name="od_name" value="<?php echo $member['mb_name']; ?>" id="od_name" required class="frm_input required" maxlength="20"></td>
@@ -355,7 +349,7 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
             </tr>
             <tr>
                 <th scope="row"><label for="od_hp">Mobile</label></th>
-                <td><input type="text" name="od_hp" value="<?php echo $member['mb_hp']; ?>" id="od_hp" class="frm_input required" maxlength="20"></td>
+                <td><input type="text" name="od_hp" value="<?php echo $member['mb_hp']; ?>" id="od_hp" class="frm_input" maxlength="20"></td>
             </tr>
             <tr>
                 <th scope="row"><label for="od_country">Country</label></th>
@@ -373,7 +367,6 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
                 <th scope="row"><label for="od_zip">Postal Code</label></th>
                 <td><input type="text" name="od_zip" value="<?php echo $member['mb_zip']; ?>" id="od_zip" required class="frm_input required" size="5" maxlength="6"></td>
             </tr>
-            <tr><td colspan="2" style="height:12px"></td></tr>
             </tbody>
             </table>
         </div>
@@ -381,49 +374,63 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
     <!-- } 주문하시는 분 입력 끝 -->
 
     <!-- 받으시는 분 입력 시작 { -->
-    <?php
-    if($is_member) {
-        // 배송지 이력
-        $addr_list = '';
-        $sep = chr(30);
-
-        // 주문자와 동일
-        $addr_list .= '<input type="checkbox" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
-        $addr_list .= '<label for="ad_sel_addr_same">It\'s the same as the one in the billing address.</label>'.PHP_EOL;
-
-        // 최근배송지
-        $sql = " select *
-                    from {$g5['g5_shop_order_address_table']}
-                    where mb_id = '{$member['mb_id']}'
-                      and ad_default = '0'
-                    order by ad_id desc
-                    limit 1 ";
-        $result = sql_query($sql);
-        for($i=0; $row=sql_fetch_array($result); $i++) {
-            $val1 = $row['ad_name'].$sep.$row['ad_name_last'].$sep.$row['ad_tel'].$sep.$row['ad_hp'].$sep.$row['ad_zip'].$sep.$row['ad_addr1'].$sep.$row['ad_addr2'].$sep.$row['ad_country'].$sep.$row['ad_subject'];
-            $val2 = '<label for="ad_sel_addr_'.($i+1).'">최근배송지('.($row['ad_subject'] ? $row['ad_subject'] : $row['ad_name']).')</label>';
-            $addr_list .= '<input type="radio" name="ad_sel_addr" value="'.$val1.'" id="ad_sel_addr_'.($i+1).'"> '.PHP_EOL.$val2.PHP_EOL;
-        }
-        //$addr_list .= '<label for="od_sel_addr_new">신규배송지</label>'.PHP_EOL;
-
-        //$addr_list .='<a href="'.G5_SHOP_URL.'/orderaddress.php" id="order_address" class="btn_frmline">배송지목록</a>';
-    } else {
-        // 주문자와 동일
-        $addr_list .= '<input type="checkbox" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
-        $addr_list .= '<label for="ad_sel_addr_same">It\'s the same as the one in the billing address.</label>'.PHP_EOL;
-    }
-    ?>
     <section id="sod_frm_taker">
     <div class="sct_cart_tbl review_order">
         <div class="ro_title"><span>3</span>Delivery<br>Address</div>
-        <table id="sod_list" class="ads_list">
-            <thead>
-                <tr>
-                    <th scope="col" colspan="2" class="title">Please provide your Delivery information.<span><?php echo $addr_list; ?></span></th>
-                </tr>
-            </thead>
+        <table id="sod_list">
             <tbody>
-            <tr><td colspan="2" style="height:12px"></td></tr>
+            <?php
+            if($is_member) {
+                // 배송지 이력
+                $addr_list = '';
+                $sep = chr(30);
+
+                // 주문자와 동일
+                $addr_list .= '<input type="radio" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
+                $addr_list .= '<label for="ad_sel_addr_same">It\'s the same as the one in the billing address.</label>'.PHP_EOL;
+
+                // 기본배송지
+                $sql = " select *
+                            from {$g5['g5_shop_order_address_table']}
+                            where mb_id = '{$member['mb_id']}'
+                              and ad_default = '1' ";
+                $row = sql_fetch($sql);
+                if($row['ad_id']) {
+                    $val1 = $row['ad_name'].$sep.$row['ad_tel'].$sep.$row['ad_hp'].$sep.$row['ad_zip1'].$sep.$row['ad_zip2'].$sep.$row['ad_addr1'].$sep.$row['ad_addr2'].$sep.$row['ad_addr3'].$sep.$row['ad_jibeon'].$sep.$row['ad_subject'];
+                    $addr_list .= '<input type="radio" name="ad_sel_addr" value="'.$val1.'" id="ad_sel_addr_def">'.PHP_EOL;
+                    $addr_list .= '<label for="ad_sel_addr_def">기본배송지</label>'.PHP_EOL;
+                }
+
+                // 최근배송지
+                $sql = " select *
+                            from {$g5['g5_shop_order_address_table']}
+                            where mb_id = '{$member['mb_id']}'
+                              and ad_default = '0'
+                            order by ad_id desc
+                            limit 1 ";
+                $result = sql_query($sql);
+                for($i=0; $row=sql_fetch_array($result); $i++) {
+                    $val1 = $row['ad_name'].$sep.$row['ad_tel'].$sep.$row['ad_hp'].$sep.$row['ad_zip1'].$sep.$row['ad_zip2'].$sep.$row['ad_addr1'].$sep.$row['ad_addr2'].$sep.$row['ad_addr3'].$sep.$row['ad_jibeon'].$sep.$row['ad_subject'];
+                    $val2 = '<label for="ad_sel_addr_'.($i+1).'">최근배송지('.($row['ad_subject'] ? $row['ad_subject'] : $row['ad_name']).')</label>';
+                    $addr_list .= '<input type="radio" name="ad_sel_addr" value="'.$val1.'" id="ad_sel_addr_'.($i+1).'"> '.PHP_EOL.$val2.PHP_EOL;
+                }
+
+                $addr_list .= '<input type="radio" name="ad_sel_addr" value="new" id="od_sel_addr_new">'.PHP_EOL;
+                //$addr_list .= '<label for="od_sel_addr_new">신규배송지</label>'.PHP_EOL;
+
+                //$addr_list .='<a href="'.G5_SHOP_URL.'/orderaddress.php" id="order_address" class="btn_frmline">배송지목록</a>';
+            } else {
+                // 주문자와 동일
+                $addr_list .= '<input type="checkbox" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
+                $addr_list .= '<label for="ad_sel_addr_same">It\'s the same as the one in the billing address.</label>'.PHP_EOL;
+            }
+            ?>
+            <tr>
+                <th scope="row"></th>
+                <td>
+                    <?php echo $addr_list; ?>
+                </td>
+            </tr>
             <tr>
                 <th scope="row"><label for="od_b_name">First Name<strong class="sound_only"> required</strong></label></th>
                 <td><input type="text" name="od_b_name" id="od_b_name" required class="frm_input required" maxlength="20"></td>
@@ -460,7 +467,6 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
                 <th scope="row"><label for="od_b_zip">Postal Code</label></th>
                 <td><input type="text" name="od_b_zip" id="od_b_zip" class="frm_input required" maxlength="15"></td>
             </tr>
-            <tr><td colspan="2" style="height:12px"></td></tr>
             </tbody>
             </table>
         </div>
@@ -528,9 +534,46 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
             echo '<legend>Payment Method</legend>';
         }
 
+        // 전액 포인트 결제
+        $multi_settle++;
+            echo '<input type="radio" id="od_settle_vpoint" name="od_settle_case" value="전액포인트" '.$checked.'> <label for="od_settle_vpoint">Yes, I want to redeem my reward points</label>'.PHP_EOL;
+            $checked = '';
+
+        // 신용카드 사용
+            /*
+        if ($default['de_card_use']) {
+            $multi_settle++;
+            echo '<input type="radio" id="od_settle_card" name="od_settle_case" value="신용카드" '.$checked.'> <label for="od_settle_card">신용카드</label>'.PHP_EOL;
+            $checked = '';
+        }
+        */
+
         $temp_point = 0;
+        // 회원이면서 포인트사용이면
+        if ($is_member && $config['cf_use_point'])
+        {
+            // 포인트 결제 사용 포인트보다 회원의 포인트가 크다면
+            if ($member['mb_point'] >= $default['de_settle_min_point'])
+            {
+                $temp_point = (int)$default['de_settle_max_point'];
+
+                if($temp_point > (int)$tot_sell_price)
+                    $temp_point = (int)$tot_sell_price;
+
+                if($temp_point > (int)$member['mb_point'])
+                    $temp_point = (int)$member['mb_point'];
+
+                $point_unit = (int)$default['de_settle_point_unit'];
+                $temp_point = (int)((int)($temp_point / $point_unit) * $point_unit);
         ?>
+            <input type="hidden" name="max_temp_point" value="<?php echo $temp_point; ?>">
+            <label for="od_temp_point">Use Points</label>
+            <input type="text" name="od_temp_point" value="0" id="od_temp_point" class="frm_input" size="10">points
         <?php
+            $multi_settle++;
+            }
+        }
+
         if ($default['de_bank_use'] || $default['de_vbank_use'] || $default['de_iche_use'] || $default['de_card_use'] || $default['de_hp_use']) {
             echo '</fieldset>';
         }
@@ -546,6 +589,13 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
     require_once('./'.$default['de_pg_service'].'/orderform.3.php');
     ?>
     </form>
+
+    <?php
+    if ($default['de_escrow_use']) {
+        // 결제대행사별 코드 include (에스크로 안내)
+        require_once('./'.$default['de_pg_service'].'/orderform.4.php');
+    }
+    ?>
 
 </div>
 
@@ -598,12 +648,8 @@ $(function() {
 
             var f = document.forderform;
             f.od_b_name.value        = addr[0];
-            f.od_b_name_last.value   = addr[1];
-            f.od_b_tel.value         = addr[2];
-            f.od_b_hp.value          = addr[3];
-            f.od_b_country.value     = addr[4];
-            f.od_b_city.value        = addr[5];
-
+            f.od_b_tel.value         = addr[1];
+            f.od_b_hp.value          = addr[2];
             f.od_b_zip.value         = addr[3] + addr[4];
             f.od_b_addr1.value       = addr[5];
             f.od_b_addr2.value       = addr[6];
@@ -997,6 +1043,29 @@ function forderform_check(f)
     <?php } ?>
 
     // 결제정보설정
+    <?php if($default['de_pg_service'] == 'kcp') { ?>
+    f.buyr_name.value = f.od_name.value;
+    f.buyr_mail.value = f.od_email.value;
+    f.buyr_tel1.value = f.od_tel.value;
+    f.buyr_tel2.value = f.od_hp.value;
+    f.rcvr_name.value = f.od_b_name.value;
+    f.rcvr_tel1.value = f.od_b_tel.value;
+    f.rcvr_tel2.value = f.od_b_hp.value;
+    f.rcvr_mail.value = f.od_email.value;
+    f.rcvr_zipx.value = f.od_b_zip.value;
+    f.rcvr_add1.value = f.od_b_addr1.value;
+    f.rcvr_add2.value = f.od_b_addr2.value;
+
+    if(f.pay_method.value != "무통장") {
+        if(jsf__pay( f )) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return true;
+    }
+    <?php } ?>
     <?php if($default['de_pg_service'] == 'lg') { ?>
     f.LGD_BUYER.value = f.od_name.value;
     f.LGD_BUYEREMAIL.value = f.od_email.value;
@@ -1045,25 +1114,25 @@ function gumae2baesong(checked) {
     var f = document.forderform;
 
     if(checked == true) {
-        f.od_b_name.value      = f.od_name.value;
-        f.od_b_name_last.value = f.od_name_last.value;
-        f.od_b_tel.value       = f.od_tel.value;
-        f.od_b_hp.value        = f.od_hp.value;
-        f.od_b_country.value   = f.od_country.value;
-        f.od_b_addr1.value     = f.od_addr1.value;
-        f.od_b_addr2.value     = f.od_addr2.value;
-        f.od_b_zip.value       = f.od_zip.value;
+        f.od_b_name.value = f.od_name.value;
+        f.od_b_tel.value  = f.od_tel.value;
+        f.od_b_hp.value   = f.od_hp.value;
+        f.od_b_zip.value  = f.od_zip.value;
+        f.od_b_addr1.value = f.od_addr1.value;
+        f.od_b_addr2.value = f.od_addr2.value;
+        f.od_b_addr3.value = f.od_addr3.value;
+        f.od_b_addr_jibeon.value = f.od_addr_jibeon.value;
 
         calculate_sendcost(String(f.od_b_zip.value));
     } else {
-        f.od_b_name.value      = "";
-        f.od_b_name_last.value = "";
-        f.od_b_tel.value       = "";
-        f.od_b_hp.value        = "";
-        f.od_b_country.value   = "";
-        f.od_b_addr1.value     = "";
-        f.od_b_addr2.value     = "";
-        f.od_b_zip.value       = "";
+        f.od_b_name.value = "";
+        f.od_b_tel.value  = "";
+        f.od_b_hp.value   = "";
+        f.od_b_zip.value  = "";
+        f.od_b_addr1.value = "";
+        f.od_b_addr2.value = "";
+        f.od_b_addr3.value = "";
+        f.od_b_addr_jibeon.value = "";
     }
 }
 
