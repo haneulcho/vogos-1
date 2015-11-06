@@ -73,7 +73,14 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     }
 
     if ($this->view_it_basic && $row['it_basic']) {
-        echo "<div class=\"sct_basic\">".stripslashes($row['it_basic'])."</div>\n";
+        $it_basic = stripslashes($row['it_basic']);
+        $it_basic_length = strlen($it_basic);
+
+        if($it_basic_length > 98) {
+            $it_basic = mb_substr($it_basic, 0, 98, "UTF-8")."...";
+
+        }
+        echo "<div class=\"sct_basic\">".$it_basic."</div>\n";
     }
 
     if ($this->href) {
