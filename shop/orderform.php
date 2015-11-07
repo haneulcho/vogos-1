@@ -333,7 +333,7 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
                 <td><input type="text" name="od_name" value="<?php echo $member['mb_name']; ?>" id="od_name" required class="frm_input required" maxlength="20"></td>
             </tr>
             <tr>
-                <th scope="row"><label for="od_name">Last Name<strong class="sound_only"> required</strong></label></th>
+                <th scope="row"><label for="od_name_last">Last Name<strong class="sound_only"> required</strong></label></th>
                 <td><input type="text" name="od_name_last" value="<?php echo $member['mb_name_last']; ?>" id="od_name_last" required class="frm_input required" maxlength="20"></td>
             </tr>
 
@@ -518,11 +518,6 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
         $multi_settle == 0;
         $checked = '';
 
-        $escrow_title = "";
-        if ($default['de_escrow_use']) {
-            $escrow_title = "에스크로 ";
-        }
-
         if ($default['de_bank_use'] || $default['de_vbank_use'] || $default['de_iche_use'] || $default['de_card_use'] || $default['de_hp_use']) {
             echo '<fieldset id="sod_frm_paysel">';
             echo '<legend>Payment Method</legend>';
@@ -604,18 +599,15 @@ $(function() {
             f.od_b_country.value     = addr[4];
             f.od_b_city.value        = addr[5];
 
-            f.od_b_zip.value         = addr[3] + addr[4];
-            f.od_b_addr1.value       = addr[5];
-            f.od_b_addr2.value       = addr[6];
-            f.od_b_addr3.value       = addr[7];
-            f.od_b_addr_jibeon.value = addr[8];
+            f.od_b_addr1.value       = addr[6];
+            f.od_b_addr2.value       = addr[7];
+            f.od_b_zip.value         = addr[8];
             f.ad_subject.value       = addr[9];
 
-            var zip1 = addr[3].replace(/[^0-9]/g, "");
-            var zip2 = addr[4].replace(/[^0-9]/g, "");
+            var zip = addr[8].replace(/[^0-9]/g, "");
 
-            if(zip1 != "" && zip2 != "") {
-                var code = String(zip1) + String(zip2);
+            if(zip != "") {
+                var code = String(zip);
 
                 if(zipcode != code) {
                     zipcode = code;
@@ -625,12 +617,6 @@ $(function() {
         }
     });
 
-    // 배송지목록
-    $("#order_address").on("click", function() {
-        var url = this.href;
-        window.open(url, "win_address", "left=100,top=100,width=800,height=600,scrollbars=1");
-        return false;
-    });
 });
 
 function coupon_cancel($el)
@@ -651,18 +637,18 @@ function calculate_total_price()
     var tot_sell_price = sell_price = tot_cp_price = 0;
     var it_price, cp_price, it_notax;
     var tot_mny = comm_tax_mny = comm_vat_mny = comm_free_mny = tax_mny = vat_mny = 0;
-    var send_cost = parseInt($("input[name=od_send_cost]").val());
+    var send_cost = parseFloat($("input[name=od_send_cost]").val());
 
     $it_prc.each(function(index) {
-        it_price = parseInt($(this).val());
-        cp_price = parseInt($cp_prc.eq(index).val());
+        it_price = parseFloat($(this).val());
+        cp_price = parseFloat($cp_prc.eq(index).val());
         sell_price += it_price;
         tot_cp_price += cp_price;
     });
 
     tot_sell_price = sell_price - tot_cp_price + send_cost;
 
-    $("#ct_tot_coupon").text(number_format(String(tot_cp_price))+" 원");
+    $("#ct_tot_coupon").text("$"+number_format(String(tot_cp_price), 2, ".", ",")); ---- 수정중
     $("#ct_tot_price").text(number_format(String(tot_sell_price))+" 원");
 
     $("input[name=good_mny]").val(tot_sell_price);
