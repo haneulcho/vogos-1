@@ -318,6 +318,8 @@ CREATE TABLE IF NOT EXISTS `g5_shop_default` (
   `de_pg_service` varchar(255) NOT NULL DEFAULT '',
   `de_kcp_mid` varchar(255) NOT NULL DEFAULT '',
   `de_kcp_site_key` varchar(255) NOT NULL DEFAULT '',
+  `de_eximbay_mid` varchar(255) NOT NULL DEFAULT '',
+  `de_eximbay_secret_key` varchar(255) NOT NULL DEFAULT '',
   `de_inicis_mid` varchar(255) NOT NULL DEFAULT '',
   `de_inicis_admin_key` varchar(255) NOT NULL DEFAULT '',
   `de_iche_use` tinyint(4) NOT NULL DEFAULT '0',
