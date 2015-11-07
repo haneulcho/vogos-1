@@ -780,14 +780,14 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </th>
             <td>
                 <?php echo help("엑심베이로부터 발급 받으신 상점아이디(MID) 10자리를 입력 합니다. 예) 31959DDAD6"); ?>
-                <input type="text" name="de_eximbay_mid" value="<?php echo $default['de_eximbay_mid']; ?>" id="de_eximbay_mid" class="frm_input" size="10" maxlength="10" style="font:bold 15px Verdana;">
+                <input type="text" name="de_eximbay_mid" value="<?php echo $default['de_eximbay_mid']; ?>" id="de_eximbay_mid" class="frm_input" size="15" maxlength="10" style="font:bold 15px Verdana;">
             </td>
         </tr>
         <tr class="pg_info_fld eximbay_info_fld">
             <th scope="row"><label for="de_eximbay_secret_key">엑심베이 Secret Key 코드</label></th>
             <td>
                 <?php echo help("엑심베이에서 발급받은 Secret Key를 입력합니다."); ?>
-                <input type="text" name="de_eximbay_secret_key" value="<?php echo $default['de_eximbay_secret_key']; ?>" id="de_eximbay_secret_key" class="frm_input" size="5" maxlength="50">
+                <input type="text" name="de_eximbay_secret_key" value="<?php echo $default['de_eximbay_secret_key']; ?>" id="de_eximbay_secret_key" class="frm_input" size="20" maxlength="50">
             </td>
         </tr>
         <tr class="pg_info_fld inicis_info_fld">
