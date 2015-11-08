@@ -12,7 +12,7 @@ else
     $tmp_cart_id = get_session('ss_cart_id');
 
 if (get_cart_count($tmp_cart_id) == 0)// 장바구니에 담기
-    alert('장바구니가 비어 있습니다.\\n\\n이미 주문하셨거나 장바구니에 담긴 상품이 없는 경우입니다.', G5_SHOP_URL.'/cart.php');
+    alert('Your shopping cart is empty.\\n\\nPlease try again.', G5_SHOP_URL.'/cart.php');
 
 $error = "";
 // 장바구니 상품 재고 검사
@@ -36,11 +36,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     }
     // 장바구니 수량이 재고수량보다 많다면 오류
     if ($row['ct_qty'] > $it_stock_qty)
-        $error .= "{$row['ct_option']} 의 재고수량이 부족합니다. 현재고수량 : $it_stock_qty 개\\n\\n";
+        $error .= "{$row['ct_option']}: Out of Stock.\\n\\n";
 }
 
 if($i == 0)
-    alert('장바구니가 비어 있습니다.\\n\\n이미 주문하셨거나 장바구니에 담긴 상품이 없는 경우입니다.', G5_SHOP_URL.'/cart.php');
+    alert('Your shopping cart is empty.\\n\\nPlease try again', G5_SHOP_URL.'/cart.php');
 
 if ($error != "")
 {
@@ -48,7 +48,7 @@ if ($error != "")
     alert($error);
 }
 
-$i_price     = (int)$_POST['od_price'];
+$i_price     = (float)$_POST['od_price'];
 $i_send_cost  = (int)$_POST['od_send_cost'];
 $i_send_cost2  = (int)$_POST['od_send_cost2'];
 $i_send_coupon  = (int)$_POST['od_send_coupon'];
@@ -173,7 +173,7 @@ if($is_member) {
     $tot_cp_price = $tot_it_cp_price + $tot_od_cp_price;
 }
 
-if ((int)($row['od_price'] - $tot_cp_price) !== $i_price) {
+if ((float)($row['od_price'] - $tot_cp_price) !== $i_price) {
     die("Error.");
 }
 
@@ -215,21 +215,19 @@ if($is_member && $send_cost > 0) {
     }
 }
 
-if ((int)($send_cost - $tot_sc_cp_price) !== (int)($i_send_cost - $i_send_coupon)) {
+if ((float)($send_cost - $tot_sc_cp_price) !== (float)($i_send_cost - $i_send_coupon)) {
     die("Error..");
 }
 
 // 추가배송비가 상이함
 $od_b_zip   = preg_replace('/[^0-9]/', '', $od_b_zip);
-$od_b_zip1  = substr($od_b_zip, 0, 3);
-$od_b_zip2  = substr($od_b_zip, 3);
 $zipcode = $od_b_zip;
 $sql = " select sc_id, sc_price from {$g5['g5_shop_sendcost_table']} where sc_zip1 <= '$zipcode' and sc_zip2 >= '$zipcode' ";
 $tmp = sql_fetch($sql);
 if(!$tmp['sc_id'])
     $send_cost2 = 0;
 else
-    $send_cost2 = (int)$tmp['sc_price'];
+    $send_cost2 = (float)$tmp['sc_price'];
 if($send_cost2 !== $i_send_cost2)
     die("Error...");
 
@@ -241,8 +239,8 @@ if ($is_member && $config['cf_use_point'])
     if($member['mb_point'] >= $default['de_settle_min_point']) {
         $temp_point = (int)$default['de_settle_max_point'];
 
-        if($temp_point > (int)$tot_od_price)
-            $temp_point = (int)$tot_od_price;
+        if($temp_point > (float)$tot_od_price)
+            $temp_point = (float)$tot_od_price;
 
         if($temp_point > (int)$member['mb_point'])
             $temp_point = (int)$member['mb_point'];
@@ -265,7 +263,7 @@ $i_price = $i_price + $i_send_cost + $i_send_cost2 - $i_temp_point - $i_send_cou
 $order_price = $tot_od_price + $send_cost + $send_cost2 - $tot_sc_cp_price - $od_temp_point;
 
 $od_status = '주문';
-if ($od_settle_case == "무통장")
+if ($od_settle_case == "전액포인트")
 {
     $od_receipt_point   = $i_temp_point;
     $od_receipt_price   = 0;
@@ -274,72 +272,22 @@ if ($od_settle_case == "무통장")
         $od_status      = '입금';
         $od_receipt_time = G5_TIME_YMDHIS;
     }
-}
-else if ($od_settle_case == "전액포인트")
-{
-    $od_receipt_point   = $i_temp_point;
-    $od_receipt_price   = 0;
-    $od_misu            = $i_price - $od_receipt_price;
-    if($od_misu == 0) {
-        $od_status      = '입금';
-        $od_receipt_time = G5_TIME_YMDHIS;
-    }
-}
-else if ($od_settle_case == "계좌이체")
-{
-    switch($default['de_pg_service']) {
-        case 'lg':
-            include G5_SHOP_PATH.'/lg/xpay_result.php';
-            break;
-        case 'inicis':
-            include G5_SHOP_PATH.'/inicis/inipay_result.php';
-            break;
-        default:
-            include G5_SHOP_PATH.'/kcp/pp_ax_hub.php';
-            $bank_name  = iconv("cp949", "utf-8", $bank_name);
-            break;
-    }
-
-    $od_tno             = $tno;
-    $od_receipt_price   = $amount;
-    $od_receipt_point   = $i_temp_point;
-    $od_receipt_time    = preg_replace("/([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "\\1-\\2-\\3 \\4:\\5:\\6", $app_time);
-    $od_bank_account    = $od_settle_case;
-    $od_deposit_name    = $od_name;
-    $od_bank_account    = $bank_name;
-    $pg_price           = $amount;
-    $od_misu            = $i_price - $od_receipt_price;
-    if($od_misu == 0)
-        $od_status      = '입금';
-}
-else if ($od_settle_case == "가상계좌")
-{
-    switch($default['de_pg_service']) {
-        case 'lg':
-            include G5_SHOP_PATH.'/lg/xpay_result.php';
-            break;
-        case 'inicis':
-            include G5_SHOP_PATH.'/inicis/inipay_result.php';
-            $od_app_no = $app_no;
-            break;
-        default:
-            include G5_SHOP_PATH.'/kcp/pp_ax_hub.php';
-            $bankname   = iconv("cp949", "utf-8", $bankname);
-            $depositor  = iconv("cp949", "utf-8", $depositor);
-            break;
-    }
-
-    $od_receipt_point   = $i_temp_point;
-    $od_tno             = $tno;
-    $od_receipt_price   = 0;
-    $od_bank_account    = $bankname.' '.$account;
-    $od_deposit_name    = $depositor;
-    $pg_price           = $amount;
-    $od_misu            = $i_price - $od_receipt_price;
 }
 else if ($od_settle_case == "신용카드")
 {
+    $secretKey = $default['de_eximbay_secret_key'];//가맹점 secretkey
+    $mid = $default['de_eximbay_mid'];//가맹점 아이디
+    $cur = $_POST['cur'];
+    $amt = $_POST['amt'];
+    $ref = $od_id;
+    
+    $linkBuf = $secretKey. "?mid=" . $mid ."&ref=" . $ref ."&cur=" .$cur ."&amt=" .$amt;
+    $fgkey = hash("sha256", $linkBuf);
+
     switch($default['de_pg_service']) {
+        case 'eximbay':
+            include G5_SHOP_PATH.'/eximbay/eximbay_result.php';
+            break;
         case 'lg':
             include G5_SHOP_PATH.'/lg/xpay_result.php';
             break;
@@ -370,9 +318,12 @@ else
 
 // 주문금액과 결제금액이 일치하는지 체크
 if($tno) {
-    if((int)$order_price !== (int)$pg_price) {
+    if((float)$order_price !== (float)$pg_price) {
         $cancel_msg = '결제금액 불일치';
         switch($default['de_pg_service']) {
+            case 'eximbay':
+                //include G5_SHOP_PATH.'/eximbay/eximbay_cancel.php';
+                break;
             case 'lg':
                 include G5_SHOP_PATH.'/lg/xpay_cancel.php';
                 break;
@@ -413,22 +364,23 @@ if($default['de_tax_flag_use']) {
 $od_pg            = $default['de_pg_service'];
 $od_email         = get_email_address($od_email);
 $od_name          = clean_xss_tags($od_name);
+$od_name_last     = clean_xss_tags($od_name_last);
 $od_tel           = clean_xss_tags($od_tel);
 $od_hp            = clean_xss_tags($od_hp);
 $od_zip           = preg_replace('/[^0-9]/', '', $od_zip);
-$od_zip1          = substr($od_zip, 0, 3);
-$od_zip2          = substr($od_zip, 3);
+$od_country       = clean_xss_tags($od_country);
+$od_city          = clean_xss_tags($od_city);
 $od_addr1         = clean_xss_tags($od_addr1);
 $od_addr2         = clean_xss_tags($od_addr2);
-$od_addr3         = clean_xss_tags($od_addr3);
-$od_addr_jibeon   = preg_match("/^(N|R)$/", $od_addr_jibeon) ? $od_addr_jibeon : '';
 $od_b_name        = clean_xss_tags($od_b_name);
+$od_b_name_last   = clean_xss_tags($od_b_name_last);
 $od_b_tel         = clean_xss_tags($od_b_tel);
 $od_b_hp          = clean_xss_tags($od_b_hp);
+$od_b_zip         = clean_xss_tags($od_b_zip);
+$od_b_country     = clean_xss_tags($od_b_country);
+$od_b_city        = clean_xss_tags($od_b_city);
 $od_b_addr1       = clean_xss_tags($od_b_addr1);
 $od_b_addr2       = clean_xss_tags($od_b_addr2);
-$od_b_addr3       = clean_xss_tags($od_b_addr3);
-$od_b_addr_jibeon = preg_match("/^(N|R)$/", $od_b_addr_jibeon) ? $od_b_addr_jibeon : '';
 $od_memo          = clean_xss_tags($od_memo);
 $od_deposit_name  = clean_xss_tags($od_deposit_name);
 
@@ -438,24 +390,24 @@ $sql = " insert {$g5['g5_shop_order_table']}
                 mb_id             = '{$member['mb_id']}',
                 od_pwd            = '$od_pwd',
                 od_name           = '$od_name',
+                od_name_last      = '$od_name_last',
                 od_email          = '$od_email',
                 od_tel            = '$od_tel',
                 od_hp             = '$od_hp',
-                od_zip1           = '$od_zip1',
-                od_zip2           = '$od_zip2',
+                od_country        = '$od_country',
+                od_city           = '$od_city',
+                od_zip            = '$od_zip',
                 od_addr1          = '$od_addr1',
                 od_addr2          = '$od_addr2',
-                od_addr3          = '$od_addr3',
-                od_addr_jibeon    = '$od_addr_jibeon',
                 od_b_name         = '$od_b_name',
+                od_b_name_last    = '$od_b_name_last',
                 od_b_tel          = '$od_b_tel',
                 od_b_hp           = '$od_b_hp',
-                od_b_zip1         = '$od_b_zip1',
-                od_b_zip2         = '$od_b_zip2',
+                od_b_country      = '$od_b_country',
+                od_b_city         = '$od_b_city',
+                od_b_zip          = '$od_b_zip',
                 od_b_addr1        = '$od_b_addr1',
                 od_b_addr2        = '$od_b_addr2',
-                od_b_addr3        = '$od_b_addr3',
-                od_b_addr_jibeon  = '$od_b_addr_jibeon',
                 od_deposit_name   = '$od_deposit_name',
                 od_memo           = '$od_memo',
                 od_cart_count     = '$cart_count',
@@ -492,6 +444,8 @@ if(!$result) {
     if($tno) {
         $cancel_msg = '주문정보 입력 오류';
         switch($default['de_pg_service']) {
+            case 'eximbay':
+                break;
             case 'lg':
                 include G5_SHOP_PATH.'/lg/xpay_cancel.php';
                 break;
@@ -531,6 +485,9 @@ if(!$result) {
     if($tno) {
         $cancel_msg = '주문상태 변경 오류';
         switch($default['de_pg_service']) {
+            case 'eximbay':
+                //include G5_SHOP_PATH.'/eximbay/eximbay_cancel.php';
+                break;
             case 'lg':
                 include G5_SHOP_PATH.'/lg/xpay_cancel.php';
                 break;
@@ -612,8 +569,8 @@ if($is_member) {
 }
 
 
-include_once(G5_SHOP_PATH.'/ordermail1.inc.php');
-include_once(G5_SHOP_PATH.'/ordermail2.inc.php');
+// include_once(G5_SHOP_PATH.'/ordermail1.inc.php');
+// include_once(G5_SHOP_PATH.'/ordermail2.inc.php');
 
 // SMS BEGIN --------------------------------------------------------
 // 주문고객과 쇼핑몰관리자에게 SMS 전송
@@ -703,13 +660,14 @@ if($is_member) {
     $sql = " select * from {$g5['g5_shop_order_address_table']}
                 where mb_id = '{$member['mb_id']}'
                   and ad_name = '$od_b_name'
+                  and ad_name_last = '$od_b_name_last'
                   and ad_tel = '$od_b_tel'
                   and ad_hp = '$od_b_hp'
-                  and ad_zip1 = '$od_b_zip1'
-                  and ad_zip2 = '$od_b_zip2'
+                  and ad_country = '$od_b_country'
+                  and ad_city = '$od_b_city'
+                  and ad_zip = '$od_b_zip'
                   and ad_addr1 = '$od_b_addr1'
-                  and ad_addr2 = '$od_b_addr2'
-                  and ad_addr3 = '$od_b_addr3' ";
+                  and ad_addr2 = '$od_b_addr2' ";
     $row = sql_fetch($sql);
 
     // 기본배송지 체크
@@ -733,14 +691,14 @@ if($is_member) {
                         ad_subject  = '$ad_subject',
                         ad_default  = '$ad_default',
                         ad_name     = '$od_b_name',
+                        ad_name_last = '$od_b_name_last',
                         ad_tel      = '$od_b_tel',
                         ad_hp       = '$od_b_hp',
-                        ad_zip1     = '$od_b_zip1',
-                        ad_zip2     = '$od_b_zip2',
+                        ad_country  = '$od_b_country',
+                        ad_city     = '$od_b_city',
+                        ad_zip      = '$od_b_zip',
                         ad_addr1    = '$od_b_addr1',
-                        ad_addr2    = '$od_b_addr2',
-                        ad_addr3    = '$od_b_addr3',
-                        ad_jibeon   = '$od_b_addr_jibeon' ";
+                        ad_addr2    = '$od_b_addr2' ";
     }
 
     sql_query($sql);

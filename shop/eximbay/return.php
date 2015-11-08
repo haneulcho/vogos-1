@@ -1,63 +1,63 @@
 <?php
-	/** 
-		¾Æ·¡ ¼³Á¤ µÈ °ªÀº Å×½ºÆ®¿ë secretKeyÀÔ´Ï´Ù.
-		Å×½ºÆ®·Î¸¸ ÁøÇàÇÏ½Ã°í ¹ß±Ş ¹ŞÀ¸½Å °ªÀ¸·Î º¯°æÇÏ¼Å¾ß µË´Ï´Ù.
+	/*
+		ì•„ë˜ ì„¤ì • ëœ ê°’ì€ í…ŒìŠ¤íŠ¸ìš© secretKey, midì…ë‹ˆë‹¤.
+		í…ŒìŠ¤íŠ¸ë¡œë§Œ ì§„í–‰ í•˜ì‹œê³  ë°œê¸‰ ë°›ìœ¼ì‹  ê°’ìœ¼ë¡œ ë³€ê²½ í•˜ì…”ì•¼ ë©ë‹ˆë‹¤.
 	*/
-	$secretKey = "289F40E6640124B2628640168C3C5464";//°¡¸ÍÁ¡ secretkey
+	$secretKey = "289F40E6640124B2628640168C3C5464";//ê°€ë§¹ì  secretkey
 
-	//±âº» ÀÀ´ä ÆÄ¶ó¹ÌÅÍ
-	$ver = $_POST['ver'];//¿¬µ¿ ¹öÀü
-	$mid = $_POST['mid'];//°¡¸ÍÁ¡ ¾ÆÀÌµğ
-	$txntype = $_POST['txntype'];//°Å·¡ Å¸ÀÔ
-	$ref = $_POST['ref'];//°¡¸ÍÁ¡ ÁöÁ¤¿¡¼­ ÁöÁ¤ÇÑ °Å·¡ ¾ÆÀÌµğ 
-	$cur = $_POST['cur'];//ÅëÈ­ 
-	$amt = $_POST['amt'];//°áÁ¦ ±İ¾×
-	$shop = $_POST['shop'];//°¡¸ÍÁ¡¸í
-	$buyer = $_POST['buyer'];//°áÁ¦ÀÚ¸í
-	$tel = $_POST['tel'];//°áÁ¦ÀÚ ÀüÈ­¹øÈ£
-	$email = $_POST['email'];//°áÁ¦ÀÚ ÀÌ¸ŞÀÏ
-	$lang = $_POST['lang'];//°áÁ¦Á¤º¸ ¾ğ¾î Å¸ÀÔ
+	//ê¸°ë³¸ ì‘ë‹µ íŒŒë¼ë¯¸í„°
+	$ver = $_POST['ver'];// ì—°ë™ ë²„ì „
+	$mid = $_POST['mid'];// ê°€ë§¹ì  ì•„ì´ë””
+	$txntype = $_POST['txntype'];// ê±°ë˜ íƒ€ì…
+	$ref = $_POST['ref'];// ê°€ë§¹ì  ì§€ì •ì—ì„œ ì§€ì •í•œ ê±°ë˜ ì•„ì´ë””
+	$cur = $_POST['cur'];// í†µí™”
+	$amt = $_POST['amt'];// ê²°ì œ ê¸ˆì•¡
+	$shop = $_POST['shop'];// ê°€ë§¹ì ëª…
+	$buyer = $_POST['buyer'];// ê²°ì œìëª…
+	$tel = $_POST['tel']; // ê²°ì œì ì „í™”ë²ˆí˜¸
+	$email = $_POST['email']; // ê²°ì œì ì´ë©”ì¼
+	$lang = $_POST['lang']; // ê²°ì œì •ë³´ ì–¸ì–´ íƒ€ì…
 
-	$transid = $_POST['transid'];//Eximbay ³»ºÎ °Å·¡ ¾ÆÀÌµğ
-	$rescode = $_POST['rescode'];//0000 : Á¤»ó 
-	$resmsg = $_POST['resmsg'];//°áÁ¦ °á°ú ¸Ş¼¼Áö
-	$authcode = $_POST['authcode'];//½ÂÀÎ¹øÈ£, PayPal, Alipay, Tenpayµî ÀÏºÎ °áÁ¦¼ö´ÜÀº ½ÂÀÎ¹øÈ£°¡ ¾ø½À´Ï´Ù.
-	$cardco = $_POST['cardco'];//Ä«µå Å¸ÀÔ
-	$resdt = $_POST['resdt'];//°áÁ¦ ½Ã°£ Á¤º¸ YYYYMMDDHHSS
-	$paymethod = $_POST['paymethod'];//°áÁ¦¼ö´Ü ÄÚµå (¿¬µ¿¹®¼­ Âü°í)
+	$transid = $_POST['transid'];//Eximbay ë‚´ë¶€ ê±°ë˜ ì•„ì´ë””
+	$rescode = $_POST['rescode'];//0000 : ì •ìƒ
+	$resmsg = $_POST['resmsg'];//ê²°ì œ ê²°ê³¼ ë©”ì‹œì§€
+	$authcode = $_POST['authcode'];//ìŠ¹ì¸ë²ˆí˜¸, PayPal, Alipay, Tenpayë“± ì¼ë¶€ ê²°ì œìˆ˜ë‹¨ì€ ìŠ¹ì¸ë²ˆí˜¸ê°€ ì—†ìŠµë‹ˆë‹¤.
+	$cardco = $_POST['cardco'];//ì¹´ë“œíƒ€ì…
+	$resdt = $_POST['resdt'];//ê²°ì œ ì‹œê°„ ì •ë³´ YYYYMMDDHHSS
+	$paymethod = $_POST['paymethod'];//ê²°ì œìˆ˜ë‹¨ ì½”ë“œ (ì—°ë™ë¬¸ì„œ ì°¸ê³ )
 
-	$accesscountry = $_POST['accesscountry'];//°áÁ¦ÀÚ Á¢¼Ó ±¹°¡
-	$allowedpvoid = $_POST['allowedpvoid'];//Y: ºÎºĞÃë¼Ò °¡´É. N: ºÎºĞÃë¼Ò ºÒ°¡
-	$fgkey = $_POST['fgkey'];//°ËÁõÅ°, rescode=0000ÀÎ °æ¿ì¿¡¸¸ °ª ¼¼ÆÃ µÊ
-	$payto = $_POST['payto'];//Ã»±¸ °¡¸ÍÁ¡¸í
+	$accesscountry = $_POST['accesscountry'];//ê²°ì œì ì ‘ì† êµ­ê°€
+	$allowedpvoid = $_POST['allowedpvoid'];// Y: ë¶€ë¶„ì·¨ì†Œ ê°€ëŠ¥. N: ë¶€ë¶„ì·¨ì†Œ ë¶ˆê°€
+	$fgkey = $_POST['fgkey'];// ê²€ì¦í‚¤, rescode=0000ì¸ ê²½ìš°ì—ë§Œ ê°’ ì„¸íŒ… ë¨
+	$payto = $_POST['payto'];//ì²­êµ¬ ê°€ë§¹ì ëª…
 
-	//ÁÖ¹® »óÇ° ÆÄ¶ó¹ÌÅÍ
+	//ì£¼ë¬¸ ìƒí’ˆ íŒŒë¼ë¯¸í„°
 	$item_0_product = $_POST['item_0_product'];
 	$item_0_quantity = $_POST['item_0_quantity'];
 	$item_0_unitPrice = $_POST['item_0_unitPrice'];
 
-	//Ãß°¡ Ç×¸ñ ÆÄ¶ó¹ÌÅÍ
+	//ì¶”ê°€ í•­ëª© íŒŒë¼ë¯¸í„°
 	$surcharge_0_name = $_POST['surcharge_0_name'];
 	$surcharge_0_quantity = $_POST['surcharge_0_quantity'];
 	$surcharge_0_unitPrice = $_POST['surcharge_0_unitPrice'];
 
-	//°¡¸ÍÁ¡ ÁöÁ¤ ÆÄ¶ó¹ÌÅÍ
+	//ê°€ë§¹ì  ì§€ì • íŒŒë¼ë¯¸í„°
 	$param1 = $_POST['param1'];
 	$param2 = $_POST['param2'];
 	$param3 = $_POST['param3'];
 
-	//Ä«µå °áÁ¦ Á¤º¸ ÆÄ¶ó¹ÌÅÍ
-	$cardholder = $_POST['cardholder'];//°áÁ¦ÀÚ°¡ ÀÔ·ÂÇÑ Ä«µå ¸íÀÇÀÚ ¿µ¹®¸í
+	//ì¹´ë“œ ê²°ì œ ì •ë³´ íŒŒë¼ë¯¸í„°
+	$cardholder = $_POST['cardholder'];//ê²°ì œìê°€ ì…ë ¥í•œ ì¹´ë“œ ëª…ì˜ì ì˜ë¬¸ëª…
 	$cardno1 = $_POST['cardno1'];
 	$cardno4 = $_POST['cardno4'];
 
-	//DCC ÆÄ¶ó¹ÌÅÍ
-	$foreigncur = $_POST['foreigncur'];//°í°´ ¼±ÅÃ ÅëÈ­
-	$foreignamt = $_POST['foreignamt'];//°í°´ ¼±ÅÃ ÅëÈ­ ±İ¾×
-	$convrate = $_POST['convrate'];//Àû¿ë È¯À²
-	$rateid = $_POST['rateid'];//Àû¿ë È¯À² ¾ÆÀÌµğ
+	//DCC íŒŒë¼ë¯¸í„°
+	$foreigncur = $_POST['foreigncur'];//ê³ ê° ì„ íƒ í†µí™”
+	$foreignamt = $_POST['foreignamt'];//ê³ ê° ì„ íƒ í†µí™” ê¸ˆì•¡
+	$convrate = $_POST['convrate'];//ì ìš© í™˜ìœ¨
+	$rateid = $_POST['rateid'];//ì ìš© í™˜ìœ¨ ì•„ì´ë””
 
-	//¹è¼ÛÁö ÆÄ¶ó¹ÌÅÍ 
+	//ë°°ì†¡ì§€ íŒŒë¼ë¯¸í„°
 	$shipTo_city = $_POST['shipTo_city'];
 	$shipTo_country = $_POST['shipTo_country'];
 	$shipTo_firstName = $_POST['shipTo_firstName'];
@@ -67,21 +67,21 @@
 	$shipTo_state = $_POST['shipTo_state'];
 	$shipTo_street1 = $_POST['shipTo_street1'];
 
-	//CyberSourceÀÇ DMÀ» »ç¿ë ÇÏ´Â °æ¿ì ¹Ş´Â ÆÄ¶ó¹ÌÅÍ
+	//CyberSourceì˜ DMì„ ì‚¬ìš© í•˜ëŠ” ê²½ìš° ë°›ëŠ” íŒŒë¼ë¯¸í„°
 	$dm_decision = $_POST['dm_decision'];
 	$dm_reject = $_POST['dm_reject'];
 	$dm_review = $_POST['dm_review'];
 
-	//PayPal °Å·¡ ¾ÆÀÌµğ
+	//PayPal ê±°ë˜ ì•„ì´ë””
 	$pp_transid = $_POST['pp_transid'];
 
-	//ÀÏº» °áÁ¦ ÆÄ¶ó¹ÌÅÍ
-	$status = $_POST['status'];//(ÀÏº»°áÁ¦)Registered or Sale // SaleÀº ÀÔ±İ¿Ï·á ½Ã, statusurl·Î¸¸ Àü¼ÛµÊ ÀÏº» ÆíÀÇÁ¡/¿Â¶óÀÎ¹ğÅ· ÈÄºÒ°áÁ¦ ÀÌ¿ë ½Ã, °áÁ¦Á¤º¸ µî·Ï¿¡ ´ëÇÑ ÅëÁö°¡ ¼³Á¤µÈ °æ¿ì ¹ß¼ÛµË´Ï´Ù.
-	$paymentURL = $_POST['paymentURL'];//ÀÏº»°áÁ¦ÀÇ ÆíÀÇÁ¡/¿Â¶óÀÎ¹ğÅ· ÈÄºÒ °áÁ¦ ÀÌ¿ë½Ã °í°´¿¡°Ô °áÁ¦ ¹æ¹ıÀ» ¾È³»ÇÏ´Â URL
+	//ì¼ë³¸ ê²°ì œ íŒŒë¼ë¯¸í„°
+	$status = $_POST['status'];//(ì¼ë³¸ê²°ì œ)Registered or Sale :: Saleì€ ì…ê¸ˆì™„ë£Œ ì‹œ, statusurlë¡œë§Œ ì „ì†¡ë¨ ì¼ë³¸ í¸ì˜ì /ì˜¨ë¼ì¸ë±…í‚¹ í›„ë¶ˆê²°ì œ ì´ìš© ì‹œ, ê²°ì œì •ë³´ ë“±ë¡ì— ëŒ€í•œ í†µì§€ê°€ ì„¤ì •ëœ ê²½ìš° ë°œì†¡ë©ë‹ˆë‹¤.
+	$paymentURL = $_POST['paymentURL'];//ì¼ë³¸ê²°ì œì˜ í¸ì˜ì /ì˜¨ë¼ì¸ë±…í‚¹ í›„ë¶ˆ ê²°ì œ ì´ìš©ì‹œ ê³ ê°ì—ê²Œ ê²°ì œ ë°©ë²•ì„ ì•ˆë‚´í•˜ëŠ” URL
 
-	//rescode=0000 ÀÏ¶§ fgkey È®ÀÎ
+	//rescode=0000 ì¼ë•Œ fgkey í™•ì¸
 	if($rescode == "0000"){
-		//fgkey °ËÁõÅ° »ı¼º
+		//fgkey ê²€ì¦í‚¤ ìƒì„±
 		$linkBuf = $secretKey. "?mid=" . $mid ."&ref=" . $ref ."&cur=" .$cur ."&amt=" .$amt ."&rescode=" .$rescode ."&transid=" .$transid;
 		
 		$newFgkey = hash("sha256", $linkBuf);
@@ -90,7 +90,7 @@
 		echo "<br/>fgkey :". $fgkey;
 		echo "<br/>newFgkey :". $newFgkey;
 		
-		//fgkey °ËÁõ ½ÇÆĞ ½Ã ¿¡·¯ Ã³¸®
+		//fgkey ê²€ì¦ ì‹¤íŒ¨ ì‹œ ì—ëŸ¬ ì²˜ë¦¬
 		if(strtolower($fgkey) != $newFgkey){
 			$rescode = "ERROR";
 			$resmsg = "Invalid transaction";
@@ -103,7 +103,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script type ="text/javascript">
 <!--
-	//openerÃ¢¿¡ °áÁ¦ ÀÀ´ä °ª ¼¼ÆÃ ÈÄ finish.php·Î submit, ÇöÀç ÆË¾÷ Ã¢ close 
+	//openerì°½ì— ê²°ì œ ì‘ë‹µ ê°’ ì„¸íŒ… í›„ finish.phpë¡œ submit, í˜„ì¬ íŒì—… ì°½ close 
 	function loadForm(){
 		if(opener && opener.document.regForm){
 			var frm = opener.document.regForm;
@@ -124,7 +124,6 @@
 </head>
 <body onload="javascript:loadForm();">
 <?php
-	//ÀüÃ¼ ÆÄ¶ó¹ÌÅÍ Ãâ·Â
 	echo "--------all return parameter-------------<br/>";
 	foreach($_POST as $Key=>$value) {
 		echo $Key." : ".$value."<br/>" ; 

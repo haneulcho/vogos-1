@@ -1,6 +1,6 @@
 <?php
 	
-	//°áÁ¦ ÀÀ´ä ÆÄ¶ó¹ÌÅÍ
+	//ê²°ì œ ì‘ë‹µ íŒŒë¼ë¯¸í„°
 	$rescode = $_POST['rescode'];
 	$resmsg = $_POST['resmsg'];
 	$authcode = $_POST['authcode'];

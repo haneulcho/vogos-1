@@ -29,6 +29,9 @@ $g5['title'] = 'Proceed to Checkout';
 // 전자결제를 사용할 때만 실행
 if($default['de_iche_use'] || $default['de_vbank_use'] || $default['de_hp_use'] || $default['de_card_use']) {
     switch($default['de_pg_service']) {
+        case 'eximbay':
+            //$g5['body_script'] = ' onload="isActiveXOK();"';
+            break;        
         case 'lg':
             $g5['body_script'] = ' onload="isActiveXOK();"';
             break;
@@ -50,15 +53,18 @@ if ($default['de_hope_date_use']) {
 $od_id = get_uniqid();
 set_session('ss_order_id', $od_id);
 $s_cart_id = $tmp_cart_id;
-$order_action_url = G5_HTTPS_SHOP_URL.'/orderformupdate.php';
+$order_action_url = G5_HTTPS_SHOP_URL.'/eximbay/request.php';
 
-require_once('./settle_'.$default['de_pg_service'].'.inc.php');
-
-// 결제대행사별 코드 include (스크립트 등)
-require_once('./'.$default['de_pg_service'].'/orderform.1.php');
+if($is_admin) {
+    require_once('./settle_'.$default['de_pg_service'].'.inc.php');
+    // 결제대행사별 코드 include (스크립트 등)
+    require_once('./'.$default['de_pg_service'].'/orderform.1.php');
+}
 ?>
-
-<form name="forderform" id="forderform" method="post" action="<?php echo $order_action_url; ?>" onsubmit="return forderform_check(this);" autocomplete="off">
+<script>
+var f = document.forderform;
+</script>
+<form name="forderform" id="forderform" method="post" action="<?php echo $order_action_url; ?>" autocomplete="off">
 <div id="sod_frm">
 
     <div id="sod_title">
@@ -227,6 +233,8 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
                 if($sendcost == 0)
                     $ct_send_cost = '무료';
             }
+
+            $item_qty = $row['ct_qty'];
         ?>
 
         <tr>
@@ -235,6 +243,11 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
                 <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
                 <input type="hidden" name="it_name[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name']); ?>">
                 <input type="hidden" name="it_price[<?php echo $i; ?>]" value="<?php echo $sell_price; ?>">
+                <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
+                <input type="hidden" name="cp_price[<?php echo $i; ?>]" value="0">
+                <input type="hidden" name="item_[<?php echo $i; ?>]_product" value="<?php echo get_text($row['it_name']); ?>">
+                <input type="hidden" name="item_[<?php echo $i; ?>]_quantity" value="<?php echo $sum['qty']; ?>">
+                <input type="hidden" name="item_[<?php echo $i; ?>]_unitPrice" value="<?php echo $sell_price; ?>">
                 <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
                 <input type="hidden" name="cp_price[<?php echo $i; ?>]" value="0">
                 <?php if($default['de_tax_flag_use']) { ?>
@@ -313,7 +326,9 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
 
     <?php
     // 결제대행사별 코드 include (결제대행사 정보 필드)
+    if($is_admin) {
     require_once('./'.$default['de_pg_service'].'/orderform.2.php');
+    }
     ?>
 
     <!-- 주문하시는 분 입력 시작 { -->
@@ -341,7 +356,7 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
             <tr>
                 <th scope="row"><label for="od_pwd">Password</label></th>
                 <td>
-                    <input type="password" name="od_pwd" id="od_pwd" required class="frm_input required" maxlength="20"><br><span class="frm_info">Please enter your password 3~20 Characters.</span>
+                    <input type="password" name="od_pwd" id="od_pwd" required class="frm_input required" maxlength="20" placeholder="Please enter your password 3~20 Characters.">
                 </td>
             </tr>
             <?php } ?>
@@ -530,15 +545,28 @@ require_once('./'.$default['de_pg_service'].'/orderform.1.php');
             echo '</fieldset>';
         }
 
-        if ($multi_settle == 0)
-            echo '<p>Payment Method is not available.<br>Please contact us. (help@vogos.com)</p>';
+        if ($is_admin) {
+            echo '관리자 테스트';
+        } else {
+            if ($multi_settle == 0) {
+                echo '<p>Payment Method is not available.<br>Please contact us. (help@vogos.com)</p>';
+            }
+        }
         ?>
     </section>
     <!-- } 결제 정보 입력 끝 -->
 
     <?php
+        // 신용카드 사용
+        if ($default['de_card_use']) {
+            $multi_settle++;
+            echo '<input type="hidden" id="od_settle_card" name="od_settle_case" value="신용카드">'.PHP_EOL;
+            $checked = '';
+        }
     // 결제대행사별 코드 include (주문버튼)
+    if($is_admin) {
     require_once('./'.$default['de_pg_service'].'/orderform.3.php');
+    }
     ?>
     </form>
 
@@ -648,8 +676,8 @@ function calculate_total_price()
 
     tot_sell_price = sell_price - tot_cp_price + send_cost;
 
-    $("#ct_tot_coupon").text("$"+number_format(String(tot_cp_price), 2, ".", ",")); ---- 수정중
-    $("#ct_tot_price").text(number_format(String(tot_sell_price))+" 원");
+    $("#ct_tot_coupon").text("$"+number_format(String(tot_cp_price), 2, ".", ","));
+    $("#ct_tot_price").text("$"+number_format(String(tot_sell_price), 2, ".", ","));
 
     $("input[name=good_mny]").val(tot_sell_price);
     $("input[name=od_price]").val(sell_price - tot_cp_price);
@@ -681,10 +709,10 @@ function calculate_total_price()
 
 function calculate_order_price()
 {
-    var sell_price = parseInt($("input[name=od_price]").val());
-    var send_cost = parseInt($("input[name=od_send_cost]").val());
-    var send_cost2 = parseInt($("input[name=od_send_cost2]").val());
-    var send_coupon = parseInt($("input[name=od_send_coupon]").val());
+    var sell_price = parseFloat($("input[name=od_price]").val());
+    var send_cost = parseFloat($("input[name=od_send_cost]").val());
+    var send_cost2 = parseFloat($("input[name=od_send_cost2]").val());
+    var send_coupon = parseFloat($("input[name=od_send_coupon]").val());
     var tot_price = sell_price + send_cost + send_cost2 - send_coupon;
 
     $("input[name=good_mny]").val(tot_price);
@@ -735,15 +763,15 @@ function calculate_tax()
     var sell_price = tot_cp_price = 0;
     var it_price, cp_price, it_notax;
     var tot_mny = comm_free_mny = tax_mny = vat_mny = 0;
-    var send_cost = parseInt($("input[name=od_send_cost]").val());
-    var send_cost2 = parseInt($("input[name=od_send_cost2]").val());
-    var od_coupon = parseInt($("input[name=od_coupon]").val());
-    var send_coupon = parseInt($("input[name=od_send_coupon]").val());
+    var send_cost = parseFloat($("input[name=od_send_cost]").val());
+    var send_cost2 = parseFloat($("input[name=od_send_cost2]").val());
+    var od_coupon = parseFloat($("input[name=od_coupon]").val());
+    var send_coupon = parseFloat($("input[name=od_send_coupon]").val());
     var temp_point = 0;
 
     $it_prc.each(function(index) {
-        it_price = parseInt($(this).val());
-        cp_price = parseInt($cp_prc.eq(index).val());
+        it_price = parseFloat($(this).val());
+        cp_price = parseFloat($cp_prc.eq(index).val());
         sell_price += it_price;
         tot_cp_price += cp_price;
         it_notax = $("input[name^=it_notax]").eq(index).val();
@@ -770,8 +798,9 @@ function calculate_tax()
     $("input[name=comm_free_mny]").val(comm_free_mny);
 }
 
-function forderform_check(f)
+function forderform_check()
 {
+    var f = document.forderform;
     // 재고체크
     var stock_msg = order_stock_check();
     if(stock_msg != "") {
@@ -802,7 +831,7 @@ function forderform_check(f)
     check_field(f.od_b_zip, "");
 
     // 배송비를 받지 않거나 더 받는 경우 아래식에 + 또는 - 로 대입
-    f.od_send_cost.value = parseInt(f.od_send_cost.value);
+    f.od_send_cost.value = parseFloat(f.od_send_cost.value);
 
     if (errmsg)
     {
@@ -816,12 +845,9 @@ function forderform_check(f)
     var settle_method = "";
     for (i=0; i<settle_case.length; i++)
     {
-        if (settle_case[i].checked)
-        {
             settle_check = true;
             settle_method = settle_case[i].value;
             break;
-        }
     }
     if (!settle_check)
     {
@@ -829,10 +855,10 @@ function forderform_check(f)
         return false;
     }
 
-    var od_price = parseInt(f.od_price.value);
-    var send_cost = parseInt(f.od_send_cost.value);
-    var send_cost2 = parseInt(f.od_send_cost2.value);
-    var send_coupon = parseInt(f.od_send_coupon.value);
+    var od_price = parseFloat(f.od_price.value);
+    var send_cost = parseFloat(f.od_send_cost.value);
+    var send_cost2 = parseFloat(f.od_send_cost2.value);
+    var send_coupon = parseFloat(f.od_send_coupon.value);
 
     var max_point = 0;
     if (typeof(f.max_temp_point) != "undefined")
@@ -916,7 +942,9 @@ function forderform_check(f)
     <?php } ?>
 
     // pay_method 설정
-    <?php if($default['de_pg_service'] == 'kcp') { ?>
+    <?php if($default['de_pg_service'] == 'eximbay') { ?>
+        f.txntype.value = "PAYMENT";
+    <?php } else if($default['de_pg_service'] == 'kcp') { ?>
     switch(settle_method)
     {
         case "계좌이체":
@@ -983,48 +1011,23 @@ function forderform_check(f)
     <?php } ?>
 
     // 결제정보설정
-    <?php if($default['de_pg_service'] == 'lg') { ?>
-    f.LGD_BUYER.value = f.od_name.value;
-    f.LGD_BUYEREMAIL.value = f.od_email.value;
-    f.LGD_BUYERPHONE.value = f.od_hp.value;
-    f.LGD_AMOUNT.value = f.good_mny.value;
-    f.LGD_RECEIVER.value = f.od_b_name.value;
-    f.LGD_RECEIVERPHONE.value = f.od_b_hp.value;
-    <?php if($default['de_escrow_use']) { ?>
-    f.LGD_ESCROW_ZIPCODE.value = f.od_b_zip.value;
-    f.LGD_ESCROW_ADDRESS1.value = f.od_b_addr1.value;
-    f.LGD_ESCROW_ADDRESS2.value = f.od_b_addr2.value;
-    f.LGD_ESCROW_BUYERPHONE.value = f.od_hp.value;
-    <?php } ?>
-    <?php if($default['de_tax_flag_use']) { ?>
-    f.LGD_TAXFREEAMOUNT.value = f.comm_free_mny.value;
-    <?php } ?>
+    <?php if($default['de_pg_service'] == 'eximbay') { ?>
+    f.cur.value = 'USD';
+    f.amt.value = f.good_mny.value;
+    f.buyer.value = f.od_name.value + " " + f.od_name_last.value;
+    f.tel.value = f.od_hp.value;
+    f.email.value = f.od_email.value;
+    f.shipTo_country = f.od_b_country.value;
+    f.shipTo_city = f.od_b_city.value;
+    f.shipTo_fistName = f.od_b_name.value;
+    f.shipTo_lastName = f.od_b_name_last.value;
+    f.shipTo_phoneNumber = f.od_b_hp.value;
+    f.shipTo_postalCode = f.od_b_zip.value;
+    f.shipTo_street1 = f.od_b_addr1.value + " " + f.od_b_addr2.value;
 
-    if(f.LGD_CUSTOM_FIRSTPAY.value != "무통장") {
-          Pay_Request("<?php echo $od_id; ?>", f.LGD_AMOUNT.value, f.LGD_TIMESTAMP.value);
-    } else {
-        f.submit();
-    }
+    payForm();
     <?php } ?>
-    <?php if($default['de_pg_service'] == 'inicis') { ?>
-    f.buyername.value   = f.od_name.value;
-    f.buyeremail.value  = f.od_email.value;
-    f.buyertel.value    = f.od_hp.value ? f.od_hp.value : f.od_tel.value;
-    f.recvname.value    = f.od_b_name.value;
-    f.recvtel.value     = f.od_b_hp.value ? f.od_b_hp.value : f.od_b_tel.value;
-    f.recvpostnum.value = f.od_b_zip.value;
-    f.recvaddr.value    = f.od_b_addr1.value + " " +f.od_b_addr2.value;
-
-    if(f.gopaymethod.value != "무통장" && f.gopaymethod.value != "전액포인트") {
-        if(!set_encrypt_data(f))
-            return false;
-
-        return pay(f);
-    } else {
-        return true;
-    }
-    <?php } ?>
-}
+} // END forderform_check
 
 // 구매자 정보와 동일합니다.
 function gumae2baesong(checked) {
@@ -1064,5 +1067,7 @@ $(function(){
 include_once('./_tail.php');
 
 // 결제대행사별 코드 include (스크립트 실행)
+if($is_admin) {
 require_once('./'.$default['de_pg_service'].'/orderform.5.php');
+}
 ?>
