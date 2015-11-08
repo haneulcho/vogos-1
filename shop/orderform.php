@@ -245,9 +245,9 @@ var f = document.forderform;
                 <input type="hidden" name="it_price[<?php echo $i; ?>]" value="<?php echo $sell_price; ?>">
                 <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
                 <input type="hidden" name="cp_price[<?php echo $i; ?>]" value="0">
-                <input type="hidden" name="item_[<?php echo $i; ?>]_product" value="<?php echo get_text($row['it_name']); ?>">
-                <input type="hidden" name="item_[<?php echo $i; ?>]_quantity" value="<?php echo $sum['qty']; ?>">
-                <input type="hidden" name="item_[<?php echo $i; ?>]_unitPrice" value="<?php echo $sell_price; ?>">
+                <input type="hidden" name="item_<?php echo $i; ?>_product" value="<?php echo get_text($row['it_name']); ?>">
+                <input type="hidden" name="item_<?php echo $i; ?>_quantity" value="<?php echo $sum['qty']; ?>">
+                <input type="hidden" name="item_<?php echo $i; ?>_unitPrice" value="<?php echo number_format($sell_price, 2, ".", ""); ?>">
                 <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
                 <input type="hidden" name="cp_price[<?php echo $i; ?>]" value="0">
                 <?php if($default['de_tax_flag_use']) { ?>
@@ -316,9 +316,9 @@ var f = document.forderform;
     </table>
     <!-- } 주문상품 합계 끝 -->
 
-    <input type="hidden" name="od_price" value="<?php echo $tot_sell_price; ?>">
-    <input type="hidden" name="org_od_price" value="<?php echo $tot_sell_price; ?>">
-    <input type="hidden" name="od_send_cost" value="<?php echo $send_cost; ?>">
+    <input type="hidden" name="od_price" value="<?php echo number_format($tot_sell_price, 2, ".", ""); ?>">
+    <input type="hidden" name="org_od_price" value="<?php echo number_format($tot_sell_price, 2, ".", ""); ?>">
+    <input type="hidden" name="od_send_cost" value="<?php echo number_format($send_cost, 2, ".", ""); ?>">
     <input type="hidden" name="od_send_cost2" value="0">
     <input type="hidden" name="item_coupon" value="0">
     <input type="hidden" name="od_coupon" value="0">

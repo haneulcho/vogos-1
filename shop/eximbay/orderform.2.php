@@ -17,7 +17,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 <!-- statusurl(필수 값) : 결제 완료 시 Back-end 방식으로 Eximbay 서버에서 statusurl에 지정된 가맹점 페이지를 Back-end로 호출하여 파라미터를 전송. -->
 <!-- 스크립트, 쿠키, 세션 사용 불가 -->
-<input type="hidden" name="statusurl" value="<?php echo G5_SHOP_URL.'/settle_eximbay_common.php'; ?>" />
+<input type="hidden" name="statusurl" value="<?php echo G5_SHOP_URL.'/eximbay/status.php'; ?>" />
 <!-- 추가 필수 파라미터 : Buyer, email, amt -->
 <!-- 위 파라미터와 request.php의 mid, secretkey, ref 값 설정만으로 Eximbay 연동 결제 가능  -->
 
@@ -44,8 +44,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <input type="hidden" name="supplyvalue" value="" /><!-- 전체 결제금액의 결제금액의 공급가액 issuercountry가 KR인 경우 필수 값 -->
 <input type="hidden" name="taxamount" value="" /><!-- 전체 결제금액의 결제금액의 세액 issuercountry가 KR인 경우 필수 값 -->
 
-<!-- <input type="hidden" name="returnurl" value="http://merchant's site/return.php" />-->
-<!--결제 완료 시 Front-end 방식으로 사용자 브라우저 상에 호출되어 보여질 가맹점 페이지 -->
+<input type="hidden" name="returnurl" value="<?php echo G5_SHOP_URL.'/eximbay/return.php'; ?>" /><!--결제 완료 시 Front-end 방식으로 사용자 브라우저 상에 호출되어 보여질 가맹점 페이지 -->
 <input type="hidden" name="displaytype" value="P" /><!-- P : popup(기본값), I : iframe(layer), R : page redirect -->
 <input type="hidden" name="shop" value="VOGOS" /><!-- 상점명 : 가맹점명과 다른 경우 사용 -->
 <input type="hidden" name="ostype" value="P" /><!-- P: PC 버전(기본값), M : Mobile 버전-->
@@ -65,6 +64,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <!-- 결제에 필요한 필수 파라미터 -->
 <input type="hidden" name="buyer" value="" />
 <input type="hidden" name="email" value="" />
-<input type="hidden" name="cur" value="USD"/>
+<input type="hidden" name="cur" value=""/>
 <input type="hidden" name="amt" value="" />
 <input type="hidden" name="lang" value="EN" />

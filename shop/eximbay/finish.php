@@ -1,5 +1,6 @@
 <?php
-	
+include_once('./_common.php');
+
 	//결제 응답 파라미터
 	$rescode = $_POST['rescode'];
 	$resmsg = $_POST['resmsg'];

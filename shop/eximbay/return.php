@@ -1,13 +1,17 @@
 <?php
+include_once('./_common.php');
 	/*
 		아래 설정 된 값은 테스트용 secretKey, mid입니다.
 		테스트로만 진행 하시고 발급 받으신 값으로 변경 하셔야 됩니다.
 	*/
 	$secretKey = "289F40E6640124B2628640168C3C5464";//가맹점 secretkey
 
+  //$secretKey = $default['de_eximbay_secret_key'];//가맹점 secretkey
+
 	//기본 응답 파라미터
 	$ver = $_POST['ver'];// 연동 버전
-	$mid = $_POST['mid'];// 가맹점 아이디
+  $mid = '1849705C64';
+  //$mid = $default['de_eximbay_mid'];//가맹점 아이디
 	$txntype = $_POST['txntype'];// 거래 타입
 	$ref = $_POST['ref'];// 가맹점 지정에서 지정한 거래 아이디
 	$cur = $_POST['cur'];// 통화
@@ -96,6 +100,8 @@
 			$resmsg = "Invalid transaction";
 		}
 	}
+
+$order_action_url = G5_HTTPS_SHOP_URL.'/orderformupdate.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -105,15 +111,15 @@
 <!--
 	//opener창에 결제 응답 값 세팅 후 finish.php로 submit, 현재 팝업 창 close 
 	function loadForm(){
-		if(opener && opener.document.regForm){
-			var frm = opener.document.regForm;
+		if(opener && opener.document.forderform){
+			var frm = opener.document.forderform;
 			frm.rescode.value = "<?php echo $rescode; ?>";
 			frm.resmsg.value = "<?php echo $resmsg; ?>";
 			frm.authcode.value = "<?php echo $authcode; ?>";
 			frm.cardco.value = "<?php echo $cardco; ?>";
 			
 			frm.target = "";
-			frm.action = "finish.php";
+			frm.action = '<?php echo $order_action_url; ?>';
 			
 			frm.submit();
 		}
