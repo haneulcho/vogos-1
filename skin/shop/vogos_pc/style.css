@@ -121,6 +121,40 @@ a.gnb_1da {display:inline-block;padding:21px 17px 5px;text-overflow: ellipsis;bo
 #sbn_side .bn_btn .prev{left:10px;background:url('img/bn_btn.png') left center no-repeat;}
 #sbn_side .bn_btn .next{right:10px;background:url('img/bn_btn.png') right center no-repeat;}
 
+/* 주문 상세보기 */
+#sod_title.iqv header h2>span {width:208px;height:25px;margin-top:5px;font-size:15px;vertical-align:3px;}
+#sod_fin_list {position:relative;padding:25px 0 50px;}
+.sct_iqv_tbl {margin-bottom:20px;background-color:#fff;
+box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
+-webkit-box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
+-moz-box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
+-o-box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);}
+.sct_iqv_tbl .itemdes {padding-left:26px;text-align:left;}
+.sct_iqv_tbl table {width:100%;border-collapse:collapse;border-spacing:0}
+.sct_iqv_tbl thead th {padding:10px 0;background:#f3f3f0;color:#6c6164;font-size:12px;font-weight:700;text-align:center;}
+.sct_iqv_tbl .cart_it_name {margin:16px 0 10px;}
+.sct_iqv_tbl .th_cart_des {padding-left:26px;text-align:left;}
+.sct_iqv_tbl .th_cart_qty {width:95px;}
+.sct_iqv_tbl .th_cart_num {width:120px;}
+.sct_iqv_tbl .th_cart_status {width:165px;}
+.sct_iqv_tbl .th_cart_chk {width:60px;}
+.sct_iqv_tbl thead th input {vertical-align:top} /* middle 로 하면 게시판 읽기에서 목록 사용시 체크박스 라인 깨짐 */
+.sct_iqv_tbl td.cart_img,
+.sct_iqv_tbl td.cart_des,
+.sct_iqv_tbl td.cart_qty,
+.sct_iqv_tbl td.cart_num,
+.sct_iqv_tbl td.cart_status,
+.sct_iqv_tbl td.cart_chk {padding:12px 0;border-top:1px solid #e7e7e7;font-size:13px;line-height:1.5em;word-break:break-all;color:#666;text-align:center;}
+.sct_iqv_tbl td.cart_des {position:relative;text-align:left;vertical-align:top;}
+.sct_iqv_tbl td.cart_img {width:112px;vertical-align:top;}
+.sct_iqv_tbl td.cart_num span {font-size:14px;font-weight:700;}
+.sct_iqv_tbl td.cart_chk input {width:14px;height:14px;}
+.sct_iqv_tbl tr:hover{background:#fdfdfd}   
+.sct_iqv_tbl a {}
+.sct_iqv_tbl .cart_optlst li {padding:13px 0;border-top:1px solid #e7e7e7;font-size:12px;line-height:1.5;}
+.sct_iqv_tbl .cart_optlst li:first-child {padding:0 0 9px 0;border-top:none;}
+.sct_iqv_tbl .cart_optlst li span {margin-right:16px;font-weight:700;}
+
 /* 주문 */
 #sod_title header h2.title_order {margin-top:1px;padding:0 0 0 146px;font-size:24px;font-weight:700;color:#d2cfc3;}
 .sct_cart_tbl .order_optlst li {padding:13px 0;border-top:1px solid #e7e7e7;font-size:12px;line-height:1.5;}
@@ -159,7 +193,7 @@ box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);}
 #sod_title header h2 {margin-top:-4px;padding:0 0 0 146px;font-size:24px;font-weight:700;color:#d2cfc3;}
 #sod_title header h2>span {display:inline-block;width:40px;height:34px;margin-left:18px;padding-top:6px;vertical-align:1px;text-align:center;font-size:22px;font-weight:700;border-radius:20px;-webkit-border-radius:20px;-moz-border-radius:20px;-o-border-radius:20px;background-color:#d2cfc3;color:#6c6164;}
 #sod_title header>span {display:block;float:left;font-size:18px;}
-#sod_bsk, #sod_frm {background-color:#f8f8f8;}
+#sod_bsk, #sod_frm, #sod_fin {background-color:#f8f8f8;}
 #sod_bsk .continue {display:inline-block;padding:14px 40px;background-color:#6c6165;color:#fff;font-size:18px;border:1px solid #6c6165;-webkit-border-radius:border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius:5px;-webkit-transition:all ease .3s;-moz-transition:all ease .3s;-o-transition:all ease .3s;transition:all ease .3s;}
 #sod_bsk .continue:hover {background-color:#474747;border-color:#474747;}
 .sod_option_btn {margin-top:3px;}
@@ -230,6 +264,7 @@ box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
 .sct_cart_tbl td.cart_des,
 .sct_cart_tbl td.cart_qty,
 .sct_cart_tbl td.cart_num,
+.sct_cart_tbl td.cart_status,
 .sct_cart_tbl td.cart_chk {padding:17px 0;border-top:1px solid #e7e7e7;font-size:13px;line-height:1.5em;word-break:break-all;color:#666;text-align:center;}
 .sct_cart_tbl td.cart_des {position:relative;text-align:left;vertical-align:top;}
 .sct_cart_tbl td.cart_img {width:155px;vertical-align:top;}

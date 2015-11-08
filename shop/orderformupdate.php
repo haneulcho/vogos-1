@@ -61,9 +61,45 @@ if($rescode == "0000"){
   //해당 페이지는 Back-End로 처리되기 때문에 스크립트, 세션, 쿠키 사용이 불가능 합니다.
   $tno             = $ref;
   $amount          = $amt;
+  $app_no          = $authcode;
   $app_time        = $resdt;
-  $app_no          = $txntype;
   $card_name       = $cardno4;
+
+switch($paymethod) {
+    case 'P101':
+        $od_bank_account = 'VISA';
+        break;
+    case 'P102':
+        $od_bank_account = 'MasterCard';
+        break;
+    case 'P103':
+        $od_bank_account = 'AMEX';
+        break;
+    case 'P104':
+        $od_bank_account = 'JCB';
+        break;
+    case 'P001':
+        $od_bank_account = 'PayPal';
+        break;
+    case 'P002':
+        $od_bank_account = 'CUP (UnionPay)';
+        break;
+    case 'P003':
+        $od_bank_account = 'Alipay';
+        break;
+    case 'P004':
+        $od_bank_account = 'Tenpay';
+        break;
+    case 'P141':
+        $od_bank_account = 'WeChat';
+        break;
+    case 'P005':
+        $od_bank_account = '99Bill';
+        break;
+    default:
+        $od_bank_account = 'Eximbay';
+        break;
+}
 
   $is_success = true;
 } else {
@@ -312,8 +348,7 @@ if($is_success) {
         $od_app_no          = $app_no;
         $od_receipt_price   = $amount;
         $od_receipt_point   = $i_temp_point;
-        $od_receipt_time    = preg_replace("/([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "\\1-\\2-\\3 \\4:\\5:\\6", $app_time);
-        $od_bank_account    = $card_name;
+        $od_receipt_time    = substr($app_time, 0, 4).'-'.substr($app_time, 4, 2).'-'.substr($app_time, 6, 2).' '.substr($app_time, 8, 2).':'.substr($app_time, 10, 2).':'.substr($app_time, 12, 2);
         $pg_price           = $amount;
         $od_misu            = $i_price - $od_receipt_price;
         if($od_misu == 0)
@@ -717,7 +752,6 @@ if($is_success) {
 
 } else { // 엑심베이 결제 실패시 처리 코드
     alert('An Error occurred. Please try again later.', G5_SHOP_URL.'/cart.php');
-    goto_url(G5_SHOP_URL.'/cart.php');
 }
 ?>
 

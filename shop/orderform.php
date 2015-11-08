@@ -407,7 +407,7 @@ var f = document.forderform;
         $addr_list .= '<label for="ad_sel_addr_same">It\'s the same as the one in the billing address.</label>'.PHP_EOL;
 
         // 최근배송지
-        $sql = " select *
+/*        $sql = " select *
                     from {$g5['g5_shop_order_address_table']}
                     where mb_id = '{$member['mb_id']}'
                       and ad_default = '0'
@@ -419,6 +419,7 @@ var f = document.forderform;
             $val2 = '<label for="ad_sel_addr_'.($i+1).'">최근배송지('.($row['ad_subject'] ? $row['ad_subject'] : $row['ad_name']).')</label>';
             $addr_list .= '<input type="radio" name="ad_sel_addr" value="'.$val1.'" id="ad_sel_addr_'.($i+1).'"> '.PHP_EOL.$val2.PHP_EOL;
         }
+*/
         //$addr_list .= '<label for="od_sel_addr_new">신규배송지</label>'.PHP_EOL;
 
         //$addr_list .='<a href="'.G5_SHOP_URL.'/orderaddress.php" id="order_address" class="btn_frmline">배송지목록</a>';
@@ -679,7 +680,7 @@ function calculate_total_price()
     $("#ct_tot_coupon").text("$"+number_format(String(tot_cp_price), 2, ".", ","));
     $("#ct_tot_price").text("$"+number_format(String(tot_sell_price), 2, ".", ","));
 
-    $("input[name=good_mny]").val(tot_sell_price);
+    $("input[name=good_mny]").val(number_format(String(tot_sell_price), 2, ".", ""));
     $("input[name=od_price]").val(sell_price - tot_cp_price);
     $("input[name=item_coupon]").val(tot_cp_price);
     $("input[name=od_coupon]").val(0);
@@ -1013,7 +1014,7 @@ function forderform_check()
     // 결제정보설정
     <?php if($default['de_pg_service'] == 'eximbay') { ?>
     f.cur.value = 'USD';
-    f.amt.value = f.good_mny.value;
+    f.amt.value = number_format(f.good_mny.value, 2, ".", "");
     f.buyer.value = f.od_name.value + " " + f.od_name_last.value;
     f.tel.value = f.od_hp.value;
     f.email.value = f.od_email.value;
