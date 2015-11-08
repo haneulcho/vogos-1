@@ -386,7 +386,7 @@ var f = document.forderform;
             </tr>
             <tr>
                 <th scope="row"><label for="od_zip">Postal Code</label></th>
-                <td><input type="text" name="od_zip" value="<?php echo $member['mb_zip']; ?>" id="od_zip" required class="frm_input required" size="5" maxlength="6"></td>
+                <td><input type="text" name="od_zip" value="<?php echo $member['mb_zip']; ?>" id="od_zip" required class="frm_input required" size="12" maxlength="12"></td>
             </tr>
             <tr><td colspan="2" style="height:12px"></td></tr>
             </tbody>
@@ -473,7 +473,7 @@ var f = document.forderform;
             </tr>
             <tr>
                 <th scope="row"><label for="od_b_zip">Postal Code</label></th>
-                <td><input type="text" name="od_b_zip" id="od_b_zip" class="frm_input required" maxlength="15"></td>
+                <td><input type="text" name="od_b_zip" id="od_b_zip" class="frm_input required" maxlength="12"></td>
             </tr>
             <tr><td colspan="2" style="height:12px"></td></tr>
             </tbody>

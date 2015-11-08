@@ -96,8 +96,18 @@ include_once('./_common.php');
       }
   }
   
+  $is_success = '';
   if($rescode == "0000"){
       //가맹점 측 DB 처리하는 부분
       //해당 페이지는 Back-End로 처리되기 때문에 스크립트, 세션, 쿠키 사용이 불가능 합니다.
+      $tno             = $ref;
+      $amount          = $amt;
+      $app_time        = $resdt;
+      $app_no          = $txntype;
+      $card_name       = $cardno4;
+
+      $is_success = true;
+  } else {
+    $is_success = false;
   }
 ?>

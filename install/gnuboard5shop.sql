@@ -669,7 +669,7 @@ CREATE TABLE IF NOT EXISTS `g5_shop_order` (
   `od_bank_account` varchar(255) NOT NULL DEFAULT '',
   `od_receipt_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `od_coupon` int(11) NOT NULL DEFAULT '0',
-  `od_misu` int(11) NOT NULL DEFAULT '0',
+  `od_misu` float(11) NOT NULL DEFAULT '0',
   `od_shop_memo` text NOT NULL,
   `od_mod_history` text NOT NULL,
   `od_status` varchar(255) NOT NULL DEFAULT '',  
