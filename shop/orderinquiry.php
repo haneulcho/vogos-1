@@ -71,13 +71,14 @@ include_once('./_head.php');
     </div>
 
     <div class="fullWidth">
-    
+
     <?php
     $limit = " limit $from_record, $rows ";
     include "./orderinquiry.sub.php";
     ?>
 
     <?php echo get_paging($config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
+
     </div>
 
 </div>

@@ -73,4 +73,8 @@ if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
     </tbody>
     </table>
 </div>
+
+    <div id="sod_bsk_act_con">
+        <a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=10" class="continue">Continue Shopping</a>
+    </div>
 <!-- } 주문 내역 목록 끝 -->

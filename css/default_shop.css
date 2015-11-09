@@ -405,32 +405,6 @@ box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
 #sidx_img {margin:0 0 20px}
 #sidx_img img {max-width:100%;height:auto}
 
-/* 마이페이지 */
-#smb_my {}
-
-#smb_my_ov {margin:0 0 20px}
-#smb_my_ov h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
-#smb_my_act {margin:0 0 10px;;zoom:1}
-#smb_my_act:after {display:block;visibility:hidden;clear:both;content:""}
-#smb_my_act ul {float:right;margin:0;padding:0;list-style:none}
-#smb_my_act li {float:left;margin:0 0 0 4px}
-#smb_my_act .btn02{padding:10px 20px !important}
-#smb_my_ov dl {margin:0;border:1px solid #c4c4c4;background:#ebebeb;zoom:1}
-#smb_my_ov dl:after {display:block;visibility:hidden;clear:both;content:''}
-#smb_my_ov dt {float:left;padding:7px 10px;width:100px;border-bottom:1px solid #c4c4c4;font-weight:bold}
-#smb_my_ov dd {float:left;margin:0;padding:7px 10px;width:192px;border-bottom:1px solid #c4c4c4}
-#smb_my_ovaddt {border-bottom:0 !important}
-#smb_my_ovaddd {width:590px !important;border-bottom:0 !important}
-
-#smb_my_od {margin:0 0 20px}
-#smb_my_od h2 {margin:0 0 10px}
-
-#smb_my_wish h2 {margin:0 0 10px}
-
-.smb_my_more {text-align:right}
-
-.smb_my_img {width:90px;text-align:center}
-
 /* 위시리스트 */
 #sod_ws {}
 .sod_ws_img {width:90px;text-align:center}

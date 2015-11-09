@@ -111,7 +111,6 @@ a.gnb_1da {display:inline-block;padding:21px 17px 5px;text-overflow: ellipsis;bo
 .owlbest .item .slider_txt a {color:#fefefe;font-size:12px;}
 .owlbest .item .slider_txt a .sct_cost {font-weight:700;font-size:13px;}
 
-
 /* 배너 */
 #sbn_side{width:1000px;height:150px;overflow:hidden;position:relative}
 #sbn_side ul{width:4000px;height:150px;}
@@ -121,14 +120,60 @@ a.gnb_1da {display:inline-block;padding:21px 17px 5px;text-overflow: ellipsis;bo
 #sbn_side .bn_btn .prev{left:10px;background:url('img/bn_btn.png') left center no-repeat;}
 #sbn_side .bn_btn .next{right:10px;background:url('img/bn_btn.png') right center no-repeat;}
 
+/* 마이 페이지 */
+#smb_my {background-color:#f8f8f8;}
+#smb_my > .fullWidth {padding:15px 0 30px;}
+#smb_my .sct_iqv_tbl2 {width:100%;margin-bottom:35px;}
+#smb_my .btn_edit_info {font-style:italic;}
+#smb_my .btn_edit_info a {display:inline-block;margin:0 6px;color:#ff6347;font-weight:700;text-decoration:underline;}
+#sod_title.mif header {background:url('img/cart/title_user.png') no-repeat;}
+#sod_title.mif header a {color:#6c6164;}
+#sod_title.mif header h2>span {width:145px;height:25px;margin-top:5px;font-size:15px;vertical-align:3px;}
+#sod_title.mif header h2>span i {margin-right:3px;}
+#sod_title.mif header h2>span:hover {background-color:#696062;}
+#sod_title.mif header h2>span:hover a {color:#fff;}
+
+#smb_my_ov {margin:0}
+#smb_my_ov h2 {clear:both;margin-bottom:6px;padding:10px 0 0 10px;font-size:16px;color:#6c6164;}
+#smb_my_ov h2 > i {margin-right:6px;vertical-align:-4px;font-size:30px;}
+#smb_my_ov .smb_my_more a {width:86px;font-size:11px;background-color:#ecebe6;color:#b3b2b2;}
+
+#smb_my_act {margin:0 0 10px;;zoom:1}
+#smb_my_act:after {display:block;visibility:hidden;clear:both;content:""}
+#smb_my_act ul {float:right;margin:0;padding:0;list-style:none}
+#smb_my_act li {float:left;margin:0 0 0 4px}
+#smb_my_act .btn02{padding:10px 20px !important}
+#smb_my_ov dl {margin:0;border:1px solid #c4c4c4;background:#ebebeb;zoom:1}
+#smb_my_ov dl:after {display:block;visibility:hidden;clear:both;content:''}
+#smb_my_ov dt {float:left;padding:7px 10px;width:100px;border-bottom:1px solid #c4c4c4;font-weight:bold}
+#smb_my_ov dd {float:left;margin:0;padding:7px 10px;width:192px;border-bottom:1px solid #c4c4c4}
+#smb_my_ovaddt {border-bottom:0 !important}
+#smb_my_ovaddd {width:590px !important;border-bottom:0 !important}
+#smb_my_od {margin:0}
+#smb_my_od h2 {clear:both;margin-bottom:6px;padding:10px 0 0 10px;font-size:16px;color:#6c6164;}
+#smb_my_od h2 > i {margin-right:6px;vertical-align:-4px;font-size:30px;}
+#smb_my_wish h2 {margin:0 0 10px}
+.smb_my_more {display:inline-block;margin-left:25px;margin-bottom:3px;text-align:right;vertical-align:1px;}
+.smb_my_more a {display:block;width:180px;margin:5px auto 0;padding:6px 12px;font-size:12px;font-weight:700;background-color:#E4E1D5;color:#6c6164;
+border-radius:3px;
+-webkit-border-radius:3px;
+-moz-border-radius:3px;
+-o-border-radius:3px;}
+.smb_my_more a i {margin-right:3px;font-size:16px;vertical-align:-1px;}
+.smb_my_more a:hover {background-color:#696062;color:#fff;}
+.smb_my_img {width:90px;text-align:center}
+
+
 /* 주문 내역 (Order History) */
 #sod_v {overflow:hidden;}
 #sod_v > .fullWidth {padding:25px 0 30px;}
+#smb_my .sct_cart_tbl tbody tr:nth-child(odd),
 #sod_v .sct_cart_tbl tbody tr:nth-child(odd) {background-color:rgb(253,253,253)}
+#smb_my .sct_cart_tbl tbody td,
+#sod_v .sct_cart_tbl tbody td {padding:15px;text-align:center;}
 #sod_title.iqv header,
 #sod_title.ohst header {background:url('img/cart/title_order.png') no-repeat;}
 #sod_title.ohst header h2 {margin-top:1px;}
-.sct_cart_tbl tbody td {padding:15px;text-align:center;}
 .th_iqr_no {width:240px;}
 .th_iqr_date {width:200px;}
 .th_iqr_num {width:155px;}
@@ -197,7 +242,7 @@ box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
 .sct_iqv_tbl2 table {background:url('img/cart/bg_information.png') no-repeat right bottom;}
 .sct_iqv_tbl2 tbody {border-top:1px solid #e7e7e7;}
 .sct_iqv_tbl2 th a {color:#383838}
-.sct_iqv_tbl2 th {padding:10px 0 10px 14px;text-align:left;color:#555;background-color:#f3f3f0;}
+.sct_iqv_tbl2 th {padding:10px 0 10px 16px;text-align:left;color:#555;background-color:#f3f3f0;}
 .sct_iqv_tbl2 td {padding:10px 15px;font-size:13px;line-height:1.4;word-break:break-all;color: #666;}
 .sct_iqv_tbl2 tr:nth-child(odd) {background-color:rgba(253,253,253,0.7)}
 .sct_iqv_tbl2 th, .sct_iqv_tbl2 td {border:none;}
@@ -228,7 +273,6 @@ box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
 .sod_req_log_view button {margin:0;padding:0;border:0;background:transparent;color:#ff3061;text-decoration:underline;vertical-align:middle;cursor:pointer}
 
 #sod_fin_list h2 {margin:0 0 10px}
-#sod_fin_list td {height:30px}
 #sod_fin_view section {clear:both;overflow:hidden;}
 #sod_fin_view h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 #sod_fin_view h3 {margin:0 0 10px}
@@ -246,7 +290,7 @@ box-shadow: 0px 1px 3px 0px rgba(233, 228, 223, 0.46);
 .review_order:after {display:block;visibility:hidden;clear:both;content:""}
 #sod_bsk_tot.subtotal_order {margin-top:96px;}
 .subtotal_order.scrolled {position:fixed;top:0;}
-.subtotal_order .sod_subtotal {background-color:#696062;}
+.subtotal_iqv .sod_subtotal, .subtotal_order .sod_subtotal {background-color:#696062;}
 .ro_title {position:absolute;top:0;left:-100px;width:100px;height:50px;padding-top:20px;color:#504447;font-size:15px;text-align:center;font-weight:700;z-index:4;background:url('img/cart/process_review.png') no-repeat #f3f3f0;}
 .ro_title>span {position:absolute;top:-14px;left:34px;width:28px;height:23px;padding-top:5px;font-size:14px;color:#fff;background-color:#6c6164;z-index:5;
 border-radius:14px;
@@ -275,7 +319,7 @@ box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);}
 #sod_title header h2>span {display:inline-block;width:40px;height:34px;margin-left:18px;padding-top:6px;vertical-align:1px;text-align:center;font-size:22px;font-weight:700;border-radius:20px;-webkit-border-radius:20px;-moz-border-radius:20px;-o-border-radius:20px;background-color:#d2cfc3;color:#6c6164;}
 #sod_title header>span {display:block;float:left;font-size:18px;}
 #sod_bsk, #sod_frm, #sod_fin, #sod_v {background-color:#f8f8f8;}
-#sod_bsk .continue {display:inline-block;padding:14px 40px;background-color:#6c6165;color:#fff;font-size:18px;border:1px solid #6c6165;-webkit-border-radius:border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius:5px;-webkit-transition:all ease .3s;-moz-transition:all ease .3s;-o-transition:all ease .3s;transition:all ease .3s;}
+#sod_bsk .continue, #sod_v .continue, #smb_my .continue {display:inline-block;padding:14px 40px;background-color:#6c6165;color:#fff;font-size:18px;border:1px solid #6c6165;-webkit-border-radius:border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius:5px;-webkit-transition:all ease .3s;-moz-transition:all ease .3s;-o-transition:all ease .3s;transition:all ease .3s;}
 #sod_bsk .continue:hover {background-color:#474747;border-color:#474747;}
 .sod_option_btn {margin-top:3px;}
 .sod_option_btn .mod_options {display:inline-block;margin:0 5px 0 0;padding:0;border:0;outline:0;background:#3c95d5;color:#fff;cursor:pointer}
