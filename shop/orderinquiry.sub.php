@@ -62,7 +62,7 @@ if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
         <td class="td_num"><?php echo $row['od_cart_count']; ?></td>
         <td class="td_numbig"><?php echo display_price($row['od_cart_price'] + $row['od_send_cost'] + $row['od_send_cost2']); ?></td>
         <td class="td_numbig"><?php echo display_price($row['od_receipt_price']); ?></td>
-        <td><?php echo $od_status; ?></td>
+        <td class="tomato"><?php echo $od_status; ?></td>
     </tr>
 
     <?php

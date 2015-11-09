@@ -431,11 +431,11 @@ var f = document.forderform;
     ?>
     <section id="sod_frm_taker">
     <div class="sct_cart_tbl review_order">
-        <div class="ro_title"><span>3</span>Delivery<br>Address</div>
+        <div class="ro_title"><span>3</span>Shipping<br>Address</div>
         <table id="sod_list" class="ads_list">
             <thead>
                 <tr>
-                    <th scope="col" colspan="2" class="title">Please provide your Delivery information.<span><?php echo $addr_list; ?></span></th>
+                    <th scope="col" colspan="2" class="title">Please provide your shipping information.<span><?php echo $addr_list; ?></span></th>
                 </tr>
             </thead>
             <tbody>
