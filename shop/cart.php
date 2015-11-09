@@ -212,7 +212,6 @@ $it_send_cost = 0;
         <input type="hidden" name="act" value="">
         <input type="hidden" name="it_del_id" value="">
         <a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=<?php echo $continue_ca_id; ?>" class="btn_act"><?php echo '<img src="'.G5_SHOP_SKIN_URL.'/img/cart/btn_continue.jpg" alt="Continue Shopping">' ?></a>
-        <button type="button" onclick="return form_check('seldelete');" class="btn_act"><?php echo '<img src="'.G5_SHOP_SKIN_URL.'/img/cart/btn_remove_list.jpg" alt="Remove select items">' ?></button>
         <button type="button" onclick="return form_check('alldelete');" class="btn_act"><?php echo '<img src="'.G5_SHOP_SKIN_URL.'/img/cart/btn_empty.jpg" alt="Empty cart">' ?></button>
         <?php } ?>
     </div>
