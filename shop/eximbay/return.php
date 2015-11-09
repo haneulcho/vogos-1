@@ -4,14 +4,14 @@ include_once('./_common.php');
 		아래 설정 된 값은 테스트용 secretKey, mid입니다.
 		테스트로만 진행 하시고 발급 받으신 값으로 변경 하셔야 됩니다.
 	*/
-	$secretKey = "289F40E6640124B2628640168C3C5464";//가맹점 secretkey
+	//$secretKey = "289F40E6640124B2628640168C3C5464";//가맹점 테스트 secretkey
 
-  //$secretKey = $default['de_eximbay_secret_key'];//가맹점 secretkey
+  $secretKey = $default['de_eximbay_secret_key'];//가맹점 secretkey
 
 	//기본 응답 파라미터
 	$ver = $_POST['ver'];// 연동 버전
-  $mid = '1849705C64';
-  //$mid = $default['de_eximbay_mid'];//가맹점 아이디
+  // $mid = '1849705C64';//가맹정 테스트 아이디
+  $mid = $default['de_eximbay_mid'];//가맹점 아이디
 	$txntype = $_POST['txntype'];// 거래 타입
 	$ref = $_POST['ref'];// 가맹점 지정에서 지정한 거래 아이디
 	$cur = $_POST['cur'];// 통화

@@ -1,12 +1,12 @@
 <?php
 include_once('./_common.php');
-	$secretKey = "289F40E6640124B2628640168C3C5464";//가맹점 secretkey
+	//$secretKey = "289F40E6640124B2628640168C3C5464";//가맹점 테스트 secretkey
 
-  //$secretKey = $default['de_eximbay_secret_key'];//가맹점 secretkey
-  // $mid = $default['de_eximbay_mid'];//가맹점 아이디
-  // $ref = $od_id;
-	$mid = "1849705C64";
-	$ref = "abcd1234567890";
+  $secretKey = $default['de_eximbay_secret_key'];//가맹점 secretkey
+  $mid = $default['de_eximbay_mid'];//가맹점 아이디
+  $ref = $od_id;
+	// $mid = "1849705C64";//가맹점 테스트 아이디
+	// $ref = "abcd1234567890";//가맹점 테스트 주문번호
   
 	$reqURL = "https://secureapi.test.eximbay.com/Gateway/BasicProcessor.krp";//EXIMBAY TEST 서버 요청 URL입니다.
 
