@@ -299,9 +299,15 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         <table>
         <caption>Additional Information</caption>
         <tr>
-            <th scope="row"><label for="reg_mb_name">Name(First Name)<strong class="sound_only">*</strong></label></th>
+            <th scope="row"><label for="reg_mb_name">First Name<strong class="sound_only">*</strong></label></th>
             <td>
                 <input type="text" id="reg_mb_name" name="mb_name" value="<?php echo $member['mb_name'] ?>" <?php echo $required ?> class="frm_input <?php echo $required ?>">
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="reg_mb_name_last">Last Name<strong class="sound_only">*</strong></label></th>
+            <td>
+                <input type="text" id="reg_mb_name_last" name="mb_name_last" value="<?php echo $member['mb_name_last'] ?>" <?php echo $required ?> class="frm_input <?php echo $required ?>">
             </td>
         </tr>
         <?php if ($config['cf_use_tel']) { ?>
@@ -314,19 +320,13 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         <?php } ?>
         <?php if ($config['cf_use_hp']) { ?>
         <tr>
-            <th scope="row"><label for="reg_mb_hp">Mobile Phone</label></th>
+            <th scope="row"><label for="reg_mb_hp">Mobile</label></th>
             <td>
                 <input type="text" name="mb_hp" value="<?php echo $member['mb_hp'] ?>" id="reg_mb_hp" class="frm_input" maxlength="20">
             </td>
         </tr>
         <?php } ?>
         <?php if ($config['cf_use_addr']) { ?>
-        <tr>
-            <th scope="row"><label for="reg_mb_zip">Postal Code</label></th>
-            <td>
-                <input type="text" name="mb_zip" value="<?php echo $member['mb_zip']; ?>" id="reg_mb_zip" class="frm_input" size="5" maxlength="15">
-            </td>
-        </tr>
         <tr>
             <th scope="row"><label for="reg_mb_addr1">Address Line 1</label></th>
             <td>
@@ -337,6 +337,12 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
             <th scope="row"><label for="reg_mb_addr2">Address Line 2</label></th>
             <td>
                 <input type="text" name="mb_addr2" value="<?php echo $member['mb_addr2']; ?>" id="reg_mb_addr2" class="frm_input" size="5" maxlength="65">
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="reg_mb_zip">Postal Code</label></th>
+            <td>
+                <input type="text" name="mb_zip" value="<?php echo $member['mb_zip']; ?>" id="reg_mb_zip" class="frm_input" size="5" maxlength="15">
             </td>
         </tr>
         <?php } ?>

@@ -137,7 +137,7 @@ $mb_addr2       = clean_xss_tags($mb_addr2);
 //===============================================================
 //  본인확인
 //---------------------------------------------------------------
-$mb_hp = hyphen_hp_number($mb_hp);
+
 if($config['cf_cert_use'] && $_SESSION['ss_cert_type'] && $_SESSION['ss_cert_dupinfo']) {
     // 중복체크
     $sql = " select mb_id from {$g5['member_table']} where mb_id <> '{$member['mb_id']}' and mb_dupinfo = '{$_SESSION['ss_cert_dupinfo']}' ";
