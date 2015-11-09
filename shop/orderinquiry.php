@@ -63,14 +63,23 @@ include_once('./_head.php');
 
 <!-- 주문 내역 시작 { -->
 <div id="sod_v">
-    <p id="sod_v_info">Click your order number to view details.</p>
 
+    <div id="sod_title" class="ohst">
+        <header class="fullWidth">
+            <h2>ORDER HISTORY</h2>
+        </header>
+    </div>
+
+    <div class="fullWidth">
+    
     <?php
     $limit = " limit $from_record, $rows ";
     include "./orderinquiry.sub.php";
     ?>
 
     <?php echo get_paging($config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
+    </div>
+
 </div>
 <!-- } 주문 내역 끝 -->
 

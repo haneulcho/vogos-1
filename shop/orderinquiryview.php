@@ -46,7 +46,7 @@ $_SESSION['ord_num'] = $od_id;
 
     <div id="sod_title" class="iqv">
         <header class="fullWidth">
-            <h2>ORDER SUMMARY <span class="cart_item_num">No. <?php echo $od_id; ?></span></h2>
+            <h2>ORDER DETAILS <span class="cart_item_num">No. <?php echo $od_id; ?></span></h2>
         </header>
     </div>
 

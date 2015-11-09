@@ -121,6 +121,26 @@ a.gnb_1da {display:inline-block;padding:21px 17px 5px;text-overflow: ellipsis;bo
 #sbn_side .bn_btn .prev{left:10px;background:url('img/bn_btn.png') left center no-repeat;}
 #sbn_side .bn_btn .next{right:10px;background:url('img/bn_btn.png') right center no-repeat;}
 
+/* 주문 내역 (Order History) */
+#sod_v {overflow:hidden;}
+#sod_v > .fullWidth {padding:25px 0 30px;}
+#sod_v .sct_cart_tbl tbody tr:nth-child(odd) {background-color:rgb(253,253,253)}
+#sod_title.iqv header,
+#sod_title.ohst header {background:url('img/cart/title_order.png') no-repeat;}
+#sod_title.ohst header h2 {margin-top:1px;}
+.sct_cart_tbl tbody td {padding:15px;text-align:center;}
+.th_iqr_no {width:240px;}
+.th_iqr_date {width:200px;}
+.th_iqr_num {width:155px;}
+.sct_cart_tbl tbody td.tomato {color:#ff6347 !important;font-weight:700;}
+.sct_cart_tbl .view_order {color:#ff6347;font-size:13px;}
+.sct_cart_tbl .view_order span {display:block;width:155px;margin:5px auto 0;padding:6px 12px;font-size:12px;font-weight:700;background-color:#ff6347;color:#fff;
+border-radius:3px;
+-webkit-border-radius:3px;
+-moz-border-radius:3px;
+-o-border-radius:3px;}
+.sct_cart_tbl .view_order span i {margin-right:4px;vertical-align:-2px;font-size:18px;}
+
 /* 주문 상세보기 */
 #sod_fin_tot h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 #sod_fin_cancel h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
