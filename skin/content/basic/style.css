@@ -1,11 +1,23 @@
 @charset "utf-8";
 
 /* 내용관리 */
-#ctt {margin:0;padding:50px 100px;background-color:#f3f3f0;}
-.ctt_admin {text-align:right}
 #ctt header h1 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 #ctt_con {width:800px;min-height:280px;margin:0 auto;padding:0;}
-.ctt_img {text-align:center}
-#ctt h2 {float:left;font-size:32px;color:#696062;}
+.ctt_admin {text-align:right}
+.ctt_company {margin:0;padding:50px 100px;background-color:#f3f3f0;}
+.ctt_company h2 {float:left;font-size:32px;color:#696062;}
+.ctt_company .ctt_img {text-align:center}
 .aboutus {float:right;width:530px;margin:0;padding:10px 0 35px 30px;font-size:14px;line-height:1.6;border-left:10px solid #e4e4dd;}
 .aboutus p {margin-bottom:26px;word-break:break-word;color:#50484A;}
+
+.ctt_sizeguide .sct_iqv_tbl2 td {text-align:center;}
+.sgd_ov {overflow:hidden;width:590px;margin:0 auto;}
+.sgd_ov h2 {clear:both;margin-bottom:6px;padding:10px 0 0 10px;font-size:16px;color:#6c6164;}
+.sgd_ov h2 > i {margin-right:6px;vertical-align:-4px;font-size:30px;}
+#sod_title.sgd header {background:url('../../shop/vogos_pc/img/title_sguide.png') no-repeat;}
+#sod_title.sgd header a {color:#6c6164;}
+#sod_title.sgd header h2 {margin-top:1px !important;}
+#sod_title.sgd header h2>span {width:145px;height:25px;margin-top:5px;font-size:15px;vertical-align:3px;}
+#sod_title.sgd header h2>span i {margin-right:3px;}
+#sod_title.sgd header h2>span:hover {background-color:#696062;}
+#sod_title.sgd header h2>span:hover a {color:#fff;}

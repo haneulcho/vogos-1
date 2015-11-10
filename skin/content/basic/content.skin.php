@@ -13,8 +13,5 @@ if ($is_admin)
     <header>
         <h1><?php echo $g5['title']; ?></h1>
     </header>
-
-    <div id="ctt_con">
-        <?php echo $str; ?>
-    </div>
+    <?php echo $str; ?>
 </article>
