@@ -22,7 +22,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
         </li>
     </ul>
     <div id="product_inf_v" class="tab_div active">
-        <a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=sizeguide" target="_blank">VIEW SIZE GUIDE</a>
+        <a href="<?php echo G5_SHOP_URL; ?>/sizeguide.php" target="_blank" onclick="return popitup('<?php echo G5_SHOP_URL; ?>/sizeguide.php', 'VOGOS SIZE GUIDE', '685', '670')">VIEW SIZE GUIDE</a>
         <p><?php echo conv_content($it['it_explan'], 1); ?></p>
     </div>
     <div id="delivery_inf_v" class="tab_div">
@@ -43,6 +43,25 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 $(window).on("load", function() {
     $("#sit_inf_explan").viewimageresize2();
 });
+
+function popitup(url, title, w, h) {
+    // Fixes dual-screen position                         Most browsers      Firefox
+    var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+    var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+
+    width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+    var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+    var top = ((height / 2) - (h / 2)) + dualScreenTop;
+    var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+    // Puts focus on the newWindow
+    if (window.focus) {
+        newWindow.focus();
+    }
+    return false;
+}
 
 $(function() {
     var $tabList = $('#sit_ov_tab > li');
