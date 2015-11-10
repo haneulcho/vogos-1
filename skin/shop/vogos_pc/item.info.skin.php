@@ -22,6 +22,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
         </li>
     </ul>
     <div id="product_inf_v" class="tab_div active">
+        <a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=sizeguide" target="_blank">VIEW SIZE GUIDE</a>
         <p><?php echo conv_content($it['it_explan'], 1); ?></p>
     </div>
     <div id="delivery_inf_v" class="tab_div">

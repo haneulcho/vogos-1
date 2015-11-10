@@ -48,7 +48,9 @@ a.gnb_1da {display:inline-block;padding:21px 17px 5px;text-overflow: ellipsis;bo
 #stv_nb li {text-align:center;padding:8px; 0}
 #stv_nb a {display:block}
 
-
+/* 사이즈 가이드 */
+#product_inf_v a {display:block;width:140px;height:30px;margin-top:-8px;margin-bottom:10px;text-indent:-9999px;font-size:0;line-height:0;overflow:hidden;background:url('img/btn_sguide.jpg') no-repeat;}
+#product_inf_v a:hover {background:url('img/btn_sguide_on.jpg') no-repeat;}
 
 /* 이벤트 링크 */
 #sev h2{position:absolute;font-size:0;line-height:0;overflow:hidden}
@@ -116,7 +118,7 @@ a.gnb_1da {display:inline-block;padding:21px 17px 5px;text-overflow: ellipsis;bo
 #sbn_side ul{width:4000px;height:150px;}
 #sbn_side li{float:left;width:1000px; height:150px;}
 #sbn_side li img{width:1000px; height:150px;}
-#sbn_side .bn_btn button{position:absolute;top:65px;border:none;text-indent:-99999999px;display:inline-block;width:24px;height:26px;overflow:hidden;}
+#sbn_side .bn_btn button{position:absolute;top:65px;border:none;text-indent:-99999px;display:inline-block;width:24px;height:26px;overflow:hidden;}
 #sbn_side .bn_btn .prev{left:10px;background:url('img/bn_btn.png') left center no-repeat;}
 #sbn_side .bn_btn .next{right:10px;background:url('img/bn_btn.png') right center no-repeat;}
 
