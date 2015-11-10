@@ -165,6 +165,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
                 <option value="Kenya">Kenya</option>
                 <option value="Kiribati">Kiribati</option>
                 <option value="Korea, North">Korea, North</option>
+                <option value="Korea, South (Republic of Korea)">Korea, South (Republic of Korea)</option>
                 <option value="Kosovo">Kosovo</option>
                 <option value="Kuwait">Kuwait</option>
                 <option value="Kyrgyzstan">Kyrgyzstan</option>
