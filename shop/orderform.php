@@ -55,11 +55,9 @@ set_session('ss_order_id', $od_id);
 $s_cart_id = $tmp_cart_id;
 $order_action_url = G5_HTTPS_SHOP_URL.'/eximbay/request.php';
 
-if($is_admin) {
     require_once('./settle_'.$default['de_pg_service'].'.inc.php');
     // 결제대행사별 코드 include (스크립트 등)
     require_once('./'.$default['de_pg_service'].'/orderform.1.php');
-}
 ?>
 <script>
 var f = document.forderform;
@@ -323,12 +321,10 @@ var f = document.forderform;
     <input type="hidden" name="item_coupon" value="0">
     <input type="hidden" name="od_coupon" value="0">
     <input type="hidden" name="od_send_coupon" value="0">
+    <input type="hidden" name="od_ref" value="<?php echo $od_id; ?>">
 
     <?php
-    // 결제대행사별 코드 include (결제대행사 정보 필드)
-    if($is_admin) {
     require_once('./'.$default['de_pg_service'].'/orderform.2.php');
-    }
     ?>
 
     <!-- 주문하시는 분 입력 시작 { -->
@@ -525,36 +521,12 @@ var f = document.forderform;
     }
     ?>
 
-    <section id="sod_frm_pay">
-    <div class="sct_cart_tbl review_order">
-        <div class="ro_title"><span>4</span>Payment<br>Method</div>
-
-        <?php
+       <?php
 
         $multi_settle == 0;
         $checked = '';
-
-        if ($default['de_bank_use'] || $default['de_vbank_use'] || $default['de_iche_use'] || $default['de_card_use'] || $default['de_hp_use']) {
-            echo '<fieldset id="sod_frm_paysel">';
-            echo '<legend>Payment Method</legend>';
-        }
-
         $temp_point = 0;
         ?>
-        <?php
-        if ($default['de_bank_use'] || $default['de_vbank_use'] || $default['de_iche_use'] || $default['de_card_use'] || $default['de_hp_use']) {
-            echo '</fieldset>';
-        }
-
-        if ($is_admin) {
-            echo '관리자 테스트';
-        } else {
-            if ($multi_settle == 0) {
-                echo '<p>Payment Method is not available.<br>Please contact us. (help@vogos.com)</p>';
-            }
-        }
-        ?>
-    </section>
     <!-- } 결제 정보 입력 끝 -->
 
     <?php
@@ -565,9 +537,7 @@ var f = document.forderform;
             $checked = '';
         }
     // 결제대행사별 코드 include (주문버튼)
-    if($is_admin) {
     require_once('./'.$default['de_pg_service'].'/orderform.3.php');
-    }
     ?>
     </form>
 
@@ -1013,6 +983,8 @@ function forderform_check()
 
     // 결제정보설정
     <?php if($default['de_pg_service'] == 'eximbay') { ?>
+    f.ref.value = f.od_ref.value;
+    f.mid.value = '<?php echo $mid; ?>';
     f.cur.value = 'USD';
     f.amt.value = number_format(f.good_mny.value, 2, ".", "");
     f.buyer.value = f.od_name.value + " " + f.od_name_last.value;
@@ -1068,7 +1040,5 @@ $(function(){
 include_once('./_tail.php');
 
 // 결제대행사별 코드 include (스크립트 실행)
-if($is_admin) {
 require_once('./'.$default['de_pg_service'].'/orderform.5.php');
-}
 ?>

@@ -6,7 +6,7 @@ if($default['de_iche_use'] || $default['de_vbank_use'] || $default['de_hp_use'] 
 ?>
 
 
-<div id="display_pay_button" class="btn_confirm" style="display:none">
+<div id="display_pay_button" style="padding:5px 0 30px;" class="btn_confirm" style="display:none">
     <input type="button" value="CHECKOUT NOW" class="btn_submit" onclick="javascript:forderform_check();">
     <a href="javascript:history.go(-1);" class="btn01">Quit</a>
 </div>

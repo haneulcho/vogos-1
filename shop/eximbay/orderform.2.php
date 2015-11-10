@@ -62,8 +62,10 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <input type="hidden" name="cardco" />
 
 <!-- 결제에 필요한 필수 파라미터 -->
-<input type="hidden" name="buyer" value="" />
+<input type="hidden" name="buyer" value="" /> 
 <input type="hidden" name="email" value="" />
+<input type="hidden" name="ref" value=""/>
+<input type="hidden" name="mid" value=""/>
 <input type="hidden" name="cur" value=""/>
 <input type="hidden" name="amt" value="" />
 <input type="hidden" name="lang" value="EN" />
