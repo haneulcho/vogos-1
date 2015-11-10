@@ -135,7 +135,7 @@ background-color:#f3f3f3; color:#a7a7a7;outline:0;font-weight:bold;
 #text_size button {padding:0 10px;height:30px;border:1px solid #cfded8;border-bottom:0;background:#000;color:#fff;cursor:pointer}
 
 /* 하단 레이아웃 */
-#ft{clear:both;background:#353535;height:126px;padding:30px 0 44px;}
+#ft{clear:both;background:#353535;padding:30px 0 25px;}
 #ft:after {display:block;visibility:hidden;clear:both;content:""}
 #ft_wr{overflow:hidden;margin:0 auto;min-width:1100px;}
 #ft_wr h1{padding-top:35px;}
