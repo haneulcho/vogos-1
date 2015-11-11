@@ -361,16 +361,8 @@ var f = document.forderform;
                 <td><input type="text" name="od_email" value="<?php echo $member['mb_email']; ?>" id="od_email" required class="frm_input required" size="35" maxlength="100"></td>
             </tr>
             <tr>
-                <th scope="row"><label for="od_tel">Telephone</label></th>
+                <th scope="row"><label for="od_tel">Phone Number</label></th>
                 <td><input type="text" name="od_tel" value="<?php echo $member['mb_tel']; ?>" id="od_tel" required class="frm_input required" maxlength="20"></td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="od_hp">Mobile</label></th>
-                <td><input type="text" name="od_hp" value="<?php echo $member['mb_hp']; ?>" id="od_hp" class="frm_input required" maxlength="20"></td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="od_country">Country</label></th>
-                <td><input type="text" name="od_country" value="<?php echo $member['mb_country'] ?>" id="od_country" required class="frm_input required" size="60"></td>
             </tr>
             <tr>
                 <th scope="row"><label for="od_addr1">Address Line 1</label></th>
@@ -381,8 +373,16 @@ var f = document.forderform;
                 <td><input type="text" name="od_addr2" value="<?php echo $member['mb_addr2'] ?>" id="od_addr2" required class="frm_input frm_address required" size="60"></td>
             </tr>
             <tr>
+                <th scope="row"><label for="od_city">City</label></th>
+                <td><input type="text" name="od_city" value="<?php echo $member['mb_city'] ?>" id="od_city" required class="frm_input required" size="60"></td>
+            </tr>
+            <tr>
                 <th scope="row"><label for="od_zip">Postal Code</label></th>
                 <td><input type="text" name="od_zip" value="<?php echo $member['mb_zip']; ?>" id="od_zip" required class="frm_input required" size="12" maxlength="12"></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="od_country">Country</label></th>
+                <td><input type="text" name="od_country" value="<?php echo $member['mb_country'] ?>" id="od_country" required class="frm_input required" size="60"></td>
             </tr>
             <tr><td colspan="2" style="height:12px"></td></tr>
             </tbody>
@@ -445,20 +445,8 @@ var f = document.forderform;
                 <td><input type="text" name="od_b_name_last" id="od_b_name_last" required class="frm_input required" maxlength="20"></td>
             </tr>
             <tr>
-                <th scope="row"><label for="od_b_tel">Telephone<strong class="sound_only"> required</strong></label></th>
+                <th scope="row"><label for="od_b_tel">Phone Number<strong class="sound_only"> required</strong></label></th>
                 <td><input type="text" name="od_b_tel" id="od_b_tel" required class="frm_input required" maxlength="20"></td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="od_b_hp">Mobile</label></th>
-                <td><input type="text" name="od_b_hp" id="od_b_hp" class="frm_input required" maxlength="20"></td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="od_b_country">Country</label></th>
-                <td><input type="text" name="od_b_country" id="od_b_country" class="frm_input required" maxlength="50"></td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="od_b_city">City</label></th>
-                <td><input type="text" name="od_b_city" id="od_b_city" class="frm_input required" maxlength="50"></td>
             </tr>
             <tr>
                 <th scope="row"><label for="od_b_addr1">Address Line 1</label></th>
@@ -469,8 +457,16 @@ var f = document.forderform;
                 <td><input type="text" name="od_b_addr2" id="od_b_addr2" class="frm_input frm_address required" maxlength="50"></td>
             </tr>
             <tr>
+                <th scope="row"><label for="od_b_city">City</label></th>
+                <td><input type="text" name="od_b_city" id="od_b_city" class="frm_input required" maxlength="50"></td>
+            </tr>
+            <tr>
                 <th scope="row"><label for="od_b_zip">Postal Code</label></th>
                 <td><input type="text" name="od_b_zip" id="od_b_zip" class="frm_input required" maxlength="12"></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="od_b_country">Country</label></th>
+                <td><input type="text" name="od_b_country" id="od_b_country" class="frm_input required" maxlength="50"></td>
             </tr>
             <tr><td colspan="2" style="height:12px"></td></tr>
             </tbody>
@@ -988,13 +984,13 @@ function forderform_check()
     f.cur.value = 'USD';
     f.amt.value = number_format(f.good_mny.value, 2, ".", "");
     f.buyer.value = f.od_name.value + " " + f.od_name_last.value;
-    f.tel.value = f.od_hp.value;
+    f.tel.value = f.od_tel.value;
     f.email.value = f.od_email.value;
     f.shipTo_country = f.od_b_country.value;
     f.shipTo_city = f.od_b_city.value;
     f.shipTo_fistName = f.od_b_name.value;
     f.shipTo_lastName = f.od_b_name_last.value;
-    f.shipTo_phoneNumber = f.od_b_hp.value;
+    f.shipTo_phoneNumber = f.od_b_tel.value;
     f.shipTo_postalCode = f.od_b_zip.value;
     f.shipTo_street1 = f.od_b_addr1.value + " " + f.od_b_addr2.value;
 
@@ -1010,7 +1006,7 @@ function gumae2baesong(checked) {
         f.od_b_name.value      = f.od_name.value;
         f.od_b_name_last.value = f.od_name_last.value;
         f.od_b_tel.value       = f.od_tel.value;
-        f.od_b_hp.value        = f.od_hp.value;
+        f.od_b_city.value      = f.od_city.value;
         f.od_b_country.value   = f.od_country.value;
         f.od_b_addr1.value     = f.od_addr1.value;
         f.od_b_addr2.value     = f.od_addr2.value;
@@ -1021,7 +1017,7 @@ function gumae2baesong(checked) {
         f.od_b_name.value      = "";
         f.od_b_name_last.value = "";
         f.od_b_tel.value       = "";
-        f.od_b_hp.value        = "";
+        f.od_b_city.value        = "";
         f.od_b_country.value   = "";
         f.od_b_addr1.value     = "";
         f.od_b_addr2.value     = "";
