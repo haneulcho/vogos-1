@@ -26,8 +26,8 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         </div>
     </div>
     <section id="login_frm_signup">
-        <h2>Haven't signed up yet? Join us!</h2>
-        <p>15% off of your first order when you sign up<br />
+        <h2 style="margin-bottom:10px;">Haven't signed up yet? Join us!</h2>
+        <p style="display:none;">15% off of your first order when you sign up<br />
         *order must be placed within 7 days from sign up.
         </p>
         <div class="login_frm_btns">
