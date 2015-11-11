@@ -960,7 +960,7 @@ box-shadow:-10px 0 20px -15px #444}
   transition: all .3s ease;}
 #sit_ov_tab li a:hover, #sit_ov_tab li.active a {font-weight:700;color:#6c6164;background-color:#f3f3f0;}
 
-.tab_div {display:none;overflow-y:auto;height:132px;padding:28px 40px 47px;font-size:12px;line-height:19px;color:#555;}
+.tab_div {display:none;overflow-y:auto;height:171px;padding:28px 40px 8px;font-size:12px;line-height:19px;color:#555;}
 .tab_div.active {display:block;}
 
 
