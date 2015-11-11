@@ -1920,12 +1920,11 @@ function get_sendcost($cart_id, $selected=1)
         $send_cost_limit = explode(";", $default['de_send_cost_limit']);
         $send_cost_list  = explode(";", $default['de_send_cost_list']);
         $send_cost = 0;
-        for ($k=0; $k<count($send_cost_limit); $k++) {
-            // 총판매금액이 배송비 상한가 보다 작다면
-            if ($total_price < preg_replace('/[^0-9]/', '', $send_cost_limit[$k])) {
-                $send_cost = (float)$send_cost_list[$k];
-                break;
-            }
+        $send_cost_min = '79.99';
+        if($total_price < (float)$send_cost_min) {
+            $send_cost = 16.99;
+        } else {
+            $send_cost = 0;
         }
     }
 
@@ -1961,7 +1960,7 @@ function get_item_sendcost($it_id, $price, $qty, $cart_id)
                 $ct['it_sc_qty'] = 1;
 
             $q = ceil((int)$qty / (int)$ct['it_sc_qty']);
-            $sendcost = (int)$ct['it_sc_price'] * $q;
+            $sendcost = (float)$ct['it_sc_price'] * $q;
         }
     } else if($ct['it_sc_type'] == 1) { // 무료배송
         $sendcost = 0;
