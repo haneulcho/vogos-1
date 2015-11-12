@@ -95,5 +95,32 @@ if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\
         $video.attr('src', $video_src);
     }
 
+    (function($) {
+        var element = $('#sct_30_video'),
+            originalY = element.offset().top;
+        
+        // Space between element and top of screen (when scrolling)
+        var topMargin = 80;
+        
+        // Should probably be set in CSS; but here just for emphasis
+        element.css('position', 'relative');
+        
+        $(window).on('scroll', function(event) {
+            var scrollTop = $(window).scrollTop();
+            
+            if(scrollTop < originalY) {
+                topHeight = 0;
+            } else if(scrollTop > 860) {
+                topHeight = 0;
+            } else {
+                topHeight = scrollTop - originalY + topMargin;
+            }
+
+            element.stop(false, false).animate({
+                top: topHeight
+            }, 300);
+        });
+    })(jQuery);
+
 </script>
 <!-- } 상품진열 30 끝 -->

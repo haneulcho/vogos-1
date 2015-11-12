@@ -35,7 +35,7 @@ $option_1 = get_item_options($it['it_id'], $it['it_option_subject']);
 if($option_1) {
 ?>
 <section class="tbl_wrap tbl_head02">
-    <h3>선택옵션</h3>
+    <h3>Select an option</h3>
     <table class="sit_ov_tbl">
     <colgroup>
         <col class="grid_3">
@@ -57,7 +57,7 @@ $option_2 = get_item_supply($it['it_id'], $it['it_supply_subject']);
 if($option_2) {
 ?>
 <section class="tbl_wrap tbl_head02">
-    <h3>추가옵션</h3>
+    <h3>Select an option</h3>
     <table class="sit_ov_tbl">
     <colgroup>
         <col class="grid_3">
@@ -83,10 +83,8 @@ if($option_2) {
             else
                 $it_stock_qty = get_option_stock_qty($row['it_id'], $row['io_id'], $row['io_type']);
 
-            if($row['io_price'] < 0)
-                $io_price = '('.number_format($row['io_price']).'원)';
-            else
-                $io_price = '(+'.number_format($row['io_price']).'원)';
+            if($row['io_price'] > 0)
+                $io_price = '(+ $'.number_format($row['io_price'], 2);
 
             $cls = 'opt';
             if($row['io_type'])
@@ -101,12 +99,11 @@ if($option_2) {
             <span class="sit_opt_subj"><?php echo $row['ct_option']; ?></span>
             <span class="sit_opt_prc"><?php echo $io_price; ?></span>
             <div>
-                <label for="ct_qty_<?php echo $i; ?>" class="sound_only">수량</label>
-                <input type="text" name="ct_qty[<?php echo $it['it_id']; ?>][]" value="<?php echo $row['ct_qty']; ?>" id="ct_qty_<?php echo $i; ?>" class="frm_input" size="5">
-                <button type="button" class="sit_qty_plus btn_frmline">증가</button>
-                <button type="button" class="sit_qty_minus btn_frmline">감소</button>
-                <button type="button" class="btn_frmline">삭제</button>
+                <label for="ct_qty_<?php echo $i; ?>" class="sound_only">Quantity</label>
+                <button type="button" class="sit_qty_minus btn_frmline"><i class="ion-android-arrow-dropdown"></i></button><input type="text" name="ct_qty[<?php echo $it['it_id']; ?>][]" value="<?php echo $row['ct_qty']; ?>" id="ct_qty_<?php echo $i; ?>" class="frm_input" size="5"><button type="button" class="sit_qty_plus btn_frmline"><i class="ion-android-arrow-dropup"></i></button><button type="button" class="sit_opt_del btn_frmline"><i class="ion-ios-trash-outline"></i></button>
             </div>
+
+
         </li>
         <?php
         }
@@ -117,8 +114,8 @@ if($option_2) {
 <div id="sit_tot_price"></div>
 
 <div class="btn_confirm">
-    <input type="submit" value="선택사항적용" class="btn_submit">
-    <button type="button" id="mod_option_close" class="btn_cancel">닫기</button>
+    <button type="button" id="mod_option_close" class="btn_cancel"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/cart/btn_cancel.jpg"></button>
+    <button type="submit" class="btn_submit"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/cart/btn_update.jpg"></button>
 </div>
 </form>
 
@@ -135,19 +132,19 @@ function formcheck(f)
         val = $(this).val();
 
         if(val.length < 1) {
-            alert("수량을 입력해 주십시오.");
+            alert("Please check a quantity.");
             result = false;
             return false;
         }
 
         if(val.replace(/[0-9]/g, "").length > 0) {
-            alert("수량은 숫자로 입력해 주십시오.");
+            alert("Invalid number. Please input valid number.");
             result = false;
             return false;
         }
 
         if(parseInt(val.replace(/[^0-9]/g, "")) < 1) {
-            alert("수량은 1이상 입력해 주십시오.");
+            alert("Please specify a quantity larger than 0 in a product.");
             result = false;
             return false;
         }
@@ -162,12 +159,12 @@ function formcheck(f)
     }
 
     if(min_qty > 0 && sum_qty < min_qty) {
-        alert("선택옵션 개수 총합 "+number_format(String(min_qty))+"개 이상 주문해 주십시오.");
+        alert("Please specify a quantity larger than "+number_format(String(min_qty))+" in a product.");
         return false;
     }
 
     if(max_qty > 0 && sum_qty > max_qty) {
-        alert("선택옵션 개수 총합 "+number_format(String(max_qty))+"개 이하로 주문해 주십시오.");
+        alert("Please specify a quantity less than "+number_format(String(max_qty))+" in a product.");
         return false;
     }
 

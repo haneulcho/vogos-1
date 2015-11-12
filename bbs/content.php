@@ -66,8 +66,6 @@ $content_skin_path = G5_SKIN_PATH.'/content/'.$co['co_skin'];
 $content_skin_url  = G5_SKIN_URL.'/content/'.$co['co_skin'];
 $skin_file = $content_skin_path.'/content.skin.php';
 
-if ($is_admin)
-    echo '<div class="ctt_admin"><a href="'.G5_ADMIN_URL.'/contentform.php?w=u&amp;co_id='.$co_id.'" class="btn_admin">내용 수정</a></div>';
 ?>
 
 <?php

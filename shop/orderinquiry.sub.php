@@ -5,18 +5,18 @@ if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
 ?>
 
 <!-- 주문 내역 목록 시작 { -->
-<?php if (!$limit) { ?>총 <?php echo $cnt; ?> 건<?php } ?>
+<?php if (!$limit) { ?>Total: <?php echo $cnt; ?><?php } ?>
 
-<div class="tbl_head01 tbl_wrap">
+<div class="sct_cart_tbl">
     <table>
     <thead>
     <tr>
-        <th scope="col">Order Number</th>
-        <th scope="col">Order Date</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Order cost</th>
-        <th scope="col">미입금액</th>
-        <th scope="col">Order status</th>
+        <th class="th_iqr_no" scope="col">ORDER NUMBER</th>
+        <th class="th_iqr_date" scope="col">ORDER DATE</th>
+        <th class="th_iqr_num" scope="col">TOTAL PRICE</th>
+        <th class="th_iqr_num" scope="col">SHIPPING COST</th>
+        <th class="th_iqr_emp" scope="col">SUBTOTAL</th>
+        <th class="th_iqr_emp" scope="col">ORDER STATUS</th>
     </tr>
     </thead>
     <tbody>
@@ -36,34 +36,32 @@ if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
                 $od_status = '입금확인중';
                 break;
             case '입금':
-                $od_status = '입금완료';
+                $od_status = 'Payment Completed';
                 break;
             case '준비':
-                $od_status = '상품준비중';
+                $od_status = 'On hold';
                 break;
             case '배송':
-                $od_status = '상품배송';
+                $od_status = 'Out for Delivery';
                 break;
             case '완료':
-                $od_status = '배송완료';
+                $od_status = 'Delivered';
                 break;
             default:
-                $od_status = '주문취소';
+                $od_status = 'Canceled';
                 break;
         }
     ?>
-
     <tr>
         <td>
             <input type="hidden" name="ct_id[<?php echo $i; ?>]" value="<?php echo $row['ct_id']; ?>">
             <a href="<?php echo G5_SHOP_URL; ?>/orderinquiryview.php?od_id=<?php echo $row['od_id']; ?>&amp;uid=<?php echo $uid; ?>"><?php echo $row['od_id']; ?></a>
         </td>
-        <td><?php echo substr($row['od_time'],2,14); ?> (<?php echo get_yoil($row['od_time']); ?>)</td>
-        <td class="td_num"><?php echo $row['od_cart_count']; ?></td>
-        <td class="td_numbig"><?php echo display_price($row['od_cart_price'] + $row['od_send_cost'] + $row['od_send_cost2']); ?></td>
+        <td><?php echo $row['od_time']; ?></td>
+        <td class="td_numbig"><?php echo display_price($row['od_cart_price']); ?></td>
+        <td class="td_numbig"><?php echo display_price($row['od_send_cost'] + $row['od_send_cost2']); ?></td>
         <td class="td_numbig"><?php echo display_price($row['od_receipt_price']); ?></td>
-        <td class="td_numbig"><?php echo display_price($row['od_misu']); ?></td>
-        <td><?php echo $od_status; ?></td>
+        <td class="tomato"><a class="view_order" href="<?php echo G5_SHOP_URL; ?>/orderinquiryview.php?od_id=<?php echo $row['od_id']; ?>&amp;uid=<?php echo $uid; ?>"><?php echo $od_status; ?><span><i class="ion-ios-eye"></i> VIEW ORDER DETAILS</span></a></td>
     </tr>
 
     <?php
@@ -75,4 +73,8 @@ if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
     </tbody>
     </table>
 </div>
+
+    <div id="sod_bsk_act_con">
+        <a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=10" class="continue">Continue Shopping</a>
+    </div>
 <!-- } 주문 내역 목록 끝 -->

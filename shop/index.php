@@ -47,37 +47,12 @@ define("_INDEX_", TRUE);
 
 include_once(G5_SHOP_PATH.'/shop.head.php');
 ?>
-
-    <?php if($default['de_type3_list_use']) { ?>
-    <!-- New Arrivals 시작 { -->
-    <section class="sct_wrap">
-    <div class="fullWidth">
-        <header>
-            <h2><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL ?>/img/title_vogos_newarrivals.jpg" alt="VOGOS NEW ARRIVALS"></a></h2>
-        </header>
-        <?php
-        $list = new item_list();
-        $list->set_type(3);
-        $list->set_view('it_id', false);
-        $list->set_view('it_name', true);
-        $list->set_view('it_basic', true);
-        $list->set_view('it_cust_price', false);
-        $list->set_view('it_price', true);
-        $list->set_view('it_icon', true);
-        $list->set_view('sns', false);
-        echo $list->run();
-        ?>
-    </div>
-    </section>
-    <!-- } New Arrivals 끝 -->
-    <?php } ?>
-
     <?php if($default['de_type2_list_use']) { ?>
     <!-- runway product 시작 { -->
     <section class="sct_wrap f8f8f8">
     <div class="fullWidth">
         <header>
-            <h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2"><img src="<?php echo G5_SHOP_SKIN_URL ?>/img/title_vogos_slogan.jpg" alt="VOGOS NEW ARRIVALS"></a></h2>
+            <h2><a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=10"><img src="<?php echo G5_SHOP_SKIN_URL ?>/img/title_vogos_slogan.jpg" alt="VOGOS NEW ARRIVALS"></a></h2>
         </header>
         <?php
         $list = new item_list();
@@ -95,6 +70,34 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
     </section>
     <!-- } runway product 끝 -->
     <?php } ?>
+
+    <?php if($default['de_type3_list_use']) { ?>
+    <!-- New Arrivals 시작 { -->
+    <section class="sct_wrap">
+    <div class="fullWidth">
+        <header>
+            <h2><a href="#"><img src="<?php echo G5_SHOP_SKIN_URL ?>/img/title_vogos_newarrivals.jpg" alt="VOGOS NEW ARRIVALS"></a></h2>
+        </header>
+        <?php
+        $order_by = 'it_update_time desc';
+
+        $list = new item_list();
+        $list->set_type(3);
+        $list->set_order_by($order_by);
+        $list->set_view('it_id', false);
+        $list->set_view('it_name', true);
+        $list->set_view('it_basic', true);
+        $list->set_view('it_cust_price', false);
+        $list->set_view('it_price', true);
+        $list->set_view('it_icon', true);
+        $list->set_view('sns', false);
+        echo $list->run();
+        ?>
+    </div>
+    </section>
+    <!-- } New Arrivals 끝 -->
+    <?php } ?>
+
 
 <?php // echo poll('shop_basic'); // 설문조사 ?>
 

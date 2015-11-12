@@ -39,7 +39,7 @@ body {background-color:#fff;font-size:12px;font-family:'Apple SD Gothic Neo','Na
 -moz-box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);
 box-shadow: inset 0px 3px 1px 0px rgba(237,237,237,1);}
 #mb_login .login_frm_btns {height:45px;padding-top:14px !important;}
-#mb_login .login_frm_btns * {font-family:'malgun gothic';letter-spacing:0;line-height:1em;height:45px;-webkit-border-radius:border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius:5px;outline:0;
+#mb_login .login_frm_btns * {letter-spacing:0;line-height:1em;height:45px;-webkit-border-radius:border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius:5px;outline:0;
 -webkit-transition:all ease .2s;-moz-transition:all ease .2s;-o-transition:all ease .2s;transition:all ease .2s;
 -webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
 #mb_login .login_frm_btns a {float:left;font-size:1.2em;width:33%;margin-right:5px;background-color:#7c7c7c; border:1px solid #757575;color:#fff;text-align:center;padding:16px 0;}

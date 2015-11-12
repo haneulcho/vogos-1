@@ -134,7 +134,7 @@ function add_cart(frm)
     var $opt = $frm.find("ul.options li.selected");
     var $sel = $frm.find("select.it_option");
     var it_name = $frm.find("input[name^=it_name]").val();
-    var it_price = parseInt($frm.find("input[name^=it_price]").val());
+    var it_price = parseFloat($frm.find("input[name^=it_price]").val());
     var id = "";
     var value, info, sel_opt, item, price, stock, run_error = false;
     var option = sep = "";
@@ -167,11 +167,11 @@ function add_cart(frm)
                 sep = " / ";
             }
 
-            option += sep + item + ":" + sel_opt;
+            option += sep + item + ": " + sel_opt;
         });
 
         if(run_error) {
-            alert(it_name+"의 "+item+"을(를) 선택해 주십시오.");
+            alert("Please select: "+item);
             return false;
         }
 
@@ -185,7 +185,7 @@ function add_cart(frm)
 
     // 금액 음수 체크
     if(it_price + parseInt(price) < 0) {
-        alert("구매금액이 음수인 상품은 구매할 수 없습니다.");
+        alert("Please enter valid number.");
         return false;
     }
 

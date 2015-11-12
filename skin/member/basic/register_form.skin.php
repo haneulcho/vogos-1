@@ -165,6 +165,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
                 <option value="Kenya">Kenya</option>
                 <option value="Kiribati">Kiribati</option>
                 <option value="Korea, North">Korea, North</option>
+                <option value="Korea, South (Republic of Korea)">Korea, South (Republic of Korea)</option>
                 <option value="Kosovo">Kosovo</option>
                 <option value="Kuwait">Kuwait</option>
                 <option value="Kyrgyzstan">Kyrgyzstan</option>
@@ -299,9 +300,15 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         <table>
         <caption>Additional Information</caption>
         <tr>
-            <th scope="row"><label for="reg_mb_name">Name(First Name)<strong class="sound_only">*</strong></label></th>
+            <th scope="row"><label for="reg_mb_name">First Name<strong class="sound_only">*</strong></label></th>
             <td>
                 <input type="text" id="reg_mb_name" name="mb_name" value="<?php echo $member['mb_name'] ?>" <?php echo $required ?> class="frm_input <?php echo $required ?>">
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="reg_mb_name_last">Last Name<strong class="sound_only">*</strong></label></th>
+            <td>
+                <input type="text" id="reg_mb_name_last" name="mb_name_last" value="<?php echo $member['mb_name_last'] ?>" <?php echo $required ?> class="frm_input <?php echo $required ?>">
             </td>
         </tr>
         <?php if ($config['cf_use_tel']) { ?>
@@ -314,19 +321,13 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         <?php } ?>
         <?php if ($config['cf_use_hp']) { ?>
         <tr>
-            <th scope="row"><label for="reg_mb_hp">Mobile Phone</label></th>
+            <th scope="row"><label for="reg_mb_hp">Mobile</label></th>
             <td>
                 <input type="text" name="mb_hp" value="<?php echo $member['mb_hp'] ?>" id="reg_mb_hp" class="frm_input" maxlength="20">
             </td>
         </tr>
         <?php } ?>
         <?php if ($config['cf_use_addr']) { ?>
-        <tr>
-            <th scope="row"><label for="reg_mb_zip">Postal Code</label></th>
-            <td>
-                <input type="text" name="mb_zip" value="<?php echo $member['mb_zip']; ?>" id="reg_mb_zip" class="frm_input" size="5" maxlength="15">
-            </td>
-        </tr>
         <tr>
             <th scope="row"><label for="reg_mb_addr1">Address Line 1</label></th>
             <td>
@@ -337,6 +338,12 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
             <th scope="row"><label for="reg_mb_addr2">Address Line 2</label></th>
             <td>
                 <input type="text" name="mb_addr2" value="<?php echo $member['mb_addr2']; ?>" id="reg_mb_addr2" class="frm_input" size="5" maxlength="65">
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="reg_mb_zip">Postal Code</label></th>
+            <td>
+                <input type="text" name="mb_zip" value="<?php echo $member['mb_zip']; ?>" id="reg_mb_zip" class="frm_input" size="5" maxlength="15">
             </td>
         </tr>
         <?php } ?>
@@ -350,7 +357,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
             <th scope="row">I'd like to receive exclusive discounts and news from VOGOS by email and post</th>
             <td>
                 <input type="radio" name="mb_mailling" value="1" id="reg_mb_mailling1" <?php echo ($w=='' || $member['mb_mailling'])?'checked':''; ?>> <label for="reg_mb_mailling1" style="margin-right:10px;">Yes</label>
-                <input type="radio" name="mb_mailling" value="0" id="reg_mb_mailling0"> <label for="reg_mb_mailling0">No, Thanks</label>
+                <input type="radio" name="mb_mailling" value="0" id="reg_mb_mailling0"> <label for="reg_mb_mailling0">No thanks</label>
             </td>
         </tr>
 
@@ -369,6 +376,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
     <script>
     $(function() {
+        $("#reg_mb_id").focus();
         $("#reg_zip_find").css("display", "inline-block");
 
         var $mb_country = "<?php echo $member['mb_country']; ?>";

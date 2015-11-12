@@ -109,6 +109,12 @@ else if ($act == "seldelete") // 선택삭제
         }
     }
 }
+else if ($act == "onedelete") // 하나만 삭제
+{
+    $it_del_id = $_POST['it_del_id'];
+    $sql = " delete from {$g5['g5_shop_cart_table']} where it_id = '$it_del_id' and od_id = '$tmp_cart_id' ";
+    sql_query($sql);
+}
 else // 장바구니에 담기
 {
     $count = count($_POST['it_id']);
@@ -261,10 +267,10 @@ else // 장바구니에 담기
 
             // 구매가격이 음수인지 체크
             if($io_type) {
-                if((int)$io_price < 0)
+                if((float)$io_price < 0)
                     alert('구매금액이 음수인 상품은 구매할 수 없습니다.');
             } else {
-                if((int)$it['it_price'] + (int)$io_price < 0)
+                if((float)$it['it_price'] + (float)$io_price < 0)
                     alert('구매금액이 음수인 상품은 구매할 수 없습니다.');
             }
 

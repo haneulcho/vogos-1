@@ -53,10 +53,10 @@ if($config['cf_add_meta'])
 ?>
 <meta property="og:type" content="website">
 <?php if (!isset($og_title)) { ?>
-<meta property="og:title" content="VOGOS (보고스)">
+<meta property="og:title" content="VOGOS.com">
 <meta property="og:url" content="http://vogos.com">
-<meta property="og:description" content="Everywhere is Runway, Everyday VOGOS">
-<meta property="og:image" content="<?php echo G5_SHOP_SKIN_URL.'/img/og_img.png' ?>">
+<meta property="og:description" content="Everywhere is a Runway, Everyday VOGOS">
+<meta property="og:image" content="<?php echo G5_SHOP_SKIN_URL.'/img/og_img2.png' ?>">
 <?php } else { ?>
 <meta property="og:title" content="<?=$og_title ?>">
 <meta property="og:url" content="<?=$og_url ?>">
