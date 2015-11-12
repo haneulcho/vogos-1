@@ -54,6 +54,8 @@ if (!$is_member)
 
 $g5['title'] = 'Order History';
 include_once(G5_MSHOP_PATH.'/_head.php');
+
+add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">', 0);
 ?>
 
 <!-- 주문 내역 시작 { -->

@@ -24,6 +24,8 @@ $settle_case = $od['od_settle_case'];
 $g5['title'] = 'Your Order Details';
 include_once(G5_MSHOP_PATH.'/_head.php');
 
+add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">', 0);
+
 // 로그분석기 시작
 if($_SESSION['ord_num'] != $od_id) {
     $http_SO = "payend";  //결제완료페이지

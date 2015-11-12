@@ -11,7 +11,7 @@ if (empty($member['mb_name'])) {
 }
 
 include_once(G5_MSHOP_PATH.'/_head.php');
-
+add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">', 0);
 // 쿠폰
 $cp_count = 0;
 $sql = " select cp_id

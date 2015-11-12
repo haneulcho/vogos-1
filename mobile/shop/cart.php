@@ -16,7 +16,7 @@ $cart_action_url = G5_SHOP_URL.'/cartupdate.php';
 
 $g5['title'] = 'My Cart';
 include_once(G5_MSHOP_PATH.'/_head.php');
-
+add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">', 0);
 $tot_point = 0;
 $tot_sell_price = 0;
 

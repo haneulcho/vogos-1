@@ -2,6 +2,8 @@
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
+
+add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">', 0);
 ?>
 
 <!-- 주문 내역 목록 시작 { -->

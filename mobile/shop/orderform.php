@@ -34,6 +34,7 @@ if($default['de_iche_use'] || $default['de_vbank_use'] || $default['de_hp_use'] 
 }
 
 include_once(G5_MSHOP_PATH.'/_head.php');
+add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">', 0);
 if ($default['de_hope_date_use']) {
     include_once(G5_PLUGIN_PATH.'/jquery-ui/datepicker.php');
 }
@@ -44,9 +45,9 @@ set_session('ss_order_id', $od_id);
 $s_cart_id = $tmp_cart_id;
 $order_action_url = G5_HTTPS_MSHOP_URL.'/eximbay/request.php';
 
-    require_once('./settle_'.$default['de_pg_service'].'.inc.php');
+    require_once(G5_MSHOP_PATH.'/settle_'.$default['de_pg_service'].'.inc.php');
     // 결제대행사별 코드 include (스크립트 등)
-    require_once('./'.$default['de_pg_service'].'/orderform.1.php');
+    require_once(G5_MSHOP_PATH.'/'.$default['de_pg_service'].'/orderform.1.php');
 ?>
 <script>
 var f = document.forderform;
@@ -313,7 +314,7 @@ var f = document.forderform;
     <input type="hidden" name="od_ref" value="<?php echo $od_id; ?>">
 
     <?php
-    require_once('./'.$default['de_pg_service'].'/orderform.2.php');
+    require_once(G5_MSHOP_PATH.'/'.$default['de_pg_service'].'/orderform.2.php');
     ?>
 
     <!-- 주문하시는 분 입력 시작 { -->
@@ -997,7 +998,7 @@ var f = document.forderform;
             $checked = '';
         }
     // 결제대행사별 코드 include (주문버튼)
-    require_once('./'.$default['de_pg_service'].'/orderform.3.php');
+    require_once(G5_MSHOP_PATH.'/'.$default['de_pg_service'].'/orderform.3.php');
     ?>
     </form>
 
@@ -1502,5 +1503,5 @@ $(function(){
 include_once(G5_MSHOP_PATH.'/_tail.php');
 
 // 결제대행사별 코드 include (스크립트 실행)
-require_once('./'.$default['de_pg_service'].'/orderform.5.php');
+require_once(G5_MSHOP_PATH.'/'.$default['de_pg_service'].'/orderform.5.php');
 ?>

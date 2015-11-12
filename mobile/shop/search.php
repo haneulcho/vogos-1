@@ -4,6 +4,8 @@ include_once('./_common.php');
 $g5['title'] = "Search";
 include_once(G5_MSHOP_PATH.'/_head.php');
 
+add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">', 0);
+
 // QUERY 문에 공통적으로 들어가는 내용
 // 상품명에 검색어가 포한된것과 상품판매가능인것만
 $sql_common = " from {$g5['g5_shop_item_table']} a, {$g5['g5_shop_category_table']} b ";
