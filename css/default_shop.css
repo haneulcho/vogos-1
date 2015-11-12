@@ -79,7 +79,7 @@ background-color:#f3f3f3; color:#a7a7a7;outline:0;font-weight:bold;
 #wrapper, #idx_wrap {z-index:5;margin:0px auto;width:100%;zoom:1;background:#fff/*#ededed*/}
 #wrapper:after, #idx_wrap:after {display:block;visibility:hidden;clear:both;content:""}
 #wrapper_title {margin-bottom:20px;font-size:1.2em;font-weight:bold}
-#idx_wrap {padding-top:60px;background-color:#ebeff2;}
+#idx_wrap {padding-top:60px;background-color:#ececec;}
 
 /*상품배너*/
 /*#idx_wrap{width:1220px;margin:0 auto;position:relative;}

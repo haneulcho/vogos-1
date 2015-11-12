@@ -80,7 +80,7 @@ a.gnb_1da {display:inline-block;padding:21px 17px 5px;text-overflow: ellipsis;bo
 /*.sbn {margin:0 0 5px}*/
 .sbn h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 .sbn ul {margin:0;padding:0;border:0;list-style:none}
-.sbn li {margin:0 0 1px}
+.sbn li {margin:0}
 .sbn .sbn_border {border:1px solid #d5d5d5} /* 인덱스 배너도 함께 사용 */
 
 
@@ -506,7 +506,7 @@ transition: opacity 300ms ease-out, top 300ms ease-out;
 .sct_list_20:after {display:block;visibility:hidden;clear:both;content:""}
 .sct_list_20 button {border:0;outline:none;}
 .sct_list_20 .sct_li {position:relative;float:left;margin:0 0 51px 14px}
-.sct_list_20>li:nth-child(9), .sct_list_20>li:nth-child(10) {margin-bottom:0;}
+.sct_list_20>li:nth-child(11), .sct_list_20>li:nth-child(12) {margin-bottom:0;}
 .sct_list_20 .sct_clear {clear:both;margin-left:0;}
 .sct_list_20 .sct_a {display:block;position:relative;text-decoration:none;}
 .sct_list_20 .sct_a:focus, .sct_list_20 .sct_a:hover {text-decoration:none}

@@ -110,7 +110,7 @@ if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\
             
             if(scrollTop < originalY) {
                 topHeight = 0;
-            } else if(scrollTop > 2000) {
+            } else if(scrollTop > 860) {
                 topHeight = 0;
             } else {
                 topHeight = scrollTop - originalY + topMargin;
