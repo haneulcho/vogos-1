@@ -1,4 +1,4 @@
-<?php
+<?php 
 include_once('./_common.php');
 
 set_session("ss_direct", $sw_direct);
@@ -11,9 +11,27 @@ else {
 }
 
 if (get_cart_count($tmp_cart_id) == 0)
-    alert('장바구니가 비어 있습니다.', G5_SHOP_URL.'/cart.php');
+    alert('Your shopping cart is empty.', G5_SHOP_URL.'/cart.php');
 
-$g5['title'] = '주문서 작성';
+$g5['title'] = 'Proceed to Checkout';
+
+// 전자결제를 사용할 때만 실행
+if($default['de_iche_use'] || $default['de_vbank_use'] || $default['de_hp_use'] || $default['de_card_use']) {
+    switch($default['de_pg_service']) {
+        case 'eximbay':
+            //$g5['body_script'] = ' onload="isActiveXOK();"';
+            break;        
+        case 'lg':
+            $g5['body_script'] = ' onload="isActiveXOK();"';
+            break;
+        case 'inicis':
+            $g5['body_script'] = ' onload="javascript:enable_click()"';
+            break;
+        default:
+            $g5['body_script'] = ' onload="CheckPayplusInstall();"';
+            break;
+    }
+}
 
 include_once(G5_MSHOP_PATH.'/_head.php');
 if ($default['de_hope_date_use']) {
@@ -23,28 +41,39 @@ if ($default['de_hope_date_use']) {
 // 새로운 주문번호 생성
 $od_id = get_uniqid();
 set_session('ss_order_id', $od_id);
-
 $s_cart_id = $tmp_cart_id;
-$order_action_url = G5_HTTPS_MSHOP_URL.'/orderformupdate.php';
+$order_action_url = G5_HTTPS_MSHOP_URL.'/eximbay/request.php';
 
-require_once(G5_MSHOP_PATH.'/settle_'.$default['de_pg_service'].'.inc.php');
-
-// 결제등록 요청시 사용할 입금마감일
-$ipgm_date = date("Ymd", (G5_SERVER_TIME + 86400 * 5));
-$tablet_size = "1.0"; // 화면 사이즈 조정 - 기기화면에 맞게 수정(갤럭시탭,아이패드 - 1.85, 스마트폰 - 1.0)
-
-// 개인결제번호제거
-set_session('ss_personalpay_id', '');
-set_session('ss_personalpay_hash', '');
+    require_once('./settle_'.$default['de_pg_service'].'.inc.php');
+    // 결제대행사별 코드 include (스크립트 등)
+    require_once('./'.$default['de_pg_service'].'/orderform.1.php');
 ?>
+<script>
+var f = document.forderform;
+</script>
+<form name="forderform" id="forderform" method="post" action="<?php echo $order_action_url; ?>" autocomplete="off">
+<div id="sod_frm">
 
-<div id="sod_approval_frm">
-<?php
-ob_start();
-?>
-    <p>주문하실 상품을 확인하세요.</p>
+    <div id="sod_title">
+        <header class="fullWidth">
+            <h2 class="title_order">Proceed to Checkout</h2>
+        </header>
+    </div>
 
-    <ul class="sod_list">
+    <div class="fullWidth">
+    <!-- 주문상품 확인 시작 { -->
+    <div class="sct_cart_tbl review_order">
+        <div class="ro_title"><span>1</span>Review<br>Your Order</div>
+        <table id="sod_list">
+        <thead>
+        <tr>
+            <th class="th_cart_des" scope="col" colspan="2" class="itemdes">ITEM DESCRIPTION</th>
+            <th class="th_cart_qty" scope="col">TOTAL QTY</th>
+            <th class="th_cart_num" scope="col">UNIT PRICE</th>
+            <th class="th_cart_num" scope="col">TOTAL PRICE</th>
+        </tr>
+        </thead>
+        <tbody>
         <?php
         $tot_point = 0;
         $tot_sell_price = 0;
@@ -103,7 +132,7 @@ ob_start();
             {
                 //$goods = addslashes($row[it_name]);
                 //$goods = get_text($row[it_name]);
-                $goods = preg_replace("/\?|\'|\"|\||\,|\&|\;/", "", $row['it_name']);
+                $goods = preg_replace("/\'|\"|\||\,|\&|\;/", "", $row['it_name']);
                 $goods_it_id = $row['it_id'];
             }
             $goods_count++;
@@ -119,13 +148,9 @@ ob_start();
                 $good_info .= "good_amtx=".$row['ct_price'].chr(31);
             }
 
-            $a1 = '<strong>';
-            $a2 = '</strong>';
-            $image_width = 80;
-            $image_height = 80;
-            $image = get_it_image($row['it_id'], $image_width, $image_height);
+            $image = get_it_image_best($row['it_id'], 105, 140, 8, '', '', 'original', stripslashes($row['it_name']));
 
-            $it_name = $a1 . stripslashes($row['it_name']) . $a2;
+            $it_name = '<span class="cart_it_name"><b>'.stripslashes($row['it_name']).'</b></span>';
             $it_options = print_item_options($row['it_id'], $s_cart_id);
             if($it_options) {
                 $it_name .= '<div class="sod_opt">'.$it_options.'</div>';
@@ -169,7 +194,7 @@ ob_start();
                 }
 
                 if($cp_count) {
-                    $cp_button = '<div class="li_cp"><button type="button" class="cp_btn">쿠폰적용</button></div>';
+                    $cp_button = '<button type="button" class="cp_btn btn_frmline">적용</button>';
                     $it_cp_count++;
                 }
             }
@@ -181,10 +206,10 @@ ob_start();
                     $ct_send_cost = '착불';
                     break;
                 case 2:
-                    $ct_send_cost = '무료';
+                    $ct_send_cost = 'free';
                     break;
                 default:
-                    $ct_send_cost = '선불';
+                    $ct_send_cost = '';
                     break;
             }
 
@@ -195,34 +220,33 @@ ob_start();
                 if($sendcost == 0)
                     $ct_send_cost = '무료';
             }
+
+            $item_qty = $row['ct_qty'];
         ?>
 
-        <li class="sod_li">
-            <input type="hidden" name="it_id[<?php echo $i; ?>]"    value="<?php echo $row['it_id']; ?>">
-            <input type="hidden" name="it_name[<?php echo $i; ?>]"  value="<?php echo get_text($row['it_name']); ?>">
-            <input type="hidden" name="it_price[<?php echo $i; ?>]" value="<?php echo $sell_price; ?>">
-            <?php if($default['de_tax_flag_use']) { ?>
-            <input type="hidden" name="it_notax[<?php echo $i; ?>]" value="<?php echo $row['it_notax']; ?>">
-            <?php } ?>
-            <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
-            <input type="hidden" name="cp_price[<?php echo $i; ?>]" value="0">
-            <div class="li_name">
+        <tr>
+            <td class="cart_img"><?php echo $image; ?></td>
+            <td class="cart_des">
+                <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
+                <input type="hidden" name="it_name[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name']); ?>">
+                <input type="hidden" name="it_price[<?php echo $i; ?>]" value="<?php echo $sell_price; ?>">
+                <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
+                <input type="hidden" name="cp_price[<?php echo $i; ?>]" value="0">
+                <input type="hidden" name="item_<?php echo $i; ?>_product" value="<?php echo get_text($row['it_name']); ?>">
+                <input type="hidden" name="item_<?php echo $i; ?>_quantity" value="<?php echo $sum['qty']; ?>">
+                <input type="hidden" name="item_<?php echo $i; ?>_unitPrice" value="<?php echo number_format($sell_price, 2, ".", ""); ?>">
+                <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
+                <input type="hidden" name="cp_price[<?php echo $i; ?>]" value="0">
+                <?php if($default['de_tax_flag_use']) { ?>
+                <input type="hidden" name="it_notax[<?php echo $i; ?>]" value="<?php echo $row['it_notax']; ?>">
+                <?php } ?>
                 <?php echo $it_name; ?>
-                <div class="li_mod"  style="padding-left:<?php echo $image_width + 20; ?>px;"><?php echo $cp_button; ?></div>
-                <span class="total_img"><?php echo $image; ?></span>
-
-            </div>
-            <div class="li_prqty">
-                <span class="prqty_price li_prqty_sp"><span>판매가 </span><?php echo number_format($row['ct_price']); ?></span>
-                <span class="prqty_qty li_prqty_sp"><span>수량 </span><?php echo number_format($sum['qty']); ?></span>
-                <span class="prqty_sc li_prqty_sp"><span>배송비 </span><?php echo $ct_send_cost; ?></span>
-            </div>
-            <div class="li_total">
-                <span class="total_price total_span"><span>주문금액 </span><strong><?php echo number_format($sell_price); ?></strong></span>
-                <span class="total_point total_span"><span>적립포인트 </span><strong><?php echo number_format($sum['point']); ?></strong></span>
-            </div>
-
-        </li>
+            </td>
+            <td class="cart_qty"><?php echo number_format($sum['qty']); ?></td>
+            <td class="cart_num"><?php echo number_format($row['ct_price'], 2); ?></td>
+            <td class="cart_num"><span class="total_price"><?php echo number_format($sell_price, 2); ?></span></td>
+            <!-- <td class="td_dvr"><?php //echo $ct_send_cost; ?></td> -->
+        </tr>
 
         <?php
             $tot_point      += $point;
@@ -241,8 +265,8 @@ ob_start();
         } // for 끝
 
         if ($i == 0) {
-            //echo '<tr><td colspan="'.$colspan.'" class="empty_table">장바구니에 담긴 상품이 없습니다.</td></tr>';
-            alert('장바구니가 비어 있습니다.', G5_SHOP_URL.'/cart.php');
+            //echo '<tr><td colspan="7" class="empty_table">장바구니에 담긴 상품이 없습니다.</td></tr>';
+            alert('There are no items in your cart.', G5_SHOP_URL.'/cart.php');
         } else {
             // 배송비 계산
             $send_cost = get_sendcost($s_cart_id);
@@ -254,233 +278,668 @@ ob_start();
             $comm_vat_mny = ($tot_tax_mny + $send_cost) - $comm_tax_mny;
         }
         ?>
-    </ul>
+        </tbody>
+        </table>
+    </div>
 
     <?php if ($goods_count) $goods .= ' 외 '.$goods_count.'건'; ?>
+    <!-- } 주문상품 확인 끝 -->
 
-    <dl id="sod_bsk_tot">
-        <dt class="sod_bsk_sell">주문</dt>
-        <dd class="sod_bsk_sell"><strong><?php echo number_format($tot_sell_price); ?> 원</strong></dd>
-        <?php if($it_cp_count > 0) { ?>
-        <dt class="sod_bsk_coupon">쿠폰</dt>
-        <dd class="sod_bsk_coupon"><strong id="ct_tot_coupon">0 원</strong></dd>
-        <?php } ?>
-        <dt class="sod_bsk_dvr">배송비</dt>
-        <dd class="sod_bsk_dvr"><strong><?php echo number_format($send_cost); ?> 원</strong></dd>
-        <dt class="sod_bsk_cnt">총계</dt>
-        <dd class="sod_bsk_cnt">
+    <!-- 주문상품 합계 시작 { -->
+    <table id="sod_bsk_tot" class="subtotal_order">
+        <tr class="sod_shipping">
+            <td class="sod_bsk_dvr">TOTAL PRICE</td>
+            <td class="sod_bsk_cnt"><strong>$<?php echo number_format($tot_sell_price, 2); ?></strong></td>
+        </tr>
+        <tr class="sod_shipping">
+            <td class="sod_bsk_dvr">SHIPPING COST</td>
+            <td class="sod_bsk_cnt"><strong>$<?php echo number_format($send_cost, 2); ?></strong></td>
+        </tr>
+        <tr class="sod_subtotal">
             <?php $tot_price = $tot_sell_price + $send_cost; // 총계 = 주문상품금액합계 + 배송비 ?>
-            <strong id="ct_tot_price"><?php echo number_format($tot_price); ?> 원</strong>
-        </dd>
-        <dt class="sod_bsk_point">포인트</dt>
-        <dd class="sod_bsk_point"><strong><?php echo number_format($tot_point); ?> 점</strong></dd>
-    </dl>
+            <td class="sod_bsk_dvr">SUBTOTAL</td>
+            <td class="sod_bsk_cnt"><strong>$<?php echo number_format($tot_price, 2); ?></strong></td>
+        </tr>
+    </table>
+    <!-- } 주문상품 합계 끝 -->
 
-<?php
-$content = ob_get_contents();
-ob_end_clean();
-
-// 결제대행사별 코드 include (결제등록 필드)
-require_once(G5_MSHOP_PATH.'/'.$default['de_pg_service'].'/orderform.1.php');
-?>
-</div>
-
-<!-- 네이버 프리미엄로그분석 전환페이지 설정 -->
- <script type="text/javascript" src="http://wcs.naver.net/wcslog.js"> </script> 
- <script type="text/javascript">
-var _nasa={};
- _nasa["cnv"] = wcs.cnv("4","10000");
-</script>
-
-<div id="sod_frm">
-    <form name="forderform" method="post" action="<?php echo $order_action_url; ?>" autocomplete="off">
-    <input type="hidden" name="od_price"    value="<?php echo $tot_sell_price; ?>">
-    <input type="hidden" name="org_od_price"    value="<?php echo $tot_sell_price; ?>">
-    <input type="hidden" name="od_send_cost" value="<?php echo $send_cost; ?>">
+    <input type="hidden" name="od_price" value="<?php echo number_format($tot_sell_price, 2, ".", ""); ?>">
+    <input type="hidden" name="org_od_price" value="<?php echo number_format($tot_sell_price, 2, ".", ""); ?>">
+    <input type="hidden" name="od_send_cost" value="<?php echo number_format($send_cost, 2, ".", ""); ?>">
     <input type="hidden" name="od_send_cost2" value="0">
     <input type="hidden" name="item_coupon" value="0">
     <input type="hidden" name="od_coupon" value="0">
     <input type="hidden" name="od_send_coupon" value="0">
+    <input type="hidden" name="od_ref" value="<?php echo $od_id; ?>">
 
-    <?php echo $content; ?>
+    <?php
+    require_once('./'.$default['de_pg_service'].'/orderform.2.php');
+    ?>
 
-    <section id="sod_frm_orderer" >
-        <h2>주문하시는 분</h2>
-
-        <div class="odf_tbl">
-            <table>
+    <!-- 주문하시는 분 입력 시작 { -->
+    <section id="sod_frm_orderer">
+    <div class="sct_cart_tbl review_order">
+        <div class="ro_title"><span>2</span>Billing<br>Address</div>
+        <table id="sod_list" class="ads_list">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2" class="">Please provide your billing information.</th>
+                </tr>
+            </thead>
             <tbody>
+            <tr><td colspan="2" style="height:12px"></td></tr>
             <tr>
-                <th scope="row"><label for="od_name">이름<strong class="sound_only"> 필수</strong></label></th>
+                <th scope="row"><label for="od_name">First Name<strong class="sound_only"> required</strong></label></th>
                 <td><input type="text" name="od_name" value="<?php echo $member['mb_name']; ?>" id="od_name" required class="frm_input required" maxlength="20"></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="od_name_last">Last Name<strong class="sound_only"> required</strong></label></th>
+                <td><input type="text" name="od_name_last" value="<?php echo $member['mb_name_last']; ?>" id="od_name_last" required class="frm_input required" maxlength="20"></td>
             </tr>
 
             <?php if (!$is_member) { // 비회원이면 ?>
             <tr>
-                <th scope="row"><label for="od_pwd">비밀번호<strong class="sound_only"> 필수</strong></label></th>
+                <th scope="row"><label for="od_pwd">Password</label></th>
                 <td>
-                    <input type="password" name="od_pwd" id="od_pwd" required class="frm_input required" maxlength="20">
-                    영,숫자 3~20자 (주문서 조회시 필요)
+                    <input type="password" name="od_pwd" id="od_pwd" required class="frm_input required" maxlength="20" placeholder="Please enter your password 3~20 Characters.">
                 </td>
             </tr>
             <?php } ?>
-
             <tr>
-                <th scope="row"><label for="od_tel">전화번호<strong class="sound_only"> 필수</strong></label></th>
+                <th scope="row"><label for="od_email">E-mail</label></th>
+                <td><input type="text" name="od_email" value="<?php echo $member['mb_email']; ?>" id="od_email" required class="frm_input required" size="35" maxlength="100"></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="od_tel">Phone Number</label></th>
                 <td><input type="text" name="od_tel" value="<?php echo $member['mb_tel']; ?>" id="od_tel" required class="frm_input required" maxlength="20"></td>
             </tr>
             <tr>
-                <th scope="row"><label for="od_hp">핸드폰</label></th>
-                <td><input type="text" name="od_hp" value="<?php echo $member['mb_hp']; ?>" id="od_hp" class="frm_input" maxlength="20"></td>
+                <th scope="row"><label for="od_addr1">Address Line 1</label></th>
+                <td><input type="text" name="od_addr1" value="<?php echo $member['mb_addr1'] ?>" id="od_addr1" required class="frm_input frm_address required" size="60"></td>
             </tr>
             <tr>
-                <th scope="row">주소</th>
+                <th scope="row"><label for="od_addr2">Address Line 2</label></th>
+                <td><input type="text" name="od_addr2" value="<?php echo $member['mb_addr2'] ?>" id="od_addr2" required class="frm_input frm_address required" size="60"></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="od_city">City</label></th>
+                <td><input type="text" name="od_city" value="<?php echo $member['mb_city'] ?>" id="od_city" required class="frm_input required" size="60"></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="od_zip">Postal Code</label></th>
+                <td><input type="text" name="od_zip" value="<?php echo $member['mb_zip']; ?>" id="od_zip" required class="frm_input required" size="12" maxlength="12"></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="od_country">Country</label></th>
                 <td>
-                    <label for="od_zip" class="sound_only">우편번호<strong class="sound_only"> 필수</strong></label>
-                    <input type="text" name="od_zip" value="<?php echo $member['mb_zip1'].$member['mb_zip2']; ?>" id="od_zip" required class="frm_input required" size="5" maxlength="6">
-                    <button type="button" class="btn_frmline" onclick="win_zip('forderform', 'od_zip', 'od_addr1', 'od_addr2', 'od_addr3', 'od_addr_jibeon');">주소 검색</button><br>
-                    <label for="od_addr1" class="sound_only">기본주소<strong class="sound_only"> 필수</strong></label>
-                    <input type="text" name="od_addr1" value="<?php echo $member['mb_addr1'] ?>" id="od_addr1" required class="frm_input frm_address required">
-                    <label for="od_addr2" class="sound_only">상세주소</label>
-                    <input type="text" name="od_addr2" value="<?php echo $member['mb_addr2'] ?>" id="od_addr2" class="frm_input frm_address">
-                    <label for="od_addr3" class="sound_only">참고항목</label>
-                    <input type="text" name="od_addr3" value="<?php echo $member['mb_addr3'] ?>" id="od_addr3" class="frm_input frm_address" readonly="readonly">
-                    <input type="hidden" name="od_addr_jibeon" value="<?php echo $member['mb_addr_jibeon']; ?>"><br>
+                    <select id="od_country" name="od_country" required>
+                    <option value="">SELECT YOUR COUNTRY</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                    <option value="American Samoa">American Samoa</option>
+                    <option value="Andorra">Andorra</option>
+                    <option value="Angola">Angola</option>
+                    <option value="Anguilla">Anguilla</option>
+                    <option value="Antigua">Antigua</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Armenia">Armenia</option>
+                    <option value="Aruba">Aruba</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Austria">Austria</option>
+                    <option value="Azerbaijan">Azerbaijan</option>
+                    <option value="Bahamas">Bahamas</option>
+                    <option value="Bahrain">Bahrain</option>
+                    <option value="Bangladesh">Bangladesh</option>
+                    <option value="Barbados">Barbados</option>
+                    <option value="Belarus">Belarus</option>
+                    <option value="Belgium">Belgium</option>
+                    <option value="Belize">Belize</option>
+                    <option value="Benin">Benin</option>
+                    <option value="Bermuda">Bermuda</option>
+                    <option value="Bhutan">Bhutan</option>
+                    <option value="Bolivia">Bolivia</option>
+                    <option value="Bonaire">Bonaire</option>
+                    <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                    <option value="Botswana">Botswana</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Brunei">Brunei</option>
+                    <option value="Bulgaria">Bulgaria</option>
+                    <option value="Burkina Faso">Burkina Faso</option>
+                    <option value="Burundi">Burundi</option>
+                    <option value="Cambodia">Cambodia</option>
+                    <option value="Cameroon">Cameroon</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Canary Islands">Canary Islands</option>
+                    <option value="Cape Verde">Cape Verde</option>
+                    <option value="Cayman Islands">Cayman Islands</option>
+                    <option value="Central African Republic">Central African Republic</option>
+                    <option value="Chad">Chad</option>
+                    <option value="Chile">Chile</option>
+                    <option value="China, People's Republic">China, People's Republic</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Comoros">Comoros</option>
+                    <option value="Congo">Congo</option>
+                    <option value="Congo, The Democratic Republic of">Congo, The Democratic Republic of</option>
+                    <option value="Cook Islands">Cook Islands</option>
+                    <option value="Costa Rica">Costa Rica</option>
+                    <option value="Cote d'Ivoire">Cote d'Ivoire</option>
+                    <option value="Croatia">Croatia</option>
+                    <option value="Cuba">Cuba</option>
+                    <option value="Curacao">Curacao</option>
+                    <option value="Cyprus">Cyprus</option>
+                    <option value="Czech Republic">Czech Republic</option>
+                    <option value="Denmark">Denmark</option>
+                    <option value="Djibouti">Djibouti</option>
+                    <option value="Dominica">Dominica</option>
+                    <option value="Dominican Republic">Dominican Republic</option>
+                    <option value="East Timor">East Timor</option>
+                    <option value="Ecuador">Ecuador</option>
+                    <option value="Egypt">Egypt</option>
+                    <option value="El Salvador">El Salvador</option>
+                    <option value="Equatorial Guinea">Equatorial Guinea</option>
+                    <option value="Eritrea">Eritrea</option>
+                    <option value="Estonia">Estonia</option>
+                    <option value="Ethiopia">Ethiopia</option>
+                    <option value="Falkland Islands">Falkland Islands</option>
+                    <option value="Faroe Islands">Faroe Islands</option>
+                    <option value="Fiji">Fiji</option>
+                    <option value="Finland">Finland</option>
+                    <option value="France">France</option>
+                    <option value="Gabon">Gabon</option>
+                    <option value="Gambia">Gambia</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Ghana">Ghana</option>
+                    <option value="Gibraltar">Gibraltar</option>
+                    <option value="Greece">Greece</option>
+                    <option value="Greenland">Greenland</option>
+                    <option value="Grenada">Grenada</option>
+                    <option value="Guadeloupe">Guadeloupe</option>
+                    <option value="Guam">Guam</option>
+                    <option value="Guatemala">Guatemala</option>
+                    <option value="Guernsey">Guernsey</option>
+                    <option value="Guinea Republic">Guinea Republic</option>
+                    <option value="Guinea-Bissau">Guinea-Bissau</option>
+                    <option value="Guyana (British)">Guyana (British)</option>
+                    <option value="Guyana (French)">Guyana (French)</option>
+                    <option value="Haiti">Haiti</option>
+                    <option value="Honduras">Honduras</option>
+                    <option value="Hong Kong">Hong Kong</option>
+                    <option value="Hungary">Hungary</option>
+                    <option value="Iceland">Iceland</option>
+                    <option value="India">India</option>
+                    <option value="Indonesia">Indonesia</option>
+                    <option value="Iran">Iran</option>
+                    <option value="Iraq">Iraq</option>
+                    <option value="Ireland">Ireland</option>
+                    <option value="Israel">Israel</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Jamaica">Jamaica</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Jersey">Jersey</option>
+                    <option value="Jordan">Jordan</option>
+                    <option value="Kazakhstan">Kazakhstan</option>
+                    <option value="Kenya">Kenya</option>
+                    <option value="Kiribati">Kiribati</option>
+                    <option value="Korea, North">Korea, North</option>
+                    <option value="Korea, South (Republic of Korea)">Korea, South (Republic of Korea)</option>
+                    <option value="Kosovo">Kosovo</option>
+                    <option value="Kuwait">Kuwait</option>
+                    <option value="Kyrgyzstan">Kyrgyzstan</option>
+                    <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+                    <option value="Latvia">Latvia</option>
+                    <option value="Lebanon">Lebanon</option>
+                    <option value="Lesotho">Lesotho</option>
+                    <option value="Liberia">Liberia</option>
+                    <option value="Libya">Libya</option>
+                    <option value="Liechtenstein">Liechtenstein</option>
+                    <option value="Lithuania">Lithuania</option>
+                    <option value="Luxembourg">Luxembourg</option>
+                    <option value="Macau">Macau</option>
+                    <option value="Macedonia">Macedonia</option>
+                    <option value="Madagascar">Madagascar</option>
+                    <option value="Malawi">Malawi</option>
+                    <option value="Malaysia">Malaysia</option>
+                    <option value="Maldives">Maldives</option>
+                    <option value="Mali">Mali</option>
+                    <option value="Malta">Malta</option>
+                    <option value="Marshall Islands">Marshall Islands</option>
+                    <option value="Martinique">Martinique</option>
+                    <option value="Mauritania">Mauritania</option>
+                    <option value="Mauritius">Mauritius</option>
+                    <option value="Mayotte">Mayotte</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Micronesia">Micronesia</option>
+                    <option value="Moldova">Moldova</option>
+                    <option value="Monaco">Monaco</option>
+                    <option value="Mongolia">Mongolia</option>
+                    <option value="Montenegro">Montenegro</option>
+                    <option value="Montserrat">Montserrat</option>
+                    <option value="Morocco">Morocco</option>
+                    <option value="Mozambique">Mozambique</option>
+                    <option value="Myanmar">Myanmar</option>
+                    <option value="Namibia">Namibia</option>
+                    <option value="Nauru">Nauru</option>
+                    <option value="Nepal">Nepal</option>
+                    <option value="Netherlands Antilles">Netherlands Antilles</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="Nevis">Nevis</option>
+                    <option value="New Caledonia">New Caledonia</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Nicaragua">Nicaragua</option>
+                    <option value="Niger">Niger</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="Niue">Niue</option>
+                    <option value="Norway">Norway</option>
+                    <option value="Oman">Oman</option>
+                    <option value="Pakistan">Pakistan</option>
+                    <option value="Palau">Palau</option>
+                    <option value="Panama">Panama</option>
+                    <option value="Papua New Guinea">Papua New Guinea</option>
+                    <option value="Paraguay">Paraguay</option>
+                    <option value="Peru">Peru</option>
+                    <option value="Philippines">Philippines</option>
+                    <option value="Poland">Poland</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Puerto Rico">Puerto Rico</option>
+                    <option value="Qatar">Qatar</option>
+                    <option value="Reunion, Island Of">Reunion, Island Of</option>
+                    <option value="Romania">Romania</option>
+                    <option value="Russia">Russia</option>
+                    <option value="Rwanda">Rwanda</option>
+                    <option value="Saipan">Saipan</option>
+                    <option value="Samoa">Samoa</option>
+                    <option value="San Marino">San Marino</option>
+                    <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="Senegal">Senegal</option>
+                    <option value="Serbia">Serbia</option>
+                    <option value="Seychelles">Seychelles</option>
+                    <option value="Sierra Leone">Sierra Leone</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="Slovakia">Slovakia</option>
+                    <option value="Slovenia">Slovenia</option>
+                    <option value="Solomon Islands">Solomon Islands</option>
+                    <option value="Somalia">Somalia</option>
+                    <option value="Somaliland">Somaliland</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="South Sudan">South Sudan</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Sri Lanka">Sri Lanka</option>
+                    <option value="St. Barthelemy">St. Barthelemy</option>
+                    <option value="St. Eustatius">St. Eustatius</option>
+                    <option value="St. Kitts">St. Kitts</option>
+                    <option value="St. Lucia">St. Lucia</option>
+                    <option value="St. Maarten">St. Maarten</option>
+                    <option value="St. Vincent">St. Vincent</option>
+                    <option value="Sudan">Sudan</option>
+                    <option value="Suriname">Suriname</option>
+                    <option value="Swaziland">Swaziland</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Switzerland">Switzerland</option>
+                    <option value="Syria">Syria</option>
+                    <option value="Tahiti">Tahiti</option>
+                    <option value="Taiwan">Taiwan</option>
+                    <option value="Tajikistan">Tajikistan</option>
+                    <option value="Tanzania">Tanzania</option>
+                    <option value="Thailand">Thailand</option>
+                    <option value="Togo">Togo</option>
+                    <option value="Tonga">Tonga</option>
+                    <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                    <option value="Tunisia">Tunisia</option>
+                    <option value="Turkey">Turkey</option>
+                    <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+                    <option value="Tuvalu">Tuvalu</option>
+                    <option value="Uganda">Uganda</option>
+                    <option value="Ukraine">Ukraine</option>
+                    <option value="United Arab Emirates">United Arab Emirates</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="United States Of America">United States Of America</option>
+                    <option value="Uruguay">Uruguay</option>
+                    <option value="Uzbekistan">Uzbekistan</option>
+                    <option value="Vanuatu">Vanuatu</option>
+                    <option value="Vatican City">Vatican City</option>
+                    <option value="Venezuela">Venezuela</option>
+                    <option value="Vietnam">Vietnam</option>
+                    <option value="Virgin Islands (British)">Virgin Islands (British)</option>
+                    <option value="Virgin Islands (US)">Virgin Islands (US)</option>
+                    <option value="Yemen">Yemen</option>
+                    <option value="Zambia">Zambia</option>
+                    <option value="Zimbabwe">Zimbabwe</option>
+                    </select>
                 </td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="od_email">E-mail<strong class="sound_only"> 필수</strong></label></th>
-                <td><input type="email" name="od_email" value="<?php echo $member['mb_email']; ?>" id="od_email" required class="frm_input required" maxlength="100"></td>
             </tr>
 
-            <?php if ($default['de_hope_date_use']) { // 배송희망일 사용 ?>
-            <tr>
-                <th scope="row"><label for="od_hope_date">희망배송일</label></th>
-                <td>
-                    <!-- <select name="od_hope_date" id="od_hope_date">
-                    <option value="">선택하십시오.</option>
-                    <?php
-                    for ($i=0; $i<7; $i++) {
-                        $sdate = date("Y-m-d", time()+86400*($default['de_hope_date_after']+$i));
-                        echo '<option value="'.$sdate.'">'.$sdate.' ('.get_yoil($sdate).')</option>'.PHP_EOL;
-                    }
-                    ?>
-                    </select> -->
-                    <input type="text" name="od_hope_date" value="" id="od_hope_date" required class="frm_input required" size="11" maxlength="10" readonly> 이후로 배송 바랍니다.
-                </td>
-            </tr>
-            <?php } ?>
+            <tr><td colspan="2" style="height:12px"></td></tr>
             </tbody>
             </table>
         </div>
     </section>
+    <!-- } 주문하시는 분 입력 끝 -->
 
+    <!-- 받으시는 분 입력 시작 { -->
+    <?php
+    if($is_member) {
+        // 배송지 이력
+        $addr_list = '';
+        $sep = chr(30);
+
+        // 주문자와 동일
+        $addr_list .= '<input type="checkbox" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
+        $addr_list .= '<label for="ad_sel_addr_same">It\'s the same as the one in the billing address.</label>'.PHP_EOL;
+
+        // 최근배송지
+/*        $sql = " select *
+                    from {$g5['g5_shop_order_address_table']}
+                    where mb_id = '{$member['mb_id']}'
+                      and ad_default = '0'
+                    order by ad_id desc
+                    limit 1 ";
+        $result = sql_query($sql);
+        for($i=0; $row=sql_fetch_array($result); $i++) {
+            $val1 = $row['ad_name'].$sep.$row['ad_name_last'].$sep.$row['ad_tel'].$sep.$row['ad_hp'].$sep.$row['ad_zip'].$sep.$row['ad_addr1'].$sep.$row['ad_addr2'].$sep.$row['ad_country'].$sep.$row['ad_subject'];
+            $val2 = '<label for="ad_sel_addr_'.($i+1).'">최근배송지('.($row['ad_subject'] ? $row['ad_subject'] : $row['ad_name']).')</label>';
+            $addr_list .= '<input type="radio" name="ad_sel_addr" value="'.$val1.'" id="ad_sel_addr_'.($i+1).'"> '.PHP_EOL.$val2.PHP_EOL;
+        }
+*/
+        //$addr_list .= '<label for="od_sel_addr_new">신규배송지</label>'.PHP_EOL;
+
+        //$addr_list .='<a href="'.G5_SHOP_URL.'/orderaddress.php" id="order_address" class="btn_frmline">배송지목록</a>';
+    } else {
+        // 주문자와 동일
+        $addr_list .= '<input type="checkbox" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
+        $addr_list .= '<label for="ad_sel_addr_same">It\'s the same as the one in the billing address.</label>'.PHP_EOL;
+    }
+    ?>
     <section id="sod_frm_taker">
-        <h2>받으시는 분</h2>
-
-        <div class="odf_tbl">
-            <table>
+    <div class="sct_cart_tbl review_order">
+        <div class="ro_title"><span>3</span>Shipping<br>Address</div>
+        <table id="sod_list" class="ads_list">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2" class="title">Please provide your shipping information.<span><?php echo $addr_list; ?></span></th>
+                </tr>
+            </thead>
             <tbody>
-            <?php
-            if($is_member) {
-                // 배송지 이력
-                $addr_list = '';
-                $sep = chr(30);
-
-                // 주문자와 동일
-                $addr_list .= '<input type="radio" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
-                $addr_list .= '<label for="ad_sel_addr_same">주문자와 동일</label>'.PHP_EOL;
-
-                // 기본배송지
-                $sql = " select *
-                            from {$g5['g5_shop_order_address_table']}
-                            where mb_id = '{$member['mb_id']}'
-                              and ad_default = '1' ";
-                $row = sql_fetch($sql);
-                if($row['ad_id']) {
-                    $val1 = $row['ad_name'].$sep.$row['ad_tel'].$sep.$row['ad_hp'].$sep.$row['ad_zip1'].$sep.$row['ad_zip2'].$sep.$row['ad_addr1'].$sep.$row['ad_addr2'].$sep.$row['ad_addr3'].$sep.$row['ad_jibeon'].$sep.$row['ad_subject'];
-                    $addr_list .= '<br><input type="radio" name="ad_sel_addr" value="'.$val1.'" id="ad_sel_addr_def">'.PHP_EOL;
-                    $addr_list .= '<label for="ad_sel_addr_def">기본배송지</label>'.PHP_EOL;
-                }
-
-                // 최근배송지
-                $sql = " select *
-                            from {$g5['g5_shop_order_address_table']}
-                            where mb_id = '{$member['mb_id']}'
-                              and ad_default = '0'
-                            order by ad_id desc
-                            limit 1 ";
-                $result = sql_query($sql);
-                for($i=0; $row=sql_fetch_array($result); $i++) {
-                    $val1 = $row['ad_name'].$sep.$row['ad_tel'].$sep.$row['ad_hp'].$sep.$row['ad_zip1'].$sep.$row['ad_zip2'].$sep.$row['ad_addr1'].$sep.$row['ad_addr2'].$sep.$row['ad_addr3'].$sep.$row['ad_jibeon'].$sep.$row['ad_subject'];
-                    $val2 = '<label for="ad_sel_addr_'.($i+1).'">최근배송지('.($row['ad_subject'] ? $row['ad_subject'] : $row['ad_name']).')</label>';
-                    $addr_list .= '<br><input type="radio" name="ad_sel_addr" value="'.$val1.'" id="ad_sel_addr_'.($i+1).'"> '.PHP_EOL.$val2.PHP_EOL;
-                }
-
-                $addr_list .= '<br><input type="radio" name="ad_sel_addr" value="new" id="od_sel_addr_new">'.PHP_EOL;
-                $addr_list .= '<label for="od_sel_addr_new">신규배송지</label>'.PHP_EOL;
-
-                $addr_list .='<a href="'.G5_SHOP_URL.'/orderaddress.php" id="order_address">배송지목록</a>';
-            } else {
-                // 주문자와 동일
-                $addr_list .= '<input type="checkbox" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
-                $addr_list .= '<label for="ad_sel_addr_same">주문자와 동일</label>'.PHP_EOL;
-            }
-            ?>
+            <tr><td colspan="2" style="height:12px"></td></tr>
             <tr>
-                <th scope="row">배송지선택</th>
-                <td id="sod_frm_deli">
-                    <?php echo $addr_list; ?>
-                </td>
-            </tr>
-            <?php if($is_member) { ?>
-            <tr>
-                <th scope="row"><label for="ad_subject">배송지명</label></th>
-                <td>
-                    <input type="text" name="ad_subject" id="ad_subject" class="frm_input" maxlength="20">
-                    <input type="checkbox" name="ad_default" id="ad_default" value="1">
-                    <label for="ad_default">기본배송지로 설정</label>
-                </td>
-            </tr>
-            <?php
-            }
-            ?>
-            <tr>
-                <th scope="row"><label for="od_b_name">이름<strong class="sound_only"> 필수</strong></label></th>
+                <th scope="row"><label for="od_b_name">First Name<strong class="sound_only"> required</strong></label></th>
                 <td><input type="text" name="od_b_name" id="od_b_name" required class="frm_input required" maxlength="20"></td>
             </tr>
             <tr>
-                <th scope="row"><label for="od_b_tel">전화번호<strong class="sound_only"> 필수</strong></label></th>
+                <th scope="row"><label for="od_b_name_last">Last Name<strong class="sound_only"> required</strong></label></th>
+                <td><input type="text" name="od_b_name_last" id="od_b_name_last" required class="frm_input required" maxlength="20"></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="od_b_tel">Phone Number<strong class="sound_only"> required</strong></label></th>
                 <td><input type="text" name="od_b_tel" id="od_b_tel" required class="frm_input required" maxlength="20"></td>
             </tr>
             <tr>
-                <th scope="row"><label for="od_b_hp">핸드폰</label></th>
-                <td><input type="text" name="od_b_hp" id="od_b_hp" class="frm_input" maxlength="20"></td>
+                <th scope="row"><label for="od_b_addr1">Address Line 1</label></th>
+                <td><input type="text" name="od_b_addr1" id="od_b_addr1" class="frm_input frm_address required" maxlength="50"></td>
             </tr>
             <tr>
-                <th scope="row">주소</th>
-                <td id="sod_frm_addr">
-                    <label for="od_b_zip" class="sound_only">우편번호<strong class="sound_only"> 필수</strong></label>
-                    <input type="text" name="od_b_zip" id="od_b_zip" required class="frm_input required" size="5" maxlength="6">
-                    <button type="button" class="btn_frmline" onclick="win_zip('forderform', 'od_b_zip', 'od_b_addr1', 'od_b_addr2', 'od_b_addr3', 'od_b_addr_jibeon');">주소 검색</button><br>
-                    <label for="od_b_addr1" class="sound_only">기본주소<strong class="sound_only"> 필수</strong></label>
-                    <input type="text" name="od_b_addr1" id="od_b_addr1" required class="frm_input frm_address required">
-                    <label for="od_b_addr2" class="sound_only">상세주소</label>
-                    <input type="text" name="od_b_addr2" id="od_b_addr2" class="frm_input frm_address">
-                    <label for="od_b_addr3" class="sound_only">참고항목</label>
-                    <input type="text" name="od_b_addr3" id="od_b_addr3" class="frm_input frm_address" readonly="readonly">
-                    <input type="hidden" name="od_b_addr_jibeon" value="">
+                <th scope="row"><label for="od_b_addr2">Address Line 2</label></th>
+                <td><input type="text" name="od_b_addr2" id="od_b_addr2" class="frm_input frm_address required" maxlength="50"></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="od_b_city">City</label></th>
+                <td><input type="text" name="od_b_city" id="od_b_city" class="frm_input required" maxlength="50"></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="od_b_zip">Postal Code</label></th>
+                <td><input type="text" name="od_b_zip" id="od_b_zip" class="frm_input required" maxlength="12"></td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="od_b_country">Country</label></th>
+                <td>
+                    <select id="od_b_country" name="od_b_country" required>
+                    <option value="">SELECT YOUR COUNTRY</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                    <option value="American Samoa">American Samoa</option>
+                    <option value="Andorra">Andorra</option>
+                    <option value="Angola">Angola</option>
+                    <option value="Anguilla">Anguilla</option>
+                    <option value="Antigua">Antigua</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Armenia">Armenia</option>
+                    <option value="Aruba">Aruba</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Austria">Austria</option>
+                    <option value="Azerbaijan">Azerbaijan</option>
+                    <option value="Bahamas">Bahamas</option>
+                    <option value="Bahrain">Bahrain</option>
+                    <option value="Bangladesh">Bangladesh</option>
+                    <option value="Barbados">Barbados</option>
+                    <option value="Belarus">Belarus</option>
+                    <option value="Belgium">Belgium</option>
+                    <option value="Belize">Belize</option>
+                    <option value="Benin">Benin</option>
+                    <option value="Bermuda">Bermuda</option>
+                    <option value="Bhutan">Bhutan</option>
+                    <option value="Bolivia">Bolivia</option>
+                    <option value="Bonaire">Bonaire</option>
+                    <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                    <option value="Botswana">Botswana</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Brunei">Brunei</option>
+                    <option value="Bulgaria">Bulgaria</option>
+                    <option value="Burkina Faso">Burkina Faso</option>
+                    <option value="Burundi">Burundi</option>
+                    <option value="Cambodia">Cambodia</option>
+                    <option value="Cameroon">Cameroon</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Canary Islands">Canary Islands</option>
+                    <option value="Cape Verde">Cape Verde</option>
+                    <option value="Cayman Islands">Cayman Islands</option>
+                    <option value="Central African Republic">Central African Republic</option>
+                    <option value="Chad">Chad</option>
+                    <option value="Chile">Chile</option>
+                    <option value="China, People's Republic">China, People's Republic</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Comoros">Comoros</option>
+                    <option value="Congo">Congo</option>
+                    <option value="Congo, The Democratic Republic of">Congo, The Democratic Republic of</option>
+                    <option value="Cook Islands">Cook Islands</option>
+                    <option value="Costa Rica">Costa Rica</option>
+                    <option value="Cote d'Ivoire">Cote d'Ivoire</option>
+                    <option value="Croatia">Croatia</option>
+                    <option value="Cuba">Cuba</option>
+                    <option value="Curacao">Curacao</option>
+                    <option value="Cyprus">Cyprus</option>
+                    <option value="Czech Republic">Czech Republic</option>
+                    <option value="Denmark">Denmark</option>
+                    <option value="Djibouti">Djibouti</option>
+                    <option value="Dominica">Dominica</option>
+                    <option value="Dominican Republic">Dominican Republic</option>
+                    <option value="East Timor">East Timor</option>
+                    <option value="Ecuador">Ecuador</option>
+                    <option value="Egypt">Egypt</option>
+                    <option value="El Salvador">El Salvador</option>
+                    <option value="Equatorial Guinea">Equatorial Guinea</option>
+                    <option value="Eritrea">Eritrea</option>
+                    <option value="Estonia">Estonia</option>
+                    <option value="Ethiopia">Ethiopia</option>
+                    <option value="Falkland Islands">Falkland Islands</option>
+                    <option value="Faroe Islands">Faroe Islands</option>
+                    <option value="Fiji">Fiji</option>
+                    <option value="Finland">Finland</option>
+                    <option value="France">France</option>
+                    <option value="Gabon">Gabon</option>
+                    <option value="Gambia">Gambia</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Ghana">Ghana</option>
+                    <option value="Gibraltar">Gibraltar</option>
+                    <option value="Greece">Greece</option>
+                    <option value="Greenland">Greenland</option>
+                    <option value="Grenada">Grenada</option>
+                    <option value="Guadeloupe">Guadeloupe</option>
+                    <option value="Guam">Guam</option>
+                    <option value="Guatemala">Guatemala</option>
+                    <option value="Guernsey">Guernsey</option>
+                    <option value="Guinea Republic">Guinea Republic</option>
+                    <option value="Guinea-Bissau">Guinea-Bissau</option>
+                    <option value="Guyana (British)">Guyana (British)</option>
+                    <option value="Guyana (French)">Guyana (French)</option>
+                    <option value="Haiti">Haiti</option>
+                    <option value="Honduras">Honduras</option>
+                    <option value="Hong Kong">Hong Kong</option>
+                    <option value="Hungary">Hungary</option>
+                    <option value="Iceland">Iceland</option>
+                    <option value="India">India</option>
+                    <option value="Indonesia">Indonesia</option>
+                    <option value="Iran">Iran</option>
+                    <option value="Iraq">Iraq</option>
+                    <option value="Ireland">Ireland</option>
+                    <option value="Israel">Israel</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Jamaica">Jamaica</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Jersey">Jersey</option>
+                    <option value="Jordan">Jordan</option>
+                    <option value="Kazakhstan">Kazakhstan</option>
+                    <option value="Kenya">Kenya</option>
+                    <option value="Kiribati">Kiribati</option>
+                    <option value="Korea, North">Korea, North</option>
+                    <option value="Korea, South (Republic of Korea)">Korea, South (Republic of Korea)</option>
+                    <option value="Kosovo">Kosovo</option>
+                    <option value="Kuwait">Kuwait</option>
+                    <option value="Kyrgyzstan">Kyrgyzstan</option>
+                    <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+                    <option value="Latvia">Latvia</option>
+                    <option value="Lebanon">Lebanon</option>
+                    <option value="Lesotho">Lesotho</option>
+                    <option value="Liberia">Liberia</option>
+                    <option value="Libya">Libya</option>
+                    <option value="Liechtenstein">Liechtenstein</option>
+                    <option value="Lithuania">Lithuania</option>
+                    <option value="Luxembourg">Luxembourg</option>
+                    <option value="Macau">Macau</option>
+                    <option value="Macedonia">Macedonia</option>
+                    <option value="Madagascar">Madagascar</option>
+                    <option value="Malawi">Malawi</option>
+                    <option value="Malaysia">Malaysia</option>
+                    <option value="Maldives">Maldives</option>
+                    <option value="Mali">Mali</option>
+                    <option value="Malta">Malta</option>
+                    <option value="Marshall Islands">Marshall Islands</option>
+                    <option value="Martinique">Martinique</option>
+                    <option value="Mauritania">Mauritania</option>
+                    <option value="Mauritius">Mauritius</option>
+                    <option value="Mayotte">Mayotte</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Micronesia">Micronesia</option>
+                    <option value="Moldova">Moldova</option>
+                    <option value="Monaco">Monaco</option>
+                    <option value="Mongolia">Mongolia</option>
+                    <option value="Montenegro">Montenegro</option>
+                    <option value="Montserrat">Montserrat</option>
+                    <option value="Morocco">Morocco</option>
+                    <option value="Mozambique">Mozambique</option>
+                    <option value="Myanmar">Myanmar</option>
+                    <option value="Namibia">Namibia</option>
+                    <option value="Nauru">Nauru</option>
+                    <option value="Nepal">Nepal</option>
+                    <option value="Netherlands Antilles">Netherlands Antilles</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="Nevis">Nevis</option>
+                    <option value="New Caledonia">New Caledonia</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Nicaragua">Nicaragua</option>
+                    <option value="Niger">Niger</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="Niue">Niue</option>
+                    <option value="Norway">Norway</option>
+                    <option value="Oman">Oman</option>
+                    <option value="Pakistan">Pakistan</option>
+                    <option value="Palau">Palau</option>
+                    <option value="Panama">Panama</option>
+                    <option value="Papua New Guinea">Papua New Guinea</option>
+                    <option value="Paraguay">Paraguay</option>
+                    <option value="Peru">Peru</option>
+                    <option value="Philippines">Philippines</option>
+                    <option value="Poland">Poland</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Puerto Rico">Puerto Rico</option>
+                    <option value="Qatar">Qatar</option>
+                    <option value="Reunion, Island Of">Reunion, Island Of</option>
+                    <option value="Romania">Romania</option>
+                    <option value="Russia">Russia</option>
+                    <option value="Rwanda">Rwanda</option>
+                    <option value="Saipan">Saipan</option>
+                    <option value="Samoa">Samoa</option>
+                    <option value="San Marino">San Marino</option>
+                    <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="Senegal">Senegal</option>
+                    <option value="Serbia">Serbia</option>
+                    <option value="Seychelles">Seychelles</option>
+                    <option value="Sierra Leone">Sierra Leone</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="Slovakia">Slovakia</option>
+                    <option value="Slovenia">Slovenia</option>
+                    <option value="Solomon Islands">Solomon Islands</option>
+                    <option value="Somalia">Somalia</option>
+                    <option value="Somaliland">Somaliland</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="South Sudan">South Sudan</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Sri Lanka">Sri Lanka</option>
+                    <option value="St. Barthelemy">St. Barthelemy</option>
+                    <option value="St. Eustatius">St. Eustatius</option>
+                    <option value="St. Kitts">St. Kitts</option>
+                    <option value="St. Lucia">St. Lucia</option>
+                    <option value="St. Maarten">St. Maarten</option>
+                    <option value="St. Vincent">St. Vincent</option>
+                    <option value="Sudan">Sudan</option>
+                    <option value="Suriname">Suriname</option>
+                    <option value="Swaziland">Swaziland</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Switzerland">Switzerland</option>
+                    <option value="Syria">Syria</option>
+                    <option value="Tahiti">Tahiti</option>
+                    <option value="Taiwan">Taiwan</option>
+                    <option value="Tajikistan">Tajikistan</option>
+                    <option value="Tanzania">Tanzania</option>
+                    <option value="Thailand">Thailand</option>
+                    <option value="Togo">Togo</option>
+                    <option value="Tonga">Tonga</option>
+                    <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                    <option value="Tunisia">Tunisia</option>
+                    <option value="Turkey">Turkey</option>
+                    <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+                    <option value="Tuvalu">Tuvalu</option>
+                    <option value="Uganda">Uganda</option>
+                    <option value="Ukraine">Ukraine</option>
+                    <option value="United Arab Emirates">United Arab Emirates</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="United States Of America">United States Of America</option>
+                    <option value="Uruguay">Uruguay</option>
+                    <option value="Uzbekistan">Uzbekistan</option>
+                    <option value="Vanuatu">Vanuatu</option>
+                    <option value="Vatican City">Vatican City</option>
+                    <option value="Venezuela">Venezuela</option>
+                    <option value="Vietnam">Vietnam</option>
+                    <option value="Virgin Islands (British)">Virgin Islands (British)</option>
+                    <option value="Virgin Islands (US)">Virgin Islands (US)</option>
+                    <option value="Yemen">Yemen</option>
+                    <option value="Zambia">Zambia</option>
+                    <option value="Zimbabwe">Zimbabwe</option>
+                    </select>
                 </td>
             </tr>
-            <tr>
-                <th scope="row"><label for="od_memo">전하실 말씀</label></th>
-                <td><textarea name="od_memo" id="od_memo"></textarea></td>
-            </tr>
+            <tr><td colspan="2" style="height:12px"></td></tr>
             </tbody>
             </table>
         </div>
     </section>
+    <!-- } 받으시는 분 입력 끝 -->
 
+    <!-- 결제정보 입력 시작 { -->
     <?php
     $oc_cnt = $sc_cnt = 0;
     if($is_member) {
@@ -522,180 +981,27 @@ var _nasa={};
     }
     ?>
 
-    <section id="sod_frm_pay">
-        <h2>결제정보 입력</h2>
-
-        <div class="odf_tbl">
-            <table>
-            <tbody>
-            <?php if($oc_cnt > 0) { ?>
-            <tr>
-                <th scope="row">주문할인쿠폰</th>
-                <td>
-                    <input type="hidden" name="od_cp_id" value="">
-                    <button type="button" id="od_coupon_btn" class="btn_frmline">쿠폰적용</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">주문할인금액</th>
-                <td><span id="od_cp_price">0</span>원</td>
-            </tr>
-            <?php } ?>
-            <?php if($sc_cnt > 0) { ?>
-            <tr>
-                <th scope="row">배송비할인쿠폰</th>
-                <td>
-                    <input type="hidden" name="sc_cp_id" value="">
-                    <button type="button" id="sc_coupon_btn" class="btn_frmline">쿠폰적용</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">배송비할인금액</th>
-                <td><span id="sc_cp_price">0</span>원</td>
-            </tr>
-            <?php } ?>
-            <tr>
-                <th>총 주문금액</th>
-                <td><span id="od_tot_price"><?php echo number_format($tot_price); ?></span>원</td>
-            </tr>
-             <tr>
-                <th>추가배송비</th>
-                <td><span id="od_send_cost2">0</span>원 (지역에 따라 추가되는 도선료 등의 배송비입니다.)</td>
-            </tr>
-            </tbody>
-            </table>
-        </div>
-
-        <?php
-        if (!$default['de_card_point'])
-            echo '<p id="sod_frm_pt_alert"><strong>무통장입금</strong> 이외의 결제 수단으로 결제하시는 경우 포인트를 적립해드리지 않습니다.</p>';
+       <?php
 
         $multi_settle == 0;
         $checked = '';
+        $temp_point = 0;
+        ?>
+    <!-- } 결제 정보 입력 끝 -->
 
-        $escrow_title = "";
-        if ($default['de_escrow_use']) {
-            $escrow_title = "에스크로 ";
-        }
-
-        if ($default['de_bank_use'] || $default['de_vbank_use'] || $default['de_iche_use'] || $default['de_card_use'] || $default['de_hp_use']) {
-            echo '<div id="sod_frm_paysel"><ul>';
-        }
-
-        // 무통장입금 사용
-        if ($default['de_bank_use']) {
-            $multi_settle++;
-            echo '<li><input type="radio" id="od_settle_bank" name="od_settle_case" value="무통장" '.$checked.'> <label for="od_settle_bank">무통장입금</label></li>'.PHP_EOL;
-            $checked = '';
-        }
-
-        // 가상계좌 사용
-        if ($default['de_vbank_use']) {
-            $multi_settle++;
-            echo '<li><input type="radio" id="od_settle_vbank" name="od_settle_case" value="가상계좌" '.$checked.'> <label for="od_settle_vbank">'.$escrow_title.'가상계좌</label></li>'.PHP_EOL;
-            $checked = '';
-        }
-
-        // 계좌이체 사용
-        if ($default['de_iche_use']) {
-            $multi_settle++;
-            echo '<li><input type="radio" id="od_settle_iche" name="od_settle_case" value="계좌이체" '.$checked.'> <label for="od_settle_iche">'.$escrow_title.'계좌이체</label></li>'.PHP_EOL;
-            $checked = '';
-        }
-
-        // 휴대폰 사용
-        if ($default['de_hp_use']) {
-            $multi_settle++;
-            echo '<li><input type="radio" id="od_settle_hp" name="od_settle_case" value="휴대폰" '.$checked.'> <label for="od_settle_hp">휴대폰</label></li>'.PHP_EOL;
-            $checked = '';
-        }
-
+    <?php
         // 신용카드 사용
         if ($default['de_card_use']) {
             $multi_settle++;
-            echo '<li><input type="radio" id="od_settle_card" name="od_settle_case" value="신용카드" '.$checked.'> <label for="od_settle_card">신용카드</label></li>'.PHP_EOL;
+            echo '<input type="hidden" id="od_settle_card" name="od_settle_case" value="신용카드">'.PHP_EOL;
             $checked = '';
         }
-
-        echo '</ul>';
-
-        $temp_point = 0;
-        // 회원이면서 포인트사용이면
-        if ($is_member && $config['cf_use_point'])
-        {
-            // 포인트 결제 사용 포인트보다 회원의 포인트가 크다면
-            if ($member['mb_point'] >= $default['de_settle_min_point'])
-            {
-                $temp_point = (int)$default['de_settle_max_point'];
-
-                if($temp_point > (int)$tot_sell_price)
-                    $temp_point = (int)$tot_sell_price;
-
-                if($temp_point > (int)$member['mb_point'])
-                    $temp_point = (int)$member['mb_point'];
-
-                $point_unit = (int)$default['de_settle_point_unit'];
-                $temp_point = (int)((int)($temp_point / $point_unit) * $point_unit);
-
-                echo '<div id="sod_frm_pt"><input type="hidden" name="max_temp_point" value="'.$temp_point.'">결제포인트 : <input type="text" id="od_temp_point" name="od_temp_point" value="0" class="frm_input" size="10">점 ('.$point_unit.'점 단위로 입력하세요.)</div>';
-                echo '<p id="sod_frm_pt_info">회원님의 보유포인트('.display_point($member['mb_point']).')중 <strong id="use_max_point">'.display_point($temp_point).'</strong>까지 사용 가능합니다.</p>';
-                $multi_settle++;
-            }
-        }
-
-        if ($default['de_bank_use']) {
-            // 은행계좌를 배열로 만든후
-            $str = explode("\n", trim($default['de_bank_account']));
-            if (count($str) <= 1)
-            {
-                $bank_account = '<input type="hidden" name="od_bank_account" value="'.$str[0].'">'.$str[0].PHP_EOL;
-            }
-            else
-            {
-                $bank_account = '<select name="od_bank_account" id="od_bank_account">'.PHP_EOL;
-                $bank_account .= '<option value="">선택하십시오.</option>';
-                for ($i=0; $i<count($str); $i++)
-                {
-                    //$str[$i] = str_replace("\r", "", $str[$i]);
-                    $str[$i] = trim($str[$i]);
-                    $bank_account .= '<option value="'.$str[$i].'">'.$str[$i].'</option>'.PHP_EOL;
-                }
-                $bank_account .= '</select>'.PHP_EOL;
-            }
-            echo '<div id="settle_bank" style="display:none">';
-            echo '<label for="od_bank_account" class="sound_only">입금할 계좌</label>';
-            echo $bank_account;
-            echo '<br><label for="od_deposit_name">입금자명</label>';
-            echo '<input type="text" name="od_deposit_name" id="od_deposit_name" class="frm_input" size="10" maxlength="20">';
-            echo '</div>';
-        }
-
-        if ($default['de_bank_use'] || $default['de_vbank_use'] || $default['de_iche_use'] || $default['de_card_use'] || $default['de_hp_use']) {
-            echo '</div>';
-        }
-
-        if ($multi_settle == 0)
-            echo '<p>결제할 방법이 없습니다.<br>운영자에게 알려주시면 감사하겠습니다.</p>';
-        ?>
-    </section>
-
-    <?php
-    // 결제대행사별 코드 include (결제대행사 정보 필드 및 주분버튼)
-    require_once(G5_MSHOP_PATH.'/'.$default['de_pg_service'].'/orderform.2.php');
+    // 결제대행사별 코드 include (주문버튼)
+    require_once('./'.$default['de_pg_service'].'/orderform.3.php');
     ?>
-
-    <div id="show_progress" style="display:none;">
-        <img src="<?php echo G5_MOBILE_URL; ?>/shop/img/loading.gif" alt="">
-        <span>주문완료 중입니다. 잠시만 기다려 주십시오.</span>
-    </div>
     </form>
 
-    <?php
-    if ($default['de_escrow_use']) {
-        // 결제대행사별 코드 include (에스크로 안내)
-        require_once(G5_MSHOP_PATH.'/'.$default['de_pg_service'].'/orderform.3.php');
-    }
-    ?>
+</div>
 
 </div>
 
@@ -704,220 +1010,8 @@ $(function() {
     var $cp_btn_el;
     var $cp_row_el;
     var zipcode = "";
-
-    $(".cp_btn").click(function() {
-        $cp_btn_el = $(this);
-        $cp_row_el = $(this).closest("li");
-        $("#cp_frm").remove();
-        var it_id = $cp_btn_el.closest("li").find("input[name^=it_id]").val();
-
-        $.post(
-            "./orderitemcoupon.php",
-            { it_id: it_id,  sw_direct: "<?php echo $sw_direct; ?>" },
-            function(data) {
-                $cp_btn_el.after(data);
-            }
-        );
-    });
-
-    $(".cp_apply").live("click", function() {
-        var $el = $(this).closest("tr");
-        var cp_id = $el.find("input[name='f_cp_id[]']").val();
-        var price = $el.find("input[name='f_cp_prc[]']").val();
-        var subj = $el.find("input[name='f_cp_subj[]']").val();
-        var sell_price;
-
-        if(parseInt(price) == 0) {
-            if(!confirm(subj+"쿠폰의 할인 금액은 "+price+"원입니다.\n쿠폰을 적용하시겠습니까?")) {
-                return false;
-            }
-        }
-
-        // 이미 사용한 쿠폰이 있는지
-        var cp_dup = false;
-        var cp_dup_idx;
-        var $cp_dup_el;
-        $("input[name^=cp_id]").each(function(index) {
-            var id = $(this).val();
-
-            if(id == cp_id) {
-                cp_dup_idx = index;
-                cp_dup = true;
-                $cp_dup_el = $(this).closest("li");;
-
-                return false;
-            }
-        });
-
-        if(cp_dup) {
-            var it_name = $("input[name='it_name["+cp_dup_idx+"]']").val();
-            if(!confirm(subj+ "쿠폰은 "+it_name+"에 사용되었습니다.\n"+it_name+"의 쿠폰을 취소한 후 적용하시겠습니까?")) {
-                return false;
-            } else {
-                coupon_cancel($cp_dup_el);
-                $("#cp_frm").remove();
-                $cp_dup_el.find(".cp_btn").text("쿠폰적용").removeClass("cp_mod").focus();
-                $cp_dup_el.find(".cp_cancel").remove();
-            }
-        }
-
-        var $s_el = $cp_row_el.find(".total_price strong");;
-        sell_price = parseInt($cp_row_el.find("input[name^=it_price]").val());
-        sell_price = sell_price - parseInt(price);
-        if(sell_price < 0) {
-            alert("쿠폰할인금액이 상품 주문금액보다 크므로 쿠폰을 적용할 수 없습니다.");
-            return false;
-        }
-        $s_el.text(number_format(String(sell_price)));
-        $cp_row_el.find("input[name^=cp_id]").val(cp_id);
-        $cp_row_el.find("input[name^=cp_price]").val(price);
-
-        calculate_total_price();
-        $("#cp_frm").remove();
-        $cp_btn_el.text("쿠폰변경").addClass("cp_mod").focus();
-        if(!$cp_row_el.find(".cp_cancel").size())
-            $cp_btn_el.after("<button type=\"button\" class=\"cp_cancel\">쿠폰취소</button>");
-    });
-
-    $("#cp_close").live("click", function() {
-        $("#cp_frm").remove();
-        $cp_btn_el.focus();
-    });
-
-    $(".cp_cancel").live("click", function() {
-        coupon_cancel($(this).closest("li"));
-        calculate_total_price();
-        $("#cp_frm").remove();
-        $(this).closest("li").find(".cp_btn").text("쿠폰적용").removeClass("cp_mod").focus();
-        $(this).remove();
-    });
-
-    $("#od_coupon_btn").click(function() {
-        $("#od_coupon_frm").remove();
-        var $this = $(this);
-        var price = parseInt($("input[name=org_od_price]").val()) - parseInt($("input[name=item_coupon]").val());
-        if(price <= 0) {
-            alert('상품금액이 0원이므로 쿠폰을 사용할 수 없습니다.');
-            return false;
-        }
-        $.post(
-            "./ordercoupon.php",
-            { price: price },
-            function(data) {
-                $this.after(data);
-            }
-        );
-    });
-
-    $(".od_cp_apply").live("click", function() {
-        var $el = $(this).closest("tr");
-        var cp_id = $el.find("input[name='o_cp_id[]']").val();
-        var price = parseInt($el.find("input[name='o_cp_prc[]']").val());
-        var subj = $el.find("input[name='o_cp_subj[]']").val();
-        var send_cost = $("input[name=od_send_cost]").val();
-        var item_coupon = parseInt($("input[name=item_coupon]").val());
-        var od_price = parseInt($("input[name=org_od_price]").val()) - item_coupon;
-
-        if(price == 0) {
-            if(!confirm(subj+"쿠폰의 할인 금액은 "+price+"원입니다.\n쿠폰을 적용하시겠습니까?")) {
-                return false;
-            }
-        }
-
-        if(od_price - price <= 0) {
-            alert("쿠폰할인금액이 주문금액보다 크므로 쿠폰을 적용할 수 없습니다.");
-            return false;
-        }
-
-        $("input[name=sc_cp_id]").val("");
-        $("#sc_coupon_btn").text("쿠폰적용");
-        $("#sc_coupon_cancel").remove();
-
-        $("input[name=od_price]").val(od_price - price);
-        $("input[name=od_cp_id]").val(cp_id);
-        $("input[name=od_coupon]").val(price);
-        $("input[name=od_send_coupon]").val(0);
-        $("#od_cp_price").text(number_format(String(price)));
-        $("#sc_cp_price").text(0);
-        calculate_order_price();
-        $("#od_coupon_frm").remove();
-        $("#od_coupon_btn").text("쿠폰변경").focus();
-        if(!$("#od_coupon_cancel").size())
-            $("#od_coupon_btn").after("<button type=\"button\" id=\"od_coupon_cancel\" class=\"btn_frmline\">쿠폰취소</button>");
-    });
-
-    $("#od_coupon_close").live("click", function() {
-        $("#od_coupon_frm").remove();
-        $("#od_coupon_btn").focus();
-    });
-
-    $("#od_coupon_cancel").live("click", function() {
-        var org_price = $("input[name=org_od_price]").val();
-        var item_coupon = parseInt($("input[name=item_coupon]").val());
-        $("input[name=od_price]").val(org_price - item_coupon);
-        $("input[name=sc_cp_id]").val("");
-        $("input[name=od_coupon]").val(0);
-        $("input[name=od_send_coupon]").val(0);
-        $("#od_cp_price").text(0);
-        $("#sc_cp_price").text(0);
-        calculate_order_price();
-        $("#od_coupon_frm").remove();
-        $("#od_coupon_btn").text("쿠폰적용").focus();
-        $(this).remove();
-        $("#sc_coupon_btn").text("쿠폰적용");
-        $("#sc_coupon_cancel").remove();
-    });
-
-    $("#sc_coupon_btn").click(function() {
-        $("#sc_coupon_frm").remove();
-        var $this = $(this);
-        var price = parseInt($("input[name=od_price]").val());
-        var send_cost = parseInt($("input[name=od_send_cost]").val());
-        $.post(
-            "./ordersendcostcoupon.php",
-            { price: price, send_cost: send_cost },
-            function(data) {
-                $this.after(data);
-            }
-        );
-    });
-
-    $(".sc_cp_apply").live("click", function() {
-        var $el = $(this).closest("tr");
-        var cp_id = $el.find("input[name='s_cp_id[]']").val();
-        var price = parseInt($el.find("input[name='s_cp_prc[]']").val());
-        var subj = $el.find("input[name='s_cp_subj[]']").val();
-        var send_cost = parseInt($("input[name=od_send_cost]").val());
-
-        if(parseInt(price) == 0) {
-            if(!confirm(subj+"쿠폰의 할인 금액은 "+price+"원입니다.\n쿠폰을 적용하시겠습니까?")) {
-                return false;
-            }
-        }
-
-        $("input[name=sc_cp_id]").val(cp_id);
-        $("input[name=od_send_coupon]").val(price);
-        $("#sc_cp_price").text(number_format(String(price)));
-        calculate_order_price();
-        $("#sc_coupon_frm").remove();
-        $("#sc_coupon_btn").text("쿠폰변경").focus();
-        if(!$("#sc_coupon_cancel").size())
-            $("#sc_coupon_btn").after("<button type=\"button\" id=\"sc_coupon_cancel\" class=\"btn_frmline\">쿠폰취소</button>");
-    });
-
-    $("#sc_coupon_close").live("click", function() {
-        $("#sc_coupon_frm").remove();
-        $("#sc_coupon_btn").focus();
-    });
-
-    $("#sc_coupon_cancel").live("click", function() {
-        $("input[name=od_send_coupon]").val(0);
-        $("#sc_cp_price").text(0);
-        calculate_order_price();
-        $("#sc_coupon_frm").remove();
-        $("#sc_coupon_btn").text("쿠폰적용").focus();
-        $(this).remove();
-    });
+    var $mb_country = "<?php echo $member['mb_country']; ?>";
+    $('#od_country').val($mb_country).attr('selected', 'selected');
 
     $("#od_b_addr2").focus(function() {
         var zip = $("#od_b_zip").val().replace(/[^0-9]/g, "");
@@ -936,14 +1030,10 @@ $(function() {
     $("#od_settle_bank").on("click", function() {
         $("[name=od_deposit_name]").val( $("[name=od_name]").val() );
         $("#settle_bank").show();
-        $("#show_req_btn").css("display", "none");
-        $("#show_pay_btn").css("display", "inline");
     });
 
     $("#od_settle_iche,#od_settle_card,#od_settle_vbank,#od_settle_hp").bind("click", function() {
         $("#settle_bank").hide();
-        $("#show_req_btn").css("display", "inline");
-        $("#show_pay_btn").css("display", "none");
     });
 
     // 배송지선택
@@ -964,20 +1054,21 @@ $(function() {
 
             var f = document.forderform;
             f.od_b_name.value        = addr[0];
-            f.od_b_tel.value         = addr[1];
-            f.od_b_hp.value          = addr[2];
-            f.od_b_zip.value         = addr[3] + addr[4];
-            f.od_b_addr1.value       = addr[5];
-            f.od_b_addr2.value       = addr[6];
-            f.od_b_addr3.value       = addr[7];
-            f.od_b_addr_jibeon.value = addr[8];
+            f.od_b_name_last.value   = addr[1];
+            f.od_b_tel.value         = addr[2];
+            f.od_b_hp.value          = addr[3];
+            f.od_b_country.value     = addr[4];
+            f.od_b_city.value        = addr[5];
+
+            f.od_b_addr1.value       = addr[6];
+            f.od_b_addr2.value       = addr[7];
+            f.od_b_zip.value         = addr[8];
             f.ad_subject.value       = addr[9];
 
-            var zip1 = addr[3].replace(/[^0-9]/g, "");
-            var zip2 = addr[4].replace(/[^0-9]/g, "");
+            var zip = addr[8].replace(/[^0-9]/g, "");
 
-            if(zip1 != "" && zip2 != "") {
-                var code = String(zip1) + String(zip2);
+            if(zip != "") {
+                var code = String(zip);
 
                 if(zipcode != code) {
                     zipcode = code;
@@ -987,17 +1078,11 @@ $(function() {
         }
     });
 
-    // 배송지목록
-    $("#order_address").on("click", function() {
-        var url = this.href;
-        window.open(url, "win_address", "left=100,top=100,width=650,height=500,scrollbars=1");
-        return false;
-    });
 });
 
 function coupon_cancel($el)
 {
-    var $dup_sell_el = $el.find(".total_price strong");
+    var $dup_sell_el = $el.find(".total_price");
     var $dup_price_el = $el.find("input[name^=cp_price]");
     var org_sell_price = $el.find("input[name^=it_price]").val();
 
@@ -1013,21 +1098,21 @@ function calculate_total_price()
     var tot_sell_price = sell_price = tot_cp_price = 0;
     var it_price, cp_price, it_notax;
     var tot_mny = comm_tax_mny = comm_vat_mny = comm_free_mny = tax_mny = vat_mny = 0;
-    var send_cost = parseInt($("input[name=od_send_cost]").val());
+    var send_cost = parseFloat($("input[name=od_send_cost]").val());
 
     $it_prc.each(function(index) {
-        it_price = parseInt($(this).val());
-        cp_price = parseInt($cp_prc.eq(index).val());
+        it_price = parseFloat($(this).val());
+        cp_price = parseFloat($cp_prc.eq(index).val());
         sell_price += it_price;
         tot_cp_price += cp_price;
     });
 
     tot_sell_price = sell_price - tot_cp_price + send_cost;
 
-    $("#ct_tot_coupon").text(number_format(String(tot_cp_price))+" 원");
-    $("#ct_tot_price").text(number_format(String(tot_sell_price))+" 원");
+    $("#ct_tot_coupon").text("$"+number_format(String(tot_cp_price), 2, ".", ","));
+    $("#ct_tot_price").text("$"+number_format(String(tot_sell_price), 2, ".", ","));
 
-    $("input[name=good_mny]").val(tot_sell_price);
+    $("input[name=good_mny]").val(number_format(String(tot_sell_price), 2, ".", ""));
     $("input[name=od_price]").val(sell_price - tot_cp_price);
     $("input[name=item_coupon]").val(tot_cp_price);
     $("input[name=od_coupon]").val(0);
@@ -1057,13 +1142,13 @@ function calculate_total_price()
 
 function calculate_order_price()
 {
-    var sell_price = parseInt($("input[name=od_price]").val());
-    var send_cost = parseInt($("input[name=od_send_cost]").val());
-    var send_cost2 = parseInt($("input[name=od_send_cost2]").val());
-    var send_coupon = parseInt($("input[name=od_send_coupon]").val());
+    var sell_price = parseFloat($("input[name=od_price]").val());
+    var send_cost = parseFloat($("input[name=od_send_cost]").val());
+    var send_cost2 = parseFloat($("input[name=od_send_cost2]").val());
+    var send_coupon = parseFloat($("input[name=od_send_coupon]").val());
     var tot_price = sell_price + send_cost + send_cost2 - send_coupon;
 
-    $("form[name=sm_form] input[name=good_mny]").val(tot_price);
+    $("input[name=good_mny]").val(tot_price);
     $("#od_tot_price").text(number_format(String(tot_price)));
     <?php if($temp_point > 0 && $is_member) { ?>
     calculate_temp_point();
@@ -1111,15 +1196,15 @@ function calculate_tax()
     var sell_price = tot_cp_price = 0;
     var it_price, cp_price, it_notax;
     var tot_mny = comm_free_mny = tax_mny = vat_mny = 0;
-    var send_cost = parseInt($("input[name=od_send_cost]").val());
-    var send_cost2 = parseInt($("input[name=od_send_cost2]").val());
-    var od_coupon = parseInt($("input[name=od_coupon]").val());
-    var send_coupon = parseInt($("input[name=od_send_coupon]").val());
+    var send_cost = parseFloat($("input[name=od_send_cost]").val());
+    var send_cost2 = parseFloat($("input[name=od_send_cost2]").val());
+    var od_coupon = parseFloat($("input[name=od_coupon]").val());
+    var send_coupon = parseFloat($("input[name=od_send_coupon]").val());
     var temp_point = 0;
 
     $it_prc.each(function(index) {
-        it_price = parseInt($(this).val());
-        cp_price = parseInt($cp_prc.eq(index).val());
+        it_price = parseFloat($(this).val());
+        cp_price = parseFloat($cp_prc.eq(index).val());
         sell_price += it_price;
         tot_cp_price += cp_price;
         it_notax = $("input[name^=it_notax]").eq(index).val();
@@ -1146,12 +1231,9 @@ function calculate_tax()
     $("input[name=comm_free_mny]").val(comm_free_mny);
 }
 
-/* 결제방법에 따른 처리 후 결제등록요청 실행 */
-var settle_method = "";
-var temp_point = 0;
-
-function pay_approval()
+function forderform_check()
 {
+    var f = document.forderform;
     // 재고체크
     var stock_msg = order_stock_check();
     if(stock_msg != "") {
@@ -1159,193 +1241,30 @@ function pay_approval()
         return false;
     }
 
-    var f = document.sm_form;
-    var pf = document.forderform;
-
-    // 필드체크
-    if(!orderfield_check(pf))
-        return false;
-
-    // 금액체크
-    if(!payment_check(pf))
-        return false;
-
-    // pg 결제 금액에서 포인트 금액 차감
-    if(settle_method != "무통장") {
-        var od_price = parseInt(pf.od_price.value);
-        var send_cost = parseInt(pf.od_send_cost.value);
-        var send_cost2 = parseInt(pf.od_send_cost2.value);
-        var send_coupon = parseInt(pf.od_send_coupon.value);
-        f.good_mny.value = od_price + send_cost + send_cost2 - send_coupon - temp_point;
-    }
-
-    <?php if($default['de_pg_service'] == 'kcp') { ?>
-    f.buyr_name.value = pf.od_name.value;
-    f.buyr_mail.value = pf.od_email.value;
-    f.buyr_tel1.value = pf.od_tel.value;
-    f.buyr_tel2.value = pf.od_hp.value;
-    f.rcvr_name.value = pf.od_b_name.value;
-    f.rcvr_tel1.value = pf.od_b_tel.value;
-    f.rcvr_tel2.value = pf.od_b_hp.value;
-    f.rcvr_mail.value = pf.od_email.value;
-    f.rcvr_zipx.value = pf.od_b_zip.value;
-    f.rcvr_add1.value = pf.od_b_addr1.value;
-    f.rcvr_add2.value = pf.od_b_addr2.value;
-    f.settle_method.value = settle_method;
-    <?php } else if($default['de_pg_service'] == 'lg') { ?>
-    var pay_method = "";
-    switch(settle_method) {
-        case "계좌이체":
-            pay_method = "SC0030";
-            break;
-        case "가상계좌":
-            pay_method = "SC0040";
-            break;
-        case "휴대폰":
-            pay_method = "SC0060";
-            break;
-        case "신용카드":
-            pay_method = "SC0010";
-            break;
-    }
-    f.LGD_CUSTOM_FIRSTPAY.value = pay_method;
-    f.LGD_BUYER.value = pf.od_name.value;
-    f.LGD_BUYEREMAIL.value = pf.od_email.value;
-    f.LGD_BUYERPHONE.value = pf.od_hp.value;
-    f.LGD_AMOUNT.value = f.good_mny.value;
-    <?php if($default['de_tax_flag_use']) { ?>
-    f.LGD_TAXFREEAMOUNT.value = pf.comm_free_mny.value;
-    <?php } ?>
-    <?php } else if($default['de_pg_service'] == 'inicis') { ?>
-    var paymethod = "";
-    var width = 330;
-    var height = 480;
-    var xpos = (screen.width - width) / 2;
-    var ypos = (screen.width - height) / 2;
-    var position = "top=" + ypos + ",left=" + xpos;
-    var features = position + ", width=320, height=440";
-    switch(settle_method) {
-        case "계좌이체":
-            paymethod = "bank";
-            break;
-        case "가상계좌":
-            paymethod = "vbank";
-            break;
-        case "휴대폰":
-            paymethod = "mobile";
-            break;
-        case "신용카드":
-            paymethod = "wcard";
-            break;
-    }
-    f.P_AMT.value = f.good_mny.value;
-    f.P_UNAME.value = pf.od_name.value;
-    f.P_MOBILE.value = pf.od_hp.value;
-    f.P_EMAIL.value = pf.od_email.value;
-    <?php if($default['de_tax_flag_use']) { ?>
-    f.P_TAX.value = pf.comm_vat_mny.value;
-    f.P_TAXFREE = pf.comm_free_mny.value;
-    <?php } ?>
-    f.P_RETURN_URL.value = "<?php echo $return_url.$od_id; ?>";
-    f.action = "https://mobile.inicis.com/smart/" + paymethod + "/";
-    <?php } ?>
-
-    //var new_win = window.open("about:blank", "tar_opener", "scrollbars=yes,resizable=yes");
-    //f.target = "tar_opener";
-
-    // 주문 정보 임시저장
-    var order_data = $(pf).serialize();
-    var save_result = "";
-    $.ajax({
-        type: "POST",
-        data: order_data,
-        url: g5_url+"/shop/ajax.orderdatasave.php",
-        cache: false,
-        async: false,
-        success: function(data) {
-            save_result = data;
-        }
-    });
-
-    if(save_result) {
-        alert(save_result);
-        return false;
-    }
-
-    f.submit();
-}
-
-function forderform_check()
-{
-    var f = document.forderform;
-
-    // 필드체크
-    if(!orderfield_check(f))
-        return false;
-
-    // 금액체크
-    if(!payment_check(f))
-        return false;
-
-    if(settle_method != "무통장" && f.res_cd.value != "0000") {
-        alert("결제등록요청 후 주문해 주십시오.");
-        return false;
-    }
-
-    document.getElementById("display_pay_button").style.display = "none";
-    document.getElementById("show_progress").style.display = "block";
-
-    setTimeout(function() {
-        f.submit();
-    }, 300);
-}
-
-// 주문폼 필드체크
-function orderfield_check(f)
-{
     errmsg = "";
     errfld = "";
     var deffld = "";
 
-    check_field(f.od_name, "주문하시는 분 이름을 입력하십시오.");
+    check_field(f.od_name, "Please enter your name.");
     if (typeof(f.od_pwd) != 'undefined')
     {
         clear_field(f.od_pwd);
         if( (f.od_pwd.value.length<3) || (f.od_pwd.value.search(/([^A-Za-z0-9]+)/)!=-1) )
-            error_field(f.od_pwd, "회원이 아니신 경우 주문서 조회시 필요한 비밀번호를 3자리 이상 입력해 주십시오.");
+            error_field(f.od_pwd, "Please enter your password");
     }
-    check_field(f.od_tel, "주문하시는 분 전화번호를 입력하십시오.");
-    check_field(f.od_addr1, "주소검색을 이용하여 주문하시는 분 주소를 입력하십시오.");
-    //check_field(f.od_addr2, " 주문하시는 분의 상세주소를 입력하십시오.");
+    check_field(f.od_tel, "Please enter your Telephone/Mobile number.");
     check_field(f.od_zip, "");
 
     clear_field(f.od_email);
     if(f.od_email.value=='' || f.od_email.value.search(/(\S+)@(\S+)\.(\S+)/) == -1)
-        error_field(f.od_email, "E-mail을 바르게 입력해 주십시오.");
+        error_field(f.od_email, "Invalid E-mail address. Please check your E-mail again.");
 
-    if (typeof(f.od_hope_date) != "undefined")
-    {
-        clear_field(f.od_hope_date);
-        if (!f.od_hope_date.value)
-            error_field(f.od_hope_date, "희망배송일을 선택하여 주십시오.");
-    }
-
-    check_field(f.od_b_name, "받으시는 분 이름을 입력하십시오.");
-    check_field(f.od_b_tel, "받으시는 분 전화번호를 입력하십시오.");
-    check_field(f.od_b_addr1, "주소검색을 이용하여 받으시는 분 주소를 입력하십시오.");
-    //check_field(f.od_b_addr2, "받으시는 분의 상세주소를 입력하십시오.");
+    check_field(f.od_b_name, "Please enter recipient's name.");
+    check_field(f.od_b_tel, "Please enter recipient's Telephone/Mobile number.");
     check_field(f.od_b_zip, "");
 
-    var od_settle_bank = document.getElementById("od_settle_bank");
-    if (od_settle_bank) {
-        if (od_settle_bank.checked) {
-            check_field(f.od_bank_account, "계좌번호를 선택하세요.");
-            check_field(f.od_deposit_name, "입금자명을 입력하세요.");
-        }
-    }
-
     // 배송비를 받지 않거나 더 받는 경우 아래식에 + 또는 - 로 대입
-    f.od_send_cost.value = parseInt(f.od_send_cost.value);
+    f.od_send_cost.value = parseFloat(f.od_send_cost.value);
 
     if (errmsg)
     {
@@ -1356,14 +1275,12 @@ function orderfield_check(f)
 
     var settle_case = document.getElementsByName("od_settle_case");
     var settle_check = false;
+    var settle_method = "";
     for (i=0; i<settle_case.length; i++)
     {
-        if (settle_case[i].checked)
-        {
             settle_check = true;
             settle_method = settle_case[i].value;
             break;
-        }
     }
     if (!settle_check)
     {
@@ -1371,21 +1288,16 @@ function orderfield_check(f)
         return false;
     }
 
-    return true;
-}
+    var od_price = parseFloat(f.od_price.value);
+    var send_cost = parseFloat(f.od_send_cost.value);
+    var send_cost2 = parseFloat(f.od_send_cost2.value);
+    var send_coupon = parseFloat(f.od_send_coupon.value);
 
-// 결제체크
-function payment_check(f)
-{
     var max_point = 0;
-    var od_price = parseInt(f.od_price.value);
-    var send_cost = parseInt(f.od_send_cost.value);
-    var send_cost2 = parseInt(f.od_send_cost2.value);
-    var send_coupon = parseInt(f.od_send_coupon.value);
-
     if (typeof(f.max_temp_point) != "undefined")
-        var max_point  = parseInt(f.max_temp_point.value);
+        max_point  = parseInt(f.max_temp_point.value);
 
+    var temp_point = 0;
     if (typeof(f.od_temp_point) != "undefined") {
         if (f.od_temp_point.value)
         {
@@ -1393,47 +1305,61 @@ function payment_check(f)
             temp_point = parseInt(f.od_temp_point.value);
 
             if (temp_point < 0) {
-                alert("포인트를 0 이상 입력하세요.");
+                alert("Redeem minimum 1,000 points.");
                 f.od_temp_point.select();
                 return false;
             }
 
             if (temp_point > od_price) {
-                alert("상품 주문금액(배송비 제외) 보다 많이 포인트결제할 수 없습니다.");
+                alert("Invalid number. Please input valid number.");
                 f.od_temp_point.select();
                 return false;
             }
 
             if (temp_point > <?php echo (int)$member['mb_point']; ?>) {
-                alert("회원님의 포인트보다 많이 결제할 수 없습니다.");
+                alert("Invalid number. Please input valid number.");
                 f.od_temp_point.select();
                 return false;
             }
 
+            if (temp_point != od_price && document.getElementById("od_settle_vpoint").checked) {
+                alert("You do not have enough points. \nPlease select another payment method.");
+                document.getElementById("od_settle_card").focus();
+                return false;
+            }
+
+            if (temp_point == od_price) {
+                if(temp_point < 50000 && document.getElementById("od_settle_vpoint").checked) {
+                    alert("Free shipping on orders over 80$");
+                    document.getElementById("od_settle_card").focus();
+                    return false;
+                } else if (document.getElementById("od_settle_vbank").checked || document.getElementById("od_settle_card").checked || document.getElementById("od_settle_hp").checked) {
+                    alert("Your total order should be above 1$.");
+                    document.getElementById("od_settle_vpoint").focus();
+                    return false;
+                }
+            }
+
             if (temp_point > max_point) {
-                alert(max_point + "점 이상 결제할 수 없습니다.");
+                alert("Please redeem your points up to " + max_point);
                 f.od_temp_point.select();
                 return false;
             }
 
             if (parseInt(parseInt(temp_point / point_unit) * point_unit) != temp_point) {
-                alert("포인트를 "+String(point_unit)+"점 단위로 입력하세요.");
+                alert("Reward points can be redeemed to any value in multiples of "+String(point_unit));
                 f.od_temp_point.select();
                 return false;
+            }
+
+            // pg 결제 금액에서 포인트 금액 차감
+            if(settle_method != "무통장") {
+                f.good_mny.value = od_price + send_cost + send_cost2 - send_coupon - temp_point;
             }
         }
     }
 
     var tot_price = od_price + send_cost + send_cost2 - send_coupon - temp_point;
-
-    if (document.getElementById("od_settle_iche")) {
-        if (document.getElementById("od_settle_iche").checked) {
-            if (tot_price < 150) {
-                alert("계좌이체는 150원 이상 결제가 가능합니다.");
-                return false;
-            }
-        }
-    }
 
     if (document.getElementById("od_settle_card")) {
         if (document.getElementById("od_settle_card").checked) {
@@ -1444,46 +1370,124 @@ function payment_check(f)
         }
     }
 
-    if (document.getElementById("od_settle_hp")) {
-        if (document.getElementById("od_settle_hp").checked) {
-            if (tot_price < 350) {
-                alert("휴대폰은 350원 이상 결제가 가능합니다.");
-                return false;
-            }
-        }
-    }
-
     <?php if($default['de_tax_flag_use']) { ?>
     calculate_tax();
     <?php } ?>
 
-    return true;
-}
+    // pay_method 설정
+    <?php if($default['de_pg_service'] == 'eximbay') { ?>
+        f.txntype.value = "PAYMENT";
+    <?php } else if($default['de_pg_service'] == 'kcp') { ?>
+    switch(settle_method)
+    {
+        case "계좌이체":
+            f.pay_method.value = "010000000000";
+            break;
+        case "가상계좌":
+            f.pay_method.value = "001000000000";
+            break;
+        case "휴대폰":
+            f.pay_method.value = "000010000000";
+            break;
+        case "신용카드":
+            f.pay_method.value = "100000000000";
+            break;
+        default:
+            f.pay_method.value = "무통장";
+            break;
+    }
+    <?php } else if($default['de_pg_service'] == 'lg') { ?>
+    switch(settle_method)
+    {
+        case "계좌이체":
+            f.LGD_CUSTOM_FIRSTPAY.value = "SC0030";
+            f.LGD_CUSTOM_USABLEPAY.value = "SC0030";
+            break;
+        case "가상계좌":
+            f.LGD_CUSTOM_FIRSTPAY.value = "SC0040";
+            f.LGD_CUSTOM_USABLEPAY.value = "SC0040";
+            break;
+        case "휴대폰":
+            f.LGD_CUSTOM_FIRSTPAY.value = "SC0060";
+            f.LGD_CUSTOM_USABLEPAY.value = "SC0060";
+            break;
+        case "신용카드":
+            f.LGD_CUSTOM_FIRSTPAY.value = "SC0010";
+            f.LGD_CUSTOM_USABLEPAY.value = "SC0010";
+            break;
+        default:
+            f.LGD_CUSTOM_FIRSTPAY.value = "무통장";
+            break;
+    }
+    <?php }  else if($default['de_pg_service'] == 'inicis') { ?>
+    switch(settle_method)
+    {
+        case "계좌이체":
+            f.gopaymethod.value = "onlydbank";
+            break;
+        case "가상계좌":
+            f.gopaymethod.value = "onlyvbank";
+            break;
+        case "휴대폰":
+            f.gopaymethod.value = "onlyhpp";
+            break;
+        case "신용카드":
+            f.gopaymethod.value = "onlycard";
+            break;
+        case "전액포인트":
+            f.gopaymethod.value = "전액포인트";
+            break;
+        default:
+            f.gopaymethod.value = "무통장";
+            break;
+    }
+    <?php } ?>
+
+    // 결제정보설정
+    <?php if($default['de_pg_service'] == 'eximbay') { ?>
+    f.ref.value = f.od_ref.value;
+    f.mid.value = '<?php echo $mid; ?>';
+    f.cur.value = 'USD';
+    f.amt.value = number_format(f.good_mny.value, 2, ".", "");
+    f.buyer.value = f.od_name.value + " " + f.od_name_last.value;
+    f.tel.value = f.od_tel.value;
+    f.email.value = f.od_email.value;
+    f.shipTo_country = f.od_b_country.value;
+    f.shipTo_city = f.od_b_city.value;
+    f.shipTo_fistName = f.od_b_name.value;
+    f.shipTo_lastName = f.od_b_name_last.value;
+    f.shipTo_phoneNumber = f.od_b_tel.value;
+    f.shipTo_postalCode = f.od_b_zip.value;
+    f.shipTo_street1 = f.od_b_addr1.value + " " + f.od_b_addr2.value;
+
+    payForm();
+    <?php } ?>
+} // END forderform_check
 
 // 구매자 정보와 동일합니다.
 function gumae2baesong(checked) {
     var f = document.forderform;
 
     if(checked == true) {
-        f.od_b_name.value = f.od_name.value;
-        f.od_b_tel.value  = f.od_tel.value;
-        f.od_b_hp.value   = f.od_hp.value;
-        f.od_b_zip.value  = f.od_zip.value;
-        f.od_b_addr1.value = f.od_addr1.value;
-        f.od_b_addr2.value = f.od_addr2.value;
-        f.od_b_addr3.value = f.od_addr3.value;
-        f.od_b_addr_jibeon.value = f.od_addr_jibeon.value;
+        f.od_b_name.value      = f.od_name.value;
+        f.od_b_name_last.value = f.od_name_last.value;
+        f.od_b_tel.value       = f.od_tel.value;
+        f.od_b_city.value      = f.od_city.value;
+        f.od_b_country.value   = f.od_country.value;
+        f.od_b_addr1.value     = f.od_addr1.value;
+        f.od_b_addr2.value     = f.od_addr2.value;
+        f.od_b_zip.value       = f.od_zip.value;
 
         calculate_sendcost(String(f.od_b_zip.value));
     } else {
-        f.od_b_name.value = "";
-        f.od_b_tel.value  = "";
-        f.od_b_hp.value   = "";
-        f.od_b_zip.value = "";
-        f.od_b_addr1.value = "";
-        f.od_b_addr2.value = "";
-        f.od_b_addr3.value = "";
-        f.od_b_addr_jibeon.value = "";
+        f.od_b_name.value      = "";
+        f.od_b_name_last.value = "";
+        f.od_b_tel.value       = "";
+        f.od_b_city.value        = "";
+        f.od_b_country.value   = "";
+        f.od_b_addr1.value     = "";
+        f.od_b_addr2.value     = "";
+        f.od_b_zip.value       = "";
     }
 }
 
@@ -1496,4 +1500,7 @@ $(function(){
 
 <?php
 include_once(G5_MSHOP_PATH.'/_tail.php');
+
+// 결제대행사별 코드 include (스크립트 실행)
+require_once('./'.$default['de_pg_service'].'/orderform.5.php');
 ?>

@@ -2,117 +2,163 @@
 include_once('./_common.php');
 
 if (!$is_member)
-        goto_url(G5_BBS_URL."/login.php?url=".urlencode(G5_SHOP_URL."/mypage.php"));
+    goto_url(G5_BBS_URL."/login.php?url=".urlencode(G5_SHOP_URL."/mypage.php"));
 
-$g5['title'] = '마이페이지';
+if (empty($member['mb_name'])) {
+    $g5['title'] = $member['mb_id'].'\'s VOGOS';
+} else {
+    $g5['title'] = $member['mb_name'].'\'s VOGOS';    
+}
+
 include_once(G5_MSHOP_PATH.'/_head.php');
 
 // 쿠폰
 $cp_count = 0;
 $sql = " select cp_id
-                    from {$g5['g5_shop_coupon_table']}
-                    where mb_id IN ( '{$member['mb_id']}', '전체회원' )
-                        and cp_start <= '".G5_TIME_YMD."'
-                        and cp_end >= '".G5_TIME_YMD."' ";
+            from {$g5['g5_shop_coupon_table']}
+            where mb_id IN ( '{$member['mb_id']}', '전체회원' )
+              and cp_start <= '".G5_TIME_YMD."'
+              and cp_end >= '".G5_TIME_YMD."' ";
 $res = sql_query($sql);
 
 for($k=0; $cp=sql_fetch_array($res); $k++) {
     if(!is_used_coupon($member['mb_id'], $cp['cp_id']))
-            $cp_count++;
+        $cp_count++;
 }
 ?>
 
+<!-- 마이페이지 시작 { -->
 <div id="smb_my">
 
+    <div id="sod_title" class="mif">
+        <header class="fullWidth">
+        <?php if(empty($member['mb_name'])) { ?>
+            <h2><?php echo $member['mb_id']; ?>'s VOGOS <span class="cart_item_num"><a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php"><i class="ion-compose"></i> Edit My Info</a></span></h2>
+        <?php } else { ?>
+            <h2><?php echo $member['mb_name']; ?>'s VOGOS <span class="cart_item_num"><a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php"><i class="ion-compose"></i> Edit My Info</a></span></h2>
+        <?php } ?>
+        </header>
+    </div>
+
+    <div class="fullWidth">
+
+    <!-- 회원정보 개요 시작 { -->
     <section id="smb_my_ov">
-        <h1>MY PAGE</h1>
-        <h2><?php echo $member['mb_name'] ?><span>님</span></h2>
-        <ul class="mp_lst_icon">
-            <li><a href="<?php echo G5_BBS_URL; ?>/point.php" target="_blank" class="win_point"><h4><i class="point"></i>POINT</h4><span><?php echo number_format($member['mb_point']); ?></span></a></li>
-            <li><a href="<?php echo G5_MSHOP_URL; ?>/cart.php"><h4><i class="cart"></i>CART</h4><span><?=get_cart_count(get_session('ss_cart_id'));?></span></a></li>
-            <li><a href="<?php echo G5_SHOP_URL; ?>/coupon.php" target="_blank" class="win_coupon"><h4><i class="coupon"></i>COUPON</h4><span><?php echo number_format($cp_count); ?></span></a></li>
-        </ul>
-        <dl class="mp_lst_txt">
-            <dt class="email">E-MAIL</dt>
-            <dd>
-                <?php echo ($member['mb_email'] ? $member['mb_email'] : '미등록'); ?>
-            </dd>
-
-            <dt class="tel">TEL/HP</dt>
-            <dd>
-                <?php if($member['mb_tel']) { ?>
-                <?php echo ($member['mb_tel'] ? $member['mb_tel'].' / ' : '미등록 / '); ?>
+        <h2><i class="ion-android-happy"></i> MY INFORMATION
+            <div class="smb_my_more">
+                <a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=member_leave.php" onclick="return member_leave();"><i class="ion-android-exit"></i> Deactivate ID</a>
+            </div>
+        </h2>
+        <div class="sct_iqv_tbl sct_iqv_tbl2">
+            <table>
+            <colgroup>
+                <col class="grid_3">
+                <col>
+            </colgroup>
+            <tbody>
+            <tr>
+                <th scope="row">ID</th>
+                <?php if(empty($member['mb_id'])) { ?>
+                <td class="btn_edit_info">Click <a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php"><i class="ion-compose"></i> Edit My Info</a> and provide your additional information</td>
+                <? } else { ?>
+                <td><?php echo $member['mb_id']; ?></td>
                 <?php } ?>
-                <?php if($member['mb_hp']) { ?>
-                <?php echo ($member['mb_hp'] ? $member['mb_hp'] : '미등록'); ?>
+            </tr>
+            <tr>
+                <th scope="row">First Name</th>
+                <?php if(empty($member['mb_name'])) { ?>
+                <td class="btn_edit_info">Click <a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php"><i class="ion-compose"></i> Edit My Info</a> and provide your additional information</td>
+                <? } else { ?>
+                <td><?php echo $member['mb_name']; ?></td>
                 <?php } ?>
-            </dd>
-
-            <dt class="address">ADDRESS</dt>
-            <dd>
-                <?php echo sprintf("(%s-%s)", $member['mb_zip1'], $member['mb_zip2']).' '.print_address($member['mb_addr1'], $member['mb_addr2'], $member['mb_addr3'], $member['mb_addr_jibeon']); ?>
-            </dd>
-        </dl>
+            </tr>
+            <tr>
+                <th scope="row">Last Name</th>
+                <?php if(empty($member['mb_name_last'])) { ?>
+                <td class="btn_edit_info">Click <a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php"><i class="ion-compose"></i> Edit My Info</a> and provide your additional information</td>
+                <? } else { ?>
+                <td><?php echo $member['mb_name_last']; ?></td>
+                <?php } ?>
+            </tr>
+            <tr>
+                <th scope="row">E-mail</th>
+                <?php if(empty($member['mb_email'])) { ?>
+                <td class="btn_edit_info">Click <a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php"><i class="ion-compose"></i> Edit My Info</a> and provide your additional information</td>
+                <? } else { ?>
+                <td><?php echo $member['mb_email']; ?></td>
+                <?php } ?>
+            </tr>
+            <tr>
+                <th scope="row">Telephone</th>
+                <?php if(empty($member['mb_tel'])) { ?>
+                <td class="btn_edit_info">Click <a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php"><i class="ion-compose"></i> Edit My Info</a> and provide your additional information</td>
+                <? } else { ?>
+                <td><?php echo $member['mb_tel']; ?></td>
+                <?php } ?>
+            </tr>
+            <tr>
+                <th scope="row">Mobile</th>
+                <?php if(empty($member['mb_hp'])) { ?>
+                <td class="btn_edit_info">Click <a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php"><i class="ion-compose"></i> Edit My Info</a> and provide your additional information</td>
+                <? } else { ?>
+                <td><?php echo $member['mb_hp']; ?></td>
+                <?php } ?>
+            </tr>
+            <tr>
+                <th scope="row">Country</th>
+                <?php if(empty($member['mb_country'])) { ?>
+                <td class="btn_edit_info">Click <a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php"><i class="ion-compose"></i> Edit My Info</a> and provide your additional information</td>
+                <? } else { ?>
+                <td><?php echo $member['mb_country']; ?></td>
+                <?php } ?>
+            </tr>
+            <tr>
+                <th scope="row">Address Line 1</th>
+                <?php if(empty($member['mb_addr1'])) { ?>
+                <td class="btn_edit_info">Click <a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php"><i class="ion-compose"></i> Edit My Info</a> and provide your additional information</td>
+                <? } else { ?>
+                <td><?php echo $member['mb_addr1']; ?></td>
+                <?php } ?>
+            </tr>
+            <tr>
+                <th scope="row">Address Line 2</th>
+                <?php if(empty($member['mb_addr2'])) { ?>
+                <td class="btn_edit_info">Click <a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php"><i class="ion-compose"></i> Edit My Info</a> and provide your additional information</td>
+                <? } else { ?>
+                <td><?php echo $member['mb_addr2']; ?></td>
+                <?php } ?>
+            </tr>
+            <tr>
+                <th scope="row">Postal Code</th>
+                <?php if(empty($member['mb_zip'])) { ?>
+                <td class="btn_edit_info">Click <a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php"><i class="ion-compose"></i> Edit My Info</a> and provide your additional information</td>
+                <? } else { ?>
+                <td><?php echo $member['mb_zip']; ?></td>
+                <?php } ?>
+            </tr>
+            </tbody>
+            </table>
+        </div>
     </section>
+    <!-- } 회원정보 개요 끝 -->
 
-    <section id="smb_my_lod" class="rd_bg">
-        <h2 class="rd_hd"><a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php">진행중인 주문<span>(최근 3주 기준)</span></a></h2>
+    <!-- 최근 주문내역 시작 { -->
+    <section id="smb_my_od">
+        <h2><i class="ion-android-list"></i> ORDER HISTORY
+            <div class="smb_my_more">
+                <a href="./orderinquiry.php"><i class="ion-android-arrow-dropright-circle"></i>VIEW ORDER HISTORY PAGE</a>
+            </div>
+        </h2>
         <?php
         // 최근 주문내역
         define("_ORDERINQUIRY_", true);
 
-        include G5_MSHOP_PATH.'/orderinquiry.status.php';
-        ?>
-    </section>
-
-    <section id="smb_my_od" class="rd_bg">
-        <h2 class="rd_hd"><a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php">최근 주문내역<span><i class="ion-android-arrow-dropright rd"></i></span></a></h2>
-        <?php
-        // 최근 주문내역
-        define("_ORDERINQUIRY_", true);
-
-        $limit = " limit 0, 5 ";
+        $limit = " limit 0, 3 ";
         include G5_MSHOP_PATH.'/orderinquiry.sub.php';
         ?>
     </section>
-
-    <section id="smb_my_wish" class="rd_bg">
-        <h2 class="rd_hd"><a href="<?php echo G5_SHOP_URL; ?>/wishlist.php">최근 위시리스트</a></h2>
-
-        <ul>
-                <?php
-                $sql = " select *
-                                     from {$g5['g5_shop_wish_table']} a,
-                                                {$g5['g5_shop_item_table']} b
-                                    where a.mb_id = '{$member['mb_id']}'
-                                        and a.it_id  = b.it_id
-                                    order by a.wi_id desc
-                                    limit 0, 3 ";
-                $result = sql_query($sql);
-                for ($i=0; $row = sql_fetch_array($result); $i++)
-                {
-                        $image_w = 50;
-                        $image_h = 50;
-                        $image = get_it_image($row['it_id'], $image_w, $image_h, true);
-                        $list_left_pad = $image_w + 10;
-                ?>
-
-                <li style="padding-left:<?php echo $list_left_pad; ?>px">
-                        <div class="wish_img"><?php echo $image; ?></div>
-                        <div class="wish_info">
-                                <a href="./item.php?it_id=<?php echo $row['it_id']; ?>" class="info_link"><?php echo stripslashes($row['it_name']); ?></a>
-                                <span class="info_date"><?php echo substr($row['wi_time'], 2, 8); ?></span>
-                        </div>
-                </li>
-
-                <?php
-                }
-
-                if ($i == 0)
-                        echo '<li class="empty_list">위시리스트에 담긴 상품이 없네요.</li>';
-                ?>
-        </ul>
-    </section>
+    <!-- } 최근 주문내역 끝 -->
+    </div>
 
 </div>
 
@@ -127,9 +173,10 @@ $(function() {
 
 function member_leave()
 {
-    return confirm('정말 회원에서 탈퇴 하시겠습니까?')
+    return confirm('Are you sure you want to deactivate your ID?')
 }
 </script>
+<!-- } 마이페이지 끝 -->
 
 <?php
 include_once(G5_MSHOP_PATH.'/_tail.php');

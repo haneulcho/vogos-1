@@ -5,6 +5,8 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 0);
 ?>
 
+<div class="default_contents">
+<!-- 회원가입약관 동의 시작 { -->
 <div id="mb_join" class="mbskin">
     <h1>VOGOS Sign Up</h1>
     <form  name="fregister" id="fregister" action="<?php echo $register_action_url ?>" onsubmit="return fregister_submit(this);" method="POST" autocomplete="off">
@@ -52,4 +54,6 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         return true;
     }
     </script>
+</div>
+<!-- } 회원가입 약관 동의 끝 -->
 </div>

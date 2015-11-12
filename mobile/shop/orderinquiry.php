@@ -29,9 +29,9 @@ $total_count = $row['cnt'];
 if ($total_count == 0)
 {
     if ($is_member) // 회원일 경우는 메인으로 이동
-        alert('주문이 존재하지 않습니다.', G5_SHOP_URL);
+        alert('Your order is invalid.', G5_SHOP_URL);
     else // 비회원일 경우는 이전 페이지로 이동
-        alert('주문이 존재하지 않습니다.');
+        alert('Your order is invalid.');
 }
 
 $rows = $config['cf_page_rows'];
@@ -52,12 +52,20 @@ if (!$is_member)
     }
 }
 
-$g5['title'] = '주문내역조회';
+$g5['title'] = 'Order History';
 include_once(G5_MSHOP_PATH.'/_head.php');
 ?>
 
+<!-- 주문 내역 시작 { -->
 <div id="sod_v">
-    <p id="sod_v_info">주문서번호 링크를 누르시면 주문상세내역을 조회하실 수 있습니다.</p>
+
+    <div id="sod_title" class="ohst">
+        <header class="fullWidth">
+            <h2>ORDER HISTORY</h2>
+        </header>
+    </div>
+
+    <div class="fullWidth">
 
     <?php
     $limit = " limit $from_record, $rows ";
@@ -65,7 +73,11 @@ include_once(G5_MSHOP_PATH.'/_head.php');
     ?>
 
     <?php echo get_paging($config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
+
+    </div>
+
 </div>
+<!-- } 주문 내역 끝 -->
 
 <?php
 include_once(G5_MSHOP_PATH.'/_tail.php');
