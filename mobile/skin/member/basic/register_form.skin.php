@@ -52,8 +52,8 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
             <td><input type="password" name="mb_password_re" id="reg_mb_password_re" class="frm_input <?php echo $required ?>" minlength="3" maxlength="20" <?php echo $required ?>></td>
         </tr>
         <tr>
-            <th scope="row"><label for="reg_mb_country">Country<strong class="sound_only">Required</strong></label></th>
-            <td>
+            <th scope="row" style="padding-top:0;"><label for="reg_mb_country">Country<strong class="sound_only">Required</strong></label></th>
+            <td style="padding-bottom:12px;">
                 <select id="reg_mb_country" name="mb_country" <?php echo $required ?>>
                 <option value="">SELECT YOUR COUNTRY</option>
                 <option value="Afghanistan">Afghanistan</option>
@@ -354,8 +354,10 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     <div class="tbl" style="margin-bottom:20px;">
         <table>
         <tr>
-            <th scope="row">I'd like to receive exclusive discounts and news from VOGOS by email and post</th>
-            <td>
+            <th scope="row" style="padding:12px;">I'd like to receive exclusive discounts and news from VOGOS by email and post</th>
+        </tr>
+        <tr>
+            <td style="padding:0 0 12px 0;text-align:center;">
                 <input type="radio" name="mb_mailling" value="1" id="reg_mb_mailling1" <?php echo ($w=='' || $member['mb_mailling'])?'checked':''; ?>> <label for="reg_mb_mailling1" style="margin-right:10px;">Yes</label>
                 <input type="radio" name="mb_mailling" value="0" id="reg_mb_mailling0"> <label for="reg_mb_mailling0">No thanks</label>
             </td>
