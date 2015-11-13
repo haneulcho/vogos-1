@@ -54,6 +54,7 @@ $i_send_cost2  = (float)$_POST['od_send_cost2'];
 $i_send_coupon  = (int)$_POST['od_send_coupon'];
 $i_temp_point = (int)$_POST['od_temp_point'];
 $od_settle_case = $_POST['od_settle_case'];
+$od_receipt_time = $resdt;
 
 $is_success = '';
 if($rescode == "0000"){
@@ -348,7 +349,7 @@ if($is_success) {
         $od_app_no          = $app_no;
         $od_receipt_price   = $amount;
         $od_receipt_point   = $i_temp_point;
-        $od_receipt_time    = substr($app_time, 0, 4).'-'.substr($app_time, 4, 2).'-'.substr($app_time, 6, 2).' '.substr($app_time, 8, 2).':'.substr($app_time, 10, 2).':'.substr($app_time, 12, 2);
+        $od_receipt_time    = preg_replace("/([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "\\1-\\2-\\3 \\4:\\5:\\6", $od_receipt_time);
         $pg_price           = $amount;
         $od_misu            = $i_price - $od_receipt_price;
         if($od_misu == 0)
