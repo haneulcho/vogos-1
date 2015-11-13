@@ -68,10 +68,7 @@ var f = document.forderform;
         <table id="sod_list">
         <thead>
         <tr>
-            <th class="th_cart_des" scope="col" colspan="2" class="itemdes">ITEM DESCRIPTION</th>
-            <th class="th_cart_qty" scope="col">TOTAL QTY</th>
-            <th class="th_cart_num" scope="col">UNIT PRICE</th>
-            <th class="th_cart_num" scope="col">TOTAL PRICE</th>
+            <th class="th_cart_des" scope="col" colspan="3" class="itemdes">ITEM DESCRIPTION</th>
         </tr>
         </thead>
         <tbody>
@@ -149,7 +146,7 @@ var f = document.forderform;
                 $good_info .= "good_amtx=".$row['ct_price'].chr(31);
             }
 
-            $image = get_it_image_best($row['it_id'], 105, 140, 8, '', '', 'original', stripslashes($row['it_name']));
+            $image = get_it_image_best($row['it_id'], 70, 93, 8, '', '', 'original', stripslashes($row['it_name']));
 
             $it_name = '<span class="cart_it_name"><b>'.stripslashes($row['it_name']).'</b></span>';
             $it_options = print_item_options($row['it_id'], $s_cart_id);
@@ -227,7 +224,7 @@ var f = document.forderform;
 
         <tr>
             <td class="cart_img"><?php echo $image; ?></td>
-            <td class="cart_des">
+            <td class="cart_des" colspan="2">
                 <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
                 <input type="hidden" name="it_name[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name']); ?>">
                 <input type="hidden" name="it_price[<?php echo $i; ?>]" value="<?php echo $sell_price; ?>">
@@ -243,10 +240,17 @@ var f = document.forderform;
                 <?php } ?>
                 <?php echo $it_name; ?>
             </td>
+            <!-- <td class="td_dvr"><?php //echo $ct_send_cost; ?></td> -->
+        </tr>
+        <tr>
+            <th class="th_cart_qty tt" scope="col">TOTAL<br>QTY</th>
+            <th class="th_cart_num tt" scope="col">UNIT<br>PRICE</th>
+            <th class="th_cart_num tt" scope="col">TOTAL<br>PRICE</th>
+        </tr>
+        <tr>
             <td class="cart_qty"><?php echo number_format($sum['qty']); ?></td>
             <td class="cart_num"><?php echo number_format($row['ct_price'], 2); ?></td>
             <td class="cart_num"><span class="total_price"><?php echo number_format($sell_price, 2); ?></span></td>
-            <!-- <td class="td_dvr"><?php //echo $ct_send_cost; ?></td> -->
         </tr>
 
         <?php
@@ -285,24 +289,6 @@ var f = document.forderform;
 
     <?php if ($goods_count) $goods .= ' 외 '.$goods_count.'건'; ?>
     <!-- } 주문상품 확인 끝 -->
-
-    <!-- 주문상품 합계 시작 { -->
-    <table id="sod_bsk_tot" class="subtotal_order">
-        <tr class="sod_shipping">
-            <td class="sod_bsk_dvr">TOTAL PRICE</td>
-            <td class="sod_bsk_cnt"><strong>$<?php echo number_format($tot_sell_price, 2); ?></strong></td>
-        </tr>
-        <tr class="sod_shipping">
-            <td class="sod_bsk_dvr">SHIPPING COST</td>
-            <td class="sod_bsk_cnt"><strong>$<?php echo number_format($send_cost, 2); ?></strong></td>
-        </tr>
-        <tr class="sod_subtotal">
-            <?php $tot_price = $tot_sell_price + $send_cost; // 총계 = 주문상품금액합계 + 배송비 ?>
-            <td class="sod_bsk_dvr">SUBTOTAL</td>
-            <td class="sod_bsk_cnt"><strong>$<?php echo number_format($tot_price, 2); ?></strong></td>
-        </tr>
-    </table>
-    <!-- } 주문상품 합계 끝 -->
 
     <input type="hidden" name="od_price" value="<?php echo number_format($tot_sell_price, 2, ".", ""); ?>">
     <input type="hidden" name="org_od_price" value="<?php echo number_format($tot_sell_price, 2, ".", ""); ?>">
@@ -939,6 +925,24 @@ var f = document.forderform;
         </div>
     </section>
     <!-- } 받으시는 분 입력 끝 -->
+
+    <!-- 주문상품 합계 시작 { -->
+    <table id="sod_bsk_tot" class="subtotal_order">
+        <tr class="sod_shipping">
+            <td class="sod_bsk_dvr">TOTAL PRICE</td>
+            <td class="sod_bsk_cnt"><strong>$<?php echo number_format($tot_sell_price, 2); ?></strong></td>
+        </tr>
+        <tr class="sod_shipping">
+            <td class="sod_bsk_dvr">SHIPPING COST</td>
+            <td class="sod_bsk_cnt"><strong>$<?php echo number_format($send_cost, 2); ?></strong></td>
+        </tr>
+        <tr class="sod_subtotal">
+            <?php $tot_price = $tot_sell_price + $send_cost; // 총계 = 주문상품금액합계 + 배송비 ?>
+            <td class="sod_bsk_dvr">SUBTOTAL</td>
+            <td class="sod_bsk_cnt"><strong>$<?php echo number_format($tot_price, 2); ?></strong></td>
+        </tr>
+    </table>
+    <!-- } 주문상품 합계 끝 -->
 
     <!-- 결제정보 입력 시작 { -->
     <?php
