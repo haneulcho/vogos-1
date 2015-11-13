@@ -45,6 +45,19 @@
 #product_inf_v a {display:block;width:140px;height:30px;margin-top:-8px;margin-bottom:10px;text-indent:-9999px;font-size:0;line-height:0;overflow:hidden;background:url('img/btn_sguide.jpg') no-repeat;}
 #product_inf_v a:hover {background:url('img/btn_sguide_on.jpg') no-repeat;}
 
+/* Free Shipping 안내 */
+#alert_shipping {padding:20px;line-height:18px;color:#6c6164;background:#f3f3f0;font-size:15px;text-align:center;font-size:700;}
+#alert_shipping > p {font-weight:700;font-size:15px;}
+#alert_shipping > p i {margin-right:5px;font-size:18px;}
+#alert_shipping .go_to_links {margin-top:14px;}
+#alert_shipping .go_to_links a {display:inline-block;width:173px;height:18px;margin:0 auto 6px;padding:8px 0 8px 20px;background-color:#fff;font-size:12px;text-align:left;color:#6c6165;border:1px solid #e7e7e7;
+box-shadow:0px 1px 3px 0px rgba(233, 228, 223, 0.46);
+-webkit-box-shadow:0px 1px 3px 0px rgba(233, 228, 223, 0.46)
+-moz-box-shadow:0px 1px 3px 0px rgba(233, 228, 223, 0.46)
+-o-box-shadow:0px 1px 3px 0px rgba(233, 228, 223, 0.46);}
+#alert_shipping .go_to_links a:hover {background-color:#DAD9D2;}
+#alert_shipping .go_to_links a > i {font-size:14px;}
+
 /* aside:배너 */
 .sbn {margin:0 0 5px}
 .sbn h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
@@ -501,7 +514,7 @@ box-shadow:-10px 0 20px -15px #444}
   transition: all .3s ease;
 font-weight:700;color:#6c6164;background-color:#f3f3f0;}
 
-.tab_div {overflow-y:auto;max-height:120px;padding:20px;font-size:12px;line-height:18px;color:#555;background:#fff;}
+.tab_div {overflow-y:auto;max-height:120px;padding:20px;font-size:12px;line-height:18px;color:#555;background:#fff;border-bottom:1px solid #f1f1f1;}
 
 
 

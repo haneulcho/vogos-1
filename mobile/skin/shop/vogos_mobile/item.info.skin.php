@@ -17,23 +17,17 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
                 <p><?php echo conv_content($it['it_explan'], 1); ?></p>
             </div>
         </li>
-        <li class="delivery_inf">
-            <h3><a href="#delivery_inf_v">Delivery Info</a></h3>
-            <div id="delivery_inf_v" class="tab_div">
-            <?php if ($default['de_baesong_content']) { // 배송정보 내용이 있다면 ?>
-                <?php echo conv_content($default['de_baesong_content'], 1); ?>
-            <?php } ?>
-            </div>
-        </li>
-        <li class="returns_inf">
-            <h3><a href="#returns_inf_v">Returns Info</a></h3>
-            <div id="returns_inf_v" class="tab_div">
-            <?php if ($default['de_change_content']) { // 교환/반품 내용이 있다면 ?>
-                <?php echo conv_content($default['de_change_content'], 1); ?>
-            <?php } ?>
-            </div>
-        </li>
     </ul>
+
+    <div id="alert_shipping">
+        <p>
+            <i class="ion-android-plane"></i>Free express shipping worldwide over $80
+        </p>
+        <div class="go_to_links">
+            <a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=shippinginfo"><i class="ion-android-arrow-dropright-circle"></i> View shipping information</a>
+            <a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=returnpolicy"><i class="ion-android-arrow-dropright-circle"></i> View returns and policies</a>
+        </div>
+    </div>
 
 </section>
 <!-- } sit_ov_inf END -->
