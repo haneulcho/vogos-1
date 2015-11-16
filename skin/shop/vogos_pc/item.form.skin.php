@@ -192,7 +192,7 @@ $video_frame = "<iframe src=\"".$video_src."\" width=\"330\" height=\"590\" fram
                     <input type="hidden" class="io_price" value="0">
                     <input type="hidden" class="io_stock" value="<?php echo $it['it_stock_qty']; ?>">
                     <span class="sit_opt_subj"><?php echo $it['it_name']; ?></span>
-                    <span class="sit_opt_prc">(+0원)</span>
+                    <span class="sit_opt_prc">(+0)</span>
                     <div>
                         <label for="ct_qty_<?php echo $i; ?>" class="sound_only">수량</label>
                         <input type="text" name="ct_qty[<?php echo $it_id; ?>][]" value="<?php echo $it['it_buy_min_qty']; ?>" id="ct_qty_<?php echo $i; ?>" class="frm_input" size="5">
