@@ -12,7 +12,7 @@ else
     $tmp_cart_id = get_session('ss_cart_id');
 
 if (get_cart_count($tmp_cart_id) == 0)// 장바구니에 담기
-    alert('Your shopping cart is empty.\\n\\nPlease try again.', G5_SHOP_URL.'/cart.php');
+    alert('Your shopping cart is empty.\\n\\nPlease try again.', G5_MSHOP_URL.'/cart.php');
 
 $error = "";
 // 장바구니 상품 재고 검사
@@ -40,7 +40,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 }
 
 if($i == 0)
-    alert('Your shopping cart is empty.\\n\\nPlease try again', G5_SHOP_URL.'/cart.php');
+    alert('Your shopping cart is empty.\\n\\nPlease try again', G5_MSHOP_URL.'/cart.php');
 
 if ($error != "")
 {
@@ -747,11 +747,11 @@ if($is_success) {
         sql_query($sql);
     }
 
-    goto_url(G5_SHOP_URL.'/orderinquiryview.php?od_id='.$od_id.'&amp;uid='.$uid);
+    goto_url(G5_MSHOP_URL.'/orderinquiryview.php?od_id='.$od_id.'&amp;uid='.$uid);
 
 
 } else { // 엑심베이 결제 실패시 처리 코드
-    alert('An Error occurred. Please try again later.', G5_SHOP_URL.'/cart.php');
+    alert('An Error occurred. Please try again later.', G5_MSHOP_URL.'/cart.php');
 }
 ?>
 

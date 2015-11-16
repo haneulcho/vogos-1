@@ -9,7 +9,7 @@ $(function() {
             return false;
 
         if($this.hasClass("no_more_item")) {
-            alert("등록된 상품이 더 이상없습니다.");
+            alert("No more items");
             return false;
         }
 
@@ -32,7 +32,7 @@ $(function() {
                 var cnt = $items.size();
 
                 if(cnt < 1) {
-                    alert("마지막 리스트입니다");
+                    alert("No more items");
                     $msg.css("display", "none");
                     $this.addClass("no_more_item");
                     return false;

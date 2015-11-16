@@ -35,8 +35,8 @@ $result = sql_query($sqlcate);
     <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
     <aside id="hd_sch">
         <div class="sch_inner">
-            <h2>상품 검색</h2>
-            <label for="sch_str" class="sound_only">상품명<strong class="sound_only"> 필수</strong></label>
+            <h2>Search items</h2>
+            <label for="sch_str" class="sound_only">Item name<strong class="sound_only"> required</strong></label>
             <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required class="frm_input">
             <button type="submit" class="btn_submit"><i class="ion-android-search"></i></button>
         </div>
@@ -46,7 +46,7 @@ $result = sql_query($sqlcate);
     <script>
     function search_submit(f) {
         if (f.q.value.length < 2) {
-            alert("검색어는 두글자 이상 입력하십시오.");
+            alert("Please enter item name at least 3 characters.");
             f.q.select();
             f.q.focus();
             return false;
