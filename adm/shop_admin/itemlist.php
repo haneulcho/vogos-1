@@ -129,7 +129,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 </select>
 
 <label for="stx" class="sound_only">검색어</label>
-<input type="text" name="stx" value="<?php echo $stx; ?>" id="stx" class="frm_input">
+<input type="text" name="stx" value="<?php echo $stx; ?>" id="stx" class="frm_input" style="width:240px">
 <input type="submit" value="검색" class="btn_submit">
 
 </form>

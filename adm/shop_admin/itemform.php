@@ -1456,7 +1456,7 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
                     ?>
                 </select>
                 <label for="sch_name" class="sound_only">상품명</label>
-                <input type="text" name="sch_name" id="sch_name" class="frm_input" size="15">
+                <input type="text" name="sch_name" id="sch_name" class="frm_input" size="15" style="width:250px">
                 <button type="button" id="btn_search_item" class="btn_frmline">검색</button>
             </span>
             <div id="relation" class="srel_list">
