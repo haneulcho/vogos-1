@@ -1,5 +1,8 @@
 @charset "utf-8";
 /* ##### maint.(nn).skin.php, list.(nn).skin.php 공통 적용 시작 ##### */
+/* 카테고리 */
+#polNav {padding:10px 20px;background-color:#383838;border-top:1px solid #444;}
+#polNav li a {display:block;padding:4px;color:#717171;font-family:'Lato';font-size:11px;}
 /* 공통 */
 .f3f3f0 {background-color:#f3f3f0;}
 #forderform select {height:35px;background-color:#f8f8f8;color:#6c6165;font-weight:bold;

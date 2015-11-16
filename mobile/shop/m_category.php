@@ -30,7 +30,6 @@ $result = sql_query($sqlcate);
         <li><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><i class="ion-android-lock"></i>SIGN IN</a></li>
         <?php } ?>
     </ul>
-
     <!-- 검색 처리 -->
     <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
     <aside id="hd_sch">
@@ -83,5 +82,12 @@ $result = sql_query($sqlcate);
         echo '<p id="sct_win_empty">하위 분류가 없습니다.</p>';
     }
     ?>
+    <ul id="polNav">
+        <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=privacy">Privacy Policy</a></li>
+        <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=provision">Terms and Conditions</a></li>
+        <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=shippinginfo">Shipping Info</a></li>
+        <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=returnpolicy">Returns and Policies</a></li>
+        <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=sizeguide">Size Guide</a></li>
+    </ul>
   </div> <!-- inner end -->
 </div>
