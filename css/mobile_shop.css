@@ -29,15 +29,15 @@ a:link, a:visited {color:#000;text-decoration:none}
 .hd_pops_footer button {margin-right:5px;padding:5px 10px;border:0;background:#393939;color:#fff}
 
 /* 상단 레이아웃 */
-#hd {position:fixed;top:0;width:100%;height:44px;margin:0;padding:5px 0;text-align:center;background-color:#fff;z-index:2;-webkit-transform:translateX(0);-webkit-transition:.2s -webkit-transform ease-in-out;box-shadow:0px 3px 4px 0px rgba(137, 137, 137, 0.1);}
+#hd {position:fixed;top:0;width:100%;height:35px;margin:0;padding:5px 0;text-align:center;background-color:#fff;z-index:2;-webkit-transform:translateX(0);-webkit-transition:.2s -webkit-transform ease-in-out;box-shadow:0px 3px 4px 0px rgba(137, 137, 137, 0.1);}
 #hd.open {-webkit-transform:translateX(240px);}
 #hd h1 {position:absolute;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden}
 
-#logo {padding:5px 0}
+#logo {padding:0}
 #logo a {display:inline-block;}
 #logo a>img {width:100px;}
 
-#topCart {position:absolute;top:12px;right:10px;}
+#topCart {position:absolute;top:9px;right:10px;}
 #topCart a {display:block;padding:0 10px;font-size:2em;}
 
 #hd_ct {position:absolute;top:10px;left:10px;padding:10px;border:0;background:#333;color:#fff;font-size:1em;text-decoration:none;letter-spacing:-0.1em;vertical-align:top;-webkit-appearance:none}
@@ -78,7 +78,8 @@ a.sanchor_on {background:#626870;color:#fff !important;text-decoration:none}
 
 /* ########## 쇼핑몰 컨텐츠 ########## */
 /* 분류:새창 */
-#main {padding-top:54px;-webkit-transform:translateX(0);-webkit-transition:.2s -webkit-transform ease-in-out;z-index:1;position:relative;background-color:#fff;}
+#main {padding-top:45px;-webkit-transform:translateX(0);-webkit-transition:.2s -webkit-transform ease-in-out;z-index:1;position:relative;background-color:#fff;}
+#main.inItem {padding-top:70px;}
 #main.open {-webkit-transform:translateX(240px);min-width:320px;height:100%;overflow:hidden;}
 #sct_win {position:fixed;top:0;left:0;visibility:hidden;width:240px;height:500px;background-color:#252525;z-index:0;overflow-x:hidden;overflow-y:auto;-webkit-transition:visibility linear .2s;-webkit-overflow-scrolling:touch;}
 #sct_win.open {height:100%;visibility:visible;z-index:2;-webkit-transition:z-index 0s linear .2s;}
@@ -97,7 +98,7 @@ a.sanchor_on {background:#626870;color:#fff !important;text-decoration:none}
 
 /* 모바일 햄버거 카테고리 */
 #hamburger.open {z-index:2;}
-#hamburger {position:absolute;left:0;top:0;margin:7px 10px 10px;padding:4px 8px 2px;cursor:pointer;z-index:3;display:block;-webkit-transform:translateX(0);-webkit-transition:.2s -webkit-transform ease-in-out;}
+#hamburger {position:absolute;left:0;top:0;margin:3px 10px 4px;padding:4px 8px 2px;cursor:pointer;z-index:3;display:block;-webkit-transform:translateX(0);-webkit-transition:.2s -webkit-transform ease-in-out;}
 #hamburger i {font-size:32px;line-height:0;}
 .mobile-menu .mobile-menu-inner {position:relative;width:240px;padding:50px 0 60px;overflow:hidden;}
 .mobile-menu h1 {padding:15px 0;text-align:center}

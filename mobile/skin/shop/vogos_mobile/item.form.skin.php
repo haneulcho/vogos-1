@@ -13,7 +13,7 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.magnific-popup.min.j
 <input type="hidden" name="sw_direct">
 <input type="hidden" name="url">
 
-<div id="sit_ov_title">
+<div id="sit_ov_title" class="fixed_top">
     <div class="fullWidth">
         <div class="sit_left">
             <?php
@@ -30,6 +30,9 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.magnific-popup.min.j
             ?>
         </div>
     </div>
+</div>
+
+<div id="sit_ov_title">
     <div class="sit_title">
         <h2><?php echo stripslashes($it['it_name']); ?>
         <?php
@@ -323,6 +326,12 @@ if(!empty($it['it_2'])) { // 모바일일 때
 
 <script>
 $(function(){
+    // 스크롤시 이전, 다음 상품 버튼 상단에 정렬
+    $('#main').addClass('inItem');
+    $(window).scroll(function() {
+        $('.fixed_top').css('top', $(this).scrollTop() + 45 + 'px');
+    });
+
     // 큰 이미지 배경색 추출 플러그인
     var originColor;
     function changeColor() {

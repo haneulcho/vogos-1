@@ -454,6 +454,7 @@ background-size:100%;}
 #sit {margin:0}
 .sit_admin {text-align:right}
 .sit_empty {padding:20px 0;text-align:center}
+.fixed_top {position:absolute;top:45px;width:100%;z-index:16;}
 #sit_ov_title {background:url('img/sct_title_bg.png') #2e2e2e;}
 #sit_ov_title .fullWidth {position:relative;height:35px;}
 .sit_left, .sit_right {position:absolute;top:9px;width:120px;height:15px;}
