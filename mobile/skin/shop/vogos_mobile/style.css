@@ -481,6 +481,9 @@ background-size:100%;}
 #sit_pvi_big a {display:none;}
 #sit_pvi_big a.visible {display:block}
 #sit_pvi_big img {width:auto;max-height:450px;margin-bottom:10px;}
+#sit_pvi_big video.loading {
+  background: #e7e7e7 url('http://vogos.com/mobile/skin/shop/vogos_mobile/img/loading.gif') center center no-repeat;
+}
 #sit_pvi_thumb {margin-left:-8px;padding:0;list-style:none;zoom:1;text-align:center;}
 #sit_pvi_thumb:after {display:block;visibility:hidden;clear:both;content:""}
 #sit_pvi_thumb li {display:inline-block;margin:0 0 8px 8px;}
@@ -585,7 +588,6 @@ a, input, button {outline:0;}
 #sit_btn_cart {width:150px;background:url(img/sit_btn_cart.jpg) no-repeat;}
 #sit_btn_buy:hover {background:url(img/sit_btn_buy_on.jpg) no-repeat;}
 #sit_btn_cart:hover {background:url(img/sit_btn_cart_on.jpg) no-repeat;}
-
 
 /* 상품 재입고 알림 (SMS) */
 #sit_sms_new {}

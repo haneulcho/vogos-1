@@ -2,8 +2,8 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
-add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_CSS_URL.'/style.css">', 0);
-add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/magnific-popup.css">', 0);
+add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">', 0);
+add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/magnific-popup.css">', 0);
 add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.primarycolor.min.js"></script>', 10);
 add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.magnific-popup.min.js"></script>', 0);
 ?>
@@ -42,11 +42,13 @@ add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.magnific-popup.min.j
 </div>
 
 <?php
-$video_src = 'https://player.vimeo.com/video/'.$it['it_2'].'?autoplay=1&loop=0&color=333333&title=0&byline=0&portrait=0';
-
-$video_frame = "<video class=\"video\" width=\"300\" height=\"536\" controls>
-<source src=\"https://player.vimeo.com/external/145480482.sd.mp4?s=1cf95cf48ab1b77361e8470f346b18164e948f6a&profile_id=112\" type=\"video/mp4\">
-</video>";
+if(!empty($it['it_2'])) { // 모바일일 때
+    $video_src = $it['it_2'];
+    $video_frame = "<video id=\"vogos_runway\" class=\"video\" width=\"300\" height=\"536\" controls=\"\" poster=\"data:image/gif,AAAA\"><source src=\"".$video_src."\" type=\"video/mp4\"></video>";
+} else { // PC일 때
+    $video_src = 'https://player.vimeo.com/video/'.$it['it_1'].'?autoplay=1&loop=0&color=333333&title=0&byline=0&portrait=0';
+    $video_frame = "<iframe src=\"".$video_src."\" width=\"300\" height=\"536\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
+}
 ?>
 
 <section id="sit_ov_bg">
@@ -58,7 +60,7 @@ $video_frame = "<video class=\"video\" width=\"300\" height=\"536\" controls>
                 <a class="play_video" href="<?php echo $video_src; ?>"><img src="<?php echo G5_SHOP_SKIN_URL; ?>/img/btn_view_runway.jpg"></a>
             </div>
         <?php } ?>
-        <div id="sit_pvi_big">
+        <div id="sit_pvi_big" class="zoom-gallery">
         <?php
         $big_img_count = 0;
         $thumbnails = array();
@@ -98,7 +100,8 @@ $video_frame = "<video class=\"video\" width=\"300\" height=\"536\" controls>
                 $sit_pvi_last ='';
                 if ($thumb_count % 5 == 0) $sit_pvi_last = 'class="li_last"';
                     echo '<li '.$sit_pvi_last.'>';
-                    echo '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$thumb_count.'" target="_blank" class="popup_item_image img_thumb">'.$val.'<span class="sound_only"> '.$thumb_count.'번째 이미지 새창</span></a>';
+                    //echo '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$thumb_count.'" target="_blank" class="popup_item_image img_thumb">'.$val.'<span class="sound_only"> '.$thumb_count.' open to new window</span></a>';
+                    echo '<a href="#" class="popup_item_image img_thumb">'.$val.'<span class="sound_only"> '.$thumb_count.' open to new window</span></a>';
                     echo '</li>';
             }
             echo '</ul>';
@@ -112,12 +115,12 @@ $video_frame = "<video class=\"video\" width=\"300\" height=\"536\" controls>
         <div class="sit_it_basic">
             <p><?php echo $it['it_basic']; ?></p>
             <?php
-/*                if(!empty($it['it_img11'])) {
-                    $color_img = get_it_thumbnail($it['it_img11'], 70, 95);
+                if(!empty($it['it_img11'])) {
+                    $color_img = get_it_thumbnail($it['it_img11'], 59, 80);
                     echo '<div class="color_img">';
                     echo '<a href="'.G5_DATA_URL.'/item/'.$it['it_img11'].'" target="_blank" title="'.$it['it_name'].'">'.$color_img.'</a>';
                     echo '</div>';
-                }*/
+                }
             ?>
         </div>
 
@@ -354,6 +357,31 @@ $(function(){
 
     // 상품이미지 클릭시 lightbox 생성
     $(document).ready(function() {
+        $('.zoom-gallery').magnificPopup({
+            delegate: 'a',
+            type: 'image',
+            closeOnContentClick: true,
+            closeBtnInside: false,
+            mainClass: 'mfp-with-zoom mfp-img-mobile',
+            image: {
+            verticalFit: true,
+            titleSrc: function(item) {
+              return item.el.attr('title');
+            }
+            },
+            gallery: {
+            enabled: true
+            },
+            zoom: {
+            enabled: true,
+            duration: 300, // don't foget to change the duration also in CSS
+            opener: function(element) {
+              return element.find('img');
+            }
+            }
+          
+        });
+
         // 동영상 플레이 스크립트
         $videoWrap = $('#sit_pvi_big');
         $video_frame = <?php echo json_encode($video_frame); ?>;
@@ -365,10 +393,24 @@ $(function(){
                     scrollTop: 112
                 }, 600);
                 $videoWrap.fadeIn(400).prepend($video_frame);
-                $('.video').paused?$('.video').play():$('.video').pause();
+
+                var $vogos_runway = $('#vogos_runway')[0];
+                if ($vogos_runway.paused) {
+                    $vogos_runway.play();                    
+                    $vogos_runway.onloadstart = function() {
+                        $('#vogos_runway').addClass('loading');
+                        console.log('onloadstart');
+                    };
+                    $vogos_runway.oncanplay = function() {
+                        $('#vogos_runway').removeClass('loading');
+                        console.log('oncanplay');
+                    };
+                } else {
+                    $vogos_runway.pause();
+                }
             } else {
                 close_video();
-                $('.play_video').removeClass('active');                
+                $('.play_video').removeClass('active');
             }
         });
 
@@ -382,7 +424,7 @@ $(function(){
         $('.color_img').magnificPopup({
             delegate: 'a',
             type: 'image',
-            closeOnContentClick: false,
+            closeOnContentClick: true,
             closeBtnInside: false,
             mainClass: 'mfp-with-zoom mfp-img-mobile',
             image: {
