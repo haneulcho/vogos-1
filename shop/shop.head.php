@@ -57,7 +57,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
             <?php }  ?>
             <li><a href="<?php echo G5_SHOP_URL; ?>/mypage.php"><i class="ion-android-person"></i>MY PAGE</a></li>
             <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i>CART</a></li>
-            <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop"><i class="ion-android-unlock"></i>SIGN OUT</a></li>
+            <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop"><i class="ion-android-unlock" style="margin-right:0"></i></a></li>
             <?php } else {  ?>
             <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i>CART</a></li>
             <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/register.php"><i class="ion-android-person-add"></i>SIGN UP</a></li>
