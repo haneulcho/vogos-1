@@ -60,7 +60,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
             <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop"><i class="ion-android-unlock" style="margin-right:0"></i></a></li>
             <?php } else {  ?>
             <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i>CART</a></li>
-            <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/register.php"><i class="ion-android-person-add"></i>SIGN UP</a></li>
+            <!-- <li class="tnb_log"><a href="<?php //echo G5_BBS_URL; ?>/register.php"><i class="ion-android-person-add"></i>SIGN UP</a></li> -->
             <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><i class="ion-android-lock"></i><b>SIGN IN</b></a></li>
             <?php }  ?>
         </ul>
