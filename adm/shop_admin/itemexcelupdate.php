@@ -84,7 +84,7 @@ if($_FILES['excelfile']['tmp_name']) {
         $ca_id              = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $ca_id2             = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $ca_id3             = addslashes($data->sheets[0]['cells'][$i][$j++]);
-        $it_order           = addslashes(only_number($data->sheets[0]['cells'][$i][$j++]));
+        $it_order           = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_place_ddm       = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_name_ddm        = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_price_ddm       = addslashes(only_number($data->sheets[0]['cells'][$i][$j++]));
