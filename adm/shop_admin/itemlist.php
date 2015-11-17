@@ -167,7 +167,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
     </tr>
     <tr>
         <th scope="col" rowspan="2" id="th_img">이미지</th>
-        <th scope="col" rowspan="2" id="th_pc_title" style="min-width:290px"><?php echo subject_sort_link('it_name', 'sca='.$sca); ?>상품명</a></th>
+        <th scope="col" rowspan="2" id="th_pc_title" style="min-width:290px"><?php echo subject_sort_link('it_name', 'sca='.$sca); ?>상품명</a> / <?php echo subject_sort_link('it_price_ddm', 'sca='.$sca); ?>사입단가</a></th>
         <th scope="col" id="th_amt"><?php echo subject_sort_link('it_price', 'sca='.$sca); ?>판매가격</a></th>
         <th scope="col" id="th_camt"><?php echo subject_sort_link('it_cust_price', 'sca='.$sca); ?>시중가격</a></th>
         <th scope="col" id="th_skin">PC스킨</th>
