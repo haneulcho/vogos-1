@@ -89,7 +89,9 @@ if($_FILES['excelfile']['tmp_name']) {
         $it_price_ddm       = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_name            = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_1_subj          = addslashes($data->sheets[0]['cells'][$i][$j++]);
+        $it_2_subj          = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_1               = addslashes($data->sheets[0]['cells'][$i][$j++]);
+        $it_2               = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_model           = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_type1           = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_type2           = addslashes($data->sheets[0]['cells'][$i][$j++]);
@@ -156,6 +158,8 @@ if($_FILES['excelfile']['tmp_name']) {
                          it_name = '$it_name',
                          it_1_subj = '$it_1_subj',
                          it_1 = '$it_1',
+                         it_2_subj = '$it_2_subj',
+                         it_2 = '$it_2',
                          it_model = '$it_model',
                          it_type1 = '$it_type1',
                          it_type2 = '$it_type2',

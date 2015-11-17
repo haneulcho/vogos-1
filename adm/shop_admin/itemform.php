@@ -290,15 +290,31 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
             <col class="grid_3">
         </colgroup>
         <tbody>
-        <?php for ($i=1; $i<=1; $i++) {
+        <?php for ($i=1; $i<=2; $i++) {
             if ($i == 1) { ?>
         <tr>
-            <th scope="row">VOGOS 상품 영상 여부</th>
+            <th scope="row">VOGOS 상품 영상 여부: PC (비메오 코드만)</th>
             <td class="td_extra">
                 <!-- <label for="it_<?php //echo $i ?>_subj">영상</label> -->
                 <input type="hidden" name="it_<?php echo $i ?>_subj" id="it_<?php echo $i ?>_subj" value="영상 있음" class="frm_input" readonly>
                 <label for="it_<?php echo $i ?>" style="font-weight:bold;color:red;width:300px">영상 주소 (반드시 영상이 있을 때만 작성하세요.)</label>
-                <input type="text" name="it_<?php echo $i ?>" value="<?php echo get_text($it['it_'.$i]) ?>" id="it_<?php echo $i ?>" class="frm_input" style="width:400px !important;border-color:red">
+                <input type="text" name="it_<?php echo $i ?>" value="<?php echo get_text($it['it_'.$i]) ?>" id="it_<?php echo $i ?>" class="frm_input" style="width:500px !important;border-color:red">
+            </td>
+            <td class="td_grpset">
+                <input type="checkbox" name="chk_ca_<?php echo $i ?>" value="1" id="chk_ca_<?php echo $i ?>">
+                <label for="chk_ca_<?php echo $i ?>">분류적용</label>
+                <input type="checkbox" name="chk_all_<?php echo $i ?>" value="1" id="chk_all_<?php echo $i ?>">
+                <label for="chk_all_<?php echo $i ?>">전체적용</label>
+            </td>
+        </tr>
+        <?php } else if ($i == 2) { ?>
+        <tr>
+            <th scope="row">VOGOS 상품 영상 여부: 모바일 (동영상 파일 엑세스 - Standard Def 풀주소)</th>
+            <td class="td_extra">
+                <!-- <label for="it_<?php //echo $i ?>_subj">영상</label> -->
+                <input type="hidden" name="it_<?php echo $i ?>_subj" id="it_<?php echo $i ?>_subj" value="영상 있음" class="frm_input" readonly>
+                <label for="it_<?php echo $i ?>" style="font-weight:bold;color:red;width:300px">영상 주소 (반드시 영상이 있을 때만 작성하세요.)</label>
+                <input type="text" name="it_<?php echo $i ?>" value="<?php echo get_text($it['it_'.$i]) ?>" id="it_<?php echo $i ?>" class="frm_input" style="width:500px !important;border-color:red">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_ca_<?php echo $i ?>" value="1" id="chk_ca_<?php echo $i ?>">
@@ -1440,7 +1456,7 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
                     ?>
                 </select>
                 <label for="sch_name" class="sound_only">상품명</label>
-                <input type="text" name="sch_name" id="sch_name" class="frm_input" size="15">
+                <input type="text" name="sch_name" id="sch_name" class="frm_input" size="15" style="width:250px">
                 <button type="button" id="btn_search_item" class="btn_frmline">검색</button>
             </span>
             <div id="relation" class="srel_list">

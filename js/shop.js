@@ -102,8 +102,9 @@ $(function() {
                 return false;
             }
 
-            if(option_add)
+            if(option_add) {
                 sel_option_process(true);
+            }
         }
     });
 
