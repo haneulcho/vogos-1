@@ -124,7 +124,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 </form>
 
 <div class="btn_add01 btn_add">
-    <a href="./ddmaddressform.php">사입처 등록</a>
+    <a href="./ddmaddressform.php">사입처 등록(개발중 누르지 마시오)</a>
 </div>
 
 <form name="fitemlistupdate" method="post" action="./itemlistupdate.php" onsubmit="return fitemlist_submit(this);" autocomplete="off">
@@ -149,6 +149,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         <th scope="col"><?php echo subject_sort_link('ddm_place2', 'sca='.$sca); ?>사입처 상세위치</a></th>
         <th scope="col"><?php echo subject_sort_link('ddm_name', 'sca='.$sca, 1); ?>사입처명</a></th>
         <th scope="col"><?php echo subject_sort_link('ddm_tel', 'sca='.$sca, 1); ?>사입처 전화번호</a></th>
+        <th scope="col">이 사입처에 받아온 샘플</th>
         <th scope="col">이 사입처와 거래한 상품</th>
         <th scope="col">관리</th>
     </tr>
@@ -168,7 +169,24 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         <td class="td_num"><?php echo $row['ddm_place2']; ?></td>
         <td headers="th_pc_title" class="td_num"><?php echo $row['ddm_name']; ?></td>
         <td class="td_num"><?php echo $row['ddm_tel']; ?></td>
-        <td class="td_num"></td>
+        <td class="td_num">
+        <?php
+            $ddm_place2 = $row['ddm_place2'];
+            $detail_link = G5_ADMIN_URL.'/shop_admin/ddmaddressview.php?it_place_ddm='.$ddm_place2;
+            //$sql_match  = "select it_name, it_price, it_2, it_place_ddm, it_name_ddm, it_price_ddm from {$g5['g5_shop_ddmaddress_table']} where it_place_ddm like '$ddm_place2%'";
+            //$result_match = sql_query($sql);
+            //for ($j=0; $row=mysql_fetch_array($result_match); $j++) {
+            $sql2 = " select count(*) as cnt1 from {$g5['g5_shop_item_table']} where it_place_ddm like '$ddm_place2%'";
+            $row2 = sql_fetch($sql2);
+            if($row2['cnt1'] > 0) {
+                $total_count = '<a href="'.$detail_link.'" target="_blank" onclick="return popitup(\''.$detail_link.'\', \'VOGOS 사입처에 받아온 샘플\', \'700\', \'500\')"><span style="color:#ff0000;font-weight:bold;">'.$row2['cnt1'].'개</span> <i class="ion-ios-search-strong" style="margin:0 2px 0 8px;font-style:normal"></i>자세히</a>';
+            } else {
+                $total_count = '<span style="color:#bbb;">없음</span>';
+            }
+        ?>
+        <?php echo $total_count; ?>
+        </td>
+        <td class="td_num">개발중...</td>
         <td class="td_mng">
             <a href="./ddmaddressform.php?w=u&amp;ddm_place2=<?php echo $row['ddm_place2']; ?>&amp;<?php echo $qstr; ?>"><span class="sound_only"><?php echo htmlspecialchars2(cut_str($row['ddm_place2'],250, "")); ?> </span>수정</a>
         </td>
@@ -184,15 +202,36 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 
 <div class="btn_list01 btn_list">
     <?php if ($is_admin == 'super') { ?>
-    <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value">
+    <input type="submit" name="act_button" value="선택삭제(개발중 누르지 마시오)" onclick="document.pressed=this.value">
     <?php } ?>
 </div>
 <div class="btn_confirm01 btn_confirm">
-    <input type="submit" value="일괄수정" class="btn_submit" accesskey="s">
+    <input type="submit" value="일괄수정(개발중 누르지 마시오)" class="btn_submit" accesskey="s">
 </div>
 </form>
 
 <?php echo get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
+
+<script>
+function popitup(url, title, w, h) {
+    // Fixes dual-screen position                         Most browsers      Firefox
+    var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+    var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+
+    width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+    var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+    var top = ((height / 2) - (h / 2)) + dualScreenTop;
+    var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+    // Puts focus on the newWindow
+    if (window.focus) {
+        newWindow.focus();
+    }
+    return false;
+}
+</script>
 
 <script>
 function fitemlist_submit(f)
