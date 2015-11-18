@@ -55,7 +55,20 @@ if ($sca != "" || $stx != "") {
     $ddmtitle = '등록된';
 }
 
-///////////////////////////////////////////////////// 검색 로직 
+///////////////////////////////////////////////////// 검색 로직 끝
+
+/*
+정렬타겟 = sst (ddm_part, ddm_place1, ddm_place2, ddm_name, ddm_tel)
+정렬기준 = sod (asc, desc)
+*/
+
+if (!$sst) {
+    $sst  = "ddm_name";
+    $sod = "asc";
+}
+$sql_order = "order by $sst $sod";
+
+///////////////////////////////////////////////////// 정렬 로직 끝
 
 
 // 테이블의 전체 레코드수만 얻음
@@ -68,12 +81,7 @@ $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
-if (!$sst) {
-    $sst  = "ddm_name";
-    $sod = "desc";
-}
-
-$sql  = " select * $sql_common limit $from_record, $rows ";
+$sql  = " select * $sql_common $sql_order limit $from_record, $rows ";
 $result = sql_query($sql);
 
 //$qstr  = $qstr.'&amp;sca='.$sca.'&amp;page='.$page;
