@@ -7,61 +7,56 @@ auth_check($auth[$sub_menu], "r");
 $g5['title'] = '사입처관리';
 include_once (G5_ADMIN_PATH.'/admin.head.php');
 
-// 분류
-$ca_list  = '<option value="">선택</option>'.PHP_EOL;
-$sql = " select * from {$g5['g5_shop_category_table']} ";
-if ($is_admin != 'super')
-    $sql .= " where ca_mb_id = '{$member['mb_id']}' ";
-$sql .= " order by ca_order, ca_id ";
-$result = sql_query($sql);
-for ($i=0; $row=sql_fetch_array($result); $i++)
-{
-    $len = strlen($row['ca_id']) / 2 - 1;
-    $nbsp = '';
-    for ($i=0; $i<$len; $i++) {
-        $nbsp .= '&nbsp;&nbsp;&nbsp;';
-    }
-    $ca_list .= '<option value="'.$row['ca_id'].'">'.$nbsp.$row['ca_name'].'</option>'.PHP_EOL;
-}
+/*
+검색분류 = sca -> ddm_part = 의류, ACC, 신발
+검색대상 = sfl -> ddm_name, ddm_place1, ddm_place2, ddm_tel
+        LIKE sfl = '%stx%'
+검색어 = stx
+*/
 
-// 스킨
-$skin_list = '<option value="">선택</option>'.PHP_EOL;
-$arr = get_skin_dir('shop');
-for ($i=0; $i<count($arr); $i++) {
-    $skin_list .= '<option value="'.$arr[$i].'">'.$arr[$i].'</option>'.PHP_EOL;
-}
-
-$mskin_list = '<option value="">선택</option>'.PHP_EOL;
-$arr = get_skin_dir('shop', G5_MOBILE_PATH.'/'.G5_SKIN_DIR);
-for ($i=0; $i<count($arr); $i++) {
-    $mskin_list .= '<option value="'.$arr[$i].'">'.$arr[$i].'</option>'.PHP_EOL;
-}
-
-
-$where = " and ";
 $sql_search = "";
-if ($stx != "") {
-    if ($sfl != "") {
-        $sql_search .= " $where $sfl like '%$stx%' ";
-        $where = " and ";
-    }
-    if ($save_stx != $stx)
-        $page = 1;
-}
 
+// 검색분류가 있으면
 if ($sca != "") {
-    $sql_search .= " $where (a.ca_id like '$sca%' or a.ca_id2 like '$sca%' or a.ca_id3 like '$sca%') ";
+    $sql_search .= " where ddm_part = '$sca'";
+    // 검색어가 있으면
+    if ($stx != "") {
+        // 검색대상이 있으면
+        if ($sfl != "") {
+            $sql_search .= " and $sfl like '%$stx%' ";
+        }
+        if ($save_stx != $stx)
+            $page = 1;
+    }    
+} else {
+    // 검색어가 있으면
+    if ($stx != "") {
+        // 검색대상이 있으면
+        if ($sfl != "") {
+            $sql_search .= " where $sfl like '%$stx%' ";
+        }
+        if ($save_stx != $stx)
+            $page = 1;
+    }
 }
 
-if ($sfl == "")  $sfl = "it_name";
+// 검색대상이 없을 경우
+if ($sfl == "") {
+    $sfl = "ddm_name";
+}
 
-$sql_common = " from {$g5['g5_shop_item_table']} a ,
-                     {$g5['g5_shop_category_table']} b
-               where (a.ca_id = b.ca_id";
-if ($is_admin != 'super')
-    $sql_common .= " and b.ca_mb_id = '{$member['mb_id']}'";
-$sql_common .= ") ";
+$sql_common = " from {$g5['g5_shop_ddmaddress_table']}";
 $sql_common .= $sql_search;
+
+// 등록된, 검색된 구분
+if ($sca != "" || $stx != "") {
+    $ddmtitle = '검색된';
+} else {
+    $ddmtitle = '등록된';
+}
+
+///////////////////////////////////////////////////// 검색 로직 
+
 
 // 테이블의 전체 레코드수만 얻음
 $sql = " select count(*) as cnt " . $sql_common;
@@ -74,16 +69,11 @@ if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이�
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
 if (!$sst) {
-    $sst  = "it_id";
+    $sst  = "ddm_name";
     $sod = "desc";
 }
-$sql_order = "order by $sst $sod";
 
-
-$sql  = " select *
-           $sql_common
-           $sql_order
-           limit $from_record, $rows ";
+$sql  = " select * $sql_common limit $from_record, $rows ";
 $result = sql_query($sql);
 
 //$qstr  = $qstr.'&amp;sca='.$sca.'&amp;page='.$page;
@@ -94,17 +84,29 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 
 <div class="local_ov01 local_ov">
     <?php echo $listall; ?>
-    등록된 사입처 <?php echo $total_count; ?>건
+    <?php echo $ddmtitle; ?> 사입처 <?php echo $total_count; ?>건
 </div>
 
 <form name="flist" class="local_sch01 local_sch">
 <input type="hidden" name="page" value="<?php echo $page; ?>">
 <input type="hidden" name="save_stx" value="<?php echo $stx; ?>">
 
+<label for="sca" class="sound_only">분류선택</label>
+<select name="sca" id="sca">
+    <option value="">전체분류</option>
+    <?php
+        echo '<option value="의류" '.get_selected($sca, '의류').'>'.$nbsp.'의류</option>'.PHP_EOL;
+        echo '<option value="ACC" '.get_selected($sca, 'ACC').'>'.$nbsp.'ACC</option>'.PHP_EOL;
+        echo '<option value="신발" '.get_selected($sca, '신발').'>'.$nbsp.'신발</option>'.PHP_EOL;
+    ?>
+</select>
+
 <label for="sfl" class="sound_only">검색대상</label>
 <select name="sfl" id="sfl">
-    <option value="it_place_ddm" <?php echo get_selected($sfl, 'it_place_ddm'); ?>>사입처</option>
-    <option value="it_name_ddm" <?php echo get_selected($sfl, 'it_name_ddm'); ?>>사입상품명</option>
+    <option value="ddm_name" <?php echo get_selected($sfl, 'ddm_name'); ?>>사입처명</option>
+    <option value="ddm_place1" <?php echo get_selected($sfl, 'ddm_place1'); ?>>사입처 구분(디오트, 청평화, ...)</option>
+    <option value="ddm_place2" <?php echo get_selected($sfl, 'ddm_place2'); ?>>사입처 위치(디1e4, 청2ab2, ...)</option>
+    <option value="ddm_tel" <?php echo get_selected($sfl, 'ddm_tel'); ?>>사입처 전화번호</option>
 </select>
 
 <label for="stx" class="sound_only">검색어</label>
@@ -114,8 +116,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 </form>
 
 <div class="btn_add01 btn_add">
-    <a href="./itemform.php">상품등록</a>
-    <a href="./itemexcel.php" onclick="return excelform(this.href);" target="_blank">상품일괄등록</a>
+    <a href="./ddmaddressform.php">사입처 등록</a>
 </div>
 
 <form name="fitemlistupdate" method="post" action="./itemlistupdate.php" onsubmit="return fitemlist_submit(this);" autocomplete="off">
@@ -131,141 +132,56 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
     <caption><?php echo $g5['title']; ?> 목록</caption>
     <thead>
     <tr>
-        <th scope="col" rowspan="3">
-            <label for="chkall" class="sound_only">상품 전체</label>
+        <th scope="col">
+            <label for="chkall" class="sound_only">사입처 전체</label>
             <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
         </th>
-        <th scope="col" rowspan="3"><?php echo subject_sort_link('it_id', 'sca='.$sca); ?>상품코드</a></th>        
-        <th scope="col" rowspan="3"><?php echo subject_sort_link('it_update_time', 'sca='.$sca, 'desc'); ?>등록, 수정일</a></th>
-        <th scope="col" colspan="5">분류</th>
-        <th scope="col" rowspan="3"><?php echo subject_sort_link('it_order', 'sca='.$sca); ?>순서</a></th>
-        <th scope="col" rowspan="3"><?php echo subject_sort_link('it_use', 'sca='.$sca, 1); ?>판매</a></th>
-        <th scope="col" rowspan="3"><?php echo subject_sort_link('it_soldout', 'sca='.$sca, 1); ?>품절</a></th>
-        <th scope="col" rowspan="3"><?php echo subject_sort_link('it_hit', 'sca='.$sca, 1); ?>조회</a></th>
-        <th scope="col" rowspan="3">관리</th>
-    </tr>
-    <tr>
-        <th scope="col" rowspan="2" id="th_img">이미지</th>
-        <th scope="col" rowspan="2" id="th_pc_title" style="min-width:290px"><?php echo subject_sort_link('it_name', 'sca='.$sca); ?>상품명</a> / <?php echo subject_sort_link('it_price_ddm', 'sca='.$sca); ?>사입단가</a></th>
-        <th scope="col" id="th_amt"><?php echo subject_sort_link('it_price', 'sca='.$sca); ?>판매가격</a></th>
-        <th scope="col" id="th_camt"><?php echo subject_sort_link('it_cust_price', 'sca='.$sca); ?>시중가격</a></th>
-        <th scope="col" id="th_skin">PC스킨</th>
-    </tr>
-    <tr>
-        <th scope="col" id="th_pt"><?php echo subject_sort_link('it_point', 'sca='.$sca); ?>포인트</a></th>
-        <th scope="col" id="th_qty"><?php echo subject_sort_link('it_stock_qty', 'sca='.$sca); ?>재고</a></th>
-        <th scope="col" id="th_mskin">모바일스킨</th>
+        <th scope="col"><?php echo subject_sort_link('ddm_part', 'sca='.$sca); ?>주 판매품목 분류</a></th>        
+        <th scope="col"><?php echo subject_sort_link('ddm_place1', 'sca='.$sca); ?>사입처 위치</a></th>
+        <th scope="col"><?php echo subject_sort_link('ddm_place2', 'sca='.$sca); ?>사입처 상세위치</a></th>
+        <th scope="col"><?php echo subject_sort_link('ddm_name', 'sca='.$sca, 1); ?>사입처명</a></th>
+        <th scope="col"><?php echo subject_sort_link('ddm_tel', 'sca='.$sca, 1); ?>사입처 전화번호</a></th>
+        <th scope="col">이 사입처와 거래한 상품</th>
+        <th scope="col">관리</th>
     </tr>
     </thead>
     <tbody>
     <?php
     for ($i=0; $row=mysql_fetch_array($result); $i++)
     {
-        $href = G5_SHOP_URL.'/item.php?it_id='.$row['it_id'];
-        $bg = 'bg'.($i%2);
-
-        $it_point = $row['it_point'];
-        if($row['it_point_type'])
-            $it_point .= '%';
     ?>
-    <tr class="<?php echo $bg; ?>">
-        <td rowspan="3" class="td_chk">
-            <label for="chk_<?php echo $i; ?>" class="sound_only"><?php echo get_text($row['it_name']); ?></label>
+    <tr>
+        <td class="td_chk">
+            <label for="chk_<?php echo $i; ?>" class="sound_only"><?php echo get_text($row['ddm_name']); ?></label>
             <input type="checkbox" name="chk[]" value="<?php echo $i ?>" id="chk_<?php echo $i; ?>">
         </td>
-        <td rowspan="3" class="td_num">
-            <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
-            <?php echo $row['it_id']; ?>
-        </td>
-        <td rowspan="3" class="td_num">
-            <span style="font-size:11px;"><?php echo $row['it_update_time']; ?></span>
-        </td>
-        <td colspan="5">
-            <label for="ca_id_<?php echo $i; ?>" class="sound_only"><?php echo get_text($row['it_name']); ?> 기본분류</label>
-            <select name="ca_id[<?php echo $i; ?>]" id="ca_id_<?php echo $i; ?>">
-                <?php echo conv_selected_option($ca_list, $row['ca_id']); ?>
-            </select>
-            <label for="ca_id2_<?php echo $i; ?>" class="sound_only"><?php echo get_text($row['it_name']); ?> 2차분류</label>
-            <select name="ca_id2[<?php echo $i; ?>]" id="ca_id2_<?php echo $i; ?>">
-                <?php echo conv_selected_option($ca_list, $row['ca_id2']); ?>
-            </select>
-            <label for="ca_id3_<?php echo $i; ?>" class="sound_only"><?php echo get_text($row['it_name']); ?> 3차분류</label>
-            <select name="ca_id3[<?php echo $i; ?>]" id="ca_id3_<?php echo $i; ?>">
-                <?php echo conv_selected_option($ca_list, $row['ca_id3']); ?>
-            </select>
-        </td>
-        <td rowspan="3" class="td_mngsmall">
-            <label for="order_<?php echo $i; ?>" class="sound_only">순서</label>
-            <input type="text" name="it_order[<?php echo $i; ?>]" value="<?php echo $row['it_order']; ?>" id="order_<?php echo $i; ?>" class="frm_input" size="3">
-        </td>
-        <td rowspan="3" class="td_chk">
-            <label for="use_<?php echo $i; ?>" class="sound_only">판매여부</label>
-            <input type="checkbox" name="it_use[<?php echo $i; ?>]" <?php echo ($row['it_use'] ? 'checked' : ''); ?> value="1" id="use_<?php echo $i; ?>">
-        </td>
-        <td rowspan="3" class="td_chk">
-            <label for="soldout_<?php echo $i; ?>" class="sound_only">품절</label>
-            <input type="checkbox" name="it_soldout[<?php echo $i; ?>]" <?php echo ($row['it_soldout'] ? 'checked' : ''); ?> value="1" id="soldout_<?php echo $i; ?>">
-        </td>
-        <td rowspan="3" class="td_num"><?php echo $row['it_hit']; ?></td>
-        <td rowspan="3" class="td_mng">
-            <a href="./itemform.php?w=u&amp;it_id=<?php echo $row['it_id']; ?>&amp;ca_id=<?php echo $row['ca_id']; ?>&amp;<?php echo $qstr; ?>"><span class="sound_only"><?php echo htmlspecialchars2(cut_str($row['it_name'],250, "")); ?> </span>수정</a>
-            <a href="./itemcopy.php?it_id=<?php echo $row['it_id']; ?>&amp;ca_id=<?php echo $row['ca_id']; ?>" class="itemcopy" target="_blank"><span class="sound_only"><?php echo htmlspecialchars2(cut_str($row['it_name'],250, "")); ?> </span>복사</a>
-            <a href="<?php echo $href; ?>"><span class="sound_only"><?php echo htmlspecialchars2(cut_str($row['it_name'],250, "")); ?> </span>보기</a>
-        </td>
-    </tr>
-    <tr class="<?php echo $bg; ?>">
-        <td rowspan="2" class="td_img"><a href="<?php echo $href; ?>"><?php echo get_it_image($row['it_id'], 50, 50); ?></a></td>
-        <td headers="th_pc_title" rowspan="2" class="td_input">
-            <label for="name_<?php echo $i; ?>" class="sound_only">상품명</label>
-            <input type="text" name="it_name[<?php echo $i; ?>]" style="color:#ff0000" value="<?php echo htmlspecialchars2(cut_str($row['it_name'],250, "")); ?>" id="name_<?php echo $i; ?>" required class="frm_input required" size="30"><br><br>
-            사입처: <?php echo $row['it_place_ddm'].' / '.$row['it_name_ddm'].' / '.$row['it_price_ddm']; ?>
-        </td>
-        <td headers="th_amt" class="td_numbig td_input">
-            <label for="price_<?php echo $i; ?>" class="sound_only">판매가격</label>
-            <input type="text" name="it_price[<?php echo $i; ?>]" value="<?php echo $row['it_price']; ?>" id="price_<?php echo $i; ?>" class="frm_input sit_amt" size="7">
-        </td>
-        <td headers="th_camt" class="td_numbig td_input">
-            <label for="cust_price_<?php echo $i; ?>" class="sound_only">시중가격</label>
-            <input type="text" name="it_cust_price[<?php echo $i; ?>]" value="<?php echo $row['it_cust_price']; ?>" id="cust_price_<?php echo $i; ?>" class="frm_input sit_camt" size="7">
-        </td>
-        <td headers="th_skin" class="td_numbig td_input">
-            <label for="it_skin_<?php echo $i; ?>" class="sound_only">PC 스킨</label>
-            <select name="it_skin[<?php echo $i; ?>]" id="it_skin_<?php echo $i; ?>">
-                <?php echo conv_selected_option($skin_list, $row['it_skin']); ?>
-            </select>
-        </td>
-    </tr>
-    <tr class="<?php echo $bg; ?>">
-        <td headers="th_pt" class="td_numbig td_input"><?php echo $it_point; ?></td>
-        <td headers="th_qty" class="td_numbig td_input">
-            <label for="stock_qty_<?php echo $i; ?>" class="sound_only">재고</label>
-            <input type="text" name="it_stock_qty[<?php echo $i; ?>]" value="<?php echo $row['it_stock_qty']; ?>" id="stock_qty_<?php echo $i; ?>" class="frm_input sit_qty" size="7">
-        </td>
-        <td headers="th_mskin" class="td_numbig td_input">
-            <label for="it_mobile_skin_<?php echo $i; ?>" class="sound_only">모바일 스킨</label>
-            <select name="it_mobile_skin[<?php echo $i; ?>]" id="it_mobile_skin_<?php echo $i; ?>">
-                <?php echo conv_selected_option($mskin_list, $row['it_mobile_skin']); ?>
-            </select>
+        <td class="td_num"><?php echo $row['ddm_part']; ?></td>
+        <td class="td_num"><?php echo $row['ddm_place1']; ?></td>
+        <td class="td_num"><?php echo $row['ddm_place2']; ?></td>
+        <td headers="th_pc_title" class="td_num"><?php echo $row['ddm_name']; ?></td>
+        <td class="td_num"><?php echo $row['ddm_tel']; ?></td>
+        <td class="td_num"></td>
+        <td class="td_mng">
+            <a href="./ddmaddressform.php?w=u&amp;ddm_place2=<?php echo $row['ddm_place2']; ?>&amp;<?php echo $qstr; ?>"><span class="sound_only"><?php echo htmlspecialchars2(cut_str($row['ddm_place2'],250, "")); ?> </span>수정</a>
         </td>
     </tr>
     <?php
     }
     if ($i == 0)
-        echo '<tr><td colspan="12" class="empty_table">자료가 한건도 없습니다.</td></tr>';
+        echo '<tr><td colspan="12" class="empty_table">검색된 자료가 없습니다.</td></tr>';
     ?>
     </tbody>
     </table>
 </div>
 
 <div class="btn_list01 btn_list">
-    <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value">
     <?php if ($is_admin == 'super') { ?>
     <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value">
     <?php } ?>
 </div>
-<!-- <div class="btn_confirm01 btn_confirm">
+<div class="btn_confirm01 btn_confirm">
     <input type="submit" value="일괄수정" class="btn_submit" accesskey="s">
-</div> -->
+</div>
 </form>
 
 <?php echo get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page="); ?>
