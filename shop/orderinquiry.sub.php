@@ -12,6 +12,7 @@ if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
     <thead>
     <tr>
         <th class="th_iqr_no" scope="col">ORDER NUMBER</th>
+        <th class="th_iqr_no" scope="col">DHL TRACKING NUMBER</th>
         <th class="th_iqr_date" scope="col">ORDER DATE</th>
         <th class="th_iqr_num" scope="col">TOTAL PRICE</th>
         <th class="th_iqr_num" scope="col">SHIPPING COST</th>
@@ -51,12 +52,16 @@ if (!defined("_ORDERINQUIRY_")) exit; // 개별 페이지 접근 불가
                 $od_status = 'Canceled';
                 break;
         }
+        if ($row['od_invoice'] && $row['od_delivery_company']) {
+            $dhl_link = 'http://www.dhl.com/cgi-bin/tracking.pl?awb='.$row['od_invoice'];
+        }
     ?>
     <tr>
         <td>
             <input type="hidden" name="ct_id[<?php echo $i; ?>]" value="<?php echo $row['ct_id']; ?>">
             <a href="<?php echo G5_SHOP_URL; ?>/orderinquiryview.php?od_id=<?php echo $row['od_id']; ?>&amp;uid=<?php echo $uid; ?>"><?php echo $row['od_id']; ?></a>
         </td>
+        <td><a href="<?php echo $dhl_link; ?>" target="_blank" class="tracking_num" onclick="return popitup('<?php echo $dhl_link; ?>', 'VOGOS SHIPPING INFORMATION - <?php echo $od['od_invoice']; ?>', '550', '400')"><i class="ion-paper-airplane"></i> <?php echo $row['od_invoice']; ?></a></td>
         <td><?php echo $row['od_time']; ?></td>
         <td class="td_numbig"><?php echo display_price($row['od_cart_price']); ?></td>
         <td class="td_numbig"><?php echo display_price($row['od_send_cost'] + $row['od_send_cost2']); ?></td>
