@@ -49,6 +49,18 @@ $video_frame = "<iframe src=\"".$video_src."\" width=\"300\" height=\"536\" fram
 
 <section id="sit_ov_bg">
 <div id="sit_ov_wrap" class="fullWidth">
+
+    <!-- //SK Planet 타일 서비스 : TO DO -->
+    <?php if($is_admin) ?>
+    <div id="sk_test">
+        <div style="position: relative; min-width: 90px; max-width: 495px; min-height: 160px; max-height: 880px; ">
+            <div style="width: 100%; height: 0%; padding-bottom: 143%; position: relative;">
+                <iframe style="left: 0px; top: 0px; width: 100%; height: 100%; position: absolute;" height="100%" src="https://dev.lean.co.kr/xd/web/v/502 " frameBorder="0" width="100%" scrolling="no" allowfullscreen=""></iframe>
+            </div>
+        </div>
+    </div>
+    <?php ?>
+
     <!-- 상품이미지 미리보기 시작 { -->
     <div id="sit_pvi">
         <?php if(!empty($it['it_1'])) { ?>
