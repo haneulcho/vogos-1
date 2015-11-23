@@ -31,7 +31,7 @@ include_once(G5_MSHOP_PATH.'/_head.php');
         $item_rows = 13; //줄 수 
         $item_width= 300; //이미지 가로 
         $item_height = 450; //이미지 세로 
-        $order_by = "it_update_time desc"; // 최신등록순
+        $order_by = 'it_order asc'; // 출력순서 설정순
 
 
         $list = new item_list($skin_file, $item_mod , $item_rows , $item_width, $item_height); 
