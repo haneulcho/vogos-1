@@ -50,7 +50,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         <h2>Order as a guest.</h2>
 
         <p>
-            Recieve points on purchases when you become a member!
+            Become a member and receive reward points on purchases.
         </p>
 
         <div id="guest_privacy">

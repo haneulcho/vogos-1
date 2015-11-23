@@ -430,6 +430,23 @@ CREATE TABLE IF NOT EXISTS `g5_shop_models_item` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `g5_shop_ddmaddress`
+--
+
+DROP TABLE IF EXISTS `g5_shop_ddmaddress`;
+CREATE TABLE IF NOT EXISTS `g5_shop_ddmaddress` (
+  `ddm_part` varchar(255) NOT NULL DEFAULT '',
+  `ddm_place1` varchar(255) NOT NULL DEFAULT '',
+  `ddm_place2` varchar(255) NOT NULL DEFAULT '',
+  `ddm_name` varchar(255) NOT NULL DEFAULT '',
+  `ddm_tel` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`ddm_name`),
+  KEY `ddm_place1` (`ddm_place1`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `g5_shop_item`
 --
 

@@ -300,31 +300,9 @@ $_SESSION['ord_num'] = $od_id;
                     <th scope="row">Total</th>
                     <td><?php echo $od_receipt_price; ?></td>
                 </tr>
-                <tr>
-                    <th scope="row">Payment Method</th>
-                    <td><?php echo $od['od_bank_account']; ?></td>
-                </tr>
-                <?php
-                if($od['od_receipt_price'] > 0)
-                {
-                ?>
-                <tr>
-                    <th scope="row">Payment Archived Date</th>
-                    <td><?php echo $od['od_receipt_time']; ?></td>
-                </tr>
-                <?php
-                }
 
-                // 승인번호, 휴대폰번호, 거래번호
-                if($app_no_subj)
-                {
-                ?>
-                <tr>
-                    <th scope="row"><?php echo $app_no_subj; ?></th>
-                    <td><?php echo $app_no; ?></td>
-                </tr>
                 <?php
-                }
+                // 승인번호, 휴대폰번호, 거래번호
                 if ($od['od_receipt_point'] > 0) {
                 ?>
                 <tr>

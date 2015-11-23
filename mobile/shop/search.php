@@ -182,7 +182,7 @@ $total_page  = ceil($total_count / $items); // 전체 페이지 계산
     <div style="clear:both;padding-top:20px">
         <?php
         // 리스트 유형별로 출력
-        $list_file = G5_MSHOP_SKIN_PATH.'/'.$default['de_search_list_skin'];
+        $list_file = G5_MSHOP_SKIN_PATH.'/'.$default['de_mobile_search_list_skin'];
         if (file_exists($list_file)) {
             define('G5_MSHOP_CSS_URL', G5_MSHOP_SKIN_URL);
             $list = new item_list($list_file, $default['de_search_list_mod'], $default['de_search_list_row'], $default['de_search_img_width'], $default['de_search_img_height']);
