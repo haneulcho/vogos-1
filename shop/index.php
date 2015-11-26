@@ -47,7 +47,6 @@ define("_INDEX_", TRUE);
 
 include_once(G5_SHOP_PATH.'/shop.head.php');
 ?>
-    <?php if($is_admin) { ?>
     <?php if($default['de_type1_list_use']) { ?>
     <!-- Black Friday 시작 { -->
     <section class="sct_wrap f8f8f8" style="background:url('<?php echo G5_SHOP_SKIN_URL ?>/img/black_friday_bg.jpg');margin-top:35px;padding:0;">
@@ -60,7 +59,7 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
     </div>
     </section>
     <!-- } Black Friday 끝 -->
-    <?php } } ?>
+    <?php } ?>
 
     <?php if($default['de_type3_list_use']) { ?>
     <!-- New Arrivals 시작 { -->
