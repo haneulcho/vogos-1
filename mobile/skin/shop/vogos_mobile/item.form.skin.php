@@ -58,7 +58,7 @@ if(!empty($it['it_2'])) { // 모바일일 때
 <div id="sit_ov_wrap" class="fullWidth">
 
     <!-- //SK Planet 타일 서비스 : TO DO -->
-    <?php if($is_admin) ?>
+    <?php if($is_admin) { ?>
     <div id="sk_test">
         <div style="position: relative; min-width: 90px; max-width: 495px; min-height: 160px; max-height: 880px; ">
             <div style="width: 100%; height: 0%; padding-bottom: 143%; position: relative;">
@@ -66,7 +66,7 @@ if(!empty($it['it_2'])) { // 모바일일 때
             </div>
         </div>
     </div>
-    <?php ?>
+    <?php } ?>
 
     <!-- 상품이미지 미리보기 시작 { -->
     <div id="sit_pvi">
@@ -313,21 +313,16 @@ if(!empty($it['it_2'])) { // 모바일일 때
 
 <?php if ($default['de_rel_list_use']) { ?>
 <!-- 관련상품 시작 { -->
-<section id="sit_rel">
-    <div class="sct_wrap fullWidth">
-    <h2>Related Items</h2>
-        <?php
-        $rel_skin_file = $skin_dir.'/'.$default['de_rel_list_skin'];
-        if(!is_file($rel_skin_file))
-            $rel_skin_file = G5_SHOP_SKIN_PATH.'/'.$default['de_rel_list_skin'];
+    <?php
+    $rel_skin_file = $skin_dir.'/'.$default['de_rel_list_skin'];
+    if(!is_file($rel_skin_file))
+        $rel_skin_file = G5_SHOP_SKIN_PATH.'/'.$default['de_rel_list_skin'];
 
-        $sql = " select b.* from {$g5['g5_shop_item_relation_table']} a left join {$g5['g5_shop_item_table']} b on (a.it_id2=b.it_id) where a.it_id = '{$it['it_id']}' and b.it_use='1' ";
-        $list = new item_list($rel_skin_file, $default['de_rel_list_mod'], 0, $default['de_rel_img_width'], $default['de_rel_img_height']);
-        $list->set_query($sql);
-        echo $list->run();
-        ?>
-    </div>
-</section>
+    $sql = " select b.* from {$g5['g5_shop_item_relation_table']} a left join {$g5['g5_shop_item_table']} b on (a.it_id2=b.it_id) where a.it_id = '{$it['it_id']}' and b.it_use='1' ";
+    $list = new item_list($rel_skin_file, $default['de_rel_list_mod'], 0, $default['de_rel_img_width'], $default['de_rel_img_height']);
+    $list->set_query($sql);
+    echo $list->run();
+    ?>
 <!-- } 관련상품 끝 -->
 <?php } ?>
 

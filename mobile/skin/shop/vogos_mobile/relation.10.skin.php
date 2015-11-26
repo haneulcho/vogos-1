@@ -27,6 +27,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $sct_last = '';
     }
     if ($i == 0) {
+        echo '<section id="sit_rel"><div class="sct_wrap fullWidth"><h2>Related Items</h2>';
         if ($this->css) {
             echo "<ul class=\"sct_wrap {$this->css}\">\n";
         } else {
@@ -100,9 +101,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     echo "</li>\n";
 }
 
-if ($i > 0) echo "</ul>\n";
-
-if($i == 0) echo "<p class=\"sct_noitem\">No more items.</p>\n";
+if ($i > 0) echo "</ul></div></section>\n";
 ?>
 <!-- } 상품진열 10 끝 -->
 
