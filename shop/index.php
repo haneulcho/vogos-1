@@ -47,6 +47,7 @@ define("_INDEX_", TRUE);
 
 include_once(G5_SHOP_PATH.'/shop.head.php');
 ?>
+
     <?php if($default['de_type1_list_use']) { ?>
     <!-- Black Friday 시작 { -->
     <section class="sct_wrap f8f8f8" style="background:url('<?php echo G5_SHOP_SKIN_URL ?>/img/black_friday_bg.jpg');margin-top:35px;padding:0;">
@@ -57,6 +58,11 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
         <area alt="From faux fur stoles and coats, to winter dresses, velvet coords and cosy knitwear we at VOGOS are here to make sure we cover all you style needs this season!" title="SHOP NOW" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=1" shape="rect" coords="700,560,880,615" style="outline:none;" target="_self" />
         </map>
     </div>
+    <!-- Shipping Banner 시작 { -->
+    <div id="inv_ship_view" style="text-align:center;padding-bottom:35px">
+        <img src="<?php echo G5_SHOP_SKIN_URL ?>/img/shipping_info.jpg" border="0" width="1110" alt="We offer FREE express shipping worldwide on orders of $80 +" title="We offer FREE express shipping worldwide on orders of $80 +">
+    </div>
+    <!-- } Shipping Banner 끝 -->
     </section>
     <!-- } Black Friday 끝 -->
     <?php } ?>
