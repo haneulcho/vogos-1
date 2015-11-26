@@ -18,6 +18,34 @@ include_once(G5_MSHOP_PATH.'/_head.php');
         <div class="inv_run"><a href="#">RUNWAY</a></div>
     </div>
 <?php echo display_banner('메인', 'mainbanner.10.skin_m.php'); ?>
+<!-- Black Friday 시작 { -->
+<div id="inv_ev_view" style="text-align:center">
+    <div class="item event">
+        <header>
+            <h2>PARTY DRESSES</h2>
+        </header>
+        <a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=30"><img src="<?php echo G5_MSHOP_SKIN_URL ?>/img/party_dresses.jpg" border="0" width="100%" alt="Amazing metallics, cool cut-outs and sexy necklines mean you'll be going all out across the eras this season!" title="SHOP PARTY DRESSES" style="max-width:860px"></a>
+    </div>
+</div>
+<!-- } Black Friday 끝 -->
+<!-- Shipping Banner 시작 { -->
+<div id="inv_ship_view" style="text-align:center;padding:10px 0">
+    <img src="<?php echo G5_MSHOP_SKIN_URL ?>/img/shipping_info.jpg" border="0" width="100%" alt="We offer FREE express shipping worldwide on orders of $80 +" title="We offer FREE express shipping worldwide on orders of $80 +" style="max-width:860px">
+</div>
+<!-- } Shipping Banner 끝 -->
+<!-- Editor's Choice 시작 { -->
+<div id="inv_ec_view" style="text-align:center">
+    <?php if($default['de_mobile_type1_list_use']) { ?>
+    <div class="item echoice">
+        <header>
+            <h2>EDITOR's CHOICE</h2>
+        </header>
+        <a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=1"><img src="<?php echo G5_MSHOP_SKIN_URL ?>/img/editors_choice.jpg" border="0" width="100%" alt="From faux fur stoles and coats, to winter dresses, velvet coords and cosy knitwear we at VOGOS are here to make sure we cover all you style needs this season!" title="SHOP EDITOR's CHOICE" style="max-width:860px"></a>
+    </div>
+    <?php } ?>
+</div>
+<!-- } Editor's Choice 끝 -->
+
 <div id="inv_new_view">
     <?php if($default['de_mobile_type3_list_use']) { ?>
     <div class="item new_arrivals">
@@ -31,7 +59,7 @@ include_once(G5_MSHOP_PATH.'/_head.php');
         $item_rows = 13; //줄 수 
         $item_width= 300; //이미지 가로 
         $item_height = 450; //이미지 세로 
-        $order_by = 'it_order asc'; // 출력순서 설정순
+        $order_by = "it_update_time desc"; // 최신등록순
 
 
         $list = new item_list($skin_file, $item_mod , $item_rows , $item_width, $item_height); 
