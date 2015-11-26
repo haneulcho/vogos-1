@@ -59,7 +59,8 @@ a:link, a:visited {color:#000;text-decoration:none}
 /* 하단 레이아웃 */ 
 #ft {position:relative;margin:0;padding:15px 5px 15px;border-top:1px solid #e9e9e9;font-size:0.833em;text-align:center;background-color:#333;}
 #ft>h2 {position:absolute;font-size:0;text-indent:-9999em;line-height:0;overflow:hidden}
-#ft>p {padding:0 15px;text-align:left;color:#888;}
+#ft>p {margin-bottom:8px;padding:0 15px;text-align:left;color:#888;}
+#ft .ft_part {padding-left:10px;margin-left:16px;margin-bottom:8px;border-left:1px solid #888;}
 #ft .ftLogo {display:block;width:70px;}
 #ft .ftLogo img {width:100%;}
 #ft>ul {margin:0 0 10px 0;padding:0;text-align:center;}

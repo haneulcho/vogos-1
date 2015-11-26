@@ -74,9 +74,9 @@ var g5_shop_url = "<?php echo G5_SHOP_URL; ?>";
     if ($sort != "")
         $order_by = $sort.' '.$sortodr.' , it_order, it_id desc';
     else
-        $order_by = 'it_order, it_id desc';
+        $order_by = 'it_order, it_time desc';
 
-    $error = '<p class="sct_noitem">등록된 상품이 없습니다.</p>';
+    $error = '<p class="sct_noitem">No more items.</p>';
 
     // 리스트 스킨
     $skin_file = $skin_dir.'/'.$ca['ca_mobile_skin'];
@@ -126,7 +126,7 @@ var g5_shop_url = "<?php echo G5_SHOP_URL; ?>";
     <div class="li_more">
         <p id="item_load_msg"><img src="<?php echo G5_SHOP_CSS_URL; ?>/img/loading.gif" alt="loading" ><br>Please wait...</p>
         <div class="li_more_btn">
-            <button type="button" id="btn_more_item" data-url="<?php echo $ajax_url; ?>" data-page="<?php echo $page; ?>">MORE ITEM +</button>
+            <button type="button" id="btn_more_item" data-url="<?php echo $ajax_url; ?>" data-page="<?php echo $page; ?>">MORE ITEMS +</button>
         </div>
     </div>
     <?php } ?>

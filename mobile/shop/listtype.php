@@ -27,7 +27,7 @@ include_once(G5_MSHOP_PATH.'/_head.php');
 // 한페이지에 출력하는 이미지수 = $list_mod * $list_row
 // 모바일에서는 계산된 이미지수가 중요함
 $list_mod   = 1;    // 한줄에 이미지 몇개씩 출력? 단, 모바일환경에서는 사용되지 않음.
-$list_row   = 12;    // 한 페이지에 몇라인씩 출력?
+$list_row   = 30;    // 한 페이지에 몇라인씩 출력?
 
 $img_width  = 300;  // 출력이미지 폭
 $img_height = 420;  // 출력이미지 높이
@@ -44,7 +44,7 @@ else
 if (!$skin) {
     if ($type == 1) {
         // 보고스 동영상 (VOGOS CLIP) 코너는 list.20.skin.php를 사용함
-        $skin = 'list.20.skin.php';
+        $skin = 'list.10.skin.php';
     } else {
         $skin = 'list.10.skin.php';
     }
