@@ -298,21 +298,16 @@ $video_frame = "<iframe src=\"".$video_src."\" width=\"330\" height=\"590\" fram
 
 <?php if ($default['de_rel_list_use']) { ?>
 <!-- 관련상품 시작 { -->
-<section id="sit_rel">
-    <div class="sct_wrap fullWidth">
-    <h2>Related Items</h2>
-        <?php
-        $rel_skin_file = $skin_dir.'/'.$default['de_rel_list_skin'];
-        if(!is_file($rel_skin_file))
-            $rel_skin_file = G5_SHOP_SKIN_PATH.'/'.$default['de_rel_list_skin'];
+    <?php
+    $rel_skin_file = $skin_dir.'/'.$default['de_rel_list_skin'];
+    if(!is_file($rel_skin_file))
+        $rel_skin_file = G5_SHOP_SKIN_PATH.'/'.$default['de_rel_list_skin'];
 
-        $sql = " select b.* from {$g5['g5_shop_item_relation_table']} a left join {$g5['g5_shop_item_table']} b on (a.it_id2=b.it_id) where a.it_id = '{$it['it_id']}' and b.it_use='1' ";
-        $list = new item_list($rel_skin_file, $default['de_rel_list_mod'], 0, $default['de_rel_img_width'], $default['de_rel_img_height']);
-        $list->set_query($sql);
-        echo $list->run();
-        ?>
-    </div>
-</section>
+    $sql = " select b.* from {$g5['g5_shop_item_relation_table']} a left join {$g5['g5_shop_item_table']} b on (a.it_id2=b.it_id) where a.it_id = '{$it['it_id']}' and b.it_use='1' ";
+    $list = new item_list($rel_skin_file, $default['de_rel_list_mod'], 0, $default['de_rel_img_width'], $default['de_rel_img_height']);
+    $list->set_query($sql);
+    echo $list->run();
+    ?>
 <!-- } 관련상품 끝 -->
 <?php } ?>
 

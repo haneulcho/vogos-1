@@ -17,6 +17,7 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
     }
 
     if ($i == 1) {
+        echo '<section id="sit_rel"><div class="sct_wrap fullWidth"><h2>Related Items</h2>';
         if ($this->css) {
             echo "<ul class=\"{$this->css}\">\n";
         } else {
@@ -103,9 +104,7 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
     echo "</li>\n";
 }
 
-if ($i > 0) echo "</ul>\n";
-
-if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
+if ($i > 0) echo "</ul></div></section>\n";
 ?>
 
 <script type="text/javascript">
