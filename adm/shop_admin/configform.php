@@ -358,7 +358,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-           <th scope="row">유형1: 아직 사용 X 출력</th>
+           <th scope="row">유형1: 인덱스 Editor's Pick 출력</th>
             <td>
                 <label for="de_type1_list_use">출력</label>
                 <input type="checkbox" name="de_type1_list_use" value="1" id="de_type1_list_use" <?php echo $default['de_type1_list_use']?"checked":""; ?>>
@@ -478,7 +478,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row">유형1: 아직 사용 X 출력</th>
+            <th scope="row">유형1: 인덱스 Editor's Pick 출력</th>
             <td>
                 <label for="de_mobile_type1_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type1_list_use" value="1" id="de_mobile_type1_list_use" <?php echo $default['de_mobile_type1_list_use']?"checked":""; ?>>

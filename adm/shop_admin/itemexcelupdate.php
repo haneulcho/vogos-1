@@ -97,7 +97,7 @@ if($_FILES['excelfile']['tmp_name']) {
         $it_type5           = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_basic           = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_explan          = addslashes($data->sheets[0]['cells'][$i][$j++]);
-        $it_price           = addslashes(only_number($data->sheets[0]['cells'][$i][$j++]));
+        $it_price           = addslashes($data->sheets[0]['cells'][$i][$j++]);
         $it_point           = addslashes(only_number($data->sheets[0]['cells'][$i][$j++]));
         $it_point_type      = addslashes(only_number($data->sheets[0]['cells'][$i][$j++]));
         $it_use             = addslashes($data->sheets[0]['cells'][$i][$j++]);
