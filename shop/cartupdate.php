@@ -336,7 +336,11 @@ if ($sw_direct)
 {
     if ($is_member)
     {
-    	goto_url(G5_SHOP_URL."/orderform.php?sw_direct=$sw_direct");
+        if ($is_admin) {
+            goto_url(G5_SHOP_URL."/orderform_test.php?sw_direct=$sw_direct");
+        } else {
+        	goto_url(G5_SHOP_URL."/orderform.php?sw_direct=$sw_direct");
+        }
     }
     else
     {
