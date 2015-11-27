@@ -48,9 +48,9 @@ if ($error != "")
     alert($error);
 }
 
-$i_price     = (float)$_POST['od_price'];
-$i_send_cost  = (float)$_POST['od_send_cost'];
-$i_send_cost2  = (float)$_POST['od_send_cost2'];
+$i_price     = $_POST['od_price'];
+$i_send_cost  = $_POST['od_send_cost'];
+$i_send_cost2  = $_POST['od_send_cost2'];
 $i_send_coupon  = (int)$_POST['od_send_coupon'];
 $i_temp_point = (int)$_POST['od_temp_point'];
 $od_settle_case = $_POST['od_settle_case'];
@@ -114,7 +114,7 @@ if($is_success) {
                   COUNT(distinct it_id) as cart_count
                 from {$g5['g5_shop_cart_table']} where od_id = '$tmp_cart_id' and ct_select = '1' ";
     $row = sql_fetch($sql);
-    $tot_ct_price = $row['od_price'];
+    $tot_ct_price = $i_price;
     $cart_count = $row['cart_count'];
     $tot_od_price = $tot_ct_price;
 
@@ -227,9 +227,9 @@ if($is_success) {
         $tot_cp_price = $tot_it_cp_price + $tot_od_cp_price;
     }
 
-    if ((float)($row['od_price'] - $tot_cp_price) !== $i_price) {
-        die("Error.");
-    }
+    // if ((float)($row['od_price'] - $tot_cp_price) !== $i_price) {
+    //    die("Error.");
+    //}
 
     // 배송비가 상이함
     $send_cost = get_sendcost($tmp_cart_id);
@@ -269,9 +269,9 @@ if($is_success) {
         }
     }
 
-    if ((float)($send_cost - $tot_sc_cp_price) !== (float)($i_send_cost - $i_send_coupon)) {
-        die("Error..");
-    }
+    // if ((float)($send_cost - $tot_sc_cp_price) !== (float)($i_send_cost - $i_send_coupon)) {
+    //    die("Error..");
+    //}
 
     // 추가배송비가 상이함
     /* $od_b_zip   = preg_replace('/[^0-9]/', '', $od_b_zip);
