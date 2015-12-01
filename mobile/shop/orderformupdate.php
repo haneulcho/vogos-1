@@ -226,9 +226,9 @@ if($is_success) {
         $tot_cp_price = $tot_it_cp_price + $tot_od_cp_price;
     }
 
-    if ((float)($row['od_price'] - $tot_cp_price) !== $i_price) {
-        die("Error.");
-    }
+    // if ((float)($row['od_price'] - $tot_cp_price) !== $i_price) {
+    //     die("Error.");
+    //}
 
     // 배송비가 상이함
     $send_cost = get_sendcost($tmp_cart_id);
@@ -268,9 +268,9 @@ if($is_success) {
         }
     }
 
-    if ((float)($send_cost - $tot_sc_cp_price) !== (float)($i_send_cost - $i_send_coupon)) {
-        die("Error..");
-    }
+    //if ((float)($send_cost - $tot_sc_cp_price) !== (float)($i_send_cost - $i_send_coupon)) {
+    //    die("Error..");
+    //}
 
     // 추가배송비가 상이함
     /* $od_b_zip   = preg_replace('/[^0-9]/', '', $od_b_zip);
@@ -303,8 +303,8 @@ if($is_success) {
         }
     }
 
-    if (($i_temp_point > (int)$temp_point || $i_temp_point < 0) && $config['cf_use_point'])
-        die("Error....");
+    //if (($i_temp_point > (int)$temp_point || $i_temp_point < 0) && $config['cf_use_point'])
+    //    die("Error....");
 
     if ($od_temp_point)
     {
