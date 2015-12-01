@@ -358,7 +358,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-           <th scope="row">유형1: 아직 사용 X 출력</th>
+           <th scope="row">유형1: 인덱스 Editor's Pick 출력</th>
             <td>
                 <label for="de_type1_list_use">출력</label>
                 <input type="checkbox" name="de_type1_list_use" value="1" id="de_type1_list_use" <?php echo $default['de_type1_list_use']?"checked":""; ?>>
@@ -478,7 +478,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row">유형1: 아직 사용 X 출력</th>
+            <th scope="row">유형1: 인덱스 Editor's Pick 출력</th>
             <td>
                 <label for="de_mobile_type1_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type1_list_use" value="1" id="de_mobile_type1_list_use" <?php echo $default['de_mobile_type1_list_use']?"checked":""; ?>>
@@ -534,7 +534,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             </td>
         </tr>
         <tr>
-            <th scope="row">유형4: 리스트 좌측 스팟 출력</th>
+            <th scope="row">유형4: 인덱스 하단 스팟 출력</th>
             <td>
                 <label for="de_mobile_type4_list_use">출력</label>
                 <input type="checkbox" name="de_mobile_type4_list_use" value="1" id="de_mobile_type4_list_use" <?php echo $default['de_mobile_type4_list_use']?"checked":""; ?>>
@@ -732,6 +732,7 @@ if(!isset($default['de_mobile_search_list_row'])) {
             <td>
                 <?php echo help('쇼핑몰에서 사용할 결제대행사를 선택합니다.'); ?>
                 <select id="de_pg_service" name="de_pg_service">
+                    <option value="eximbay" <?php echo get_selected($default['de_pg_service'], 'eximbay'); ?>>엑심베이</option>
                     <option value="kcp" <?php echo get_selected($default['de_pg_service'], 'kcp'); ?>>KCP</option>
                     <option value="lg" <?php echo get_selected($default['de_pg_service'], 'lg'); ?>>LG유플러스</option>
                     <option value="inicis" <?php echo get_selected($default['de_pg_service'], 'inicis'); ?>>KG이니시스</option>
@@ -770,6 +771,23 @@ if(!isset($default['de_mobile_search_list_row'])) {
             <td>
                 <?php echo help("LG유플러스 상점MertKey는 상점관리자 -> 계약정보 -> 상점정보관리에서 확인하실 수 있습니다.\n예) 95160cce09854ef44d2edb2bfb05f9f3\n<a href=\"".G5_ADMIN_URL."/config_form.php#anc_cf_cert\">기본환경설정 &gt; 본인확인</a> 설정의 LG유플러스 MERT KEY와 동일합니다."); ?>
                 <input type="text" name="cf_lg_mert_key" value="<?php echo $config['cf_lg_mert_key']; ?>" id="cf_lg_mert_key" class="frm_input" size="32" maxlength="50">
+            </td>
+        </tr>
+        <tr class="pg_info_fld eximbay_info_fld">
+            <th scope="row">
+                <label for="de_eximbay_mid">엑심베이 상점아이디(mid)</label><br>
+                <a href="https://merchant.eximbay.com/backoffice/common/login.do" target="_blank" id="scf_lgreg" class="scf_pgreg">엑심베이 관리자 가기</a>
+            </th>
+            <td>
+                <?php echo help("엑심베이로부터 발급 받으신 상점아이디(MID) 10자리를 입력 합니다. 예) 31959DDAD6"); ?>
+                <input type="text" name="de_eximbay_mid" value="<?php echo $default['de_eximbay_mid']; ?>" id="de_eximbay_mid" class="frm_input" size="15" maxlength="10" style="font:bold 15px Verdana;">
+            </td>
+        </tr>
+        <tr class="pg_info_fld eximbay_info_fld">
+            <th scope="row"><label for="de_eximbay_secret_key">엑심베이 Secret Key 코드</label></th>
+            <td>
+                <?php echo help("엑심베이에서 발급받은 Secret Key를 입력합니다."); ?>
+                <input type="text" name="de_eximbay_secret_key" value="<?php echo $default['de_eximbay_secret_key']; ?>" id="de_eximbay_secret_key" class="frm_input" size="20" maxlength="50">
             </td>
         </tr>
         <tr class="pg_info_fld inicis_info_fld">

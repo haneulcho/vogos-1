@@ -3,7 +3,6 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 0);
-add_javascript('<script src="'.G5_SHOP_SKIN_URL.'/js/jquery.shop.list.js"></script>', 10);
 ?>
 
 <!-- 상품진열 30 시작 { -->
@@ -69,8 +68,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
         echo "</div>";
 
-        echo"<div class=\"sct_cart_m\">
-                <button type=\"button\" class=\"btn_cart_m\" onclick=\"location.href='{$this->href}{$row['it_id']}'\"><i class=\"ion-android-cart\"></i>CART</button>
+        echo"<div class=\"sct_cart_m2\">
+                <button type=\"button\" class=\"btn_cart_m2\" onclick=\"location.href='{$this->href}{$row['it_id']}'\"><i class=\"ion-checkmark-round\"></i>BUY NOW</button>
         </div>\n";
 
         echo "</div>\n";
@@ -94,6 +93,33 @@ if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\
         $(e).parent('.sct_play_m').fadeOut(300);
         $video.attr('src', $video_src);
     }
+
+    (function($) {
+        var element = $('#sct_30_video'),
+            originalY = element.offset().top;
+        
+        // Space between element and top of screen (when scrolling)
+        var topMargin = 80;
+        
+        // Should probably be set in CSS; but here just for emphasis
+        element.css('position', 'relative');
+        
+        $(window).on('scroll', function(event) {
+            var scrollTop = $(window).scrollTop();
+            
+            if(scrollTop < originalY) {
+                topHeight = 0;
+            } else if(scrollTop > 860) {
+                topHeight = 0;
+            } else {
+                topHeight = scrollTop - originalY + topMargin;
+            }
+
+            element.stop(false, false).animate({
+                top: topHeight
+            }, 300);
+        });
+    })(jQuery);
 
 </script>
 <!-- } 상품진열 30 끝 -->

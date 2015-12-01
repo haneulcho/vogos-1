@@ -32,7 +32,10 @@ if(!$mb_id)
 
 $mb_password    = trim($_POST['mb_password']);
 $mb_password_re = trim($_POST['mb_password_re']);
-$mb_name        = trim($_POST['mb_name']);
+$mb_name        = isset($_POST['mb_name'])           ? trim($_POST['mb_name'])         : "";
+$mb_name_last   = trim($_POST['mb_name_last']);
+$mb_country     = trim($_POST['mb_country']);
+$mb_city        = trim($_POST['mb_city']);
 // $mb_nick        = trim($_POST['mb_nick']); 보고스 쇼핑몰에서는 닉네임과 이름을 동기화 함
 $mb_nick        = trim($_POST['mb_name']);
 $mb_email       = trim($_POST['mb_email']);
@@ -41,12 +44,9 @@ $mb_birth       = isset($_POST['mb_birth'])         ? trim($_POST['mb_birth'])  
 $mb_homepage    = isset($_POST['mb_homepage'])      ? trim($_POST['mb_homepage'])    : "";
 $mb_tel         = isset($_POST['mb_tel'])           ? trim($_POST['mb_tel'])         : "";
 $mb_hp          = isset($_POST['mb_hp'])            ? trim($_POST['mb_hp'])          : "";
-$mb_zip1        = isset($_POST['mb_zip'])           ? substr(trim($_POST['mb_zip']), 0, 3) : "";
-$mb_zip2        = isset($_POST['mb_zip'])           ? substr(trim($_POST['mb_zip']), 3)    : "";
+$mb_zip         = isset($_POST['mb_zip'])           ? trim($_POST['mb_zip'])         : "";
 $mb_addr1       = isset($_POST['mb_addr1'])         ? trim($_POST['mb_addr1'])       : "";
 $mb_addr2       = isset($_POST['mb_addr2'])         ? trim($_POST['mb_addr2'])       : "";
-$mb_addr3       = isset($_POST['mb_addr3'])         ? trim($_POST['mb_addr3'])       : "";
-$mb_addr_jibeon = isset($_POST['mb_addr_jibeon'])   ? trim($_POST['mb_addr_jibeon']) : "";
 $mb_signature   = isset($_POST['mb_signature'])     ? trim($_POST['mb_signature'])   : "";
 $mb_profile     = isset($_POST['mb_profile'])       ? trim($_POST['mb_profile'])     : "";
 $mb_recommend   = isset($_POST['mb_recommend'])     ? trim($_POST['mb_recommend'])   : "";
@@ -74,7 +74,7 @@ if ($w == '' || $w == 'u') {
     if($w == '' && $mb_password != $mb_password_re)
         alert('Password is Incorrect.');
 
-    if ($msg = empty_mb_name($mb_id))       alert($msg, "", true, true);
+    //if ($msg = empty_mb_name($mb_id))       alert($msg, "", true, true);
     if ($msg = empty_mb_nick($mb_nick))     alert($msg, "", true, true);
     if ($msg = empty_mb_email($mb_email))   alert($msg, "", true, true);
     if ($msg = reserve_mb_id($mb_id))       alert($msg, "", true, true);
@@ -121,15 +121,15 @@ if ($w == '' || $w == 'u') {
 }
 
 $mb_name        = clean_xss_tags($mb_name);
+$mb_name_last   = clean_xss_tags($mb_name_last);
 $mb_email       = get_email_address($mb_email);
 $mb_homepage    = clean_xss_tags($mb_homepage);
 $mb_tel         = clean_xss_tags($mb_tel);
-$mb_zip1        = preg_replace('/[^0-9]/', '', $mb_zip1);
-$mb_zip2        = preg_replace('/[^0-9]/', '', $mb_zip2);
+$mb_zip         = preg_replace('/[^0-9]/', '', $mb_zip);
+$mb_country     = clean_xss_tags($mb_country);
+$mb_city     = clean_xss_tags($mb_city);
 $mb_addr1       = clean_xss_tags($mb_addr1);
 $mb_addr2       = clean_xss_tags($mb_addr2);
-$mb_addr3       = clean_xss_tags($mb_addr3);
-$mb_addr_jibeon = preg_match("/^(N|R)$/", $mb_addr_jibeon) ? $mb_addr_jibeon : '';
 
 // 사용자 코드 실행
 @include_once($member_skin_path.'/register_form_update.head.skin.php');
@@ -137,7 +137,7 @@ $mb_addr_jibeon = preg_match("/^(N|R)$/", $mb_addr_jibeon) ? $mb_addr_jibeon : '
 //===============================================================
 //  본인확인
 //---------------------------------------------------------------
-$mb_hp = hyphen_hp_number($mb_hp);
+
 if($config['cf_cert_use'] && $_SESSION['ss_cert_type'] && $_SESSION['ss_cert_dupinfo']) {
     // 중복체크
     $sql = " select mb_id from {$g5['member_table']} where mb_id <> '{$member['mb_id']}' and mb_dupinfo = '{$_SESSION['ss_cert_dupinfo']}' ";
@@ -184,17 +184,17 @@ if ($w == '') {
                 set mb_id = '{$mb_id}',
                      mb_password = '".get_encrypt_string($mb_password)."',
                      mb_name = '{$mb_name}',
+                     mb_name_last = '{$mb_name_last}',
                      mb_nick = '{$mb_nick}',
                      mb_nick_date = '".G5_TIME_YMD."',
                      mb_email = '{$mb_email}',
+                     mb_country = '{$mb_country}',
+                     mb_city = '{$mb_city}',
                      mb_homepage = '{$mb_homepage}',
                      mb_tel = '{$mb_tel}',
-                     mb_zip1 = '{$mb_zip1}',
-                     mb_zip2 = '{$mb_zip2}',
+                     mb_zip = '{$mb_zip}',
                      mb_addr1 = '{$mb_addr1}',
                      mb_addr2 = '{$mb_addr2}',
-                     mb_addr3 = '{$mb_addr3}',
-                     mb_addr_jibeon = '{$mb_addr_jibeon}',
                      mb_signature = '{$mb_signature}',
                      mb_profile = '{$mb_profile}',
                      mb_today_login = '".G5_TIME_YMDHIS."',
@@ -293,19 +293,20 @@ if ($w == '') {
         $sql_email_certify = " , mb_email_certify = '' ";
 
     $sql = " update {$g5['member_table']}
-                set mb_nick = '{$mb_nick}',
+                set mb_name = '{$mb_name}',
+                    mb_name_last = '{$mb_name_last}',
+                    mb_nick = '{$mb_nick}',
                     mb_mailling = '{$mb_mailling}',
                     mb_sms = '{$mb_sms}',
                     mb_open = '{$mb_open}',
                     mb_email = '{$mb_email}',
+                    mb_country = '{$mb_country}',
+                    mb_city = '{$mb_city}',
                     mb_homepage = '{$mb_homepage}',
                     mb_tel = '{$mb_tel}',
-                    mb_zip1 = '{$mb_zip1}',
-                    mb_zip2 = '{$mb_zip2}',
+                    mb_zip = '{$mb_zip}',
                     mb_addr1 = '{$mb_addr1}',
                     mb_addr2 = '{$mb_addr2}',
-                    mb_addr3 = '{$mb_addr3}',
-                    mb_addr_jibeon = '{$mb_addr_jibeon}',
                     mb_signature = '{$mb_signature}',
                     mb_profile = '{$mb_profile}',
                     mb_1 = '{$mb_1}',

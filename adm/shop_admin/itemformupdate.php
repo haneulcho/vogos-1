@@ -36,7 +36,173 @@ if($w == "u") {
     $it_img11   = $file['it_img11'];
 }
 
+// 색상이미지파일정보
+if($w == "u") {
+    $sql = " select it_color_img1, it_color_img2, it_color_img3, it_color_img4, it_color_img5, it_color_img6, it_color_img7, it_color_img8, it_color_img9, it_color_img10
+                from {$g5['g5_shop_item_table']}
+                where it_id = '$it_id' ";
+    $file = sql_fetch($sql);
+
+    $it_color_img1    = $file['it_color_img1'];
+    $it_color_img2    = $file['it_color_img2'];
+    $it_color_img3    = $file['it_color_img3'];
+    $it_color_img4    = $file['it_color_img4'];
+    $it_color_img5    = $file['it_color_img5'];
+    $it_color_img6    = $file['it_color_img6'];
+    $it_color_img7    = $file['it_color_img7'];
+    $it_color_img8    = $file['it_color_img8'];
+    $it_color_img9    = $file['it_color_img9'];
+    $it_color_img10   = $file['it_color_img10'];
+}
+
 $it_img_dir = G5_DATA_PATH.'/item';
+
+
+// 색상이미지삭제
+if ($it_color_img1_del) {
+    $file_img1 = $it_img_dir.'/'.$it_color_img1;
+    @unlink($file_img1);
+    delete_item_thumbnail(dirname($file_img1), basename($file_img1));
+    $it_color_img1 = '';
+}
+if ($it_color_img2_del) {
+    $file_img2 = $it_img_dir.'/'.$it_color_img2;
+    @unlink($file_img2);
+    delete_item_thumbnail(dirname($file_img2), basename($file_img2));
+    $it_color_img2 = '';
+}
+if ($it_color_img3_del) {
+    $file_img3 = $it_img_dir.'/'.$it_color_img3;
+    @unlink($file_img3);
+    delete_item_thumbnail(dirname($file_img3), basename($file_img3));
+    $it_color_img3 = '';
+}
+if ($it_color_img4_del) {
+    $file_img4 = $it_img_dir.'/'.$it_color_img4;
+    @unlink($file_img4);
+    delete_item_thumbnail(dirname($file_img4), basename($file_img4));
+    $it_color_img4 = '';
+}
+if ($it_color_img5_del) {
+    $file_img5 = $it_img_dir.'/'.$it_color_img5;
+    @unlink($file_img5);
+    delete_item_thumbnail(dirname($file_img5), basename($file_img5));
+    $it_color_img5 = '';
+}
+if ($it_color_img6_del) {
+    $file_img6 = $it_img_dir.'/'.$it_color_img6;
+    @unlink($file_img6);
+    delete_item_thumbnail(dirname($file_img6), basename($file_img6));
+    $it_color_img6 = '';
+}
+if ($it_color_img7_del) {
+    $file_img7 = $it_img_dir.'/'.$it_color_img7;
+    @unlink($file_img7);
+    delete_item_thumbnail(dirname($file_img7), basename($file_img7));
+    $it_color_img7 = '';
+}
+if ($it_color_img8_del) {
+    $file_img8 = $it_img_dir.'/'.$it_color_img8;
+    @unlink($file_img8);
+    delete_item_thumbnail(dirname($file_img8), basename($file_img8));
+    $it_color_img8 = '';
+}
+if ($it_color_img9_del) {
+    $file_img9 = $it_img_dir.'/'.$it_color_img9;
+    @unlink($file_img9);
+    delete_item_thumbnail(dirname($file_img9), basename($file_img9));
+    $it_color_img9 = '';
+}
+if ($it_color_img10_del) {
+    $file_img10 = $it_img_dir.'/'.$it_color_img10;
+    @unlink($file_img10);
+    delete_item_thumbnail(dirname($file_img10), basename($file_img10));
+    $it_color_img10 = '';
+}
+
+// 색상이미지업로드
+if ($_FILES['it_color_img1']['name']) {
+    if($w == 'u' && $it_color_img1) {
+        $file_color_img1 = $it_img_dir.'/'.$it_color_img1;
+        @unlink($file_color_img1);
+        delete_item_thumbnail(dirname($file_color_img1), basename($file_color_img1));
+    }
+    $it_color_img1 = it_img_upload($_FILES['it_color_img1']['tmp_name'], $_FILES['it_color_img1']['name'], $it_img_dir.'/'.$it_id.'/color');
+}
+if ($_FILES['it_color_img2']['name']) {
+    if($w == 'u' && $it_color_img2) {
+        $file_color_img2 = $it_img_dir.'/'.$it_color_img2;
+        @unlink($file_color_img2);
+        delete_item_thumbnail(dirname($file_color_img2), basename($file_color_img2));
+    }
+    $it_color_img2 = it_img_upload($_FILES['it_color_img2']['tmp_name'], $_FILES['it_color_img2']['name'], $it_img_dir.'/'.$it_id.'/color');
+}
+if ($_FILES['it_color_img3']['name']) {
+    if($w == 'u' && $it_color_img3) {
+        $file_color_img3 = $it_img_dir.'/'.$it_color_img3;
+        @unlink($file_color_img3);
+        delete_item_thumbnail(dirname($file_color_img3), basename($file_color_img3));
+    }
+    $it_color_img3 = it_img_upload($_FILES['it_color_img3']['tmp_name'], $_FILES['it_color_img3']['name'], $it_img_dir.'/'.$it_id.'/color');
+}
+if ($_FILES['it_color_img4']['name']) {
+    if($w == 'u' && $it_color_img4) {
+        $file_color_img4 = $it_img_dir.'/'.$it_color_img4;
+        @unlink($file_color_img4);
+        delete_item_thumbnail(dirname($file_color_img4), basename($file_color_img4));
+    }
+    $it_color_img4 = it_img_upload($_FILES['it_color_img4']['tmp_name'], $_FILES['it_color_img4']['name'], $it_img_dir.'/'.$it_id.'/color');
+}
+if ($_FILES['it_color_img5']['name']) {
+    if($w == 'u' && $it_color_img5) {
+        $file_color_img5 = $it_img_dir.'/'.$it_color_img5;
+        @unlink($file_color_img5);
+        delete_item_thumbnail(dirname($file_color_img5), basename($file_color_img5));
+    }
+    $it_color_img5 = it_img_upload($_FILES['it_color_img5']['tmp_name'], $_FILES['it_color_img5']['name'], $it_img_dir.'/'.$it_id.'/color');
+}
+if ($_FILES['it_color_img6']['name']) {
+    if($w == 'u' && $it_color_img6) {
+        $file_color_img6 = $it_img_dir.'/'.$it_color_img6;
+        @unlink($file_color_img6);
+        delete_item_thumbnail(dirname($file_color_img6), basename($file_color_img6));
+    }
+    $it_color_img6 = it_img_upload($_FILES['it_color_img6']['tmp_name'], $_FILES['it_color_img6']['name'], $it_img_dir.'/'.$it_id.'/color');
+}
+if ($_FILES['it_color_img7']['name']) {
+    if($w == 'u' && $it_color_img7) {
+        $file_color_img7 = $it_img_dir.'/'.$it_color_img7;
+        @unlink($file_color_img7);
+        delete_item_thumbnail(dirname($file_color_img7), basename($file_color_img7));
+    }
+    $it_color_img7 = it_img_upload($_FILES['it_color_img7']['tmp_name'], $_FILES['it_color_img7']['name'], $it_img_dir.'/'.$it_id.'/color');
+}
+if ($_FILES['it_color_img8']['name']) {
+    if($w == 'u' && $it_color_img8) {
+        $file_color_img8 = $it_img_dir.'/'.$it_color_img8;
+        @unlink($file_color_img8);
+        delete_item_thumbnail(dirname($file_color_img8), basename($file_color_img8));
+    }
+    $it_color_img8 = it_img_upload($_FILES['it_color_img8']['tmp_name'], $_FILES['it_color_img8']['name'], $it_img_dir.'/'.$it_id.'/color');
+}
+if ($_FILES['it_color_img9']['name']) {
+    if($w == 'u' && $it_color_img9) {
+        $file_color_img9 = $it_img_dir.'/'.$it_color_img9;
+        @unlink($file_color_img9);
+        delete_item_thumbnail(dirname($file_color_img9), basename($file_color_img9));
+    }
+    $it_color_img9 = it_img_upload($_FILES['it_color_img9']['tmp_name'], $_FILES['it_color_img9']['name'], $it_img_dir.'/'.$it_id.'/color');
+}
+if ($_FILES['it_color_img10']['name']) {
+    if($w == 'u' && $it_color_img10) {
+        $file_color_img10 = $it_img_dir.'/'.$it_color_img10;
+        @unlink($file_color_img10);
+        delete_item_thumbnail(dirname($file_color_img10), basename($file_color_img10));
+    }
+    $it_color_img10 = it_img_upload($_FILES['it_color_img10']['tmp_name'], $_FILES['it_color_img10']['name'], $it_img_dir.'/'.$it_id.'/color');
+}
+
+
 
 // 파일삭제
 if ($it_img1_del) {
@@ -332,6 +498,16 @@ $sql_common = " ca_id               = '$ca_id',
                 it_info_gubun       = '$it_info_gubun',
                 it_info_value       = '$it_info_value',
                 it_shop_memo        = '$it_shop_memo',
+                it_color_img1       = '$it_color_img1',
+                it_color_img2       = '$it_color_img2',
+                it_color_img3       = '$it_color_img3',
+                it_color_img4       = '$it_color_img4',
+                it_color_img5       = '$it_color_img5',
+                it_color_img6       = '$it_color_img6',
+                it_color_img7       = '$it_color_img7',
+                it_color_img8       = '$it_color_img8',
+                it_color_img9       = '$it_color_img9',
+                it_color_img10      = '$it_color_img10',
                 it_img1             = '$it_img1',
                 it_img2             = '$it_img2',
                 it_img3             = '$it_img3',

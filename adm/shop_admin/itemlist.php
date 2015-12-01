@@ -120,13 +120,16 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 <select name="sfl" id="sfl">
     <option value="it_name" <?php echo get_selected($sfl, 'it_name'); ?>>상품명</option>
     <option value="it_id" <?php echo get_selected($sfl, 'it_id'); ?>>상품코드</option>
-    <option value="it_maker" <?php echo get_selected($sfl, 'it_maker'); ?>>제조사</option>
-    <option value="it_origin" <?php echo get_selected($sfl, 'it_origin'); ?>>원산지</option>
-    <option value="it_sell_email" <?php echo get_selected($sfl, 'it_sell_email'); ?>>판매자 e-mail</option>
+    <option value="it_place_ddm" <?php echo get_selected($sfl, 'it_place_ddm'); ?>>사입처</option>
+    <option value="it_name_ddm" <?php echo get_selected($sfl, 'it_name_ddm'); ?>>사입상품명</option>
+    <!--
+    <option value="it_maker" <?php //echo get_selected($sfl, 'it_maker'); ?>>제조사</option>
+    <option value="it_origin" <?php //echo get_selected($sfl, 'it_origin'); ?>>원산지</option>
+    <option value="it_sell_email" <?php //echo get_selected($sfl, 'it_sell_email'); ?>>판매자 e-mail</option> -->
 </select>
 
 <label for="stx" class="sound_only">검색어</label>
-<input type="text" name="stx" value="<?php echo $stx; ?>" id="stx" class="frm_input">
+<input type="text" name="stx" value="<?php echo $stx; ?>" id="stx" class="frm_input" style="width:240px">
 <input type="submit" value="검색" class="btn_submit">
 
 </form>
@@ -164,15 +167,15 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
     </tr>
     <tr>
         <th scope="col" rowspan="2" id="th_img">이미지</th>
-        <th scope="col" rowspan="2" id="th_pc_title"><?php echo subject_sort_link('it_name', 'sca='.$sca); ?>상품명</a></th>
+        <th scope="col" rowspan="2" id="th_pc_title" style="min-width:290px"><?php echo subject_sort_link('it_name', 'sca='.$sca); ?>상품명</a> / <?php echo subject_sort_link('it_price_ddm', 'sca='.$sca); ?>사입단가</a></th>
         <th scope="col" id="th_amt"><?php echo subject_sort_link('it_price', 'sca='.$sca); ?>판매가격</a></th>
         <th scope="col" id="th_camt"><?php echo subject_sort_link('it_cust_price', 'sca='.$sca); ?>시중가격</a></th>
-        <th scope="col" id="th_skin">PC스킨</th>
+        <th scope="col" id="th_skin">PC영상번호</th>
     </tr>
     <tr>
         <th scope="col" id="th_pt"><?php echo subject_sort_link('it_point', 'sca='.$sca); ?>포인트</a></th>
         <th scope="col" id="th_qty"><?php echo subject_sort_link('it_stock_qty', 'sca='.$sca); ?>재고</a></th>
-        <th scope="col" id="th_mskin">모바일스킨</th>
+        <th scope="col" id="th_mskin">모바일영상</th>
     </tr>
     </thead>
     <tbody>
@@ -246,11 +249,9 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             <label for="cust_price_<?php echo $i; ?>" class="sound_only">시중가격</label>
             <input type="text" name="it_cust_price[<?php echo $i; ?>]" value="<?php echo $row['it_cust_price']; ?>" id="cust_price_<?php echo $i; ?>" class="frm_input sit_camt" size="7">
         </td>
-        <td headers="th_skin" class="td_numbig td_input">
-            <label for="it_skin_<?php echo $i; ?>" class="sound_only">PC 스킨</label>
-            <select name="it_skin[<?php echo $i; ?>]" id="it_skin_<?php echo $i; ?>">
-                <?php echo conv_selected_option($skin_list, $row['it_skin']); ?>
-            </select>
+        <td headers="th_pcvideo" class="td_numbig td_input">
+            <label for="it_1_<?php echo $i; ?>" class="sound_only">PC 영상번호</label>
+            <input type="text" name="it_1[<?php echo $i; ?>]" style="color:#ff0000" value="<?php echo $row['it_1']; ?>" id="it_1_<?php echo $i; ?>" class="frm_input" size="7">
         </td>
     </tr>
     <tr class="<?php echo $bg; ?>">
@@ -259,11 +260,9 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             <label for="stock_qty_<?php echo $i; ?>" class="sound_only">재고</label>
             <input type="text" name="it_stock_qty[<?php echo $i; ?>]" value="<?php echo $row['it_stock_qty']; ?>" id="stock_qty_<?php echo $i; ?>" class="frm_input sit_qty" size="7">
         </td>
-        <td headers="th_mskin" class="td_numbig td_input">
-            <label for="it_mobile_skin_<?php echo $i; ?>" class="sound_only">모바일 스킨</label>
-            <select name="it_mobile_skin[<?php echo $i; ?>]" id="it_mobile_skin_<?php echo $i; ?>">
-                <?php echo conv_selected_option($mskin_list, $row['it_mobile_skin']); ?>
-            </select>
+        <td headers="th_mvideo" class="td_numbig td_input">
+            <label for="it_2_<?php echo $i; ?>" class="sound_only">모바일 영상번호</label>
+            <input type="text" name="it_2[<?php echo $i; ?>]" style="color:#ff0000" value="<?php echo $row['it_2']; ?>" id="it_2_<?php echo $i; ?>" class="frm_input" size="7">
         </td>
     </tr>
     <?php

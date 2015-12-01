@@ -5,7 +5,7 @@ global $lo_url;
 include_once('./_common.php');
 
 if($error) {
-    $g5['title'] = "오류안내 페이지";
+    $g5['title'] = "Error!";
 } else {
     $g5['title'] = "결과안내 페이지";
 }

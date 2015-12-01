@@ -24,46 +24,46 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
     <h1><a href="<?php echo G5_SHOP_URL; ?>"><img src="<?php echo G5_SHOP_SKIN_URL ?>/img/logo.png" alt="<?php echo $config['cf_title']; ?>"></a></h1>
     <?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 Navigation ?>
     <div class="fr">
-    <ul id="tnb">
-        <?php if ($is_member) {  ?>
-        <?php if ($is_admin) {  ?>
-        <li class="tnb_adm"><a href="<?php echo G5_ADMIN_URL ?>"><i class="ion-android-settings" style="margin:0"></i></a></li>
-        <?php }  ?>
-        <li><a href="<?php echo G5_SHOP_URL; ?>/mypage.php"><i class="ion-android-person"></i>MY PAGE</a></li>
-        <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i>CART</a></li>
-        <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop"><i class="ion-android-unlock"></i>SIGN OUT</a></li>
-        <?php } else {  ?>
-        <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i>CART</a></li>
-        <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/register.php"><i class="ion-android-person-add"></i>SIGN UP</a></li>
-        <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><i class="ion-android-lock"></i><b>SIGN IN</b></a></li>
-        <?php }  ?>
-    </ul>
-    <div id="hd_sch">
-        <span>SEARCH PRODUCTS</span>
-        <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
+        <div id="hd_sch">
+            <span>SEARCH PRODUCTS</span>
+            <form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
 
-        <label for="sch_str" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-        <?php if ($is_admin) {  ?>
-            <input type="text" name="q" style="width:70px" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
-        <?php } else { ?>
-            <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
-        <?php } ?>
-        <input type="submit" value="검색" id="sch_submit">
+            <label for="sch_str" class="sound_only">Search Words<strong class="sound_only"> required</strong></label>
+            <?php if ($is_admin) {  ?>
+                <input type="text" name="q" style="width:70px" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
+            <?php } else { ?>
+                <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
+            <?php } ?>
+            <input type="submit" value="검색" id="sch_submit">
 
-        </form>
-        <script>
-        function search_submit(f) {
-            if (f.q.value.length < 2) {
-                alert("검색어는 두글자 이상 입력하십시오.");
-                f.q.select();
-                f.q.focus();
-                return false;
+            </form>
+            <script>
+            function search_submit(f) {
+                if (f.q.value.length < 2) {
+                    alert("검색어는 두글자 이상 입력하십시오.");
+                    f.q.select();
+                    f.q.focus();
+                    return false;
+                }
+
+                return true;
             }
-
-            return true;
-        }
-        </script>
-    </div>
+            </script>
+        </div>
+        <ul id="tnb">
+            <?php if ($is_member) {  ?>
+            <?php if ($is_admin) {  ?>
+            <li class="tnb_adm"><a href="<?php echo G5_ADMIN_URL ?>"><i class="ion-android-settings" style="margin:0"></i></a></li>
+            <?php }  ?>
+            <li><a href="<?php echo G5_SHOP_URL; ?>/mypage.php"><i class="ion-android-person"></i>MY PAGE</a></li>
+            <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i>CART</a></li>
+            <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop"><i class="ion-android-unlock" style="margin-right:0"></i></a></li>
+            <?php } else {  ?>
+            <li><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="ion-android-cart"></i>CART</a></li>
+            <!-- <li class="tnb_log"><a href="<?php //echo G5_BBS_URL; ?>/register.php"><i class="ion-android-person-add"></i>SIGN UP</a></li> -->
+            <li class="tnb_log"><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><i class="ion-android-lock"></i><b>SIGN IN</b></a></li>
+            <?php }  ?>
+        </ul>
     </div> <!-- class fr -->
 </header>
 </div> <!-- hd_wrap END -->

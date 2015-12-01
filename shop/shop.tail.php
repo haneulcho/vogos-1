@@ -12,7 +12,7 @@ $admin = get_admin("super");
 // 사용자 화면 우측과 하단을 담당하는 페이지입니다.
 // 우측, 하단 화면을 꾸미려면 이 파일을 수정합니다.
 ?>
-        <a href="#hd" id="top_btn">상단으로</a>
+        <!-- <a href="#hd" id="top_btn">상단으로</a> -->
     </div><!-- } container 콘텐츠 끝 -->
 </div><!-- } Wrapper 끝 -->
 
@@ -32,17 +32,17 @@ $admin = get_admin("super");
                 <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=privacy">Privacy Policy</a></li>
                 <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=provision">Terms and Conditions</a></li>
                 <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=shippinginfo">Shipping Info</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=returnpolicy">Return Policy</a></li>
+                <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=returnpolicy">Returns and Policies</a></li>
                 <li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=sizeguide">Size Guide</a></li>
             </ul>
         </div>
         <div id="ft_like">
             <h2>LIKE &amp; FOLLOW US</h2>
             <ul class="ft_sns">
-                <li><a href="https://instagram.com/vogos_style"><span class="ft_sns_in">Instagram</span></a></li>
-                <li><a href="https://facebook.com/vogos.style"><span class="ft_sns_fb">Facebook</span></a></li>
-                <li><a href="#"><span class="ft_sns_yt">Youtube</span></a></li>
-                <li><a href="https://www.pinterest.com/vogos_style"><span class="ft_sns_pt">Pinterest</span></a></li>
+                <li><a href="https://instagram.com/vogos_style" target="_blank"><span class="ft_sns_in">Instagram</span></a></li>
+                <li><a href="https://facebook.com/vogos.style" target="_blank"><span class="ft_sns_fb">Facebook</span></a></li>
+                <li><a href="#" target="_blank" onClick="alert('Coming Soon!');return false;"><span class="ft_sns_yt">Youtube</span></a></li>
+                <li><a href="https://www.pinterest.com/vogos_style" target="_blank"><span class="ft_sns_pt">Pinterest</span></a></li>
                 <!-- <li><a href="http://"><span>Tumblr</span></a></li> -->                
             </ul>
         </div>
@@ -51,8 +51,9 @@ $admin = get_admin("super");
         <div id="ft_copy">
             Copyright &copy; 2015 <?php echo $default['de_admin_company_name']; ?>. All Rights Reserved.
         </div>
-        <p>Business License: 123-88-00091 / Tel: +82(2)070-4255-7799 / help@vogos.com<br>
-            B2 Floor, 31, Teheran-ro 33-gil Gangnam-gu, Seoul, Korea<br></p>
+        <p>Tel: +1 323-319-3888 / help@vogos.com / Business License: 123-88-00091<br>
+        Tel: +44 (0)20-3239-8282 / 8 Berwick Street, London W1F 0PH, United Kingdom<br>
+        Tel: +82 (0)70-7771-5527 / B2 Floor, 31, Teheran-ro 33-gil Gangnam-gu, Seoul, Korea<br></p>
         <div id="ft_pay">
             <img src="<?php echo G5_SHOP_SKIN_URL ?>/img/payment.png">
         </div>

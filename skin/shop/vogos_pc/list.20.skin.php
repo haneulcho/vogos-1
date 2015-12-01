@@ -19,32 +19,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         if ($this->css) {
             echo "<ul class=\"{$this->css}\">\n";
         } else {
-            if($default['de_type4_list_use']) {
-
-?>
-            <div class="list_spot">
-                <?php
-                $list = new item_list();
-                $list->set_type(4);
-                $list->set_view('it_id', false);
-                $list->set_view('it_name', true);
-                $list->set_view('it_basic', true);
-                $list->set_view('it_cust_price', false);
-                $list->set_view('it_price', true);
-                $list->set_view('it_icon', true);
-                $list->set_view('sns', false);
-                echo $list->run();
-                ?>
-                
-            </div>
-
-<?php
-
-            } // de_type4_list_use END
-
-
-
-            echo "<ul class=\"sct sct_list_20\">\n";
+            echo "<ul class=\"sct sch_list\">\n";
         }
     }
 
@@ -130,7 +105,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
 if ($i > 0) echo "</ul>\n";
 
-if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
+if($i == 0) echo "<p class=\"sct_noitem\">Your search returns no results.</p>\n";
 ?>
 <script>
   jQuery(function($){ 
@@ -140,18 +115,18 @@ if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\
 
 <script type="text/javascript">
 $(function() {
-    var $li20 = $('.sct_list_20 li .sct_img');
-    $li20.each(function() {
+    var $li50 = $('.sch_list li .sct_img');
+    $li50.each(function() {
         var $des = $(this).children('.sct_des');
         $des.hide();
         $(this).mouseenter(function(e) {
             $des.filter(':not(:animated)').fadeIn(400);
         })
         .mouseleave(function() {
-            $('.sct_list_20 li .sct_des').hide();
+            $('.sch_list li .sct_des').hide();
             $des.filter(':not(:animated)').fadeOut(400);
         });
     });
 });
 </script>
-<!-- } 상품진열 20 끝 -->
+<!-- } 상품진열 20 끝 -->Z

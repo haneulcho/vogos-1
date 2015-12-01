@@ -31,6 +31,8 @@ else if ($w == 'u')
     $required_mb_password = '';
     $html_title = '수정';
 
+    $mb['mb_name'] = get_text($mb['mb_name']);
+    $mb['mb_name_last'] = get_text($mb['mb_name_last']);
     $mb['mb_email'] = get_text($mb['mb_email']);
     $mb['mb_homepage'] = get_text($mb['mb_homepage']);
     $mb['mb_birth'] = get_text($mb['mb_birth']);
@@ -38,6 +40,9 @@ else if ($w == 'u')
     $mb['mb_hp'] = get_text($mb['mb_hp']);
     $mb['mb_addr1'] = get_text($mb['mb_addr1']);
     $mb['mb_addr2'] = get_text($mb['mb_addr2']);
+    $mb['mb_country'] = get_text($mb['mb_country']);
+    $mb['mb_city'] = get_text($mb['mb_city']);
+    $mb['mb_zip'] = get_text($mb['mb_zip']);
     $mb['mb_signature'] = get_text($mb['mb_signature']);
     $mb['mb_recommend'] = get_text($mb['mb_recommend']);
     $mb['mb_profile'] = get_text($mb['mb_profile']);
@@ -110,16 +115,6 @@ if(isset($mb['mb_adult'])) {
     sql_query(" ALTER TABLE `{$g5['member_table']}` ADD `mb_adult` TINYINT NOT NULL DEFAULT '0' AFTER `mb_certify` ", false);
 }
 
-// 지번주소 필드추가
-if(!isset($mb['mb_addr_jibeon'])) {
-    sql_query(" ALTER TABLE {$g5['member_table']} ADD `mb_addr_jibeon` varchar(255) NOT NULL DEFAULT '' AFTER `mb_addr2` ", false);
-}
-
-// 건물명필드추가
-if(!isset($mb['mb_addr3'])) {
-    sql_query(" ALTER TABLE {$g5['member_table']} ADD `mb_addr3` varchar(255) NOT NULL DEFAULT '' AFTER `mb_addr2` ", false);
-}
-
 // 중복가입 확인필드 추가
 if(!isset($mb['mb_dupinfo'])) {
     sql_query(" ALTER TABLE {$g5['member_table']} ADD `mb_dupinfo` varchar(255) NOT NULL DEFAULT '' AFTER `mb_adult` ", false);
@@ -163,10 +158,20 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
         <td><input type="password" name="mb_password" id="mb_password" <?php echo $required_mb_password ?> class="frm_input <?php echo $required_mb_password ?>" size="15" maxlength="20"></td>
     </tr>
     <tr>
-        <th scope="row"><label for="mb_name">이름(실명)<strong class="sound_only">필수</strong></label></th>
+        <th scope="row"><label for="mb_country">국가<?php echo $sound_only ?></label></th>
+        <td>
+            <input type="text" name="mb_country" value="<?php echo $mb['mb_country'] ?>" id="mb_country" class="frm_input" size="30" minlength="3" maxlength="50">
+        </td>
+        <th scope="row"><label for="mb_city">도시<?php echo $sound_only ?></label></th>
+        <td>
+            <input type="text" name="mb_city" value="<?php echo $mb['mb_city'] ?>" id="mb_city" class="frm_input" size="30" minlength="3" maxlength="50">
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="mb_name">이름 First Name<strong class="sound_only">필수</strong></label></th>
         <td><input type="text" name="mb_name" value="<?php echo $mb['mb_name'] ?>" id="mb_name" required class="required frm_input" size="15" minlength="2" maxlength="20"></td>
-        <th scope="row"><label for="mb_nick">닉네임<strong class="sound_only">필수</strong></label></th>
-        <td><input type="text" name="mb_nick" value="<?php echo $mb['mb_nick'] ?>" id="mb_nick" required class="required frm_input" size="15" minlength="2" maxlength="20"></td>
+        <th scope="row"><label for="mb_name_last">이름 Last Name<strong class="sound_only">필수</strong></label></th>
+        <td><input type="text" name="mb_name_last" value="<?php echo $mb['mb_name_last'] ?>" id="mb_name_last" required class="required frm_input" size="15" minlength="2" maxlength="20"></td>
     </tr>
     <tr>
         <th scope="row"><label for="mb_level">회원 권한</label></th>
@@ -212,19 +217,18 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
         </td>
     </tr>
     <tr>
-        <th scope="row"><label for="mb_zip1">주소</label></th>
-        <td colspan="3" class="td_addr_line">
-            <label for="mb_zip" class="sound_only">우편번호</label>
-            <input type="text" name="mb_zip" value="<?php echo $mb['mb_zip1'].$mb['mb_zip2']; ?>" id="mb_zip" class="frm_input readonly" size="5" maxlength="6">
-            <button type="button" class="btn_frmline" onclick="win_zip('fmember', 'mb_zip', 'mb_addr1', 'mb_addr2', 'mb_addr3', 'mb_addr_jibeon');">주소 검색</button><br>
-            <input type="text" name="mb_addr1" value="<?php echo $mb['mb_addr1'] ?>" id="mb_addr1" class="frm_input readonly" size="60">
-            <label for="mb_addr1">기본주소</label><br>
-            <input type="text" name="mb_addr2" value="<?php echo $mb['mb_addr2'] ?>" id="mb_addr2" class="frm_input" size="60">
-            <label for="mb_addr2">상세주소</label>
-            <br>
-            <input type="text" name="mb_addr3" value="<?php echo $mb['mb_addr3'] ?>" id="mb_addr3" class="frm_input" size="60">
-            <label for="mb_addr3">참고항목</label>
-            <input type="hidden" name="mb_addr_jibeon" value="<?php echo $mb['mb_addr_jibeon']; ?>"><br>
+        <th scope="row"><label for="mb_addr1">주소1</label></th>
+        <td><input type="text" name="mb_addr1" value="<?php echo $mb['mb_addr1'] ?>" id="mb_addr1" class="frm_input" size="100" maxlength="100"></td>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="mb_addr2">주소2</label></th>
+        <td><input type="text" name="mb_addr2" value="<?php echo $mb['mb_addr2'] ?>" id="mb_addr2" class="frm_input" size="100" maxlength="100"></td>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="mb_zip">우편번호</label></th>
+        <td><input type="text" name="mb_zip" value="<?php echo $mb['mb_zip'] ?>" id="mb_zip" class="frm_input" size="25" maxlength="15"></td>
         </td>
     </tr>
     <tr>

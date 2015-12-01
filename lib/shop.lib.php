@@ -61,7 +61,7 @@ class item_list
 
     // 노출순서
     // protected $order_by = "it_order, it_update_time, it_id desc";
-    protected $order_by = "it_order, it_id desc";
+    protected $order_by = "it_order, it_update_time desc";
 
     // 상품의 이벤트번호를 저장합니다.
     protected $event = "";
@@ -434,7 +434,7 @@ function get_it_image($it_id, $width, $height=0, $anchor=false, $img_id='', $img
     if($filename) {
         //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
         // 보고스에서는 기본값을 is_crop = true로
-        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, false, 'center', false, $um_value='80/0.5/3');
     }
 
     if($thumb) {
@@ -495,7 +495,7 @@ function get_it_image_best($it_id, $width, $height=0, $img_num, $anchor=false, $
     if($filename) {
         //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
         // 보고스에서는 기본값을 is_crop = true로
-        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', false, $um_value='80/0.5/3');
     }
 
     if($thumb) {
@@ -558,7 +558,7 @@ function get_it_image2($it_id, $img_num, $width, $height=0, $anchor=false, $img_
     if($filename) {
         //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
         // 보고스에서는 기본값을 is_crop = true로
-        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', false, $um_value='80/0.5/3');
     }
 
     if($thumb) {
@@ -605,7 +605,7 @@ function get_it_thumbnail($img, $width, $height=0, $id='')
     }
 
     // 기본값 is_crop = true로
-    $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', true, $um_value='80/0.5/3');
+    $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, true, 'center', false, $um_value='80/0.5/3');
 
     if($thumb) {
         $file_url = str_replace(G5_PATH, G5_URL, $filepath.'/'.$thumb);
@@ -728,7 +728,7 @@ function display_price($price, $tel_inq=false)
     if ($tel_inq)
         $price = '전화문의';
     else
-        $price = '$'.number_format($price, 0).'.00';
+        $price = '$'.number_format($price, 2);
 
     return $price;
 }
@@ -743,8 +743,10 @@ function get_price($it)
     if ($it['it_tel_inq']) return '전화문의';
 
     $price = $it['it_price'];
+    $price = (float)$price;
+    $price = number_format($price, 2, '.', '');
 
-    return (int)$price;
+    return $price;
 }
 
 
@@ -1124,10 +1126,10 @@ function get_item_options($it_id, $subject)
                 if($row['io_price'] == 0) {
                     $price = '&nbsp;&nbsp;';
                 } else {
-                    $price = '&nbsp;&nbsp;+ '.number_format($row['io_price']).'원';
+                    $price = '&nbsp;&nbsp;+ '.number_format($row['io_price'], 2);
                 }
             } else {
-                $price = '&nbsp;&nbsp; '.number_format($row['io_price']).'원';
+                $price = '&nbsp;&nbsp; '.number_format($row['io_price'], 2);
             }
 
             if($row['io_stock_qty'] < 1)
@@ -1178,10 +1180,10 @@ function get_item_supply($it_id, $subject)
                 if($row['io_price'] == 0) {
                     $price = '&nbsp;&nbsp;';
                 } else {
-                    $price = '&nbsp;&nbsp;+ '.number_format($row['io_price']).'원';                
+                    $price = '&nbsp;&nbsp;+ '.number_format($row['io_price'], 2);
                 }
             } else {
-                $price = '&nbsp;&nbsp; '.number_format($row['io_price']).'원';
+                $price = '&nbsp;&nbsp; '.number_format($row['io_price'], 2);
             }
             $io_stock_qty = get_option_stock_qty($it_id, $row['io_id'], $row['io_type']);
 
@@ -1233,11 +1235,42 @@ function print_item_options($it_id, $cart_id)
     $str = '';
     for($i=0; $row=sql_fetch_array($result); $i++) {
         if($i == 0)
-            $str .= '<ul>'.PHP_EOL;
+            $str .= '<ul class="order_optlst">'.PHP_EOL;
         $price_plus = '';
-        if($row['io_price'] >= 0)
+        if($row['io_price'] > 0) {
             $price_plus = '+';
-        $str .= '<li>'.$row['ct_option'].' '.$row['ct_qty'].'개 ('.$price_plus.display_price($row['io_price']).')</li>'.PHP_EOL;
+            $str .= '<li><span>Option</span>'.$row['ct_option'].'<br><span>Quantity</span>'.$row['ct_qty'].' ('.$price_plus.display_price($row['io_price']).')</li>'.PHP_EOL;
+        } else {
+            $str .= '<li><span>Option</span>'.$row['ct_option'].'<br><span>Quantity</span>'.$row['ct_qty'].'</li>'.PHP_EOL;
+        }
+    }
+    if($i > 0)
+        $str .= '</ul>';
+
+    return $str;
+}
+
+function print_item_options_cart($it_id, $cart_id)
+{
+    global $g5;
+
+    $sql = " select ct_option, ct_qty, io_price
+                from {$g5['g5_shop_cart_table']} where it_id = '$it_id' and od_id = '$cart_id' order by io_type asc, ct_id asc ";
+    $result = sql_query($sql);
+
+    $str = '';
+    for($i=0; $row=sql_fetch_array($result); $i++) {
+        $ct_option = $row['ct_option'];
+        $ct_option = strtoupper($ct_option);
+        if($i == 0)
+            $str .= '<ul class="cart_optlst">'.PHP_EOL;
+        $price_plus = '';
+        if($row['io_price'] > 0) {
+            $price_plus = '+';
+            $str .= '<li><span>Option</span>'.$ct_option.'<br><span>Quantity</span>'.$row['ct_qty'].' ('.$price_plus.display_price($row['io_price']).')</li>'.PHP_EOL;
+        } else {
+            $str .= '<li><span>Option</span>'.$ct_option.'<br><span>Quantity</span>'.$row['ct_qty'].'</li>'.PHP_EOL;
+        }
     }
 
     if($i > 0)
@@ -1887,12 +1920,11 @@ function get_sendcost($cart_id, $selected=1)
         $send_cost_limit = explode(";", $default['de_send_cost_limit']);
         $send_cost_list  = explode(";", $default['de_send_cost_list']);
         $send_cost = 0;
-        for ($k=0; $k<count($send_cost_limit); $k++) {
-            // 총판매금액이 배송비 상한가 보다 작다면
-            if ($total_price < preg_replace('/[^0-9]/', '', $send_cost_limit[$k])) {
-                $send_cost = preg_replace('/[^0-9]/', '', $send_cost_list[$k]);
-                break;
-            }
+        $send_cost_min = '79.99';
+        if($total_price < (float)$send_cost_min) {
+            $send_cost = 16.99;
+        } else {
+            $send_cost = 0;
         }
     }
 
@@ -1928,7 +1960,7 @@ function get_item_sendcost($it_id, $price, $qty, $cart_id)
                 $ct['it_sc_qty'] = 1;
 
             $q = ceil((int)$qty / (int)$ct['it_sc_qty']);
-            $sendcost = (int)$ct['it_sc_price'] * $q;
+            $sendcost = (float)$ct['it_sc_price'] * $q;
         }
     } else if($ct['it_sc_type'] == 1) { // 무료배송
         $sendcost = 0;

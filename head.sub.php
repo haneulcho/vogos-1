@@ -35,12 +35,12 @@ header("Pragma: no-cache"); // HTTP/1.0
 */
 ?>
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <?php
 if (G5_IS_MOBILE) {
-    echo '<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10">'.PHP_EOL;
+    echo '<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=0">'.PHP_EOL;
     echo '<meta name="HandheldFriendly" content="true">'.PHP_EOL;
     echo '<meta name="format-detection" content="telephone=no">'.PHP_EOL;
 } else {
@@ -53,10 +53,10 @@ if($config['cf_add_meta'])
 ?>
 <meta property="og:type" content="website">
 <?php if (!isset($og_title)) { ?>
-<meta property="og:title" content="VOGOS (보고스)">
+<meta property="og:title" content="VOGOS.com">
 <meta property="og:url" content="http://vogos.com">
-<meta property="og:description" content="Everywhere is Runway, Everyday VOGOS">
-<meta property="og:image" content="<?php echo G5_SHOP_SKIN_URL.'/img/og_img.png' ?>">
+<meta property="og:description" content="Everywhere is a Runway, Everyday VOGOS">
+<meta property="og:image" content="<?php echo G5_SHOP_SKIN_URL.'/img/og_img2.png' ?>">
 <?php } else { ?>
 <meta property="og:title" content="<?=$og_title ?>">
 <meta property="og:url" content="<?=$og_url ?>">
@@ -122,6 +122,15 @@ if(!defined('G5_IS_ADMIN'))
 ?>
 </head>
 <body<?php echo isset($g5['body_script']) ? $g5['body_script'] : ''; ?>>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5F5F9R"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5F5F9R');</script>
+<!-- End Google Tag Manager -->
 <?php
 if ($is_member) { // 회원이라면 로그인 중이라는 메세지를 출력해준다.
     $sr_admin_msg = '';

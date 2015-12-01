@@ -15,19 +15,19 @@ $admin = get_admin("super");
         <li><a href="<?php echo G5_SHOP_URL; ?>/?device=pc" id="ft_to_pc"><i class="ion-monitor"></i>PC</a></li>
         <li><a href="#" id="ft_totop"><i class="ion-arrow-up-c"></i>TOP</a></li>
     </ul>
-    <p>
-        <span><b>회사명</b> <?php echo $default['de_admin_company_name']; ?></span>
-        <span><b>대표</b> <?php echo $default['de_admin_company_owner']; ?></span><br>
-        <span><b>주소</b> <?php echo $default['de_admin_company_addr']; ?></span><br>
-        <span><b>전화</b> <?php echo $default['de_admin_company_tel']; ?></span>
-        <span><b>팩스</b> <?php echo $default['de_admin_company_fax']; ?></span><br>
-        <span><b>사업자 등록번호</b> <?php echo $default['de_admin_company_saupja_no']; ?></span>
-        <!-- <span><b>운영자</b> <?php //echo $admin['mb_name']; ?></span><br> -->
-        <span><b>통신판매업신고번호</b> <?php echo $default['de_admin_tongsin_no']; ?></span>
-        <?php if ($default['de_admin_buga_no']) echo '<span><b>부가통신사업신고번호</b> '.$default['de_admin_buga_no'].'</span>'; ?>
-        <!-- <span><b>개인정보관리책임자</b> <?php //echo $default['de_admin_info_name']; ?></span>--><br>
-        Copyright &copy; 2015 <?php echo $default['de_admin_company_name']; ?>. All Rights Reserved.
+    <p>US Tel: +1 323-319-3888 / help@vogos.com<br></p>
+    <p class="ft_part">
+        <b>VOGOS LONDON</b><br>
+        Tel: +44 (0)20-3239-8282<br>
+        8 Berwick Street, London W1F 0PH, United Kingdom<br>
     </p>
+    <p class="ft_part">
+        <b>VOGOS KOREA</b><br>
+        Tel: +82 (0)70-7771-5527<br>
+        B2 Floor, 31, Teheran-ro 33-gil Gangnam-gu, Seoul, Korea<br>
+        Business License: 123-88-00091<br>
+    </p>
+    <p>Copyright &copy; 2015 VOGOS.com All Rights Reserved.</p>
 </div>
 </div> <!-- main END -->
 

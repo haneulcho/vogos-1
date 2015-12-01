@@ -8,14 +8,14 @@ if (G5_IS_MOBILE) {
 
 $type = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\s]/", "", $_REQUEST['type']);
 if ($type == 1) {
-    // 보고스 야외촬영 > VOGOS
-    $g5['title'] = 'VOGOS CLIP';
-    $nbm_class = 'vogos_clip';
+    // Editor's Pick
+    $g5['title'] = 'EDITOR\'S PICK';
+    $nbm_class = 'editors_pick';
 }
 else if ($type == 2) {
-    // 추천상품 > MODEL's CHOICE
-    $g5['title'] = 'MODEL\'S CHOICE';
-    $nbm_class = 'md_choice';
+    // 추천상품 > 인덱스 Runway
+    $g5['title'] = 'VOGOS RUNWAY';
+    $nbm_class = 'vogos_runway';
 }
 else if ($type == 3) {
     // 최신상품 > NEW ARRIVALS
@@ -23,34 +23,34 @@ else if ($type == 3) {
     $nbm_class = 'new_arrivals';
 }
 else if ($type == 4) { 
-    // 인기상품 > VOGOS BESTSELLERS
+    // 인기상품 > 리스트 좌측 스팟
     $g5['title'] = 'VOGOS BESTSELLERS';
     $nbm_class = 'vogos_bestsellers';
 }
-else if ($type == 5) $g5['title'] = '할인상품';
+else if ($type == 5) $g5['title'] = 'UP TO 7% OFF';
 else
-    alert('상품유형이 아닙니다.');
+    alert('An error Occured. Please try again later.');
 
 include_once('./_head.php');
 
 // 한페이지에 출력하는 이미지수 = $list_mod * $list_row
-$list_mod   = 3;    // 한줄에 이미지 몇개씩 출력?
-$list_row   = 8;    // 한 페이지에 몇라인씩 출력?
+$list_mod   = 4;    // 한줄에 이미지 몇개씩 출력?
+$list_row   = 5;    // 한 페이지에 몇라인씩 출력?
 
-$img_width  = 350;  // 출력이미지 폭
-$img_height = 490;  // 출력이미지 높이
+$img_width  = 270;  // 출력이미지 폭
+$img_height = 360;  // 출력이미지 높이
 ?>
 
 <?php
 // 상품 출력순서가 있다면
-$order_by = ' it_order, it_id desc ';
+$order_by = ' it_order, it_time desc ';
 if ($sort != '')
     $order_by = $sort.' '.$sortodr.' , it_order, it_id desc';
 else
     $order_by = 'it_order, it_id desc';
 
 if (!$skin)
-    $skin = 'list.10.skin.php';
+    $skin = 'list.20.skin.php';
 
 define('G5_SHOP_CSS_URL', G5_SHOP_SKIN_URL);
 
@@ -58,12 +58,17 @@ define('G5_SHOP_CSS_URL', G5_SHOP_SKIN_URL);
 $list_file = G5_SHOP_SKIN_PATH.'/'.$skin;
 
 // header title 출력
-echo '<section class="sct_wrap">';
+echo '<div id="sod_title" class="mif"><header class="fullWidth">';
 if($type !=5) {
-$nbm = '<header><h2 class="'.$nbm_class.'"><a href="'.G5_SHOP_URL.'/listtype.php?type='.$type.'">'.$g5['title'].'</a></h2></header>';
+$nbm = '<h2 class="'.$nbm_class.'">'.$g5['title'].'</h2>';
 echo $nbm;
+echo '</header></div>';
 }
-
+?>
+<!-- 상품 목록 시작 { -->
+<div id="sct" class="sct_wrap" style="padding-top:25px">
+    <div class="fullWidth">
+<?php
 if (file_exists($list_file)) {
     // 총몇개 = 한줄에 몇개 * 몇줄
     $items = $list_mod * $list_row;
@@ -99,10 +104,9 @@ else
 {
     echo '<div align="center">'.$skin.' 파일을 찾을 수 없습니다.<br>관리자에게 알려주시면 감사하겠습니다.</div>';
 }
-// header title 닫기
-echo '</section>';
 ?>
-
+</div></div>
+<!-- } 상품 목록 끝 -->
 <?php
 $qstr .= '&amp;type='.$type.'&amp;sort='.$sort;
 echo get_paging($config['cf_write_pages'], $page, $total_page, "{$_SERVER['SCRIPT_NAME']}?$qstr&amp;page=");

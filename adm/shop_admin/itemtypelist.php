@@ -107,6 +107,8 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 <select name="sfl" id="sfl">
     <option value="it_name" <?php echo get_selected($sfl, 'it_name'); ?>>상품명</option>
     <option value="it_id" <?php echo get_selected($sfl, 'it_id'); ?>>상품코드</option>
+    <option value="it_place_ddm" <?php echo get_selected($sfl, 'it_place_ddm'); ?>>사입처</option>
+    <option value="it_name_ddm" <?php echo get_selected($sfl, 'it_name_ddm'); ?>>사입상품명</option>
 </select>
 
 <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
@@ -131,10 +133,10 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         <th scope="col"><?php echo subject_sort_link("it_id", $qstr, 1); ?>상품코드</a></th>
         <th scope="col" style="width:130px"><?php echo subject_sort_link("it_update_time", $qstr, 'desc', 1); ?>등록, 수정일</a></th>
         <th scope="col"><?php echo subject_sort_link("it_name"); ?>상품명</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type1", $qstr, 1); ?>야외<br>촬영</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type2", $qstr, 1); ?>MODEL's<br>CHOICE</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type1", $qstr, 1); ?>Editor's<br>Pick</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type2", $qstr, 1); ?>인덱스<br>Runway</a></th>
         <th scope="col"><?php echo subject_sort_link("it_type3", $qstr, 1); ?>NEW<br>ARRIVALS</a></th>
-        <th scope="col"><?php echo subject_sort_link("it_type4", $qstr, 1); ?>RUNWAY<br>IN VOGOS</a></th>
+        <th scope="col"><?php echo subject_sort_link("it_type4", $qstr, 1); ?>리스트<br>좌측 스팟</a></th>
         <th scope="col"><?php echo subject_sort_link("it_type5", $qstr, 1); ?>UP TO<br>7% OFF</a></th>
         <th scope="col">관리</th>
     </tr>

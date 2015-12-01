@@ -290,15 +290,31 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
             <col class="grid_3">
         </colgroup>
         <tbody>
-        <?php for ($i=1; $i<=1; $i++) {
+        <?php for ($i=1; $i<=2; $i++) {
             if ($i == 1) { ?>
         <tr>
-            <th scope="row">VOGOS 상품 영상 여부</th>
+            <th scope="row">VOGOS 상품 영상 여부: PC (비메오 코드만)</th>
             <td class="td_extra">
                 <!-- <label for="it_<?php //echo $i ?>_subj">영상</label> -->
                 <input type="hidden" name="it_<?php echo $i ?>_subj" id="it_<?php echo $i ?>_subj" value="영상 있음" class="frm_input" readonly>
                 <label for="it_<?php echo $i ?>" style="font-weight:bold;color:red;width:300px">영상 주소 (반드시 영상이 있을 때만 작성하세요.)</label>
-                <input type="text" name="it_<?php echo $i ?>" value="<?php echo get_text($it['it_'.$i]) ?>" id="it_<?php echo $i ?>" class="frm_input" style="width:400px !important;border-color:red">
+                <input type="text" name="it_<?php echo $i ?>" value="<?php echo get_text($it['it_'.$i]) ?>" id="it_<?php echo $i ?>" class="frm_input" style="width:500px !important;border-color:red">
+            </td>
+            <td class="td_grpset">
+                <input type="checkbox" name="chk_ca_<?php echo $i ?>" value="1" id="chk_ca_<?php echo $i ?>">
+                <label for="chk_ca_<?php echo $i ?>">분류적용</label>
+                <input type="checkbox" name="chk_all_<?php echo $i ?>" value="1" id="chk_all_<?php echo $i ?>">
+                <label for="chk_all_<?php echo $i ?>">전체적용</label>
+            </td>
+        </tr>
+        <?php } else if ($i == 2) { ?>
+        <tr>
+            <th scope="row">VOGOS 상품 영상 여부: 모바일 (동영상 파일 엑세스 - Standard Def 풀주소)</th>
+            <td class="td_extra">
+                <!-- <label for="it_<?php //echo $i ?>_subj">영상</label> -->
+                <input type="hidden" name="it_<?php echo $i ?>_subj" id="it_<?php echo $i ?>_subj" value="영상 있음" class="frm_input" readonly>
+                <label for="it_<?php echo $i ?>" style="font-weight:bold;color:red;width:300px">영상 주소 (반드시 영상이 있을 때만 작성하세요.)</label>
+                <input type="text" name="it_<?php echo $i ?>" value="<?php echo get_text($it['it_'.$i]) ?>" id="it_<?php echo $i ?>" class="frm_input" style="width:500px !important;border-color:red">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_ca_<?php echo $i ?>" value="1" id="chk_ca_<?php echo $i ?>">
@@ -444,13 +460,13 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
             <td>
                 <?php echo help("메인화면에 유형별로 출력할때 사용합니다.\n이곳에 체크하게되면 상품리스트에서 유형별로 정렬할때 체크된 상품이 가장 먼저 출력됩니다."); ?>
                 <input type="checkbox" name="it_type1" value="1" <?php echo ($it['it_type1'] ? "checked" : ""); ?> id="it_type1">
-                <label for="it_type1">야외촬영 <!-- <img src="<?php //echo G5_SHOP_URL; ?>/img/icon_hit.gif" alt=""> --></label>
+                <label for="it_type1">Editor's Pick<!-- <img src="<?php //echo G5_SHOP_URL; ?>/img/icon_hit.gif" alt=""> --></label>
                 <input type="checkbox" name="it_type2" value="1" <?php echo ($it['it_type2'] ? "checked" : ""); ?> id="it_type2">
-                <label for="it_type2">MODEL's CHOICE <img src="<?php echo G5_SHOP_URL; ?>/img/icon_rec.gif" alt=""></label>
+                <label for="it_type2">인덱스 Runway <img src="<?php echo G5_SHOP_URL; ?>/img/icon_rec.gif" alt=""></label>
                 <input type="checkbox" name="it_type3" value="1" <?php echo ($it['it_type3'] ? "checked" : ""); ?> id="it_type3">
-                <label for="it_type3">NEW ARRIVALS <img src="<?php echo G5_SHOP_URL; ?>/img/icon_new.gif" alt=""></label>
+                <label for="it_type3">인덱스 New Arrivals <img src="<?php echo G5_SHOP_URL; ?>/img/icon_new.gif" alt=""></label>
                 <input type="checkbox" name="it_type4" value="1" <?php echo ($it['it_type4'] ? "checked" : ""); ?> id="it_type4">
-                <label for="it_type4">RUNWAY IN VOGOS <img src="<?php echo G5_SHOP_URL; ?>/img/icon_best.gif" alt=""></label>
+                <label for="it_type4">리스트 좌측 스팟 <img src="<?php echo G5_SHOP_URL; ?>/img/icon_best.gif" alt=""></label>
                 <input type="checkbox" name="it_type5" value="1" <?php echo ($it['it_type5'] ? "checked" : ""); ?> id="it_type5">
                 <label for="it_type5">UP TO 7% OFF <img src="<?php echo G5_SHOP_URL; ?>/img/icon_discount.gif" alt=""></label>
             </td>
@@ -872,6 +888,7 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
                         var opt2 = $.trim($("#opt2").val());
                         var opt3 = $.trim($("#opt3").val());
                         var $option_table = $("#sit_option_frm");
+                        var $color_img_table = $("#color_img_frm");
 
                         if(!opt1_subject || !opt1) {
                             alert("옵션명과 옵션항목을 입력해 주십시오.");
@@ -1439,7 +1456,7 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
                     ?>
                 </select>
                 <label for="sch_name" class="sound_only">상품명</label>
-                <input type="text" name="sch_name" id="sch_name" class="frm_input" size="15">
+                <input type="text" name="sch_name" id="sch_name" class="frm_input" size="15" style="width:250px">
                 <button type="button" id="btn_search_item" class="btn_frmline">검색</button>
             </span>
             <div id="relation" class="srel_list">

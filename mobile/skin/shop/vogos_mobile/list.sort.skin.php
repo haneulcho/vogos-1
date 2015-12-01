@@ -15,18 +15,18 @@ $it_order_type = $_GET['sort'];
 $it_order_sc = $_GET['sortodr'];
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
-add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0);
+add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">', 0);
 ?>
 
 <!-- 상품 정렬 선택 시작 { -->
 <section id="sct_sort">
-    <h2>상품 정렬</h2>
+    <h2>order</h2>
 
     <ul>
-        <li><a<?php if($it_order_type == 'it_price' && $it_order_sc == 'asc') echo ' class="active"'; ?> href="<?php echo $sct_sort_href; ?>it_price&amp;sortodr=asc">가격 <i class="ion-ios-arrow-down"></i></a></li>
-        <li><a<?php if($it_order_type == 'it_price' && $it_order_sc == 'desc') echo ' class="active"'; ?> href="<?php echo $sct_sort_href; ?>it_price&amp;sortodr=desc">가격 <i class="ion-ios-arrow-up"></i></a></li>
-        <li><a<?php if($it_order_type == 'it_time') echo ' class="active"'; ?> href="<?php echo $sct_sort_href; ?>it_time&amp;sortodr=desc">최신</a></li>
-        <li><a<?php if($it_order_type == 'it_order') echo ' class="active"'; ?> href="<?php echo $sct_sort_href; ?>it_order&amp;sortodr=desc">인기</a></li>
+        <li><a<?php if($it_order_type == 'it_price' && $it_order_sc == 'asc') echo ' class="active"'; ?> href="<?php echo $sct_sort_href; ?>it_price&amp;sortodr=asc">price <i class="ion-ios-arrow-down"></i></a></li>
+        <li><a<?php if($it_order_type == 'it_price' && $it_order_sc == 'desc') echo ' class="active"'; ?> href="<?php echo $sct_sort_href; ?>it_price&amp;sortodr=desc">price <i class="ion-ios-arrow-up"></i></a></li>
+        <li><a<?php if($it_order_type == 'it_time') echo ' class="active"'; ?> href="<?php echo $sct_sort_href; ?>it_time&amp;sortodr=desc">latest</a></li>
+        <li><a<?php if($it_order_type == 'it_order') echo ' class="active"'; ?> href="<?php echo $sct_sort_href; ?>it_order&amp;sortodr=desc">popular</a></li>
     </ul>
 </section>
 <!-- } 상품 정렬 선택 끝 -->

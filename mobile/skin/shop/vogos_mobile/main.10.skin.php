@@ -96,7 +96,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
 if ($i > 0) echo "</ul>\n";
 
-if($i == 0) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
+if($i == 0) echo "<p class=\"sct_noitem\">No more items.</p>\n";
 ?>
 <!-- } 상품진열 10 끝 -->
 
