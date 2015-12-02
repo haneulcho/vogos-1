@@ -18,7 +18,7 @@ $video_src = 'https://player.vimeo.com/video/'.$row['it_1'].'?autoplay=1&loop=1&
                     <!-- 상품 요약정보 및 구매 시작 { -->
                     <section id="v<?php echo $row[it_id] ?>" class="vsit_ov">
                         <h2 class="sit_title"><?php echo stripslashes($row['it_name_kr']); ?></h2>
-                        <p class="sit_desc"><?php echo $row['it_basic']; ?></p>
+                        <p class="sit_desc"><?php echo $row['it_basic_kr']; ?></p>
 
                         <!-- 총 구매액 -->
                         <div class="sit_tot_price">

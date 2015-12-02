@@ -470,7 +470,8 @@ $sql_common = " ca_id               = '$ca_id',
                 it_type3            = '$it_type3',
                 it_type4            = '$it_type4',
                 it_type5            = '$it_type5',
-                it_basic            = '$it_basic',
+                it_basic_kr         = '$it_basic_kr',
+                it_basic_en         = '$it_basic_en',
                 it_explan           = '$it_explan',
                 it_explan2          = '".strip_tags(trim($_POST['it_explan']))."',
                 it_mobile_explan    = '$it_mobile_explan',
@@ -661,7 +662,8 @@ if($supply_count) {
 $ca_fields = '';
 if(is_checked('chk_ca_it_skin'))                $ca_fields .= " , it_skin = '$it_skin' ";
 if(is_checked('chk_ca_it_mobile_skin'))         $ca_fields .= " , it_mobile_skin = '$it_mobile_skin' ";
-if(is_checked('chk_ca_it_basic'))               $ca_fields .= " , it_basic = '$it_basic' ";
+if(is_checked('chk_ca_it_basic_kr'))            $ca_fields .= " , it_basic_kr = '$it_basic_kr' ";
+if(is_checked('chk_ca_it_basic_en'))            $ca_fields .= " , it_basic_en = '$it_basic_en' ";
 if(is_checked('chk_ca_it_order'))               $ca_fields .= " , it_order = '$it_order' ";
 if(is_checked('chk_ca_it_type'))                $ca_fields .= " , it_type1 = '$it_type1', it_type2 = '$it_type2', it_type3 = '$it_type3', it_type4 = '$it_type4', it_type5 = '$it_type5' ";
 if(is_checked('chk_ca_it_maker'))               $ca_fields .= " , it_maker = '$it_maker' ";
@@ -713,7 +715,8 @@ if($ca_fields) {
 $all_fields = '';
 if(is_checked('chk_all_it_skin'))                $all_fields .= " , it_skin = '$it_skin' ";
 if(is_checked('chk_all_it_mobile_skin'))         $all_fields .= " , it_mobile_skin = '$it_mobile_skin' ";
-if(is_checked('chk_all_it_basic'))               $all_fields .= " , it_basic = '$it_basic' ";
+if(is_checked('chk_all_it_basic_kr'))            $all_fields .= " , it_basic_kr = '$it_basic_kr' ";
+if(is_checked('chk_all_it_basic_en'))            $all_fields .= " , it_basic_en = '$it_basic_en' ";
 if(is_checked('chk_all_it_order'))               $all_fields .= " , it_order = '$it_order' ";
 if(is_checked('chk_all_it_type'))                $all_fields .= " , it_type1 = '$it_type1', it_type2 = '$it_type2', it_type3 = '$it_type3', it_type4 = '$it_type4', it_type5 = '$it_type5' ";
 if(is_checked('chk_all_it_maker'))               $all_fields .= " , it_maker = '$it_maker' ";

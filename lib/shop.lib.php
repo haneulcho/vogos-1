@@ -84,7 +84,7 @@ class item_list
     protected $view_it_name_kr         = true;        // 상품명
     protected $view_it_name_en         = false;        // 상품명
     protected $view_it_basic_kr        = true;        // 기본설명
-    protected $view_it_basic_en        = true;        // 기본설명
+    protected $view_it_basic_en        = false;        // 기본설명
     protected $view_it_price_kr        = true;        // 판매가격
     protected $view_it_price_en        = true;        // 판매가격
     protected $view_it_cust_price_kr   = false;       // 소비자가

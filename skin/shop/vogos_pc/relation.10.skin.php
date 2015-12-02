@@ -48,8 +48,8 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
         echo "</a></div>\n";
     }
 
-    if ($this->view_it_basic && $row['it_basic']) {
-        echo "<div class=\"sct_basic\">".stripslashes($row['it_basic'])."</div>\n";
+    if ($this->view_it_basic_kr && $row['it_basic_kr']) {
+        echo "<div class=\"sct_basic\">".stripslashes($row['it_basic_kr'])."</div>\n";
     }
 
     if ($this->href) {

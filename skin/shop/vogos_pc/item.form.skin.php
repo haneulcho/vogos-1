@@ -112,7 +112,7 @@ $video_frame = "<iframe src=\"".$video_src."\" width=\"330\" height=\"590\" fram
     <!-- 상품 요약정보 및 구매 시작 { -->
     <section id="sit_ov">
         <div class="sit_it_basic">
-            <p><?php echo $it['it_basic']; ?></p>
+            <p><?php echo $it['it_basic_kr']; ?></p>
             <?php
                 if(!empty($it['it_img11'])) {
                     $color_img = get_it_thumbnail($it['it_img11'], 70, 95);
