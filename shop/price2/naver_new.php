@@ -83,7 +83,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $opt_count = @mysql_num_rows($result2);
 
     if(!$opt_count) {
-        $it_name = $row['it_name'];
+        $it_name_kr = $row['it_name_kr'];
         $buy_url = G5_SHOP_URL.'/itembuy.php?it_id='.$row['it_id'];
         $it_price = $row['it_price'];
         $delivery = get_item_sendcost2($row['it_id'], $it_price, 1);
@@ -92,7 +92,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     echo <<< HEREDOC
 {$lt}begin{$gt}
 {$lt}mapid{$gt}{$row['it_id']}
-{$lt}pname{$gt}$it_name
+{$lt}pname{$gt}$it_name_kr
 {$lt}price{$gt}$it_price
 {$lt}pgurl{$gt}$buy_url
 {$lt}igurl{$gt}$img_url
@@ -123,11 +123,11 @@ HEREDOC;
     } else {
         $subj = explode(',', $row['it_option_subject']);
         for($k=0; $row2=sql_fetch_array($result2); $k++) {
-            $it_name = $row['it_name'].' ';
+            $it_name_kr = $row['it_name_kr'].' ';
             $opt = explode(chr(30), $row2['io_id']);
             $sep = '';
             for($j=0; $j<count($subj); $j++) {
-                $it_name .= $sep.$subj[$j].':'.$opt[$j];
+                $it_name_kr .= $sep.$subj[$j].':'.$opt[$j];
                 $sep = ' ';
             }
             $buy_url = G5_SHOP_URL.'/itembuy.php?it_id='.$row['it_id'].'&amp;opt='.$row2['io_id'];
@@ -138,7 +138,7 @@ HEREDOC;
     echo <<< HEREDOC
 {$lt}begin{$gt}
 {$lt}mapid{$gt}{$row['it_id']}
-{$lt}pname{$gt}$it_name
+{$lt}pname{$gt}$it_name_kr
 {$lt}price{$gt}$it_price
 {$lt}pgurl{$gt}$buy_url
 {$lt}igurl{$gt}$img_url

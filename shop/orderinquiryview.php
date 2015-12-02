@@ -58,7 +58,7 @@ $_SESSION['ord_num'] = $od_id;
         $st_count1 = $st_count2 = 0;
         $custom_cancel = false;
 
-        $sql = " select it_id, it_name, ct_send_cost, it_sc_type
+        $sql = " select it_id, it_name_kr, ct_send_cost, it_sc_type
                     from {$g5['g5_shop_cart_table']}
                     where od_id = '$od_id'
                     group by it_id
@@ -79,9 +79,9 @@ $_SESSION['ord_num'] = $od_id;
             <tbody>
             <?php
             for($i=0; $row=sql_fetch_array($result); $i++) {
-                $image = get_it_image_best($row['it_id'], 60, 80, 8, '', '', 'original', stripslashes($row['it_name']));
+                $image = get_it_image_best($row['it_id'], 60, 80, 8, '', '', 'original', stripslashes($row['it_name_kr']));
 
-                $sql = " select ct_id, it_name, ct_option, ct_qty, ct_price, ct_point, ct_status, io_type, io_price
+                $sql = " select ct_id, it_name_kr, ct_option, ct_qty, ct_price, ct_point, ct_status, io_type, io_price
                             from {$g5['g5_shop_cart_table']}
                             where od_id = '$od_id'
                               and it_id = '{$row['it_id']}'
@@ -155,7 +155,7 @@ $_SESSION['ord_num'] = $od_id;
             <tr>
                 <td class="cart_img"><?php echo $image; ?></td>
                 <td class="cart_des">
-                    <a class="cart_it_name" href="./item.php?it_id=<?php echo $row['it_id']; ?>"><?php echo $row['it_name']; ?></a>
+                    <a class="cart_it_name" href="./item.php?it_id=<?php echo $row['it_id']; ?>"><?php echo $row['it_name_kr']; ?></a>
                     <div class="sod_opt"><?php echo $opt['ct_option']; ?></div>
                 </td>
                 <td class="cart_qty"><?php echo number_format($opt['ct_qty']); ?></td>

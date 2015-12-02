@@ -70,7 +70,7 @@ if ($q) {
 
         $concat = array();
         if ($search_all || $qname)
-            $concat[] = "a.it_name";
+            $concat[] = "a.it_name_kr";
         if ($search_all || $qexplan)
             $concat[] = "a.it_explan2";
         if ($search_all || $qid)
@@ -193,7 +193,7 @@ $total_page  = ceil($total_count / $items); // 전체 페이지 계산
             $list->set_is_page(true);
             $list->set_view('it_img', true);
             $list->set_view('it_id', false);
-            $list->set_view('it_name', true);
+            $list->set_view('it_name_kr', true);
             $list->set_view('it_basic', true);
             $list->set_view('it_cust_price', true); // 원 가격 보이게
             $list->set_view('it_price', true);

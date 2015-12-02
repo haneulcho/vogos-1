@@ -30,7 +30,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $stock_qty = get_it_stock_qty($row['it_id']);
 
     echo "{$lt}begin{$gt}\n";
-    echo "{$lt}mapid{$gt}{$row['it_id']}\n";
+    echo "{$lt}mapid{$gt}{$row['it_id_kr']}\n";
     if ($stock_qty <= 0)
     {
         // 품절 상품 양식

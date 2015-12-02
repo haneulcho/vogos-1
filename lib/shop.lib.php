@@ -76,17 +76,21 @@ class item_list
     protected $is_mobile = false;
 
     // 모델스초이스 리스트인지, 노출하고자 할 경우에 true 로 설정합니다.
-    protected $is_mdschoice = false;    
+    //protected $is_mdschoice = false;
 
     // 기본으로 보여지는 필드들
-    protected $view_it_id    = false;       // 상품코드
-    protected $view_it_img   = true;        // 상품이미지
-    protected $view_it_name  = true;        // 상품명
-    protected $view_it_basic = true;        // 기본설명
-    protected $view_it_price = true;        // 판매가격
-    protected $view_it_cust_price = false;  // 소비자가
-    protected $view_it_icon = false;        // 아이콘
-    protected $view_sns = false;            // SNS
+    protected $view_it_id              = false;       // 상품코드
+    protected $view_it_img             = true;        // 상품이미지
+    protected $view_it_name_kr         = true;        // 상품명
+    protected $view_it_name_en         = false;        // 상품명
+    protected $view_it_basic_kr        = true;        // 기본설명
+    protected $view_it_basic_en        = true;        // 기본설명
+    protected $view_it_price_kr        = true;        // 판매가격
+    protected $view_it_price_en        = true;        // 판매가격
+    protected $view_it_cust_price_kr   = false;       // 소비자가
+    protected $view_it_cust_price_en   = false;       // 소비자가
+    protected $view_it_icon            = false;       // 아이콘
+    protected $view_sns                = false;       // SNS
 
     // 몇번째 class 호출인지를 저장합니다.
     protected $count = 0;
@@ -244,9 +248,10 @@ class item_list
         $this->is_page = $is_page;
     }
 
-    function set_is_mdschoice($is_mdschoice) {
-        $this->is_mdschoice = $is_mdschoice;
-    }
+    // 모델스초이스 알림
+    //function set_is_mdschoice($is_mdschoice) {
+    //    $this->is_mdschoice = $is_mdschoice;
+    //}
 
     // select ... limit 의 시작값
     function set_from_record($from_record) {
@@ -273,11 +278,12 @@ class item_list
 
             $where = array();
             if ($this->use) {
-                if ($this->is_mdschoice) {
+/*                if ($this->is_mdschoice) {
                     $where[] = " mds_use = '1' ";
                 } else {
-                    $where[] = " it_use = '1' ";                
-                }
+                    $where[] = " it_use = '1' ";
+                }*/
+                $where[] = " it_use = '1' ";
             }
 
             if ($this->type) {
@@ -1365,10 +1371,10 @@ function get_goods($cart_id)
     global $g5;
 
     // 상품명만들기
-    $row = sql_fetch(" select a.it_id, b.it_name from {$g5['g5_shop_cart_table']} a, {$g5['g5_shop_item_table']} b where a.it_id = b.it_id and a.od_id = '$cart_id' order by ct_id limit 1 ");
+    $row = sql_fetch(" select a.it_id, b.it_name_kr from {$g5['g5_shop_cart_table']} a, {$g5['g5_shop_item_table']} b where a.it_id = b.it_id and a.od_id = '$cart_id' order by ct_id limit 1 ");
     // 상품명에 "(쌍따옴표)가 들어가면 오류 발생함
     $goods['it_id'] = $row['it_id'];
-    $goods['full_name']= $goods['name'] = addslashes($row['it_name']);
+    $goods['full_name']= $goods['name'] = addslashes($row['it_name_kr']);
     // 특수문자제거
     $goods['full_name'] = preg_replace ("/[ #\&\+\-%@=\/\\\:;,\.'\"\^`~\_|\!\?\*$#<>()\[\]\{\}]/i", "",  $goods['full_name']);
 
@@ -1544,7 +1550,7 @@ function relation_item($it_id, $width, $height, $rows=3)
     if(!$it_id)
         return $str;
 
-    $sql = " select b.it_id, b.it_name, b.it_price, b.it_tel_inq from {$g5['g5_shop_item_relation_table']} a left join {$g5['g5_shop_item_table']} b on ( a.it_id2 = b.it_id ) where a.it_id = '$it_id' order by ir_no asc limit 0, $rows ";
+    $sql = " select b.it_id, b.it_name_kr, b.it_price, b.it_tel_inq from {$g5['g5_shop_item_relation_table']} a left join {$g5['g5_shop_item_table']} b on ( a.it_id2 = b.it_id ) where a.it_id = '$it_id' order by ir_no asc limit 0, $rows ";
     $result = sql_query($sql);
 
     for($i=0; $row=sql_fetch_array($result); $i++) {
@@ -1553,7 +1559,7 @@ function relation_item($it_id, $width, $height, $rows=3)
             $str .= '<ul class="sct_rel_ul">';
         }
 
-        $it_name = get_text($row['it_name']); // 상품명
+        $it_name_kr = get_text($row['it_name_kr']); // 상품명
         $it_price = get_price($row); // 상품가격
         if(!$row['it_tel_inq'])
             $it_price = display_price($it_price);

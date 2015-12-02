@@ -30,7 +30,7 @@ if(($io_id && !$cnt['cnt']) || (!$io_id && $cnt['cnt']))
 
 // 최소구매수량이 있으면 상세페이지에서 다시 주문토록 안내
 if($it['it_buy_min_qty'] > 1)
-    alert(get_text($it['it_name']).' The quantity requested is not available.\\nPlease enter a higher quantity.', G5_SHOP_URL.'/item.php?it_id='.$it_id);
+    alert(get_text($it['it_name_kr']).' The quantity requested is not available.\\nPlease enter a higher quantity.', G5_SHOP_URL.'/item.php?it_id='.$it_id);
 
 // 옵션정보
 if($io_id && $it['it_option_subject']) {
@@ -50,7 +50,7 @@ if($io_id && $it['it_option_subject']) {
         $sep = ' / ';
     }
 } else {
-    $io_value = $it['it_name'];
+    $io_value = $it['it_name_kr'];
 }
 
 $tot_prc = $it['it_price'] + $opt['io_price'];

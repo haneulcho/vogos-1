@@ -28,7 +28,8 @@ $tot_sell_price = 0;
 // $s_cart_id 로 현재 장바구니 자료 쿼리
 $sql = " select a.ct_id,
                 a.it_id,
-                a.it_name,
+                a.it_name_kr,
+                a.it_name_en,
                 a.ct_price,
                 a.ct_point,
                 a.ct_qty,
@@ -98,12 +99,12 @@ $it_send_cost = 0;
 
             $a1 = '<a class="cart_it_name" href="./item.php?it_id='.$row['it_id'].'"><b>';
             $a2 = '</b></a>';
-            $image = get_it_image_best($row['it_id'], 105, 140, 8, '', '', 'original', stripslashes($row['it_name']));
+            $image = get_it_image_best($row['it_id'], 105, 140, 8, '', '', 'original', stripslashes($row['it_name_kr']));
 
-            $it_name = $a1 . stripslashes($row['it_name']) . $a2; // 상품명
+            $it_name_kr = $a1 . stripslashes($row['it_name_kr']) . $a2; // 상품명
             $it_options = print_item_options_cart($row['it_id'], $s_cart_id);
             if($it_options) {
-                $it_name .= '<div class="sod_opt">'.$it_options.'</div>';
+                $it_name_kr .= '<div class="sod_opt">'.$it_options.'</div>';
                 $mod_options = '<div class="sod_option_btn"><button type="button" class="mod_options"><img src="'.G5_SHOP_SKIN_URL.'/img/cart/btn_change.jpg" alt="Change Details"></button>';
             }
 
@@ -137,8 +138,8 @@ $it_send_cost = 0;
             <td class="cart_img"><?php echo $image; ?></td>
             <td class="cart_des">
                 <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
-                <input type="hidden" name="it_name[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name']); ?>">
-                <?php echo $it_name.$mod_options; ?>
+                <input type="hidden" name="it_name_kr[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name_kr']); ?>">
+                <?php echo $it_name_kr.$mod_options; ?>
                 <button type="button" onclick="remove_item('<?php echo $row['it_id']; ?>');" class="mod_remove"><?php echo '<img src="'.G5_SHOP_SKIN_URL.'/img/cart/btn_remove_option.jpg" alt="Remove Items">' ?></button></div>
             </td>
             <td class="cart_qty"><?php echo number_format($sum['qty']); ?></td>
@@ -155,7 +156,7 @@ $it_send_cost = 0;
             $tot_sell_price += $sell_price;
 
             // 로그분석기 변수 전달
-            $http_PA .= $row['it_name']."_";
+            $http_PA .= $row['it_name_kr']."_";
 
             if ($i < $row_count-1) {
                 $http_PA .= number_format($sum['qty']).";";

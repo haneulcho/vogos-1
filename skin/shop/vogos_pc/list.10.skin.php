@@ -30,7 +30,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     }
 
     if ($this->view_it_img) {
-        echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name']))."\n";
+        echo get_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name_kr']))."\n";
     }
 
     if ($this->href) {
@@ -42,8 +42,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         echo "<div class=\"sct_txt\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
     }
 
-    if ($this->view_it_name) {
-        echo stripslashes($row['it_name'])."\n";
+    if ($this->view_it_name_kr) {
+        echo stripslashes($row['it_name_kr'])."\n";
     }
 
     if ($this->href) {

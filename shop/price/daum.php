@@ -123,7 +123,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 {$lt}begin{$gt}
 {$lt}pid{$gt}{$row['it_id']}
 {$lt}price{$gt}{$row['it_price']}
-{$lt}pname{$gt}{$row['it_name']}
+{$lt}pname{$gt}{$row['it_name_kr']}
 {$lt}pgurl{$gt}$shop_url/item.php?it_id={$row['it_id']}
 {$lt}igurl{$gt}$img_url
 {$lt}cate1{$gt}$cate1

@@ -18,7 +18,7 @@ $error = "";
 // 장바구니 상품 재고 검사
 $sql = " select it_id,
                 ct_qty,
-                it_name,
+                it_name_kr,
                 io_id,
                 io_type,
                 ct_option

@@ -35,7 +35,7 @@ mailer($config['cf_admin_email_name'], $config['cf_admin_email'], $od_email, $su
 unset($list);
 $sql = " select b.it_sell_email,
                 a.it_id,
-                a.it_name
+                a.it_name_kr
            from {$g5['g5_shop_cart_table']} a left join {$g5['g5_shop_item_table']} b on ( a.it_id = b.it_id )
           where a.od_id = '$od_id'
             and a.ct_select = '1'
@@ -78,7 +78,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
     $list[$i]['it_id']   = $row['it_id'];
     $list[$i]['it_simg'] = get_it_image($row['it_id'], 70, 70);
-    $list[$i]['it_name'] = $row['it_name'];
+    $list[$i]['it_name_kr'] = $row['it_name_kr'];
     $list[$i]['it_opt']  = $options;
     $list[$i]['ct_price'] = $sum['price'];
 

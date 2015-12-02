@@ -29,8 +29,8 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
     }
 
     if ($this->view_it_img) {
-        echo get_it_image_best($row['it_id'], 222, 300, 8, '', '', 'original', stripslashes($row['it_name']))."\n";
-        echo get_it_image_best($row['it_id'], 222, 300, 2, '', '', 'sub', stripslashes($row['it_name']))."\n";
+        echo get_it_image_best($row['it_id'], 222, 300, 8, '', '', 'original', stripslashes($row['it_name_kr']))."\n";
+        echo get_it_image_best($row['it_id'], 222, 300, 2, '', '', 'sub', stripslashes($row['it_name_kr']))."\n";
     }
 
     if ($this->href) {
@@ -41,8 +41,8 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
         echo "<div class=\"slider_txt\"><a href=\"{$this->href}{$row['it_id']}\" class=\"sct_a\">\n";
     }
 
-    if ($this->view_it_name) {
-        echo stripslashes($row['it_name'])."\n";
+    if ($this->view_it_name_kr) {
+        echo stripslashes($row['it_name_kr'])."\n";
     }
 
     echo "<div class=\"sct_cost\">\n";

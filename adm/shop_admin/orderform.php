@@ -45,7 +45,7 @@ $qstr = "sort1=$sort1&amp;sort2=$sort2&amp;sel_field=$sel_field&amp;search=$sear
 
 // 상품목록
 $sql = " select it_id,
-                it_name,
+                it_name_kr,
                 cp_price,
                 ct_notax,
                 ct_send_cost,
@@ -180,11 +180,11 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
             <tr>
                 <?php if($k == 0) { ?>
                 <td rowspan="<?php echo $rowspan; ?>">
-                    <a href="./itemform.php?w=u&amp;it_id=<?php echo $row['it_id']; ?>"><?php echo $image; ?> <?php echo stripslashes($row['it_name']); ?></a>
+                    <a href="./itemform.php?w=u&amp;it_id=<?php echo $row['it_id']; ?>"><?php echo $image; ?> <?php echo stripslashes($row['it_name_kr']); ?></a>
                     <?php if($od['od_tax_flag'] && $row['ct_notax']) echo '[비과세상품]'; ?>
                 </td>
                 <td rowspan="<?php echo $rowspan; ?>" class="td_chk">
-                    <label for="sit_sel_<?php echo $i; ?>" class="sound_only"><?php echo $row['it_name']; ?> 옵션 전체선택</label>
+                    <label for="sit_sel_<?php echo $i; ?>" class="sound_only"><?php echo $row['it_name_kr']; ?> 옵션 전체선택</label>
                     <input type="checkbox" id="sit_sel_<?php echo $i; ?>" name="it_sel[]">
                 </td>
                 <?php } ?>

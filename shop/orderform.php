@@ -95,7 +95,7 @@ var f = document.forderform;
         // $s_cart_id 로 현재 장바구니 자료 쿼리
         $sql = " select a.ct_id,
                         a.it_id,
-                        a.it_name,
+                        a.it_name_kr,
                         a.ct_price,
                         a.ct_point,
                         a.ct_qty,
@@ -143,7 +143,7 @@ var f = document.forderform;
             {
                 //$goods = addslashes($row[it_name]);
                 //$goods = get_text($row[it_name]);
-                $goods = preg_replace("/\'|\"|\||\,|\&|\;/", "", $row['it_name']);
+                $goods = preg_replace("/\'|\"|\||\,|\&|\;/", "", $row['it_name_kr']);
                 $goods_it_id = $row['it_id'];
             }
             $goods_count++;
@@ -154,17 +154,17 @@ var f = document.forderform;
                     $good_info .= chr(30);
                 $good_info .= "seq=".($i+1).chr(31);
                 $good_info .= "ordr_numb={$od_id}_".sprintf("%04d", $i).chr(31);
-                $good_info .= "good_name=".addslashes($row['it_name']).chr(31);
+                $good_info .= "good_name=".addslashes($row['it_name_kr']).chr(31);
                 $good_info .= "good_cntx=".$row['ct_qty'].chr(31);
                 $good_info .= "good_amtx=".$row['ct_price'].chr(31);
             }
 
-            $image = get_it_image_best($row['it_id'], 105, 140, 8, '', '', 'original', stripslashes($row['it_name']));
+            $image = get_it_image_best($row['it_id'], 105, 140, 8, '', '', 'original', stripslashes($row['it_name_kr']));
 
-            $it_name = '<span class="cart_it_name"><b>'.stripslashes($row['it_name']).'</b></span>';
+            $it_name_kr = '<span class="cart_it_name"><b>'.stripslashes($row['it_name_kr']).'</b></span>';
             $it_options = print_item_options($row['it_id'], $s_cart_id);
             if($it_options) {
-                $it_name .= '<div class="sod_opt">'.$it_options.'</div>';
+                $it_name_kr .= '<div class="sod_opt">'.$it_options.'</div>';
             }
 
             // 복합과세금액
@@ -239,11 +239,11 @@ var f = document.forderform;
             <td class="cart_img"><?php echo $image; ?></td>
             <td class="cart_des">
                 <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
-                <input type="hidden" name="it_name[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name']); ?>">
+                <input type="hidden" name="it_name_kr[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name_kr']); ?>">
                 <input type="hidden" name="it_price[<?php echo $i; ?>]" value="<?php echo $sell_price; ?>">
                 <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
                 <input type="hidden" name="cp_price[<?php echo $i; ?>]" value="0">
-                <input type="hidden" name="item_<?php echo $i; ?>_product" value="<?php echo get_text($row['it_name']); ?>">
+                <input type="hidden" name="item_<?php echo $i; ?>_product" value="<?php echo get_text($row['it_name_kr']); ?>">
                 <input type="hidden" name="item_<?php echo $i; ?>_quantity" value="<?php echo $sum['qty']; ?>">
                 <input type="hidden" name="item_<?php echo $i; ?>_unitPrice" value="<?php echo number_format($sell_price, 2, ".", ""); ?>">
                 <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
@@ -251,7 +251,7 @@ var f = document.forderform;
                 <?php if($default['de_tax_flag_use']) { ?>
                 <input type="hidden" name="it_notax[<?php echo $i; ?>]" value="<?php echo $row['it_notax']; ?>">
                 <?php } ?>
-                <?php echo $it_name; ?>
+                <?php echo $it_name_kr; ?>
             </td>
             <td class="cart_qty"><?php echo number_format($sum['qty']); ?></td>
             <td class="cart_num"><?php echo number_format($row['ct_price'], 2); ?></td>
@@ -264,7 +264,7 @@ var f = document.forderform;
             $tot_sell_price += $sell_price;
 
             // 로그분석기 변수 전달
-            $http_MP .= $row['it_name']."_";
+            $http_MP .= $row['it_name_kr']."_";
             $http_MP .= $row['ct_price']."_";
 
             if ($i < $row_count-1) {
