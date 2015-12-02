@@ -75,15 +75,15 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         echo "</a></div>\n";
     }
 
-    if ($this->view_it_cust_price || $this->view_it_price) {
+    if ($this->view_it_cust_price_kr || $this->view_it_price_kr) {
 
         echo "<div class=\"sct_cost\">\n";
 
-        if ($this->view_it_cust_price && $row['it_cust_price']) {
-            echo "<strike>".display_price($row['it_cust_price'])."</strike>\n";
+        if ($this->view_it_cust_price_kr && $row['it_cust_price_kr']) {
+            echo "<strike>".display_price($row['it_cust_price_kr'])."</strike>\n";
         }
 
-        if ($this->view_it_price) {
+        if ($this->view_it_price_kr) {
             echo display_price(get_price($row), $row['it_tel_inq'])."\n";
         }
 

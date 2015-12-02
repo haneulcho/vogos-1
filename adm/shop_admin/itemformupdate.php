@@ -475,8 +475,10 @@ $sql_common = " ca_id               = '$ca_id',
                 it_explan           = '$it_explan',
                 it_explan2          = '".strip_tags(trim($_POST['it_explan']))."',
                 it_mobile_explan    = '$it_mobile_explan',
-                it_cust_price       = '$it_cust_price',
-                it_price            = '$it_price',
+                it_cust_price_kr    = '$it_cust_price_kr',
+                it_cust_price_en    = '$it_cust_price_en',
+                it_price_kr         = '$it_price_kr',
+                it_price_en         = '$it_price_en',
                 it_point            = '$it_point',
                 it_point_type       = '$it_point_type',
                 it_supply_point     = '$it_supply_point',
@@ -679,7 +681,8 @@ if(is_checked('chk_ca_it_nocoupon'))            $ca_fields .= " , it_nocoupon = 
 if(is_checked('chk_ca_it_soldout'))             $ca_fields .= " , it_soldout = '$it_soldout' ";
 if(is_checked('chk_ca_it_info'))                $ca_fields .= " , it_info_gubun = '$it_info_gubun', it_info_value = '$it_info_value' ";
 if(is_checked('chk_ca_it_price'))               $ca_fields .= " , it_price = '$it_price' ";
-if(is_checked('chk_ca_it_cust_price'))          $ca_fields .= " , it_cust_price = '$it_cust_price' ";
+if(is_checked('chk_ca_it_cust_price_kr'))       $ca_fields .= " , it_cust_price_kr = '$it_cust_price_en' ";
+if(is_checked('chk_ca_it_cust_price_en'))       $ca_fields .= " , it_cust_price_en = '$it_cust_price_en' ";
 if(is_checked('chk_ca_it_point'))               $ca_fields .= " , it_point = '$it_point' ";
 if(is_checked('chk_ca_it_point_type'))          $ca_fields .= " , it_point_type = '$it_point_type' ";
 if(is_checked('chk_ca_it_supply_point'))        $ca_fields .= " , it_supply_point = '$it_supply_point' ";
@@ -732,7 +735,8 @@ if(is_checked('chk_all_it_nocoupon'))            $all_fields .= " , it_nocoupon 
 if(is_checked('chk_all_it_soldout'))             $all_fields .= " , it_soldout = '$it_soldout' ";
 if(is_checked('chk_all_it_info'))                $all_fields .= " , it_info_gubun = '$it_info_gubun', it_info_value = '$it_info_value' ";
 if(is_checked('chk_all_it_price'))               $all_fields .= " , it_price = '$it_price' ";
-if(is_checked('chk_all_it_cust_price'))          $all_fields .= " , it_cust_price = '$it_cust_price' ";
+if(is_checked('chk_all_it_cust_price_kr'))       $all_fields .= " , it_cust_price_kr = '$it_cust_price_kr' ";
+if(is_checked('chk_all_it_cust_price_en'))       $all_fields .= " , it_cust_price_en = '$it_cust_price_en' ";
 if(is_checked('chk_all_it_point'))               $all_fields .= " , it_point = '$it_point' ";
 if(is_checked('chk_all_it_point_type'))          $all_fields .= " , it_point_type = '$it_point_type' ";
 if(is_checked('chk_all_it_supply_point'))        $all_fields .= " , it_supply_point = '$it_supply_point' ";

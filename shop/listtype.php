@@ -89,8 +89,8 @@ if (file_exists($list_file)) {
     $list->set_view('it_img', true);
     $list->set_view('it_id', false);
     $list->set_view('it_name_kr', true);
-    $list->set_view('it_cust_price', true); // 할인 가격 보이게
-    $list->set_view('it_price', true);
+    $list->set_view('it_cust_price_kr', true); // 할인 가격 보이게
+    $list->set_view('it_price_kr', true);
     $list->set_view('it_icon', false); // 추천, 신상, 베스트 아이콘 안 보이게
     $list->set_view('sns', false); // sns 아이콘 안 보이게
     echo $list->run();

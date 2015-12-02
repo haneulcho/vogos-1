@@ -439,7 +439,7 @@ document.onkeydown = noRefresh ;
                     continue;
 
                 if($key == 'it_amount')
-                    $key = 'it_price';
+                    $key = 'it_price_kr';
 
                 if($key == 'it_cust_amount')
                     $key = 'it_cust_price';
