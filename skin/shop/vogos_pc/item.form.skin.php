@@ -228,7 +228,7 @@ $video_frame = "<iframe src=\"".$video_src."\" width=\"330\" height=\"590\" fram
             </div>
             <div class="sit_ov_total">
                 <span class="price_total">SUBTOTAL</span>
-                <input type="hidden" id="it_price" value="<?php echo get_price($it); ?>">
+                <input type="hidden" id="it_price_kr" value="<?php echo get_price($it); ?>">
                 <div id="sit_tot_price" class="price_total_num">
                     <?php echo display_price(get_price($it)); ?>
                 </div>
@@ -456,7 +456,7 @@ function fitem_submit(f)
     }
 
     // 판매가격이 0 보다 작다면
-    if (document.getElementById("it_price").value < 0) {
+    if (document.getElementById("it_price_kr").value < 0) {
         alert("An error occured. Please contact to us.");
         return false;
     }

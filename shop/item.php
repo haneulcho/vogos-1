@@ -104,7 +104,7 @@ else
 // 로그분석기 시작
 $http_PC=$it['it_name_kr'];    //상품명
 $http_PT=$it['ca_name'];    //카테고리
-$http_PS=$it['it_price'];    //상품가격
+$http_PS=$it['it_price_kr'];    //상품가격
 // 로그분석기 끝
 
 // 분류 위치

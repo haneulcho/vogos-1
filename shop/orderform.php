@@ -240,7 +240,7 @@ var f = document.forderform;
             <td class="cart_des">
                 <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
                 <input type="hidden" name="it_name_kr[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name_kr']); ?>">
-                <input type="hidden" name="it_price[<?php echo $i; ?>]" value="<?php echo $sell_price; ?>">
+                <input type="hidden" name="it_price_kr[<?php echo $i; ?>]" value="<?php echo $sell_price; ?>">
                 <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
                 <input type="hidden" name="cp_price[<?php echo $i; ?>]" value="0">
                 <input type="hidden" name="item_<?php echo $i; ?>_product" value="<?php echo get_text($row['it_name_kr']); ?>">
@@ -1095,7 +1095,7 @@ function coupon_cancel($el)
 {
     var $dup_sell_el = $el.find(".total_price");
     var $dup_price_el = $el.find("input[name^=cp_price]");
-    var org_sell_price = $el.find("input[name^=it_price]").val();
+    var org_sell_price = $el.find("input[name^=it_price_kr]").val();
 
     $dup_sell_el.text(number_format(String(org_sell_price)));
     $dup_price_el.val(0);
@@ -1104,17 +1104,17 @@ function coupon_cancel($el)
 
 function calculate_total_price()
 {
-    var $it_prc = $("input[name^=it_price]");
+    var $it_prc = $("input[name^=it_price_kr]");
     var $cp_prc = $("input[name^=cp_price]");
     var tot_sell_price = sell_price = tot_cp_price = 0;
-    var it_price, cp_price, it_notax;
+    var it_price_kr, cp_price, it_notax;
     var tot_mny = comm_tax_mny = comm_vat_mny = comm_free_mny = tax_mny = vat_mny = 0;
-    var send_cost = parseFloat($("input[name=od_send_cost]").val());
+    var send_cost = parseInt($("input[name=od_send_cost]").val());
 
     $it_prc.each(function(index) {
-        it_price = parseFloat($(this).val());
-        cp_price = parseFloat($cp_prc.eq(index).val());
-        sell_price += it_price;
+        it_price_kr = parseInt($(this).val());
+        cp_price = parseInt($cp_prc.eq(index).val());
+        sell_price += it_price_kr;
         tot_cp_price += cp_price;
     });
 
@@ -1153,10 +1153,10 @@ function calculate_total_price()
 
 function calculate_order_price()
 {
-    var sell_price = parseFloat($("input[name=od_price]").val());
-    var send_cost = parseFloat($("input[name=od_send_cost]").val());
-    var send_cost2 = parseFloat($("input[name=od_send_cost2]").val());
-    var send_coupon = parseFloat($("input[name=od_send_coupon]").val());
+    var sell_price = parseInt($("input[name=od_price]").val());
+    var send_cost = parseInt($("input[name=od_send_cost]").val());
+    var send_cost2 = parseInt($("input[name=od_send_cost2]").val());
+    var send_coupon = parseInt($("input[name=od_send_coupon]").val());
     var tot_price = sell_price + send_cost + send_cost2 - send_coupon;
 
     $("input[name=good_mny]").val(tot_price);
@@ -1202,27 +1202,27 @@ function calculate_sendcost(code)
 
 function calculate_tax()
 {
-    var $it_prc = $("input[name^=it_price]");
+    var $it_prc = $("input[name^=it_price_kr]");
     var $cp_prc = $("input[name^=cp_price]");
     var sell_price = tot_cp_price = 0;
-    var it_price, cp_price, it_notax;
+    var it_price_kr, cp_price, it_notax;
     var tot_mny = comm_free_mny = tax_mny = vat_mny = 0;
-    var send_cost = parseFloat($("input[name=od_send_cost]").val());
-    var send_cost2 = parseFloat($("input[name=od_send_cost2]").val());
-    var od_coupon = parseFloat($("input[name=od_coupon]").val());
-    var send_coupon = parseFloat($("input[name=od_send_coupon]").val());
+    var send_cost = parseInt($("input[name=od_send_cost]").val());
+    var send_cost2 = parseInt($("input[name=od_send_cost2]").val());
+    var od_coupon = parseInt($("input[name=od_coupon]").val());
+    var send_coupon = parseInt($("input[name=od_send_coupon]").val());
     var temp_point = 0;
 
     $it_prc.each(function(index) {
-        it_price = parseFloat($(this).val());
-        cp_price = parseFloat($cp_prc.eq(index).val());
-        sell_price += it_price;
+        it_price_kr = parseInt($(this).val());
+        cp_price = parseInt($cp_prc.eq(index).val());
+        sell_price += it_price_kr;
         tot_cp_price += cp_price;
         it_notax = $("input[name^=it_notax]").eq(index).val();
         if(it_notax == "1") {
-            comm_free_mny += (it_price - cp_price);
+            comm_free_mny += (it_price_kr - cp_price);
         } else {
-            tot_mny += (it_price - cp_price);
+            tot_mny += (it_price_kr - cp_price);
         }
     });
 
@@ -1275,7 +1275,7 @@ function forderform_check()
     check_field(f.od_b_zip, "");
 
     // 배송비를 받지 않거나 더 받는 경우 아래식에 + 또는 - 로 대입
-    f.od_send_cost.value = parseFloat(f.od_send_cost.value);
+    f.od_send_cost.value = parseInt(f.od_send_cost.value);
 
     if (errmsg)
     {
@@ -1299,10 +1299,10 @@ function forderform_check()
         return false;
     }
 
-    var od_price = parseFloat(f.od_price.value);
-    var send_cost = parseFloat(f.od_send_cost.value);
-    var send_cost2 = parseFloat(f.od_send_cost2.value);
-    var send_coupon = parseFloat(f.od_send_coupon.value);
+    var od_price = parseInt(f.od_price.value);
+    var send_cost = parseInt(f.od_send_cost.value);
+    var send_cost2 = parseInt(f.od_send_cost2.value);
+    var send_coupon = parseInt(f.od_send_coupon.value);
 
     var max_point = 0;
     if (typeof(f.max_temp_point) != "undefined")

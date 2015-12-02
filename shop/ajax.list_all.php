@@ -59,7 +59,7 @@ $list->set_from_record($from_record);
 $list->set_view('it_img', true);
 $list->set_view('it_id', false);
 $list->set_view('it_name_kr', true);
-$list->set_view('it_price', true);
+$list->set_view('it_price_kr', true);
 echo $list->run();
 
 $content = ob_get_contents();

@@ -263,7 +263,7 @@ $(function() {
 // 선택옵션 추가처리
 function sel_option_process(add_exec)
 {
-    var it_price = parseFloat($("input#it_price").val());
+    var it_price = parseInt($("input#it_price").val());
     var id = "";
     var value, info, sel_opt, item, price, stock, run_error = false;
     var option = sep = "";
@@ -300,7 +300,7 @@ function sel_option_process(add_exec)
     stock = info[2];
 
     // 금액 음수 체크
-    if(it_price + parseFloat(price) < 0) {
+    if(it_price + parseInt(price) < 0) {
         alert("Please enter valid number.");
         return false;
     }
@@ -338,7 +338,7 @@ function sel_supply_process($el, add_exec)
     var stock = info[2];
 
     // 금액 음수 체크
-    if(parseFloat(price) < 0) {
+    if(parseInt(price) < 0) {
         alert("Please enter valid number.");
         return false;
     }
@@ -361,7 +361,7 @@ function add_sel_option(type, id, option, price, stock)
         li_class = "sit_spl_list";
 
     var opt_prc;
-    if(parseFloat(price) >= 0)
+    if(parseInt(price) >= 0)
         opt_prc = "(+"+number_format(String(price), 2, '.', ',');
     else
         opt_prc = "("+number_format(String(price), 2, '.', ',');
@@ -373,7 +373,7 @@ function add_sel_option(type, id, option, price, stock)
     opt += "<input type=\"hidden\" class=\"io_price\" value=\""+price+"\">";
     opt += "<input type=\"hidden\" class=\"io_stock\" value=\""+stock+"\">";
     opt += "<span class=\"sit_opt_subj\">"+option+"</span>";
-    if(parseFloat(price) > 0) {
+    if(parseInt(price) > 0) {
         opt += "<span class=\"sit_opt_prc\">"+opt_prc+"</span>";    
     }
     opt += "<div>";
@@ -433,7 +433,7 @@ function same_option_check(val)
 // 가격계산
 function price_calculate()
 {
-    var it_price = parseFloat($("input#it_price").val());
+    var it_price = parseInt($("input#it_price").val());
 
     if(isNaN(it_price))
         return;
@@ -444,7 +444,7 @@ function price_calculate()
     var price, type, qty, total = 0;
 
     $el_prc.each(function(index) {
-        price = parseFloat($(this).val());
+        price = parseInt($(this).val());
         qty = parseInt($el_qty.eq(index).val());
         type = $el_type.eq(index).val();
 

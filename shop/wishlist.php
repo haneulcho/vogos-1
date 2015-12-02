@@ -45,7 +45,7 @@ include_once('./_head.php');
             if($tmp['cnt'])
                 $out_cd = 'no';
 
-            $it_price = get_price($row);
+            $it_price_kr = get_price($row);
 
             if ($row['it_tel_inq']) $out_cd = 'tel_inq';
 

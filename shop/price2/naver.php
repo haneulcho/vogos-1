@@ -84,15 +84,15 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     if(!$opt_count) {
         $it_name_kr = $row['it_name_kr'];
         $buy_url = G5_SHOP_URL.'/itembuy.php?it_id='.$row['it_id'];
-        $it_price = $row['it_price'];
-        $delivery = get_item_sendcost2($row['it_id'], $it_price, 1);
+        $it_price_kr = $row['it_price_kr'];
+        $delivery = get_item_sendcost2($row['it_id'], $it_price_kr, 1);
         $it_point = get_item_point($row);
 
         echo <<< HEREDOC
 {$lt}begin{$gt}
 {$lt}mapid{$gt}{$row['it_id']}
 {$lt}pname{$gt}$it_name_kr
-{$lt}price{$gt}$it_price
+{$lt}price{$gt}$it_price_kr
 {$lt}pgurl{$gt}$buy_url
 {$lt}igurl{$gt}$img_url
 {$lt}cate1{$gt}$cate1
@@ -130,15 +130,15 @@ HEREDOC;
                 $sep = ' ';
             }
             $buy_url = G5_SHOP_URL.'/itembuy.php?it_id='.$row['it_id'].'&amp;opt='.$row2['io_id'];
-            $it_price = $row['it_price'] + $row2['io_price'];
-            $delivery = get_item_sendcost2($row['it_id'], $it_price, 1);
+            $it_price_kr = $row['it_price_kr'] + $row2['io_price'];
+            $delivery = get_item_sendcost2($row['it_id'], $it_price_kr, 1);
             $it_point = get_item_point($row, $row2['io_id']);
 
     echo <<< HEREDOC
 {$lt}begin{$gt}
 {$lt}mapid{$gt}{$row['it_id']}
 {$lt}pname{$gt}$it_name_kr
-{$lt}price{$gt}$it_price
+{$lt}price{$gt}$it_price_kr
 {$lt}pgurl{$gt}$buy_url
 {$lt}igurl{$gt}$img_url
 {$lt}cate1{$gt}$cate1

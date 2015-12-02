@@ -77,7 +77,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     }
 
     // 배송비계산
-    $delivery = get_item_sendcost2($row['it_id'], $row['it_price'], 1);
+    $delivery = get_item_sendcost2($row['it_id'], $row['it_price_kr'], 1);
 
     // 상품이미지
     $img_url = get_it_imageurl($row['it_id']);
@@ -89,7 +89,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 {$lt}begin{$gt}
 {$lt}mapid{$gt}{$row['it_id']}
 {$lt}pname{$gt}{$row['it_name_kr']}
-{$lt}price{$gt}{$row['it_price']}
+{$lt}price{$gt}{$row['it_price_kr']}
 {$lt}pgurl{$gt}$shop_url/item.php?it_id={$row['it_id']}
 {$lt}igurl{$gt}$img_url
 {$lt}cate1{$gt}$cate1

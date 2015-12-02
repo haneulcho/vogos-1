@@ -90,7 +90,7 @@ if ($qcaid)
     $where[] = " a.ca_id like '$qcaid%' ";
 
 if ($qfrom && $qto)
-    $where[] = " a.it_price between '$qfrom' and '$qto' ";
+    $where[] = " a.it_price_kr between '$qfrom' and '$qto' ";
 
 $sql_where = " where " . implode(" and ", $where);
 
@@ -99,7 +99,7 @@ $qsort  = strtolower($qsort);
 $qorder = strtolower($qorder);
 $order_by = "";
 // 아래의 $qsort 필드만 정렬이 가능하게 하여 다른 필드로 하여금 유추해 볼수 없게함
-if (($qsort == "it_sum_qty" || $qsort == "it_price" || $qsort == "it_use_avg" || $qsort == "it_use_cnt" || $qsort == "it_update_time") &&
+if (($qsort == "it_sum_qty" || $qsort == "it_price_kr" || $qsort == "it_use_avg" || $qsort == "it_use_cnt" || $qsort == "it_update_time") &&
     ($qorder == "asc" || $qorder == "desc")) {
     $order_by = ' order by ' . $qsort . ' ' . $qorder . ' , it_order, it_id desc';
 }
@@ -175,8 +175,8 @@ $total_page  = ceil($total_count / $items); // 전체 페이지 계산
     </div>
     <ul id="ssch_sort">
         <li><a href="#" class="btn01" onclick="set_sort('it_sum_qty', 'desc'); return false;">most popular</a></li>
-        <li><a href="#" class="btn01" onclick="set_sort('it_price', 'asc'); return false;">price (Low to High)</a></li>
-        <li><a href="#" class="btn01" onclick="set_sort('it_price', 'desc'); return false;">price (High to Low)</a></li>
+        <li><a href="#" class="btn01" onclick="set_sort('it_price_kr', 'asc'); return false;">price (Low to High)</a></li>
+        <li><a href="#" class="btn01" onclick="set_sort('it_price_kr', 'desc'); return false;">price (High to Low)</a></li>
         <li><a href="#" class="btn01" onclick="set_sort('it_update_time', 'desc'); return false;">latest</a></li>
     </ul>
     <!-- } 검색된 분류 끝 -->

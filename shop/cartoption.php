@@ -27,7 +27,7 @@ if(!mysql_num_rows($result))
 <form name="foption" method="post" action="<?php echo G5_SHOP_URL; ?>/cartupdate.php" onsubmit="return formcheck(this);">
 <input type="hidden" name="act" value="optionmod">
 <input type="hidden" name="it_id[]" value="<?php echo $it['it_id']; ?>">
-<input type="hidden" id="it_price" value="<?php echo $row2['ct_price']; ?>">
+<input type="hidden" id="it_price_kr" value="<?php echo $row2['ct_price']; ?>">
 <input type="hidden" name="ct_send_cost" value="<?php echo $row2['ct_send_cost']; ?>">
 <input type="hidden" name="sw_direct">
 <?php

@@ -34,7 +34,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
     if(!$opt_count) {
         $it_name_kr = $row['it_name_kr'];
-        $it_price = $row['it_price'];
+        $it_price_kr = $row['it_price_kr'];
         $stock_qty = get_it_stock_qty($row['it_id']);
 
         echo "{$lt}begin{$gt}\n";
@@ -48,7 +48,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         {
             // 업데이트 상품 양식 & 품절 복구 상품 양식
             echo "{$lt}pname{$gt}{$it_name_kr}\n";
-            echo "{$lt}price{$gt}{$it_price}\n";
+            echo "{$lt}price{$gt}{$it_price_kr}\n";
             echo "{$lt}class{$gt}U\n";
         }
         echo "{$lt}utime{$gt}{$row['it_time']}\n";
@@ -64,7 +64,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
                 $it_name_kr .= $sep.$subj[$j].':'.$opt[$j];
                 $sep = ' ';
             }
-            $it_price = $row['it_price'] + $row2['io_price'];
+            $it_price_kr = $row['it_price_kr'] + $row2['io_price'];
             $stock_qty = get_option_stock_qty($row['it_id'], $row2['io_id'], 0);
 
             echo "{$lt}begin{$gt}\n";
@@ -78,7 +78,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
             {
                 // 업데이트 상품 양식 & 품절 복구 상품 양식
                 echo "{$lt}pname{$gt}{$it_name_kr}\n";
-                echo "{$lt}price{$gt}{$it_price}\n";
+                echo "{$lt}price{$gt}{$it_price_kr}\n";
                 echo "{$lt}class{$gt}U\n";
             }
             echo "{$lt}utime{$gt}{$row['it_time']}\n";

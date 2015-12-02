@@ -53,7 +53,7 @@ if($io_id && $it['it_option_subject']) {
     $io_value = $it['it_name_kr'];
 }
 
-$tot_prc = $it['it_price'] + $opt['io_price'];
+$tot_prc = $it['it_price_kr'] + $opt['io_price'];
 
 // 배송비결제
 $ct_send_cost = 0;

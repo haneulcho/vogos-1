@@ -131,7 +131,7 @@ for($i=0; $i<$count; $i++) {
             if((int)$io_price < 0)
                 die(json_encode(array('error' => 'Please enter valid number.')));
         } else {
-            if((int)$it['it_price'] + (int)$io_price < 0)
+            if((int)$it['it_price_kr'] + (int)$io_price < 0)
                 die(json_encode(array('error' => 'Please enter valid number.')));
         }
 
@@ -182,7 +182,7 @@ for($i=0; $i<$count; $i++) {
         else if($it['it_sc_type'] > 1 && $it['it_sc_method'] == 1)
             $ct_send_cost = 1; // 착불
 
-        $sql .= $comma."( '$tmp_cart_id', '{$member['mb_id']}', '{$it['it_id']}', '".addslashes($it['it_name_kr'])."', '{$it['it_sc_type']}', '{$it['it_sc_method']}', '{$it['it_sc_price']}', '{$it['it_sc_minimum']}', '{$it['it_sc_qty']}', '쇼핑', '{$it['it_price']}', '$point', '0', '0', '$io_value', '$ct_qty', '{$it['it_notax']}', '$io_id', '$io_type', '$io_price', '".G5_TIME_YMDHIS."', '$REMOTE_ADDR', '$ct_send_cost', '$sw_direct', '$ct_select', '$ct_select_time' )";
+        $sql .= $comma."( '$tmp_cart_id', '{$member['mb_id']}', '{$it['it_id']}', '".addslashes($it['it_name_kr'])."', '{$it['it_sc_type']}', '{$it['it_sc_method']}', '{$it['it_sc_price']}', '{$it['it_sc_minimum']}', '{$it['it_sc_qty']}', '쇼핑', '{$it['it_price_kr']}', '$point', '0', '0', '$io_value', '$ct_qty', '{$it['it_notax']}', '$io_id', '$io_type', '$io_price', '".G5_TIME_YMDHIS."', '$REMOTE_ADDR', '$ct_send_cost', '$sw_direct', '$ct_select', '$ct_select_time' )";
         $comma = ' , ';
         $ct_count++;
     }

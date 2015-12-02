@@ -22,7 +22,7 @@ $video_src = 'https://player.vimeo.com/video/'.$row['it_1'].'?autoplay=1&loop=1&
 
                         <!-- 총 구매액 -->
                         <div class="sit_tot_price">
-                        <?php echo display_price($row['it_price']) ?>
+                        <?php echo display_price($row['it_price_kr']) ?>
                         </div>
 
                         <div class="sit_ov_btn">
