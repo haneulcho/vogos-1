@@ -440,9 +440,14 @@ $it_info_value = addslashes(serialize($value_array));
 if($it_point_type == 1 && $it_point > 99)
     alert("포인트 비율을 0과 99 사이의 값으로 입력해 주십시오.");
 
-$it_name = strip_tags(trim($_POST['it_name']));
-if ($it_name == "")
+$it_name_kr = strip_tags(trim($_POST['it_name_kr']));
+$it_name_en = strip_tags(trim($_POST['it_name_en']));
+if ($it_name_kr == "") {
     alert("상품명을 입력해 주십시오.");
+}
+if ($it_name_en == "") {
+    alert("상품명을 입력해 주십시오.");
+}
 
 $sql_common = " ca_id               = '$ca_id',
                 ca_id2              = '$ca_id2',
@@ -452,7 +457,8 @@ $sql_common = " ca_id               = '$ca_id',
                 it_place_ddm        = '$it_place_ddm',
                 it_name_ddm         = '$it_name_ddm',
                 it_price_ddm        = '$it_price_ddm',
-                it_name             = '$it_name',
+                it_name_kr          = '$it_name_kr',
+                it_name_en          = '$it_name_en',
                 it_maker            = '$it_maker',
                 it_origin           = '$it_origin',
                 it_brand            = '$it_brand',
@@ -696,11 +702,11 @@ if(is_checked('chk_ca_9'))                      $ca_fields .= " , it_9_subj = '$
 if(is_checked('chk_ca_10'))                     $ca_fields .= " , it_10_subj = '$it_10_subj', it_10 = '$it_10' ";
 
 if($ca_fields) {
-    sql_query(" update {$g5['g5_shop_item_table']} set it_name = it_name {$ca_fields} where ca_id = '$ca_id' ");
+    sql_query(" update {$g5['g5_shop_item_table']} set it_name_kr = it_name_kr, it_name_en = it_name_en {$ca_fields} where ca_id = '$ca_id' ");
     if($ca_id2)
-        sql_query(" update {$g5['g5_shop_item_table']} set it_name = it_name {$ca_fields} where ca_id2 = '$ca_id2' ");
+        sql_query(" update {$g5['g5_shop_item_table']} set it_name_kr = it_name_kr, it_name_en = it_name_en {$ca_fields} where ca_id2 = '$ca_id2' ");
     if($ca_id3)
-        sql_query(" update {$g5['g5_shop_item_table']} set it_name = it_name {$ca_fields} where ca_id3 = '$ca_id3' ");
+        sql_query(" update {$g5['g5_shop_item_table']} set it_name_kr = it_name_kr, it_name_en = it_name_en {$ca_fields} where ca_id3 = '$ca_id3' ");
 }
 
 // 모든 상품 동일 옵션 적용
@@ -748,7 +754,7 @@ if(is_checked('chk_all_9'))                      $all_fields .= " , it_9_subj = 
 if(is_checked('chk_all_10'))                     $all_fields .= " , it_10_subj = '$it_10_subj', it_10 = '$it_10' ";
 
 if($all_fields) {
-    sql_query(" update {$g5['g5_shop_item_table']} set it_name = it_name {$all_fields} ");
+    sql_query(" update {$g5['g5_shop_item_table']} set it_name_kr = it_name_kr, it_name_en = it_name_en {$all_fields} ");
 }
 
 $qstr = "$qstr&amp;sca=$sca&amp;page=$page";

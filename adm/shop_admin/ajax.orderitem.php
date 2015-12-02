@@ -14,7 +14,8 @@ if(!$od['od_id'])
 
 // 상품목록
 $sql = " select it_id,
-                it_name,
+                it_name_kr,
+                it_name_en,
                 cp_price,
                 ct_notax,
                 ct_send_cost,
@@ -97,7 +98,7 @@ $result = sql_query($sql);
             <tr>
                 <?php if($k == 0) { ?>
                 <td class="td_itname" rowspan="<?php echo $rowspan; ?>">
-                    <a href="./itemform.php?w=u&amp;it_id=<?php echo $row['it_id']; ?>"><?php echo $image; ?> <?php echo stripslashes($row['it_name']); ?></a>
+                    <a href="./itemform.php?w=u&amp;it_id=<?php echo $row['it_id']; ?>"><?php echo $image; ?> <?php echo stripslashes($row['it_name_kr']); ?></a>
                     <?php if($od['od_tax_flag'] && $row['ct_notax']) echo '[비과세상품]'; ?>
                 </td>
                 <?php } ?>

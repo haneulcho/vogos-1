@@ -540,8 +540,6 @@ if($g5_shop_install) {
     fwrite($f, "\$g5['g5_shop_category_table'] = G5_SHOP_TABLE_PREFIX.'category'; // 상품분류 테이블\n");
     fwrite($f, "\$g5['g5_shop_event_table'] = G5_SHOP_TABLE_PREFIX.'event'; // 이벤트 테이블\n");
     fwrite($f, "\$g5['g5_shop_event_item_table'] = G5_SHOP_TABLE_PREFIX.'event_item'; // 상품, 이벤트 연결 테이블\n");
-    fwrite($f, "\$g5['g5_shop_models_table'] = G5_SHOP_TABLE_PREFIX.'models'; // 모델스초이스 테이블\n");
-    fwrite($f, "\$g5['g5_shop_models_item_table'] = G5_SHOP_TABLE_PREFIX.'models_item'; // 상품, 모델스초이스 연결 테이블\n");
     fwrite($f, "\$g5['g5_shop_item_table'] = G5_SHOP_TABLE_PREFIX.'item'; // 상품 테이블\n");
     fwrite($f, "\$g5['g5_shop_item_option_table'] = G5_SHOP_TABLE_PREFIX.'item_option'; // 상품옵션 테이블\n");
     fwrite($f, "\$g5['g5_shop_item_use_table'] = G5_SHOP_TABLE_PREFIX.'item_use'; // 상품 사용후기 테이블\n");

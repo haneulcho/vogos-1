@@ -306,9 +306,6 @@ class item_list
                 $sql_select = " select {$this->fields} ";
                 $sql_common = " from `{$g5['g5_shop_event_item_table']}` a left join `{$g5['g5_shop_item_table']}` b on (a.it_id = b.it_id) ";
                 $where[] = " a.ev_id = '{$this->event}' ";
-            } else if ($this->is_mdschoice) {
-                $sql_select = " select {$this->fields} ";
-                $sql_common = " from `{$g5['g5_shop_models_table']}` ";                
             } else {
                 $sql_select = " select {$this->fields} ";
                 $sql_common = " from `{$g5['g5_shop_item_table']}` ";
