@@ -129,7 +129,7 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
             $image = get_it_image($row['it_id'], 50, 50);
 
             // 상품의 옵션정보
-            $sql = " select ct_id, it_id, ct_price, ct_point, ct_qty, ct_option, ct_status, cp_price, ct_stock_use, ct_point_use, ct_send_cost, io_type, io_price
+            $sql = " select ct_id, it_id, ct_price_kr, ct_point, ct_qty, ct_option, ct_status, cp_price, ct_stock_use, ct_point_use, ct_send_cost, io_type, io_price
                         from {$g5['g5_shop_cart_table']}
                         where od_id = '{$od['od_id']}'
                           and it_id = '{$row['it_id']}'
@@ -138,7 +138,7 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
             $rowspan = mysql_num_rows($res);
 
             // 합계금액 계산
-            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price,
                             SUM(ct_qty) as qty
                         from {$g5['g5_shop_cart_table']}
                         where it_id = '{$row['it_id']}'
@@ -171,10 +171,10 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
                 if($opt['io_type'])
                     $opt_price = $opt['io_price'];
                 else
-                    $opt_price = $opt['ct_price'] + $opt['io_price'];
+                    $opt_price = $opt['ct_price_kr'] + $opt['io_price'];
 
                 // 소계
-                $ct_price['stotal'] = $opt_price * $opt['ct_qty'];
+                $ct_price_kr['stotal'] = $opt_price * $opt['ct_qty'];
                 $ct_point['stotal'] = $opt['ct_point'] * $opt['ct_qty'];
             ?>
             <tr>
@@ -200,7 +200,7 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
                     <input type="text" name="ct_qty[<?php echo $chk_cnt; ?>]" id="ct_qty_<?php echo $chk_cnt; ?>" value="<?php echo $opt['ct_qty']; ?>" required class="frm_input required" size="5">
                 </td>
                 <td class="td_num"><?php echo number_format($opt_price); ?></td>
-                <td class="td_num"><?php echo number_format($ct_price['stotal']); ?></td>
+                <td class="td_num"><?php echo number_format($ct_price_kr['stotal']); ?></td>
                 <td class="td_num"><?php echo number_format($opt['cp_price']); ?></td>
                 <td class="td_num"><?php echo number_format($ct_point['stotal']); ?></td>
                 <td class="td_sendcost_by"><?php echo $ct_send_cost; ?></td>

@@ -96,7 +96,8 @@ var f = document.forderform;
         $sql = " select a.ct_id,
                         a.it_id,
                         a.it_name_kr,
-                        a.ct_price,
+                        a.ct_price_kr,
+                        a.ct_price_en,
                         a.ct_point,
                         a.ct_qty,
                         a.ct_status,
@@ -131,7 +132,7 @@ var f = document.forderform;
         for ($i=0; $row=mysql_fetch_array($result); $i++)
         {
             // 합계금액 계산
-            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price,
                             SUM(ct_point * ct_qty) as point,
                             SUM(ct_qty) as qty
                         from {$g5['g5_shop_cart_table']}
@@ -156,7 +157,7 @@ var f = document.forderform;
                 $good_info .= "ordr_numb={$od_id}_".sprintf("%04d", $i).chr(31);
                 $good_info .= "good_name=".addslashes($row['it_name_kr']).chr(31);
                 $good_info .= "good_cntx=".$row['ct_qty'].chr(31);
-                $good_info .= "good_amtx=".$row['ct_price'].chr(31);
+                $good_info .= "good_amtx=".$row['ct_price_kr'].chr(31);
             }
 
             $image = get_it_image_best($row['it_id'], 105, 140, 8, '', '', 'original', stripslashes($row['it_name_kr']));
@@ -254,7 +255,7 @@ var f = document.forderform;
                 <?php echo $it_name_kr; ?>
             </td>
             <td class="cart_qty"><?php echo number_format($sum['qty']); ?></td>
-            <td class="cart_num"><?php echo number_format($row['ct_price'], 2); ?></td>
+            <td class="cart_num"><?php echo number_format($row['ct_price_kr'], 2); ?></td>
             <td class="cart_num"><span class="total_price"><?php echo number_format($sell_price, 2); ?></span></td>
             <!-- <td class="td_dvr"><?php //echo $ct_send_cost; ?></td> -->
         </tr>
@@ -265,7 +266,7 @@ var f = document.forderform;
 
             // 로그분석기 변수 전달
             $http_MP .= $row['it_name_kr']."_";
-            $http_MP .= $row['ct_price']."_";
+            $http_MP .= $row['ct_price_kr']."_";
 
             if ($i < $row_count-1) {
                 $http_MP .= $sum['qty'].";";

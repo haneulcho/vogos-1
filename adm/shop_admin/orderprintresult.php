@@ -71,7 +71,7 @@ if ($csv == 'csv')
 
         if($save_it_id != $row['it_id']) {
             // 합계금액 계산
-            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price,
                             SUM(ct_qty) as qty
                         from {$g5['g5_shop_cart_table']}
                         where it_id = '{$row['it_id']}'
@@ -174,7 +174,7 @@ if ($csv == 'xls')
     {
         if($save_it_id != $row['it_id']) {
             // 합계금액 계산
-            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price,
                             SUM(ct_qty) as qty
                         from {$g5['g5_shop_cart_table']}
                         where it_id = '{$row['it_id']}'
@@ -368,8 +368,8 @@ if (mysql_num_rows($result) == 0)
                     $it_price = $row2['io_price'];
                     $row2_tot_price = $row2['io_price'] * $row2['ct_qty'];
                 } else {
-                    $it_price = $row2['ct_price'] + $row2['io_price'];
-                    $row2_tot_price = ($row2['ct_price'] + $row2['io_price']) * $row2['ct_qty'];
+                    $it_price = $row2['ct_price_kr'] + $row2['io_price'];
+                    $row2_tot_price = ($row2['ct_price_kr'] + $row2['io_price']) * $row2['ct_qty'];
                 }
                 $sub_tot_qty += $row2['ct_qty'];
                 $sub_tot_price += $row2_tot_price;
@@ -396,7 +396,7 @@ if (mysql_num_rows($result) == 0)
                     }
 
                     // 합계금액 계산
-                    $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+                    $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price,
                                     SUM(ct_qty) as qty
                                 from {$g5['g5_shop_cart_table']}
                                 where it_id = '{$row2['it_id']}'

@@ -16,7 +16,7 @@ $sql = " select * from {$g5['g5_shop_cart_table']} where od_id = '$cart_id' and 
 $result = sql_query($sql);
 
 // 판매가격
-$sql2 = " select ct_price, it_name_kr, ct_send_cost from {$g5['g5_shop_cart_table']} where od_id = '$cart_id' and it_id = '$it_id' order by ct_id asc limit 1 ";
+$sql2 = " select ct_price_kr, it_name_kr, ct_send_cost from {$g5['g5_shop_cart_table']} where od_id = '$cart_id' and it_id = '$it_id' order by ct_id asc limit 1 ";
 $row2 = sql_fetch($sql2);
 
 if(!mysql_num_rows($result))
@@ -27,7 +27,7 @@ if(!mysql_num_rows($result))
 <form name="foption" method="post" action="<?php echo G5_SHOP_URL; ?>/cartupdate.php" onsubmit="return formcheck(this);">
 <input type="hidden" name="act" value="optionmod">
 <input type="hidden" name="it_id[]" value="<?php echo $it['it_id']; ?>">
-<input type="hidden" id="it_price_kr" value="<?php echo $row2['ct_price']; ?>">
+<input type="hidden" id="it_price_kr" value="<?php echo $row2['ct_price_kr']; ?>">
 <input type="hidden" name="ct_send_cost" value="<?php echo $row2['ct_send_cost']; ?>">
 <input type="hidden" name="sw_direct">
 <?php

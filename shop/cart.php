@@ -30,7 +30,8 @@ $sql = " select a.ct_id,
                 a.it_id,
                 a.it_name_kr,
                 a.it_name_en,
-                a.ct_price,
+                a.ct_price_kr,
+                a.ct_price_en,
                 a.ct_point,
                 a.ct_qty,
                 a.ct_status,
@@ -85,7 +86,7 @@ $it_send_cost = 0;
         for ($i=0; $row=mysql_fetch_array($result); $i++)
         {
             // 합계금액 계산
-            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price,
                             SUM(ct_point * ct_qty) as point,
                             SUM(ct_qty) as qty
                         from {$g5['g5_shop_cart_table']}
@@ -143,7 +144,7 @@ $it_send_cost = 0;
                 <button type="button" onclick="remove_item('<?php echo $row['it_id']; ?>');" class="mod_remove"><?php echo '<img src="'.G5_SHOP_SKIN_URL.'/img/cart/btn_remove_option.jpg" alt="Remove Items">' ?></button></div>
             </td>
             <td class="cart_qty"><?php echo number_format($sum['qty']); ?></td>
-            <td class="cart_num">$<?php echo number_format($row['ct_price'], 2); ?></td>
+            <td class="cart_num">$<?php echo number_format($row['ct_price_kr'], 2); ?></td>
             <td class="cart_num"><span id="sell_price_<?php echo $i; ?>">$<?php echo number_format($sell_price, 2); ?></span></td>
             <td class="cart_chk">
                 <label for="ct_chk_<?php echo $i; ?>" class="sound_only">Select</label>

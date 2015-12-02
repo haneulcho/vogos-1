@@ -13,7 +13,8 @@ $ttotal_point = 0;
 $sql = " select a.it_id,
                 a.it_name_kr,
                 a.ct_qty,
-                a.ct_price,
+                a.ct_price_kr,
+                a.ct_price_en,
                 a.ct_point,
                 b.it_sell_email,
                 b.it_origin
@@ -26,7 +27,7 @@ $result = sql_query($sql);
 for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     // 합계금액 계산
-    $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+    $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price,
                     SUM(ct_point * ct_qty) as point,
                     SUM(ct_qty) as qty
                 from {$g5['g5_shop_cart_table']}
@@ -63,7 +64,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $list[$i]['it_name_kr']    = $row['it_name_kr'];
     $list[$i]['it_origin']     = $row['it_origin'];
     $list[$i]['it_opt']        = $options;
-    $list[$i]['ct_price']      = $row['ct_price'];
+    $list[$i]['ct_price_kr']   = $row['ct_price_kr'];
+    $list[$i]['ct_price_en']   = $row['ct_price_en'];
     $list[$i]['stotal_price']  = $sum['price'];
     $list[$i]['stotal_point']  = $sum['point'];
 

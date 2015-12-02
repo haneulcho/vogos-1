@@ -1718,10 +1718,10 @@ function get_order_info($od_id)
     $info = array();
 
     // 장바구니 주문금액정보
-    $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+    $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price,
                     SUM(cp_price) as coupon,
-                    SUM( IF( ct_notax = 0, ( IF(io_type = 1, (io_price * ct_qty), ( (ct_price + io_price) * ct_qty) ) - cp_price ), 0 ) ) as tax_mny,
-                    SUM( IF( ct_notax = 1, ( IF(io_type = 1, (io_price * ct_qty), ( (ct_price + io_price) * ct_qty) ) - cp_price ), 0 ) ) as free_mny
+                    SUM( IF( ct_notax = 0, ( IF(io_type = 1, (io_price * ct_qty), ( (ct_price_kr + io_price) * ct_qty) ) - cp_price ), 0 ) ) as tax_mny,
+                    SUM( IF( ct_notax = 1, ( IF(io_type = 1, (io_price * ct_qty), ( (ct_price_kr + io_price) * ct_qty) ) - cp_price ), 0 ) ) as free_mny
                 from {$g5['g5_shop_cart_table']}
                 where od_id = '$od_id'
                   and ct_status IN ( '주문', '입금', '준비', '배송', '완료' ) ";
@@ -1817,7 +1817,7 @@ function get_order_info($od_id)
     $od_free_mny = $free_mny;
 
     // 장바구니 취소금액 정보
-    $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price
+    $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price
                 from {$g5['g5_shop_cart_table']}
                 where od_id = '$od_id'
                   and ct_status IN ( '취소', '반품', '품절' ) ";
@@ -1899,7 +1899,7 @@ function get_sendcost($cart_id, $selected=1)
     $result = sql_query($sql);
     for($i=0; $sc=sql_fetch_array($result); $i++) {
         // 합계
-        $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+        $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price,
                         SUM(ct_qty) as qty
                     from {$g5['g5_shop_cart_table']}
                     where it_id = '{$sc['it_id']}'

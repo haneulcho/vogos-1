@@ -564,7 +564,7 @@ document.onkeydown = noRefresh ;
 
                 $od_id = $row['od_id'];
 
-                $ct_price = $row2['ct_amount'];
+                $ct_price_kr = $row2['ct_amount'];
 
                 // 상품명
                 $it = sql_fetch(" select it_name_kr from {$g5['g5_shop_item_table']} where it_id = '{$row2['it_id']}' ");
@@ -582,7 +582,7 @@ document.onkeydown = noRefresh ;
                 if($ct_option)
                     $ct_option = addslashes($ct_option);
 
-                $sql_common2 .= $comma . " ct_price = '$ct_price', it_name_kr = '$it_name_kr', ct_option = '$ct_option' ";
+                $sql_common2 .= $comma . " ct_price_kr = '$ct_price_kr', it_name_kr = '$it_name_kr', ct_option = '$ct_option' ";
 
                 sql_query(" INSERT INTO {$g5['g5_shop_cart_table']} SET od_id = '$od_id', $sql_common2 , ct_select = '1' ");
             }

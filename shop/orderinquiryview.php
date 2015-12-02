@@ -81,7 +81,7 @@ $_SESSION['ord_num'] = $od_id;
             for($i=0; $row=sql_fetch_array($result); $i++) {
                 $image = get_it_image_best($row['it_id'], 60, 80, 8, '', '', 'original', stripslashes($row['it_name_kr']));
 
-                $sql = " select ct_id, it_name_kr, ct_option, ct_qty, ct_price, ct_point, ct_status, io_type, io_price
+                $sql = " select ct_id, it_name_kr, ct_option, ct_qty, ct_price_kr, ct_point, ct_status, io_type, io_price
                             from {$g5['g5_shop_cart_table']}
                             where od_id = '$od_id'
                               and it_id = '{$row['it_id']}'
@@ -90,7 +90,7 @@ $_SESSION['ord_num'] = $od_id;
                 $rowspan = mysql_num_rows($res) + 1;
 
                 // 합계금액 계산
-                $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+                $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price,
                                 SUM(ct_qty) as qty
                             from {$g5['g5_shop_cart_table']}
                             where it_id = '{$row['it_id']}'
@@ -144,7 +144,7 @@ $_SESSION['ord_num'] = $od_id;
                     if($opt['io_type'])
                         $opt_price = $opt['io_price'];
                     else
-                        $opt_price = $opt['ct_price'] + $opt['io_price'];
+                        $opt_price = $opt['ct_price_kr'] + $opt['io_price'];
 
                     $sell_price = $opt_price * $opt['ct_qty'];
                     $point = $opt['ct_point'] * $opt['ct_qty'];
