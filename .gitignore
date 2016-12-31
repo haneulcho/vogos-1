@@ -1,0 +1,8 @@
+.DS_Store
+*/.DS_Store
+data
+extend
+plugin
+config.php
+pax_global_header
+perms.sh
