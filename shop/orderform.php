@@ -95,8 +95,9 @@ var f = document.forderform;
         // $s_cart_id 로 현재 장바구니 자료 쿼리
         $sql = " select a.ct_id,
                         a.it_id,
-                        a.it_name,
-                        a.ct_price,
+                        a.it_name_kr,
+                        a.ct_price_kr,
+                        a.ct_price_en,
                         a.ct_point,
                         a.ct_qty,
                         a.ct_status,
@@ -131,7 +132,7 @@ var f = document.forderform;
         for ($i=0; $row=mysql_fetch_array($result); $i++)
         {
             // 합계금액 계산
-            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price,
                             SUM(ct_point * ct_qty) as point,
                             SUM(ct_qty) as qty
                         from {$g5['g5_shop_cart_table']}
@@ -143,7 +144,7 @@ var f = document.forderform;
             {
                 //$goods = addslashes($row[it_name]);
                 //$goods = get_text($row[it_name]);
-                $goods = preg_replace("/\'|\"|\||\,|\&|\;/", "", $row['it_name']);
+                $goods = preg_replace("/\'|\"|\||\,|\&|\;/", "", $row['it_name_kr']);
                 $goods_it_id = $row['it_id'];
             }
             $goods_count++;
@@ -154,17 +155,17 @@ var f = document.forderform;
                     $good_info .= chr(30);
                 $good_info .= "seq=".($i+1).chr(31);
                 $good_info .= "ordr_numb={$od_id}_".sprintf("%04d", $i).chr(31);
-                $good_info .= "good_name=".addslashes($row['it_name']).chr(31);
+                $good_info .= "good_name=".addslashes($row['it_name_kr']).chr(31);
                 $good_info .= "good_cntx=".$row['ct_qty'].chr(31);
-                $good_info .= "good_amtx=".$row['ct_price'].chr(31);
+                $good_info .= "good_amtx=".$row['ct_price_kr'].chr(31);
             }
 
-            $image = get_it_image_best($row['it_id'], 105, 140, 8, '', '', 'original', stripslashes($row['it_name']));
+            $image = get_it_image_best($row['it_id'], 105, 140, 8, '', '', 'original', stripslashes($row['it_name_kr']));
 
-            $it_name = '<span class="cart_it_name"><b>'.stripslashes($row['it_name']).'</b></span>';
+            $it_name_kr = '<span class="cart_it_name"><b>'.stripslashes($row['it_name_kr']).'</b></span>';
             $it_options = print_item_options($row['it_id'], $s_cart_id);
             if($it_options) {
-                $it_name .= '<div class="sod_opt">'.$it_options.'</div>';
+                $it_name_kr .= '<div class="sod_opt">'.$it_options.'</div>';
             }
 
             // 복합과세금액
@@ -239,11 +240,11 @@ var f = document.forderform;
             <td class="cart_img"><?php echo $image; ?></td>
             <td class="cart_des">
                 <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
-                <input type="hidden" name="it_name[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name']); ?>">
-                <input type="hidden" name="it_price[<?php echo $i; ?>]" value="<?php echo $sell_price; ?>">
+                <input type="hidden" name="it_name_kr[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name_kr']); ?>">
+                <input type="hidden" name="it_price_kr[<?php echo $i; ?>]" value="<?php echo $sell_price; ?>">
                 <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
                 <input type="hidden" name="cp_price[<?php echo $i; ?>]" value="0">
-                <input type="hidden" name="item_<?php echo $i; ?>_product" value="<?php echo get_text($row['it_name']); ?>">
+                <input type="hidden" name="item_<?php echo $i; ?>_product" value="<?php echo get_text($row['it_name_kr']); ?>">
                 <input type="hidden" name="item_<?php echo $i; ?>_quantity" value="<?php echo $sum['qty']; ?>">
                 <input type="hidden" name="item_<?php echo $i; ?>_unitPrice" value="<?php echo number_format($sell_price, 2, ".", ""); ?>">
                 <input type="hidden" name="cp_id[<?php echo $i; ?>]" value="">
@@ -251,10 +252,10 @@ var f = document.forderform;
                 <?php if($default['de_tax_flag_use']) { ?>
                 <input type="hidden" name="it_notax[<?php echo $i; ?>]" value="<?php echo $row['it_notax']; ?>">
                 <?php } ?>
-                <?php echo $it_name; ?>
+                <?php echo $it_name_kr; ?>
             </td>
             <td class="cart_qty"><?php echo number_format($sum['qty']); ?></td>
-            <td class="cart_num"><?php echo number_format($row['ct_price'], 2); ?></td>
+            <td class="cart_num"><?php echo number_format($row['ct_price_kr'], 2); ?></td>
             <td class="cart_num"><span class="total_price"><?php echo number_format($sell_price, 2); ?></span></td>
             <!-- <td class="td_dvr"><?php //echo $ct_send_cost; ?></td> -->
         </tr>
@@ -264,8 +265,8 @@ var f = document.forderform;
             $tot_sell_price += $sell_price;
 
             // 로그분석기 변수 전달
-            $http_MP .= $row['it_name']."_";
-            $http_MP .= $row['ct_price']."_";
+            $http_MP .= $row['it_name_kr']."_";
+            $http_MP .= $row['ct_price_kr']."_";
 
             if ($i < $row_count-1) {
                 $http_MP .= $sum['qty'].";";
@@ -1095,7 +1096,7 @@ function coupon_cancel($el)
 {
     var $dup_sell_el = $el.find(".total_price");
     var $dup_price_el = $el.find("input[name^=cp_price]");
-    var org_sell_price = $el.find("input[name^=it_price]").val();
+    var org_sell_price = $el.find("input[name^=it_price_kr]").val();
 
     $dup_sell_el.text(number_format(String(org_sell_price)));
     $dup_price_el.val(0);
@@ -1104,17 +1105,17 @@ function coupon_cancel($el)
 
 function calculate_total_price()
 {
-    var $it_prc = $("input[name^=it_price]");
+    var $it_prc = $("input[name^=it_price_kr]");
     var $cp_prc = $("input[name^=cp_price]");
     var tot_sell_price = sell_price = tot_cp_price = 0;
-    var it_price, cp_price, it_notax;
+    var it_price_kr, cp_price, it_notax;
     var tot_mny = comm_tax_mny = comm_vat_mny = comm_free_mny = tax_mny = vat_mny = 0;
-    var send_cost = parseFloat($("input[name=od_send_cost]").val());
+    var send_cost = parseInt($("input[name=od_send_cost]").val());
 
     $it_prc.each(function(index) {
-        it_price = parseFloat($(this).val());
-        cp_price = parseFloat($cp_prc.eq(index).val());
-        sell_price += it_price;
+        it_price_kr = parseInt($(this).val());
+        cp_price = parseInt($cp_prc.eq(index).val());
+        sell_price += it_price_kr;
         tot_cp_price += cp_price;
     });
 
@@ -1153,10 +1154,10 @@ function calculate_total_price()
 
 function calculate_order_price()
 {
-    var sell_price = parseFloat($("input[name=od_price]").val());
-    var send_cost = parseFloat($("input[name=od_send_cost]").val());
-    var send_cost2 = parseFloat($("input[name=od_send_cost2]").val());
-    var send_coupon = parseFloat($("input[name=od_send_coupon]").val());
+    var sell_price = parseInt($("input[name=od_price]").val());
+    var send_cost = parseInt($("input[name=od_send_cost]").val());
+    var send_cost2 = parseInt($("input[name=od_send_cost2]").val());
+    var send_coupon = parseInt($("input[name=od_send_coupon]").val());
     var tot_price = sell_price + send_cost + send_cost2 - send_coupon;
 
     $("input[name=good_mny]").val(tot_price);
@@ -1202,27 +1203,27 @@ function calculate_sendcost(code)
 
 function calculate_tax()
 {
-    var $it_prc = $("input[name^=it_price]");
+    var $it_prc = $("input[name^=it_price_kr]");
     var $cp_prc = $("input[name^=cp_price]");
     var sell_price = tot_cp_price = 0;
-    var it_price, cp_price, it_notax;
+    var it_price_kr, cp_price, it_notax;
     var tot_mny = comm_free_mny = tax_mny = vat_mny = 0;
-    var send_cost = parseFloat($("input[name=od_send_cost]").val());
-    var send_cost2 = parseFloat($("input[name=od_send_cost2]").val());
-    var od_coupon = parseFloat($("input[name=od_coupon]").val());
-    var send_coupon = parseFloat($("input[name=od_send_coupon]").val());
+    var send_cost = parseInt($("input[name=od_send_cost]").val());
+    var send_cost2 = parseInt($("input[name=od_send_cost2]").val());
+    var od_coupon = parseInt($("input[name=od_coupon]").val());
+    var send_coupon = parseInt($("input[name=od_send_coupon]").val());
     var temp_point = 0;
 
     $it_prc.each(function(index) {
-        it_price = parseFloat($(this).val());
-        cp_price = parseFloat($cp_prc.eq(index).val());
-        sell_price += it_price;
+        it_price_kr = parseInt($(this).val());
+        cp_price = parseInt($cp_prc.eq(index).val());
+        sell_price += it_price_kr;
         tot_cp_price += cp_price;
         it_notax = $("input[name^=it_notax]").eq(index).val();
         if(it_notax == "1") {
-            comm_free_mny += (it_price - cp_price);
+            comm_free_mny += (it_price_kr - cp_price);
         } else {
-            tot_mny += (it_price - cp_price);
+            tot_mny += (it_price_kr - cp_price);
         }
     });
 
@@ -1275,7 +1276,7 @@ function forderform_check()
     check_field(f.od_b_zip, "");
 
     // 배송비를 받지 않거나 더 받는 경우 아래식에 + 또는 - 로 대입
-    f.od_send_cost.value = parseFloat(f.od_send_cost.value);
+    f.od_send_cost.value = parseInt(f.od_send_cost.value);
 
     if (errmsg)
     {
@@ -1299,10 +1300,10 @@ function forderform_check()
         return false;
     }
 
-    var od_price = parseFloat(f.od_price.value);
-    var send_cost = parseFloat(f.od_send_cost.value);
-    var send_cost2 = parseFloat(f.od_send_cost2.value);
-    var send_coupon = parseFloat(f.od_send_coupon.value);
+    var od_price = parseInt(f.od_price.value);
+    var send_cost = parseInt(f.od_send_cost.value);
+    var send_cost2 = parseInt(f.od_send_cost2.value);
+    var send_coupon = parseInt(f.od_send_coupon.value);
 
     var max_point = 0;
     if (typeof(f.max_temp_point) != "undefined")

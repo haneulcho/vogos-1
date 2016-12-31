@@ -52,7 +52,7 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
     <!-- Black Friday 시작 { -->
     <section class="sct_wrap f8f8f8" style="background:url('<?php echo G5_SHOP_SKIN_URL ?>/img/black_friday_bg.jpg');margin-top:35px;padding:0;">
     <div class="fullWidth">
-        <img id="ev_bf" src="<?php echo G5_SHOP_SKIN_URL ?>/img/black_friday.jpg" border="0" width="1110" height="700" orgWidth="1110" orgHeight="700" usemap="#ev_bf" alt="" />
+        <img id="ev_bf" src="<?php echo G5_SHOP_SKIN_URL ?>/img/surprise12.jpg" border="0" width="1110" height="700" orgWidth="1110" orgHeight="700" usemap="#ev_bf" alt="" />
         <map name="ev_bf">
         <area alt="Amazing metallics, cool cut-outs and sexy necklines mean you'll be going all out across the eras this season!" title="SHOP DRESSES" href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=30" shape="rect" coords="158,560,379,615" style="outline:none;" target="_self" />
         <area alt="From faux fur stoles and coats, to winter dresses, velvet coords and cosy knitwear we at VOGOS are here to make sure we cover all you style needs this season!" title="SHOP NOW" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=1" shape="rect" coords="700,560,880,615" style="outline:none;" target="_self" />
@@ -81,10 +81,10 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
         $list->set_type(3);
         $list->set_order_by($order_by);
         $list->set_view('it_id', false);
-        $list->set_view('it_name', true);
-        $list->set_view('it_basic', true);
-        $list->set_view('it_cust_price', false);
-        $list->set_view('it_price', true);
+        $list->set_view('it_name_kr', true);
+        $list->set_view('it_basic_kr', true);
+        $list->set_view('it_cust_price_kr', false);
+        $list->set_view('it_price_kr', true);
         $list->set_view('it_icon', true);
         $list->set_view('sns', false);
         echo $list->run();
@@ -105,10 +105,10 @@ include_once(G5_SHOP_PATH.'/shop.head.php');
         $list = new item_list();
         $list->set_type(2);
         $list->set_view('it_id', false);
-        $list->set_view('it_name', true);
-        $list->set_view('it_basic', true);
-        $list->set_view('it_cust_price', false);
-        $list->set_view('it_price', true);
+        $list->set_view('it_name_kr', true);
+        $list->set_view('it_basic_kr', true);
+        $list->set_view('it_cust_price_kr', false);
+        $list->set_view('it_price_kr', true);
         $list->set_view('it_icon', true);
         $list->set_view('sns', true);
         echo $list->run();

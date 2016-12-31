@@ -18,7 +18,7 @@ $error = "";
 // 장바구니 상품 재고 검사
 $sql = " select it_id,
                 ct_qty,
-                it_name,
+                it_name_kr,
                 io_id,
                 io_type,
                 ct_option
@@ -110,7 +110,7 @@ $is_success = false;
 // 엑심베이 결제 성공시 처리 코드
 if($is_success) {
     // 주문금액이 상이함
-    $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as od_price,
+    $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as od_price,
                   COUNT(distinct it_id) as cart_count
                 from {$g5['g5_shop_cart_table']} where od_id = '$tmp_cart_id' and ct_select = '1' ";
     $row = sql_fetch($sql);
@@ -161,7 +161,7 @@ if($is_success) {
             }
 
             // 상품금액
-            $sql = " select SUM( IF(io_type = '1', io_price * ct_qty, (ct_price + io_price) * ct_qty)) as sum_price
+            $sql = " select SUM( IF(io_type = '1', io_price * ct_qty, (ct_price_kr + io_price) * ct_qty)) as sum_price
                         from {$g5['g5_shop_cart_table']}
                         where od_id = '$tmp_cart_id'
                           and it_id = '$it_id'

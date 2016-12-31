@@ -6,16 +6,18 @@ auth_check($auth[$sub_menu], "r");
 
 $it_place_ddm = $_GET['it_place_ddm'];
 
-$sql = "select it_id, it_name, it_price, it_2, it_place_ddm, it_name_ddm, it_price_ddm, it_use from {$g5['g5_shop_item_table']} where it_place_ddm like '$it_place_ddm%'";
-$result = sql_query($sql);
-
 $sql2 = "select * from {$g5['g5_shop_ddmaddress_table']} where ddm_place2 = '$it_place_ddm'";
 $row = sql_fetch($sql2);
+
+$it_extract_name = $it_place_ddm."(".$row['ddm_name'].")";
+
+$sql = "select it_id, it_name, it_price, it_2, it_place_ddm, it_name_ddm, it_price_ddm, it_use from {$g5['g5_shop_item_table']} where it_place_ddm = '$it_extract_name'";
+$result = sql_query($sql);
 
 $g5['title'] = '['.$row['ddm_name'].']에서 받아온 샘플 자세히보기';
 
 // 이 사입처에 받아온 샘플 수 구하기
-$sql3 = " select count(*) as cnt1 from {$g5['g5_shop_item_table']} where it_place_ddm like '$it_place_ddm%'";
+$sql3 = " select count(*) as cnt1 from {$g5['g5_shop_item_table']} where it_place_ddm = '$it_extract_name'";
 $row3 = sql_fetch($sql3);
 if($row3['cnt1'] > 0) {
     $total_count = $row3['cnt1'];
@@ -90,7 +92,7 @@ include_once(G5_PATH.'/head.sub.php');
             <th class="td_num" style="width:40px">단가</td>
             <td class="td_num"><?php echo number_format($row['it_price_ddm']); ?>원</td>
             <th class="td_num" style="width:40px">단가</td>
-            <td class="td_num">$<?php echo number_format($row['it_price'], 2, '.', ','); ?></td>
+            <td class="td_num">$<?php echo number_format($row['it_price']); ?></td>
         </tr>
         <?php } ?>
         </tbody>

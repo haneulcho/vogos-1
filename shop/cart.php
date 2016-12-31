@@ -28,8 +28,10 @@ $tot_sell_price = 0;
 // $s_cart_id 로 현재 장바구니 자료 쿼리
 $sql = " select a.ct_id,
                 a.it_id,
-                a.it_name,
-                a.ct_price,
+                a.it_name_kr,
+                a.it_name_en,
+                a.ct_price_kr,
+                a.ct_price_en,
                 a.ct_point,
                 a.ct_qty,
                 a.ct_status,
@@ -84,7 +86,7 @@ $it_send_cost = 0;
         for ($i=0; $row=mysql_fetch_array($result); $i++)
         {
             // 합계금액 계산
-            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+            $sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price_kr + io_price) * ct_qty))) as price,
                             SUM(ct_point * ct_qty) as point,
                             SUM(ct_qty) as qty
                         from {$g5['g5_shop_cart_table']}
@@ -98,12 +100,12 @@ $it_send_cost = 0;
 
             $a1 = '<a class="cart_it_name" href="./item.php?it_id='.$row['it_id'].'"><b>';
             $a2 = '</b></a>';
-            $image = get_it_image_best($row['it_id'], 105, 140, 8, '', '', 'original', stripslashes($row['it_name']));
+            $image = get_it_image_best($row['it_id'], 105, 140, 8, '', '', 'original', stripslashes($row['it_name_kr']));
 
-            $it_name = $a1 . stripslashes($row['it_name']) . $a2; // 상품명
+            $it_name_kr = $a1 . stripslashes($row['it_name_kr']) . $a2; // 상품명
             $it_options = print_item_options_cart($row['it_id'], $s_cart_id);
             if($it_options) {
-                $it_name .= '<div class="sod_opt">'.$it_options.'</div>';
+                $it_name_kr .= '<div class="sod_opt">'.$it_options.'</div>';
                 $mod_options = '<div class="sod_option_btn"><button type="button" class="mod_options"><img src="'.G5_SHOP_SKIN_URL.'/img/cart/btn_change.jpg" alt="Change Details"></button>';
             }
 
@@ -137,12 +139,12 @@ $it_send_cost = 0;
             <td class="cart_img"><?php echo $image; ?></td>
             <td class="cart_des">
                 <input type="hidden" name="it_id[<?php echo $i; ?>]" value="<?php echo $row['it_id']; ?>">
-                <input type="hidden" name="it_name[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name']); ?>">
-                <?php echo $it_name.$mod_options; ?>
+                <input type="hidden" name="it_name_kr[<?php echo $i; ?>]" value="<?php echo get_text($row['it_name_kr']); ?>">
+                <?php echo $it_name_kr.$mod_options; ?>
                 <button type="button" onclick="remove_item('<?php echo $row['it_id']; ?>');" class="mod_remove"><?php echo '<img src="'.G5_SHOP_SKIN_URL.'/img/cart/btn_remove_option.jpg" alt="Remove Items">' ?></button></div>
             </td>
             <td class="cart_qty"><?php echo number_format($sum['qty']); ?></td>
-            <td class="cart_num">$<?php echo number_format($row['ct_price'], 2); ?></td>
+            <td class="cart_num">$<?php echo number_format($row['ct_price_kr'], 2); ?></td>
             <td class="cart_num"><span id="sell_price_<?php echo $i; ?>">$<?php echo number_format($sell_price, 2); ?></span></td>
             <td class="cart_chk">
                 <label for="ct_chk_<?php echo $i; ?>" class="sound_only">Select</label>
@@ -155,7 +157,7 @@ $it_send_cost = 0;
             $tot_sell_price += $sell_price;
 
             // 로그분석기 변수 전달
-            $http_PA .= $row['it_name']."_";
+            $http_PA .= $row['it_name_kr']."_";
 
             if ($i < $row_count-1) {
                 $http_PA .= number_format($sum['qty']).";";

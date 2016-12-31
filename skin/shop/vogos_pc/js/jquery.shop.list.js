@@ -133,8 +133,8 @@ function add_cart(frm)
     var $frm = $(frm);
     var $opt = $frm.find("ul.options li.selected");
     var $sel = $frm.find("select.it_option");
-    var it_name = $frm.find("input[name^=it_name]").val();
-    var it_price = parseFloat($frm.find("input[name^=it_price]").val());
+    var it_name_kr = $frm.find("input[name^=it_name_kr]").val();
+    var it_price_kr = parseInt($frm.find("input[name^=it_price_kr]").val());
     var id = "";
     var value, info, sel_opt, item, price, stock, run_error = false;
     var option = sep = "";
@@ -180,11 +180,11 @@ function add_cart(frm)
     } else {
         price = 0;
         stock = $frm.find("input[name^=it_stock]").val();
-        option = it_name;
+        option = it_name_kr;
     }
 
     // 금액 음수 체크
-    if(it_price + parseInt(price) < 0) {
+    if(it_price_kr + parseInt(price) < 0) {
         alert("Please enter valid number.");
         return false;
     }

@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS `g5_shop_cart` (
   `od_id` bigint(20) unsigned NOT NULL,
   `mb_id` varchar(255) NOT NULL DEFAULT '',
   `it_id` varchar(20) NOT NULL DEFAULT '',
-  `it_name` varchar(255) NOT NULL DEFAULT '',
+  `it_name_kr` varchar(255) NOT NULL DEFAULT '',
+  `it_name_en` varchar(255) NOT NULL DEFAULT '',
   `it_sc_type` tinyint(4) NOT NULL DEFAULT '0',
   `it_sc_method` tinyint(4) NOT NULL DEFAULT '0',
   `it_sc_price` float(11) NOT NULL DEFAULT '0',
@@ -41,7 +42,8 @@ CREATE TABLE IF NOT EXISTS `g5_shop_cart` (
   `it_sc_qty` int(11) NOT NULL DEFAULT '0',
   `ct_status` varchar(255) NOT NULL DEFAULT '',
   `ct_history` text NOT NULL,
-  `ct_price` float(11) NOT NULL DEFAULT '0',
+  `ct_price_kr` int(11) NOT NULL DEFAULT '0',
+  `ct_price_en` float(11) NOT NULL DEFAULT '0',
   `ct_point` int(11) NOT NULL DEFAULT '0',
   `cp_price` float(11) NOT NULL DEFAULT '0',
   `ct_point_use` tinyint(4) NOT NULL DEFAULT '0',
@@ -384,52 +386,6 @@ CREATE TABLE IF NOT EXISTS `g5_shop_event_item` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `g5_shop_models`
---
-
-DROP TABLE IF EXISTS `g5_shop_models`;
-CREATE TABLE IF NOT EXISTS `g5_shop_models` (
-  `mds_id` int(11) NOT NULL AUTO_INCREMENT,
-  `mds_skin` varchar(255) NOT NULL DEFAULT '',
-  `mds_mobile_skin` varchar(255) NOT NULL DEFAULT '',
-  `mds_bimg_width` int(11) NOT NULL DEFAULT '0',
-  `mds_bimg_height` int(11) NOT NULL DEFAULT '0',
-  `mds_simg_width` int(11) NOT NULL DEFAULT '0',
-  `mds_simg_height` int(11) NOT NULL DEFAULT '0',  
-  `mds_list_mod` int(11) NOT NULL DEFAULT '0',
-  `mds_list_row` int(11) NOT NULL DEFAULT '0',
-  `mds_mobile_img_width` int(11) NOT NULL DEFAULT '0',
-  `mds_mobile_img_height` int(11) NOT NULL DEFAULT '0',
-  `mds_mobile_list_mod` int(11) NOT NULL DEFAULT '0',
-  `mds_subject` varchar(255) NOT NULL DEFAULT '',
-  `mds_html` text NOT NULL,
-  `mds_use` tinyint(4) NOT NULL DEFAULT '0',
-  `mds_hit` int(11) NOT NULL DEFAULT '0',
-  `mds_video_src` int(12) NOT NULL DEFAULT '0',
-  `mds_video_width` int(11) NOT NULL DEFAULT '0',
-  `mds_video_height` int(11) NOT NULL DEFAULT '0',
-  `mds_mobile_video_width` int(11) NOT NULL DEFAULT '0',
-  `mds_mobile_video_height` int(11) NOT NULL DEFAULT '0',  
-  PRIMARY KEY (`mds_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `g5_shop_models_item`
---
-
-DROP TABLE IF EXISTS `g5_shop_models_item`;
-CREATE TABLE IF NOT EXISTS `g5_shop_models_item` (
-  `mds_id` int(11) NOT NULL DEFAULT '0',
-  `it_id` varchar(20) NOT NULL DEFAULT '',
-  PRIMARY KEY (`mds_id`,`it_id`),
-  KEY `it_id` (`it_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `g5_shop_ddmaddress`
 --
 
@@ -461,7 +417,8 @@ CREATE TABLE IF NOT EXISTS `g5_shop_item` (
   `it_place_ddm` varchar(255) NOT NULL DEFAULT '',
   `it_name_ddm` varchar(255) NOT NULL DEFAULT '',
   `it_price_ddm` varchar(255) NOT NULL DEFAULT '',
-  `it_name` varchar(255) NOT NULL DEFAULT '',
+  `it_name_kr` varchar(255) NOT NULL DEFAULT '',
+  `it_name_en` varchar(255) NOT NULL DEFAULT '',
   `it_maker` varchar(255) NOT NULL DEFAULT '',
   `it_origin` varchar(255) NOT NULL DEFAULT '',
   `it_brand` varchar(255) NOT NULL DEFAULT '',
@@ -473,12 +430,15 @@ CREATE TABLE IF NOT EXISTS `g5_shop_item` (
   `it_type3` tinyint(4) NOT NULL DEFAULT '0',
   `it_type4` tinyint(4) NOT NULL DEFAULT '0',
   `it_type5` tinyint(4) NOT NULL DEFAULT '0',
-  `it_basic` text NOT NULL,
+  `it_basic_kr` text NOT NULL,
+  `it_basic_en` text NOT NULL,
   `it_explan` mediumtext NOT NULL,
   `it_explan2` mediumtext NOT NULL,
   `it_mobile_explan` mediumtext NOT NULL,
-  `it_cust_price` float(11) NOT NULL DEFAULT '0',
-  `it_price` float(11) NOT NULL DEFAULT '0',
+  `it_cust_price_kr` int(11) NOT NULL DEFAULT '0',
+  `it_cust_price_en` float(11) NOT NULL DEFAULT '0',
+  `it_price_kr` int(11) NOT NULL DEFAULT '0',
+  `it_price_en` float(11) NOT NULL DEFAULT '0',
   `it_point` int(11) NOT NULL DEFAULT '0',
   `it_point_type` tinyint(4) NOT NULL DEFAULT '0',
   `it_supply_point` int(11) NOT NULL DEFAULT '0',
@@ -556,7 +516,8 @@ CREATE TABLE IF NOT EXISTS `g5_shop_item` (
   `it_10` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`it_id`),
   KEY `ca_id` (`ca_id`),
-  KEY `it_name` (`it_name`),
+  KEY `it_name_kr` (`it_name_kr`),
+  KEY `it_name_en` (`it_name_en`),
   KEY `it_order` (`it_order`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
